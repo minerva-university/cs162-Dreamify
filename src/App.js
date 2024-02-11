@@ -7,7 +7,7 @@ import Header from './components/Header';
 import { Container} from 'react-bootstrap';
 import NewStoryPage from './pages/NewstoryPage';
 import LoginPage from './pages/LoginPage';
-
+import HomePage from './pages/HomePage';
 
 export default function App() {
   /*const [currentTime, setCurrentTime] = useState(0);
@@ -24,6 +24,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/new-story" element={<NewStoryPage />} />
           <Route path="/login" element={<LoginPage />} />

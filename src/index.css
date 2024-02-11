@@ -23,9 +23,21 @@
   color: #444;
 }
 
+.Sidebar .nav-item .active {
+  background-color: #def;
+}
+
 .landing-page {
   background-image: url('./landingpage_background.jpeg'); /* Update with your image path */
   background-size: cover;
   background-position: center;
   height: 100vh; /* Full viewport height */
+}
+
+.App {
+  padding: 0;
+}
+
+.Header {
+  border-bottom: 1px solid #ddd;
 }
