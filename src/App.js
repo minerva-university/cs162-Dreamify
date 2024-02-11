@@ -1,52 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import UserProfile from './pages/UserProfile';
 import './App.css';
+import Header from './components/Header';
+import { Container} from 'react-bootstrap';
+import NewStoryPage from './pages/NewstoryPage';
+import LoginPage from './pages/LoginPage';
 
-function App() {
-  const [currentTime, setCurrentTime] = useState(0);
+
+export default function App() {
+  /*const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
     fetch('/api/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
     });
-  }, []);
+  }, []);*/
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <BrowserRouter>
-          <div>
-            <Link className="App-link" to="/">Home</Link>
-            &nbsp;|&nbsp;
-            <Link className="App-link" to="/page2">Page2</Link>
-          </div>
-          <Routes>
-            <Route exact path="/" element={
-              <div>
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                  Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn React
-                </a>
-                <p>The current time is {currentTime}.</p>
-                </div>
-            }/>
-            <Route path="/page2" element={
-                <p>This is page 2!</p>
-            }/>
-          </Routes>
-        </BrowserRouter>
-      </header>
-    </div>
+    <Container fluid className = 'App'>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/new-story" element={<NewStoryPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
+    </Container>
   );
 }
 
-export default App;
+
