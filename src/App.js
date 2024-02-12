@@ -8,6 +8,7 @@ import { Container} from 'react-bootstrap';
 import NewStoryPage from './pages/NewstoryPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import BedtimeStory from './pages/StoryPage';
 
 export default function App() {
   /*const [currentTime, setCurrentTime] = useState(0);
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/new-story" element={<NewStoryPage />} />
+          <Route path="/story" element={<BedtimeStory />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
