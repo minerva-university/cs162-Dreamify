@@ -29,6 +29,3 @@ def create_app() -> Flask:
 
     # Return the configured Flask app
     return app
-
-
-app = create_app()
