@@ -2,7 +2,7 @@
 This module contains the API routes for the Dreamify application.
 """
 
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restx import Api, Resource
 from flask_restx import fields
 
@@ -16,7 +16,7 @@ api = Api(
     api_blueprint,
     version="1.0",
     title="Dreamify API",
-    description="A Flask RESTX powered API for story generation",
+    description="A Flask RESTX powered API for Dreamify",
 )
 
 
@@ -24,9 +24,13 @@ api = Api(
 story_model = api.model(
     "StoryModel",
     {
-        "kid_id": fields.String(required=True, description="The ID of the kid"),
-        "story_a_topic": fields.String(required=True, description="Topic of the story"),
-        "story_b_image_style": fields.String(
+        "child_id": fields.String(
+            required=True, description="The ID of the kid"
+        ),
+        "story_topic": fields.String(
+            required=True, description="Topic of the story"
+        ),
+        "story_image_style": fields.String(
             required=True, description="Style of the image"
         ),
     },
@@ -36,34 +40,25 @@ story_model = api.model(
 # TODO: return openai_response instead of story_prompt
 @api.route("/generate/story")
 class GenerateStory(Resource):
-    @api.expect(story_model)
+    @api.expect(story_model, validate=True)
     @api.response(200, "Success")
     @api.response(400, "Validation Error")
     @api.response(500, "Internal Server Error")
     def post(self):
-        """
-        Generate a story chapters and images.
-        """
+
         try:
             # Get the data from the request
             data = request.json
 
-            # Check if the required parameters are present
-            missing_parameters = [
-                field for field in story_model.keys() if field not in data
-            ]
-            # If any required parameters are missing, return an error
-            if missing_parameters:
-                return {
-                    "message": f"Error: missing parameter(s): {', '.join(missing_parameters)}"
-                }, 400
-
             payload = assemble_payload(
-                kid_id=data["kid_id"],
-                story_topic=data["story_a_topic"],
-                image_style=data["story_b_image_style"],
+                child_id=data["child_id"],
+                story_topic=data["story_topic"],
+                image_style=data["story_image_style"],
             )
 
             return payload, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 400
         except Exception as e:
-            return {"Error": str(e)}, 500
+            current_app.logger.error(e)
+            return {"Error": "Internal Server Error"}, 500

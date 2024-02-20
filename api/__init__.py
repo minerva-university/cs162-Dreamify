@@ -3,10 +3,10 @@ This module initializes the Flask app and configures it.
 """
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
-# Init SQL alchemy database
-db = SQLAlchemy()
+from .config import ApplicationConfig
+from .database.models import db, create_dummy_data
+
 
 def create_app() -> Flask:
     """
@@ -17,11 +17,18 @@ def create_app() -> Flask:
     """
     app = Flask(__name__, static_folder="../build", static_url_path="/")
 
-    # Configure the app
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    # Load the configuration for the Flask app
+    app.config.from_object(ApplicationConfig)
 
-    # Initialize the database. 
+    # Initialize the database
     db.init_app(app)
+
+    # Create tables in the database
+    with app.app_context():
+        db.create_all()
+
+        # TODO: Remove this line after testing
+        create_dummy_data()
 
     # Add a route for the index
     @app.route("/")
@@ -35,10 +42,6 @@ def create_app() -> Flask:
 
     # Register the 'api' blueprint with the Flask app
     app.register_blueprint(api_blueprint)
-
-    # Create tables in the database
-    with app.app_context():
-        db.create_all()
 
     # Return the configured Flask app
     return app
