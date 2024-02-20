@@ -5,7 +5,8 @@ This module initializes the Flask app and configures it.
 from flask import Flask
 
 from .config import ApplicationConfig
-from .database.models import db, create_dummy_data
+from .database.models import db
+from .database.create_dummy_data import create_dummy_data
 
 
 def create_app() -> Flask:

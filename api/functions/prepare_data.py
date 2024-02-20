@@ -231,6 +231,9 @@ def assemble_payload(
         story_topic (str): The topic of the story.
         image_style (str): The style of the images.
 
+    Raises:
+        ValueError: If the child with the given ID does not exist.
+
     Returns:
         dict[str, list[str]]: The assembled payload containing chapters and images.
     """
