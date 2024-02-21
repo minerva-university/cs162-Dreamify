@@ -8,6 +8,41 @@ from sqlalchemy.exc import SQLAlchemyError
 from .models import db, Parent, Child
 
 
+def insert_parent(data: dict[str, str]) -> str:
+    """
+    Insert a parent into the database.
+
+    Args:
+        data (dict[str, str]): The parent data.
+
+    Raises:
+        SQLAlchemyError: If an error occurs with the database.
+
+    Returns:
+        str: The ID of the parent.
+    """
+    try:
+        # Create a parent
+        parent = Parent(
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+            password=data["password"],
+            email=data["email"],
+        )
+
+        # Add the parent to the session and commit
+        db.session.add(parent)
+        db.session.commit()
+
+        # Return the ID of the parent
+        return parent.user_id
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        current_app.logger.error(f"Failed to add parent: {e}")
+        raise e
+
+
 def insert_child(data: dict[str, str]) -> str:
     """
     Insert a child into the database.

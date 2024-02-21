@@ -7,8 +7,8 @@ from flask_restx import Api, Resource
 from flask_restx import fields
 
 from .functions.prepare_data import assemble_payload
-from .database.inserts import insert_child
-from .database.queries import get_child
+from .database.inserts import insert_child, insert_parent
+from .database.queries import get_child, get_current_parent
 
 # Create a blueprint for the API
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -111,6 +111,24 @@ get_child_model = api.model(
     },
 )
 
+add_parent_model = api.model(
+    "ParentModel",
+    {
+        "first_name": fields.String(
+            required=True, description="First name of the parent"
+        ),
+        "last_name": fields.String(
+            required=True, description="Last name of the parent"
+        ),
+        "email": fields.String(
+            required=True, unique=True, description="Email of the parent"
+        ),
+        "password": fields.String(
+            required=True, description="Password of the parent"
+        ),
+    },
+)
+
 
 # TODO: return openai_response instead of story_prompt
 @api.route("/generate/story")
@@ -136,6 +154,48 @@ class GenerateStory(Resource):
             return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(e)
+            return {"Error": "Internal Server Error"}, 500
+
+
+@api.route("/add_parent")
+class AddParent(Resource):
+    @api.expect(add_parent_model, validate=True)
+    @api.response(200, "Success")
+    @api.response(400, "Validation Error")
+    @api.response(500, "Internal Server Error")
+    def post(self):
+        try:
+            # Get the data from the request
+            data = request.json
+
+            # Insert the parent into the database
+            parent_id = insert_parent(data)
+
+            # Return the parent ID and a 200 status code
+            return {"parent_id": parent_id}, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 400
+        except Exception as e:
+            current_app.logger.error(e)
+            return {"Error": "Internal Server Error"}, 500
+
+
+@api.route("/get_parent")
+class Parent(Resource):
+    @api.response(200, "Success")
+    @api.response(404, "Parent Not Found")
+    @api.response(500, "Internal Server Error")
+    def get(self):
+        try:
+            # Get the parent data
+            parent_info = get_current_parent()
+
+            # Return the parent data and a 200 status code
+            return parent_info, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 404
+        except Exception as e:
+            current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500
 
 
