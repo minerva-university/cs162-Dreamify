@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^14.5.2",
     "bootstrap": "^5.3.2",
     "faker": "^6.6.6",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
@@ -35,6 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

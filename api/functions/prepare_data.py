@@ -1,16 +1,20 @@
 """
-Module for preparing data for the API.
+This module contains functions for preparing data for the API response.
 """
 
+from flask import current_app
 from base64 import b64encode
 import os
+from sqlalchemy.exc import SQLAlchemyError
+
 
 from .openai_functions import text_gen, image_gen
-from ..prompting.prompt_assembly import (
+from .prompt_assembly import (
     create_story_prompt,
     create_image_prompt,
     split_story_into_chapters,
 )
+from ..database.models import db, Child, Story, Chapter, generate_id
 
 # TODO: remove this dummy story once the database is set up
 dummy_story = """\
@@ -39,47 +43,62 @@ And so, with hearts full of joy and memories to last a lifetime, Pablo and his f
 """
 
 
-# TODO: Use database data instead of dummy data
-def get_kid_parameters(kid_id: str) -> dict[str, str | int]:
+def get_child_parameters(child_id: str) -> dict[str, str | int]:
     """
-    Get the parameters for a specific kid.
+    Get the parameters for a child based on the given child ID.
 
     Args:
-        kid_id (str): The ID of the kid.
+        child_id (str): The ID of the child.
+
+    Raises:
+        ValueError: If the child with the given ID does not exist.
 
     Returns:
-        dict[str, str | int]: The parameters for the kid.
+        dict[str, str | int]: The parameters for the child.
     """
-    return {
-        "kid_a_i_eye_color": "brown",
-        "kid_a_ii_hair_type": "straight",
-        "kid_a_iii_hair_color": "black",
-        "kid_a_iv_skin_tone": "light",
-        "kid_b_i_name": "Pablo",
-        "kid_b_ii_age_range": "4-6",
-        "kid_b_iii_sex": "male",
-        "kid_b_iv_sibling_relationship": "only",
-        "kid_c_i_fav_animals": "horse",
-        "kid_c_ii_fav_activities": "watching Harry Potter and playing football",
-    }
+    try:
+        # Get the child with the given ID
+        child = Child.query.get(child_id)
+
+        # Check if the child exists
+        if child is None:
+            raise ValueError(f"Child with ID '{child_id}' does not exist")
+
+        # Define a filter condition to check for non-None values and exclude the "_sa_instance_state" attribute
+        filter_condition = (
+            lambda key, value: value is not None
+            and key != "_sa_instance_state"
+        )
+
+        # Get the filtered parameters for the child
+        child_params = {
+            key: value
+            for key, value in vars(child).items()
+            if filter_condition(key, value)
+        }
+
+        return child_params
+    except SQLAlchemyError as e:
+        current_app.logger.error(f"Failed to get child parameters: {e}")
+        raise e
 
 
 def generate_story_chapters(
-    *, kid_params: dict[str, str], story_topic: str
+    child_params: dict[str, str | int], topic: str
 ) -> list[str]:
     """
-    Generate the chapters of a story based on the given kid ID and story topic.
+    Generate chapters for a story based on the given child parameters and story topic.
 
     Args:
-        kid_id (str): The ID of the kid.
-        story_topic (str): The topic of the story.
+        child_params (dict[str, str | int]): The parameters for the child.
+        topic (str): The topic of the story.
 
     Returns:
         list[str]: The generated story chapters.
     """
 
     # Create a prompt for generating the story
-    prompt = create_story_prompt(kid_params=kid_params, story_topic=story_topic)
+    prompt = create_story_prompt(child_params, topic)
 
     # Generate the story based on the prompt
     # story = text_gen(prompt)
@@ -90,26 +109,29 @@ def generate_story_chapters(
 
 
 def generate_chapter_images(
-    chapters: list[str], *, kid_params: dict[str, str], image_style: str
+    chapters: list[str],
+    child_params: dict[str, str | int],
+    image_style: str,
 ) -> list[str]:
     """
     Generate images for each chapter of the story.
 
     Args:
         chapters (list[str]): The generated story chapters.
-        kid_params (dict[str, str]): The parameters for the kid.
+        child_params (dict[str, str | int]): The parameters for the child.
         image_style (str): The style of the images.
 
     Returns:
-        list[str]: The generated images.
+        list[str]: The generated images in base64 format.
     """
 
     images = []
-    for i, chapter in enumerate(chapters, start=1):
 
+    # Generate an image for each chapter
+    for i, chapter in enumerate(chapters, start=1):
         # Create a prompt for generating the images
         prompt = create_image_prompt(
-            kid_params=kid_params,
+            child_params=child_params,
             image_style=image_style,
             chapter_content=chapter,
             chapter_number=i,
@@ -134,29 +156,98 @@ def generate_chapter_images(
     return images
 
 
-def assemble_payload(
-    *, kid_id: str, story_topic: str, image_style: str
-) -> dict[str, str]:
+def insert_story_into_db(
+    child_id: str,
+    topic: str,
+    image_style: str,
+    chapters: list[str],
+    images: list[str],
+) -> None:
     """
-    Assemble the payload for the response.
+    Insert the story and its chapters into the database.
 
     Args:
-        chapters (list[str]): The generated story chapters.
-        images (list[str]): The generated images.
+        child_id (str): The ID of the child.
+        topic (str): The topic of the story.
+        image_style (str): The style of the images.
+        chapters (list[str]): The list of story chapters.
+        images (list[str]): The list of images.
+
+    Raises:
+        ValueError: If the child with the given ID does not exist.
 
     Returns:
-        dict[str, str]: The assembled payload.
+        None
+    """
+    try:
+        # Verify that the child exists
+        child = Child.query.get(child_id)
+        if child is None:
+            raise ValueError(f"Child with ID {child_id} does not exist")
+
+        # Generate a unique ID for the story
+        story_id = generate_id()
+
+        # Create a new story
+        story = Story(
+            story_id=story_id,
+            child_id=child_id,
+            topic=topic,
+            image_style=image_style,
+        )
+
+        # Add the story to the database
+        db.session.add(story)
+
+        # Add the chapters to the database
+        for i in range(len(chapters)):
+            # Create a new chapter
+            chapter = Chapter(
+                story_id=story_id,
+                content=chapters[i],
+                image=images[i],
+                order=i + 1,
+            )
+
+            # Add the chapter to the database
+            db.session.add(chapter)
+
+        # Commit the changes to the database
+        db.session.commit()
+    # Roll back the changes if an SQLAlchemy error occurs
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        raise e
+
+
+def assemble_payload(
+    child_id: str, topic: str, image_style: str
+) -> dict[str, list[str]]:
+    """
+    Assemble the payload for the given child ID, story topic, and image style.
+
+    Args:
+        child_id (str): The ID of the child.
+        topic (str): The topic of the story.
+        image_style (str): The style of the images.
+
+    Raises:
+        ValueError: If the child with the given ID does not exist.
+
+    Returns:
+        dict[str, list[str]]: The assembled payload containing chapters and images.
     """
     # Get the parameters for the kid
-    kid_params = get_kid_parameters(kid_id)
+    child_params = get_child_parameters(child_id)
 
     # Generate the story chapters
-    chapters = generate_story_chapters(kid_params=kid_params, story_topic=story_topic)
+    chapters = generate_story_chapters(child_params, topic)
 
     # Generate the images for the story chapters
-    images = generate_chapter_images(
-        chapters, kid_params=kid_params, image_style=image_style
-    )
+    images = generate_chapter_images(chapters, child_params, image_style)
+
+    # Add the story to the database
+    insert_story_into_db(child_id, topic, image_style, chapters, images)
 
     # Create the payload
     payload = {
