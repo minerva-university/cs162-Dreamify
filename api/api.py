@@ -29,10 +29,10 @@ story_model = api.model(
         "child_id": fields.String(
             required=True, description="The ID of the kid"
         ),
-        "story_topic": fields.String(
+        "topic": fields.String(
             required=True, description="Topic of the story"
         ),
-        "story_image_style": fields.String(
+        "image_style": fields.String(
             required=True,
             description="Style of the image",
             enum=["Cartoon", "Realistic", "Fantasy", "Watercolor", "Anime"],
@@ -145,8 +145,8 @@ class GenerateStory(Resource):
 
             payload = assemble_payload(
                 child_id=data["child_id"],
-                story_topic=data["story_topic"],
-                image_style=data["story_image_style"],
+                topic=data["topic"],
+                image_style=data["image_style"],
             )
 
             return payload, 200

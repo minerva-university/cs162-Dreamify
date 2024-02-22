@@ -23,8 +23,8 @@ def get_current_parent() -> dict[str, str]:
         parents = Parent.query.all()
 
         # Check if parents exists
-        if parents is None:
-            raise ValueError("No parents exists.")
+        if not parents:
+            raise ValueError("No parents exist.")
 
         # Get the newest parent
         # TODO: Change this to get the current user once authentication is implemented
