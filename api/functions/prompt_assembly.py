@@ -25,19 +25,19 @@ def split_story_into_chapters(story: str) -> list[str]:
 
 
 def create_story_prompt(
-    child_params: dict[str, str | int], story_topic: str
+    child_params: dict[str, str | int], topic: str
 ) -> str:
     """
     Create a story prompt based on the child's parameters and the story topic.
 
     Args:
         child_params (dict[str, str]): The parameters for the child.
-        story_topic (str): The topic of the story.
+        topic (str): The topic of the story.
 
     Returns:
         str: The story prompt.
     """
-    return story_prompt.format(**child_params, story_topic=story_topic)
+    return story_prompt.format(**child_params, topic=topic)
 
 
 def create_image_prompt(
@@ -64,7 +64,7 @@ def create_image_prompt(
         **child_params,
         "chapter_content": chapter_content,
         "chapter_number": chapter_number,
-        "story_image_style": image_style,
+        "image_style": image_style,
     }
 
     return image_prompt.format(**parameters)

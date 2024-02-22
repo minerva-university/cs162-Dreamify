@@ -37,7 +37,7 @@ class Child(db.Model):
     __tablename__ = "children"
 
     child_id = db.Column(db.Text, primary_key=True, default=generate_id)
-    parent_id = db.Column(db.Integer, db.ForeignKey("parents.user_id"))
+    parent_id = db.Column(db.Text, db.ForeignKey("parents.user_id"))
     name = db.Column(db.Text, nullable=False)
     age_range = db.Column(
         db.Text,
@@ -94,7 +94,7 @@ class Story(db.Model):
     __tablename__ = "stories"
 
     story_id = db.Column(db.Text, primary_key=True, default=generate_id)
-    child_id = db.Column(db.Integer, db.ForeignKey("children.child_id"))
+    child_id = db.Column(db.Text, db.ForeignKey("children.child_id"))
     topic = db.Column(db.Text, nullable=False)
     image_style = db.Column(
         db.Text,

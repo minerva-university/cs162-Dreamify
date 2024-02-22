@@ -4,7 +4,7 @@ story_prompt = """\
 Generate a bedtime story for a child as the main character.
 The main character's name is {name}, and their age range is {age_range} years.
 They are {sex} and the {sibling_relationship} child in the family.
-The main topic of bedtime story should be: {story_topic}.
+The main topic of bedtime story should be: {topic}.
 Incorporate favorite animals ({fav_animals}) and favorite activities ({fav_activities}) in the story if relevant, but it's not necessarily.
 The length of the story is about 1000 words and it should be clearly divided into 5 chapters.
 Every chapter should be formatted like this: Chapter <number>: <chapter_title>
@@ -12,7 +12,7 @@ Don't break any privacy policies. Be unique and creative when developing the sto
 """
 
 image_prompt = """\
-Make an illustration for a story chapter in this style: {story_image_style}.
+Make an illustration for a story chapter in this style: {image_style}.
 Here is a description of the character {name}:
 - Age range: {age_range}
 - Sex: {sex}

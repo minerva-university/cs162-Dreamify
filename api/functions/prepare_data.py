@@ -84,21 +84,21 @@ def get_child_parameters(child_id: str) -> dict[str, str | int]:
 
 
 def generate_story_chapters(
-    child_params: dict[str, str | int], story_topic: str
+    child_params: dict[str, str | int], topic: str
 ) -> list[str]:
     """
     Generate chapters for a story based on the given child parameters and story topic.
 
     Args:
         child_params (dict[str, str | int]): The parameters for the child.
-        story_topic (str): The topic of the story.
+        topic (str): The topic of the story.
 
     Returns:
         list[str]: The generated story chapters.
     """
 
     # Create a prompt for generating the story
-    prompt = create_story_prompt(child_params, story_topic)
+    prompt = create_story_prompt(child_params, topic)
 
     # Generate the story based on the prompt
     # story = text_gen(prompt)
@@ -221,14 +221,14 @@ def insert_story_into_db(
 
 
 def assemble_payload(
-    child_id: str, story_topic: str, image_style: str
+    child_id: str, topic: str, image_style: str
 ) -> dict[str, list[str]]:
     """
     Assemble the payload for the given child ID, story topic, and image style.
 
     Args:
         child_id (str): The ID of the child.
-        story_topic (str): The topic of the story.
+        topic (str): The topic of the story.
         image_style (str): The style of the images.
 
     Raises:
@@ -241,13 +241,13 @@ def assemble_payload(
     child_params = get_child_parameters(child_id)
 
     # Generate the story chapters
-    chapters = generate_story_chapters(child_params, story_topic)
+    chapters = generate_story_chapters(child_params, topic)
 
     # Generate the images for the story chapters
     images = generate_chapter_images(chapters, child_params, image_style)
 
     # Add the story to the database
-    insert_story_into_db(child_id, story_topic, image_style, chapters, images)
+    insert_story_into_db(child_id, topic, image_style, chapters, images)
 
     # Create the payload
     payload = {
