@@ -16,12 +16,19 @@ def insert_parent(data: dict[str, str]) -> str:
         data (dict[str, str]): The parent data.
 
     Raises:
+        ValueError: If the parent already exists.
         SQLAlchemyError: If an error occurs with the database.
 
     Returns:
         str: The ID of the parent.
     """
     try:
+        # Check if the parent already exists
+        if Parent.query.filter_by(email=data["email"]).first() is not None:
+            raise ValueError(
+                f"User with email '{data['email']}' already exists."
+            )
+
         # Create a parent
         parent = Parent(
             first_name=data["first_name"],

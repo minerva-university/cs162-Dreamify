@@ -3,8 +3,7 @@ This module contains the API routes for the Dreamify application.
 """
 
 from flask import Blueprint, request, current_app
-from flask_restx import Api, Resource
-from flask_restx import fields
+from flask_restx import Api, Resource, fields
 
 from .functions.prepare_data import assemble_payload
 from .database.inserts import insert_child, insert_parent
@@ -102,15 +101,6 @@ add_child_model = api.model(
     },
 )
 
-get_child_model = api.model(
-    "GetChildModel",
-    {
-        "child_id": fields.String(
-            required=True, description="The ID of the child"
-        )
-    },
-)
-
 add_parent_model = api.model(
     "ParentModel",
     {
@@ -138,7 +128,6 @@ class GenerateStory(Resource):
     @api.response(400, "Validation Error")
     @api.response(500, "Internal Server Error")
     def post(self):
-
         try:
             # Get the data from the request
             data = request.json
@@ -157,8 +146,26 @@ class GenerateStory(Resource):
             return {"Error": "Internal Server Error"}, 500
 
 
-@api.route("/add_parent")
-class AddParent(Resource):
+@api.route("/parent")
+class Parent(Resource):
+    # Get parent information
+    @api.response(200, "Success")
+    @api.response(404, "Parent Not Found")
+    @api.response(500, "Internal Server Error")
+    def get(self):
+        try:
+            # Get the parent data
+            parent_info = get_current_parent()
+
+            # Return the parent data and a 200 status code
+            return parent_info, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 404
+        except Exception as e:
+            current_app.logger.error(f"Error: {e}")
+            return {"Error": "Internal Server Error"}, 500
+
+    # Add a new parent
     @api.expect(add_parent_model, validate=True)
     @api.response(200, "Success")
     @api.response(400, "Validation Error")
@@ -180,27 +187,34 @@ class AddParent(Resource):
             return {"Error": "Internal Server Error"}, 500
 
 
-@api.route("/get_parent")
-class Parent(Resource):
+@api.route("/children")
+class Child(Resource):
+    # Get child information
     @api.response(200, "Success")
-    @api.response(404, "Parent Not Found")
+    @api.response(404, "Child Not Found")
     @api.response(500, "Internal Server Error")
+    @api.doc(params={"child_id": "The ID of the child"})
     def get(self):
         try:
-            # Get the parent data
-            parent_info = get_current_parent()
+            # Use query parameter to get child_id
+            child_id = request.args.get("child_id", None)
 
-            # Return the parent data and a 200 status code
-            return parent_info, 200
+            # Return an error if child_id is not provided
+            if not child_id:
+                return {"Error": "Child ID is required"}, 400
+
+            # Get the child data
+            child_info = get_child(child_id)
+
+            # Return the child data and a 200 status code
+            return child_info, 200
         except ValueError as e:
             return {"Error": str(e)}, 404
         except Exception as e:
             current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500
 
-
-@api.route("/add_child")
-class AddChild(Resource):
+    # Add a new child
     @api.expect(add_child_model, validate=True)
     @api.response(200, "Success")
     @api.response(400, "Validation Error")
@@ -219,27 +233,4 @@ class AddChild(Resource):
             return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(e)
-            return {"Error": "Internal Server Error"}, 500
-
-
-@api.route("/get_child")
-class Child(Resource):
-    @api.expect(get_child_model, validate=True)
-    @api.response(200, "Success")
-    @api.response(404, "Child Not Found")
-    @api.response(500, "Internal Server Error")
-    def post(self):
-        try:
-            # Get the data from the request
-
-            data = request.json
-            # Get the child data
-            child_info = get_child(data["child_id"])
-
-            # Return the child data and a 200 status code
-            return child_info, 200
-        except ValueError as e:
-            return {"Error": str(e)}, 404
-        except Exception as e:
-            current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500
