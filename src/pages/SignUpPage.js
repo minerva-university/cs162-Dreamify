@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Body from '../components/Body';
 
 // API
-const backend_api = 'http://localhost:5000/api/parent';
+const backend_api = 'http://127.0.0.1:5000/api/parent';
 
 function SignUpPage() {
     // Set the title of the page
@@ -17,7 +17,7 @@ function SignUpPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = { first_name, last_name, email, password };
+    const payload = { first_name, last_name, password, email };
     try {
       const response = await fetch(backend_api, {
         method: 'POST',
@@ -30,6 +30,8 @@ function SignUpPage() {
       if (response.ok) {
         const jsonResponse = await response.json(); // Don't forget to await the json() call
         console.log('Submission successful', jsonResponse);
+        // Redirect to the login page
+        window.location.href = '/login';
       } else {
         // Handle HTTP errors
         console.error('HTTP Error:', response.statusText);
