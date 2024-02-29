@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Body from '../components/Body';
 
 // API
-const backend_api = 'http://127.0.0.1:5000/api/parent';
+const backend_api = '/api/parent';
 
 function SignUpPage() {
     // Set the title of the page
