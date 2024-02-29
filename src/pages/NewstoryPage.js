@@ -3,17 +3,22 @@ import Spinner from '../components/Spinner';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 // Backend API URL
-const backend_api = 'http://localhost:5000/api/newstory'; // Replace with our backend API URL
+const backend_api = '/api/generate/story';
 
 function NewStoryPage() {
-  const [storyLine, setText] = useState('');
+  const [topic, setTopic] = useState('');
+  const [image_style, setImageStyle] = useState('');
+
+
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to handle data submission
   const handleSubmit = async () => {
     setIsLoading(true);
-    const payload = {storyLine};
+    const payload = {child_id: "5812cd806bf54fe5ab1940b89161f258", topic, image_style}; // Replace with the actual child ID
+    console.log(JSON.stringify(payload));
     try{
       const response = await fetch(backend_api, {
           method: 'POST',
@@ -53,12 +58,20 @@ if (isLoading) {
     <form onSubmit={handleSubmit}>
       <div>
         <h2>Create a Story</h2>
-        <label htmlFor="Storyline">Enter a story line you wish create</label>
+        <label htmlFor="topic">Enter a story line you wish create</label>
         <br />
         <textarea
-          id="Storyline"
-          value={storyLine}
-          onChange={(e) => setText(e.target.value)}
+          id="topic"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          required
+        />
+        <br />
+        <textarea
+          id="image_style"
+          placeholder="Enter a style of image you wish to use"
+          value={image_style}
+          onChange={(e) => setImageStyle(e.target.value)}
           required
         />
       </div>

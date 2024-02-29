@@ -17,7 +17,6 @@ def create_app() -> Flask:
         Flask: The configured Flask app.
     """
     app = Flask(__name__, static_folder="../build", static_url_path="/")
-
     # Load the configuration for the Flask app
     app.config.from_object(ApplicationConfig)
 
