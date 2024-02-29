@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 // Backend API URL
-const backend_api = 'http://127.0.0.1:5000/api/generate/story';
+const backend_api = '/api/generate/story';
 
 function NewStoryPage() {
   const [topic, setTopic] = useState('');
