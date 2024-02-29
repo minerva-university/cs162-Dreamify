@@ -3,7 +3,6 @@ This module initializes the Flask app and configures it.
 """
 
 from flask import Flask
-from flask_cors import CORS
 
 from .config import ApplicationConfig
 from .database.models import db
@@ -18,7 +17,6 @@ def create_app() -> Flask:
         Flask: The configured Flask app.
     """
     app = Flask(__name__, static_folder="../build", static_url_path="/")
-    CORS(app)
     # Load the configuration for the Flask app
     app.config.from_object(ApplicationConfig)
 
