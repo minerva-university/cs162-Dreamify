@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import BedtimeStory from "./pages/StoryPage";
 import ApiProvider from "./contexts/ApiProvider";
+import AuthProvider from "./contexts/AuthProvider";
 
 export default function App() {
   return (
@@ -17,14 +18,16 @@ export default function App() {
       <BrowserRouter>
         <Header />
         <ApiProvider>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/user-profile" element={<UserProfile />} />
-            <Route path="/new-story" element={<NewStoryPage />} />
-            <Route path="/story" element={<BedtimeStory />} />
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/user-profile" element={<UserProfile />} />
+              <Route path="/new-story" element={<NewStoryPage />} />
+              <Route path="/story" element={<BedtimeStory />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
+          </AuthProvider>
         </ApiProvider>
       </BrowserRouter>
     </Container>
