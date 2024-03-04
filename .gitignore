@@ -30,3 +30,6 @@ instance
 
 # VS Code
 .vscode
+
+# Apple files
+**/._*
