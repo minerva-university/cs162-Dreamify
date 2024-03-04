@@ -24,9 +24,7 @@ def split_story_into_chapters(story: str) -> list[str]:
     return [match.group(0).strip() for match in pattern.finditer(story)]
 
 
-def create_story_prompt(
-    child_params: dict[str, str | int], topic: str
-) -> str:
+def create_story_prompt(child_params: dict[str, str | int], topic: str) -> str:
     """
     Create a story prompt based on the child's parameters and the story topic.
 
