@@ -193,7 +193,7 @@ class Chapter(db.Model):
     __tablename__ = "chapters"
 
     chapter_id = db.Column(db.Text, primary_key=True, default=generate_id)
-    story_id = db.Column(db.Integer, db.ForeignKey("stories.story_id"))
+    story_id = db.Column(db.Text, db.ForeignKey("stories.story_id"))
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text, nullable=False)
     order = db.Column(db.Integer, nullable=False)
