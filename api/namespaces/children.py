@@ -19,9 +19,6 @@ children = Namespace(
 add_child_model = children.model(
     "AddChild",
     {
-        "parent_id": fields.String(
-            required=True, description="The ID of the parent"
-        ),
         "name": fields.String(required=True, description="Name of the child"),
         "age_range": fields.String(
             required=True,
@@ -87,6 +84,8 @@ class Child(Resource):
 
     @jwt_required()
     @children.response(200, "Success")
+    @children.response(400, "Validation Error")
+    @children.response(401, "Unauthorized, please log in")
     @children.response(404, "Child Not Found")
     @children.response(500, "Internal Server Error")
     @children.doc(params={"child_id": "The ID of the child, required"})
@@ -134,6 +133,7 @@ class Child(Resource):
     @children.expect(add_child_model, validate=True)
     @children.response(200, "Success")
     @children.response(400, "Validation Error")
+    @children.response(401, "Unauthorized, please log in")
     @children.response(500, "Internal Server Error")
     def post(self):
         """
@@ -146,9 +146,17 @@ class Child(Resource):
             if not data:
                 return {"Error": "No data provided"}, 400
 
+            # Get the current parent
+            parent = get_current_parent()
+
+            # Return an error if the parent does not exist,
+            # meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Insert the child into the database
             child_id = insert_child(
-                data["parent_id"],
+                parent.user_id,
                 data["name"],
                 data["age_range"],
                 data["sex"],
