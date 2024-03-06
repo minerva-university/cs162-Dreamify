@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import UserProfile from './pages/UserProfile';
-import './App.css';
-import Header from './components/Header';
 import { Container} from 'react-bootstrap';
-import NewStoryPage from './pages/NewstoryPage';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import UserProfilePage from './pages/UserProfilePage';
+import AddachildPage from './pages/AddachildPage';
+import LibraryPage from './pages/LibraryPage';
+import SignupPage from './pages/SignupPage';  
+import StoryPage from './pages/StoryPage';
+import NewstoryPage from './pages/NewstoryPage';
+import LoginPage from './pages/LoginPage';  
+import HomePage from './pages/HomePage';  
+import './App.css';
 
 export default function App() {
   /*const [currentTime, setCurrentTime] = useState(0);
@@ -21,14 +25,18 @@ export default function App() {
   return (
     <Container fluid className = 'App'>
       <BrowserRouter>
-        <Header />
+        {/* <Header />  Tamirlan (make sure to have two types (home page should have a different one) */}
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/new-story" element={<NewStoryPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} /> {/* Tamirlan */}
+          <Route path="/myprofile/:parentid" element={<UserProfilePage />} /> {/* Billy */}
+          <Route path="/addachild/:parentid" element={<AddachildPage />} /> {/* Billy  */}
+          <Route path="/library/story/:storyid" element={<StoryPage />} /> {/* MISHA */} 
+          <Route path="/library/parent/:parentid" element={<LibraryPage />} /> {/* MISHA */} 
+          <Route path="/newstory/:childid" element={<NewstoryPage />} /> {/* MISHA */} 
+          <Route path="/login" element={<LoginPage />} />{ /* Flambeau */} 
+          <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */} 
         </Routes>
+        {/* <Footer /> {/* Tamirlan  */}
       </BrowserRouter>
     </Container>
   );

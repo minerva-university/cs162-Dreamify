@@ -1,11 +1,8 @@
 import React from 'react';
-import Body from '../components/Body';
 
-export default function NewStory() {
+//Misha
+export default function NewstoryPage() {
   return (
-    <Body>
-      <h1>Explore New Story</h1>
-      <p>TODO</p>
-    </Body>
+    <h1>NewStoryPage!</h1>
   );
 }
