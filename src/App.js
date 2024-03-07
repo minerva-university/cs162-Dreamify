@@ -17,7 +17,7 @@ import HomePage from "./pages/HomePage";
 import UserProfilePage from "./pages/UserProfilePage";
 import AddachildPage from "./pages/AddachildPage";
 import LibraryPage from "./pages/LibraryPage";
-import NewStoryPage from "./pages/NewstoryPage";
+import NewStoryPage from "./pages/NewStoryPage";
 import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
