@@ -1,9 +1,6 @@
-import React from 'react';
+import React from "react";
 
 //Tamirlan
-export default function HomePage () {
-    return (
-        <h1>Home Page!</h1>
-    );
-};
-
+export default function HomePage() {
+  return <h1>HomePage!</h1>;
+}
