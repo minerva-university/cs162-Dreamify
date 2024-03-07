@@ -1,10 +1,9 @@
-import Body from '../components/Body';
-import Stories from '../components/Stories';
+import React from 'react';
 
-export default function FeedPage() {
-  return (
-    <Body sidebar>
-      <Stories />
-    </Body>
-  );
-}
+//Tamirlan
+export default function HomePage () {
+    return (
+        <h1>Home Page!</h1>
+    );
+};
+
