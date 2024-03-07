@@ -14,7 +14,7 @@ from .prompt_assembly import (
     create_image_prompt,
     split_story_into_chapters,
 )
-from ..database.models import db, Child, Story, Chapter, generate_id
+from ..database.models import db, Child, Story, Chapter
 
 # TODO: remove this dummy story once the database is set up
 dummy_story = """\
@@ -64,17 +64,12 @@ def get_child_parameters(child_id: str) -> dict[str, str | int]:
         if child is None:
             raise ValueError(f"Child with ID '{child_id}' does not exist")
 
-        # Define a filter condition to check for non-None values and exclude the "_sa_instance_state" attribute
-        filter_condition = (
-            lambda key, value: value is not None
-            and key != "_sa_instance_state"
-        )
-
         # Get the filtered parameters for the child
         child_params = {
-            key: value
-            for key, value in vars(child).items()
-            if filter_condition(key, value)
+            # Get all attributes of the child but not the private ones
+            attribute: getattr(child, attribute)
+            for attribute in vars(child)
+            if not attribute.startswith("_")
         }
 
         return child_params
@@ -185,25 +180,22 @@ def insert_story_into_db(
         if child is None:
             raise ValueError(f"Child with ID {child_id} does not exist")
 
-        # Generate a unique ID for the story
-        story_id = generate_id()
-
         # Create a new story
         story = Story(
-            story_id=story_id,
             child_id=child_id,
             topic=topic,
             image_style=image_style,
         )
 
-        # Add the story to the database
+        # Add the story to the database and flush it to get the story ID
         db.session.add(story)
+        db.session.flush()
 
         # Add the chapters to the database
         for i in range(len(chapters)):
             # Create a new chapter
             chapter = Chapter(
-                story_id=story_id,
+                story_id=story.story_id,
                 content=chapters[i],
                 image=images[i],
                 order=i + 1,

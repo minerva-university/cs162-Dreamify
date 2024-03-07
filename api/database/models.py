@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint
 from uuid import uuid4
 
-# Init SQL alchemy database
+# Create a SQLAlchemy instance
 db = SQLAlchemy()
 
 
@@ -21,6 +21,24 @@ def generate_id() -> str:
 
 
 class Parent(db.Model):
+    """
+    Represents a parent (user).
+    """
+
+    def __init__(
+        self,
+        first_name: str,
+        last_name: str,
+        email: str,
+        password: str,
+    ) -> None:
+        super().__init__()
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+
+    # Define the table name
     __tablename__ = "parents"
 
     user_id = db.Column(db.Text, primary_key=True, default=generate_id)
@@ -34,6 +52,40 @@ class Parent(db.Model):
 
 
 class Child(db.Model):
+    """
+    Represents a child.
+    """
+
+    def __init__(
+        self,
+        parent_id: str,
+        name: str,
+        age_range: str,
+        sex: str,
+        sibling_relationship: str,
+        eye_color: str,
+        hair_type: str,
+        hair_color: str,
+        skin_tone: str,
+        fav_animals: str | None = None,
+        fav_activities: str | None = None,
+        fav_shows: str | None = None,
+    ) -> None:
+        super().__init__()
+        self.parent_id = parent_id
+        self.name = name
+        self.age_range = age_range
+        self.sex = sex
+        self.sibling_relationship = sibling_relationship
+        self.eye_color = eye_color
+        self.hair_type = hair_type
+        self.hair_color = hair_color
+        self.skin_tone = skin_tone
+        self.fav_animals = fav_animals
+        self.fav_activities = fav_activities
+        self.fav_shows = fav_shows
+
+    # Define the table name
     __tablename__ = "children"
 
     child_id = db.Column(db.Text, primary_key=True, default=generate_id)
@@ -91,6 +143,22 @@ class Child(db.Model):
 
 
 class Story(db.Model):
+    """
+    Represents a story.
+    """
+
+    def __init__(
+        self,
+        child_id: str,
+        topic: str,
+        image_style: str,
+    ) -> None:
+        super().__init__()
+        self.child_id = child_id
+        self.topic = topic
+        self.image_style = image_style
+
+    # Define the table name
     __tablename__ = "stories"
 
     story_id = db.Column(db.Text, primary_key=True, default=generate_id)
@@ -109,10 +177,23 @@ class Story(db.Model):
 
 
 class Chapter(db.Model):
+    """
+    Represents a chapter.
+    """
+
+    def __init__(
+        self, story_id: str, content: str, image: str, order: int
+    ) -> None:
+        self.story_id = story_id
+        self.content = content
+        self.image = image
+        self.order = order
+
+    # Define the table name
     __tablename__ = "chapters"
 
     chapter_id = db.Column(db.Text, primary_key=True, default=generate_id)
-    story_id = db.Column(db.Integer, db.ForeignKey("stories.story_id"))
+    story_id = db.Column(db.Text, db.ForeignKey("stories.story_id"))
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text, nullable=False)
     order = db.Column(db.Integer, nullable=False)
