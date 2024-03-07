@@ -1,8 +1,6 @@
-import React from 'react';
+import React from "react";
 
 //Misha
 export default function LibraryPage() {
-  return (
-    <h1>LibraryPage!</h1>
-  );
+  return <h1>LibraryPage!</h1>;
 }

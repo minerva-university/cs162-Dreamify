@@ -18,6 +18,7 @@ import UserProfilePage from "./pages/UserProfilePage";
 import AddachildPage from "./pages/AddachildPage";
 import LibraryPage from "./pages/LibraryPage";
 import NewStoryPage from "./pages/NewstoryPage";
+import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
@@ -39,6 +40,11 @@ export default function App() {
               <Route
                 path="/addachild/:parentid"
                 element={<AddachildPage />}
+              />{" "}
+              {/* Billy  */}
+              <Route
+                path="/modify/:childid"
+                element={<ModifyChildPage />}
               />{" "}
               {/* Billy  */}
               <Route
