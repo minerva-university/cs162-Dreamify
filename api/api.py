@@ -1,19 +1,26 @@
-import time
-from flask import Flask
+"""
+This module contains the API routes for the Dreamify application.
+"""
 
-app = Flask(__name__, static_folder='../build', static_url_path='/')
+from flask import Blueprint
+from flask_restx import Api
 
+# Create a blueprint for the API
+api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
+# Create a Flask RESTX API instance
+api = Api(
+    api_blueprint,
+    version="1.0",
+    title="Dreamify API",
+    description="A Flask RESTX powered API for Dreamify",
+)
 
+from .namespaces.auth import auth
+from .namespaces.children import children
+from .namespaces.generate import generate
 
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
-
-@app.route('/api/time')
-def get_current_time():
-    return {'time': time.time()}
+# Add the namespaces to the API
+api.add_namespace(auth)
+api.add_namespace(children)
+api.add_namespace(generate)
