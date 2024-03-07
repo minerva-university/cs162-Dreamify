@@ -1,9 +1,13 @@
 import React from 'react';
+
+
 import Body from '../components/Body';
 import { useState, useEffect } from 'react';
 
 // API
 const backend_api = 'http://localhost:5000/api/parent'; 
+
+
 
 export default function LoginPage() {
   // Set the title of the page
@@ -23,6 +27,9 @@ export default function LoginPage() {
   };
 
   return (
+
+
+
     <Body>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
@@ -54,5 +61,6 @@ export default function LoginPage() {
      </p>
    </div>
     </Body>
+
   );
 }
