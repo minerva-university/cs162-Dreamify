@@ -172,7 +172,7 @@ def insert_story_into_db(
         ValueError: If the child with the given ID does not exist.
 
     Returns:
-        None
+        story_id (str): The ID of the story.
     """
     try:
         # Verify that the child exists
@@ -206,6 +206,9 @@ def insert_story_into_db(
 
         # Commit the changes to the database
         db.session.commit()
+
+        # Return the story ID
+        return story.story_id
     # Roll back the changes if an SQLAlchemy error occurs
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -239,10 +242,13 @@ def assemble_payload(
     images = generate_chapter_images(chapters, child_params, image_style)
 
     # Add the story to the database
-    insert_story_into_db(child_id, topic, image_style, chapters, images)
+    story_id = insert_story_into_db(
+        child_id, topic, image_style, chapters, images
+    )
 
     # Create the payload
     payload = {
+        "story_id": story_id,
         "chapters": chapters,
         "images": images,
     }

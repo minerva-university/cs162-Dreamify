@@ -18,9 +18,9 @@ api = Api(
 
 from .namespaces.auth import auth
 from .namespaces.children import children
-from .namespaces.generate import generate
+from .namespaces.stories import stories
 
 # Add the namespaces to the API
 api.add_namespace(auth)
 api.add_namespace(children)
-api.add_namespace(generate)
+api.add_namespace(stories)

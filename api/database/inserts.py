@@ -11,7 +11,7 @@ from .models import db, Parent, Child
 
 def insert_parent(
     first_name: str, last_name: str, email: str, password: str
-) -> str:
+) -> dict:
     """
     Insert a parent into the database.
 
@@ -26,7 +26,7 @@ def insert_parent(
         SQLAlchemyError: If an error occurs with the database.
 
     Returns:
-        str: The ID of the parent.
+        dict: The attributes of the parent.
     """
     try:
         # Check if a parent with this email already exists
@@ -50,8 +50,14 @@ def insert_parent(
         db.session.add(parent)
         db.session.commit()
 
+        parent_attributes = {
+            "first_name": parent.first_name,
+            "last_name": parent.last_name,
+            "email": parent.email,
+        }
+
         # Return the ID of the parent
-        return parent.user_id
+        return parent_attributes
 
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -75,7 +81,7 @@ def insert_child(
     fav_animals: str | None = None,
     fav_activities: str | None = None,
     fav_shows: str | None = None,
-) -> str:
+) -> dict:
     """
     Insert a child into the database.
 
@@ -97,7 +103,7 @@ def insert_child(
         ValueError: If the parent does not exist.
 
     Returns:
-        str: The ID of the child.
+        dict: The attributes of the child.
     """
     try:
         # Check if the parent exists
@@ -124,8 +130,22 @@ def insert_child(
         db.session.add(child)
         db.session.commit()
 
-        # Return the ID of the child
-        return child.child_id
+        child_attributes = {
+            "name": child.name,
+            "age_range": child.age_range,
+            "sex": child.sex,
+            "sibling_relationship": child.sibling_relationship,
+            "eye_color": child.eye_color,
+            "hair_type": child.hair_type,
+            "hair_color": child.hair_color,
+            "skin_tone": child.skin_tone,
+            "fav_animals": child.fav_animals,
+            "fav_activities": child.fav_activities,
+            "fav_shows": child.fav_shows,
+        }
+
+        # Return the attributes of the child
+        return child_attributes
 
     except SQLAlchemyError as e:
         db.session.rollback()

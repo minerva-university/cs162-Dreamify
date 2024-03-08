@@ -61,7 +61,7 @@ login_model = auth.model(
 
 
 # Route to register a new parent
-@auth.route("/register")
+@auth.route("/register", strict_slashes=False)
 class Register(Resource):
     """
     Represents a resource for registering a new parent.
@@ -80,15 +80,15 @@ class Register(Resource):
             data = request.get_json()
 
             # Create a new parent
-            new_parent_id = insert_parent(
+            parent_attributes = insert_parent(
                 data["first_name"],
                 data["last_name"],
                 data["email"],
                 data["password"],
             )
 
-            # Return the ID of the new parent and a status code
-            return {"user_id": new_parent_id}, 201
+            # Return the parent data and a 200 status code
+            return parent_attributes, 200
         except ValueError as e:
             return {"error": str(e)}, 409
         except Exception as e:
@@ -97,7 +97,7 @@ class Register(Resource):
 
 
 # Route to log in a parent
-@auth.route("/login")
+@auth.route("/login", strict_slashes=False)
 class Login(Resource):
     """
     Represents a resource for logging in a parent.
@@ -138,7 +138,7 @@ class Login(Resource):
             return {"error": "Internal Server Error"}, 500
 
 
-@auth.route("/current_parent")
+@auth.route("/current_parent", strict_slashes=False)
 class CurrentParent(Resource):
     """
     Represents a resource for retrieving the current parent.
