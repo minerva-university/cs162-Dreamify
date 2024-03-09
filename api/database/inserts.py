@@ -131,6 +131,7 @@ def insert_child(
         db.session.commit()
 
         child_attributes = {
+            "child_id": child.child_id,
             "name": child.name,
             "age_range": child.age_range,
             "sex": child.sex,
