@@ -7,7 +7,7 @@ from flask import current_app
 from sqlalchemy.exc import SQLAlchemyError
 
 from ..extensions import bcrypt
-from .models import Parent, Child
+from .models import Parent, Child, Story
 
 
 def get_parent(identifier: str) -> Parent | None:
@@ -88,4 +88,25 @@ def check_password(email: str, password: str) -> bool:
         return bcrypt.check_password_hash(user.password, password)
     except SQLAlchemyError as e:
         current_app.logger.error(f"Error checking if user exists: {e}")
+        raise e
+
+
+def get_story(story_id: str) -> Story | None:
+    """
+    Get a story from the database.
+
+    Args:
+        story_id (str): The ID of the story.
+
+    Returns:
+        Story | None: The story if found, None otherwise.
+    """
+    try:
+        # Get the story
+        story = Story.query.filter_by(story_id=story_id).first()
+
+        # Return the story
+        return story
+    except Exception as e:
+        current_app.logger.error(f"Error fetching story: {e}")
         raise e
