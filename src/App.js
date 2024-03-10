@@ -64,7 +64,8 @@ export default function App() {
               {/* MISHA */}
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
-              <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
+              <Route path="/signup" element={<SignupPage />} /> 
+              {/* Flambeau */}
             </Routes>
           </AuthProvider>
         </ApiProvider>
