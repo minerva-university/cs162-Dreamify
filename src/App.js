@@ -8,10 +8,6 @@ import "./App.css";
 import ApiProvider from "./contexts/ApiProvider";
 import AuthProvider from "./contexts/AuthProvider";
 
-// Components
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
 // Pages
 import HomePage from "./pages/HomePage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -22,6 +18,9 @@ import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
+
+
+
 
 export default function App() {
   return (
@@ -51,17 +50,17 @@ export default function App() {
                 path="/library/story/:storyid"
                 element={<StoryPage />}
               />{" "}
-              {/* MISHA */}
+              {/* MISHA -- DONE*/}
               <Route
                 path="/library/parent/:parentid"
                 element={<LibraryPage />}
               />{" "}
-              {/* MISHA */}
+              {/* MISHA -- DONE */}
               <Route
                 path="/newstory/:childid"
                 element={<NewStoryPage />}
               />{" "}
-              {/* MISHA */}
+              {/* MISHA -- DONE*/}
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
               <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
