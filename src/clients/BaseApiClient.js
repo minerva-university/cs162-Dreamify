@@ -3,11 +3,16 @@
 
 export default class BaseApiClient {
   
+  //todo: Delete the lines below
   // Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
   // More sytematic solution will be implemented later
   // constructor() {
   //   this.base_url = "http://127.0.0.1:5000/api/";
   // }
+  constructor() {
+    this.base_url = "/api/";
+  }
+
 
   // Send a request to the server
   async request(options) {

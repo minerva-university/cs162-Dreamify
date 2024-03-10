@@ -4,8 +4,9 @@ This module initializes the Flask app and configures it.
 
 from flask import Flask
 
-#Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
-#More sytematic solution will be implemented later
+#todo: delete the lines below
+# Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
+# More sytematic solution will be implemented later
 # from flask_cors import CORS
 
 from .config import ApplicationConfig
@@ -30,8 +31,9 @@ def create_app() -> Flask:
     jwt.init_app(app)
 
 
+    #todo: delete the lines below
     # Enable CORS for the entire app (see the comment above (line 7))
-    #CORS(app)
+    # CORS(app)
 
     # Create tables in the database
     with app.app_context():

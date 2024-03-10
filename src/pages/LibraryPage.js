@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './styles/LibraryPage.css';
@@ -9,36 +10,47 @@ import './styles/LibraryPage.css';
 export default function LibraryPage() {
     const { parentid } = useParams();
     const api = useApi();
-    const auth = useAuth();
+    const {isAuthenticated,login } = useAuth();
+
     const [storyData, setStoryData] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
 
+    
     useEffect(() => {
+
       const fetchData = async () => {
         try {
-          if (!auth.user) {
-            await auth.login("bob.ross@example.com", "123");
+
+          const response = await login("bob.ross@example.com", "123");
+
+          //todo: make sure that only logged users can access this page
+          if (!isAuthenticated) {
+            throw new Error("User is not authenticated");
+
           }
-          const childrenResponse = await api.getAllChildren(parentid);
-
-
-          let tempStoryData = [];
-
-          for (const child of childrenResponse.children) {
-            const storiesResponse = await api.getAllChildStories(child.child_id);
+          else{
           
-            let stories = []; 
-          
-            for (const story of storiesResponse.stories) {
-              const response = await api.getAllStoryChapters(story.story_id); 
-              const firstImage = response.chapters && response.chapters.length > 0 ? `data:image/png;base64,${response.chapters[0].image}` : '';
-              console.log(firstImage);
+            const childrenResponse = await api.getAllChildren(parentid);
 
-              stories.push({
-                title: story.topic,
-                image: firstImage, // using the first image fetched from chapters
-                dateGenerated: story.dateGenerated || 'Unknown Date' // will be changes later
-              });
+            let tempStoryData = [];
+
+            for (const child of childrenResponse.children) {
+              const storiesResponse = await api.getAllChildStories(child.child_id);
+            
+              let stories = []; 
+            
+              for (const story of storiesResponse.stories) {
+                const response = await api.getAllStoryChapters(story.story_id); 
+                const firstImage = response.chapters && response.chapters.length > 0 ? `data:image/png;base64,${response.chapters[0].image}` : '';
+                
+
+                stories.push({
+                  title: story.topic,
+                  image: firstImage, 
+                  //todo: change when date is available
+                  dateGenerated: story.dateGenerated || 'Unknown Date' 
+                });
+              
             }
           
             tempStoryData.push({
@@ -49,24 +61,27 @@ export default function LibraryPage() {
           }
 
           setStoryData(tempStoryData);
+        };
         } catch (error) {
           console.error("Error fetching story data:", error);
         } finally {
           setIsLoading(false);
         }
+        
       };
 
       fetchData();
-    }, [parentid, api, auth]);
+    }, [parentid, api, login]);
 
     if (isLoading) {
         return <div>Loading stories...</div>;
     }
 
-    if (!storyData.length) {
+    if (!isLoading && !storyData.length) {
         return <div>No stories found for this parent.</div>;
     }
 
+    
     return (
       <>
         <Header />

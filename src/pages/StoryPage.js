@@ -10,16 +10,16 @@ import './styles/StoryPage.css';
 export default function StoryPage() {
   const { storyid } = useParams();
   const api = useApi();
-  const auth = useAuth();
+  const { login } = useAuth();
   const [storyData, setStoryData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!auth.user) {
-          await auth.login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
-        }
+        
+        await login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
+        
         const response = await api.getAllStoryChapters(storyid);
 
         if (response && response.chapters) {
@@ -38,7 +38,7 @@ export default function StoryPage() {
     };
 
     fetchData();
-  }, [storyid, api, auth]);
+  }, [storyid, api, login]);
 
   if (isLoading) {
     return (

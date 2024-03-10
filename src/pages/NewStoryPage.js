@@ -43,7 +43,7 @@ export default function NewStoryPage() {
     
       const response = await api.postGenerateStory(payload);
 
-      if (response.story_id) {
+      if (response?.story_id) {
         setIsLoading(false); 
         navigate(`/library/story/${response.story_id}`);
       } else {
