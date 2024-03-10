@@ -28,6 +28,7 @@ export default function App() {
     <Container fluid className="App">
       <BrowserRouter>
         {/* <Header />  Tamirlan (make sure to have two variants with a prop */}
+        <Header />
         <ApiProvider>
           <AuthProvider>
             <Routes>
@@ -68,7 +69,8 @@ export default function App() {
             </Routes>
           </AuthProvider>
         </ApiProvider>
-        {/* <Footer /> {/* Tamirlan  */}
+        {/* Tamirlan  */}
+        <Footer />
       </BrowserRouter>
     </Container>
   );
