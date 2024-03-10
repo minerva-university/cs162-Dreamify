@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import styles from './/styles/Header.css'; // Adjust the path as necessary
+import styles from './styles/Header.css'; // Adjust the path as necessary
 
 export default function Page() {
   return (
