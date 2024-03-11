@@ -8,7 +8,7 @@ import Spinner from '../components/Spinner';
 import './styles/StoryPage.css';
 
 export default function StoryPage() {
-  const { storyid } = useParams();
+  const { storyId } = useParams();
   const api = useApi();
   const { login } = useAuth();
   const [storyData, setStoryData] = useState(null);
@@ -20,16 +20,15 @@ export default function StoryPage() {
         
         await login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
         
-        const response = await api.getAllStoryChapters(storyid);
+        const response = await api.getAllStoryChapters(storyId);
 
-        if (response && response.chapters) {
-          setStoryData({
-            chapters: response.chapters.map(chapter => ({
-              text: chapter.content || "No text available", 
-              imageBase64: "data:image/png;base64," + chapter.image 
-            }))
-          });
-        }
+        setStoryData({
+          chapters: response?.chapters?.map(chapter => ({
+            text: chapter.content || "No text available",
+            imageBase64: "data:image/png;base64," + chapter.image
+          })) || []
+        });
+
       } catch (error) {
         console.error("Error fetching story data:", error);
       } finally {
@@ -38,7 +37,7 @@ export default function StoryPage() {
     };
 
     fetchData();
-  }, [storyid, api, login]);
+  }, [storyId, api, login]);
 
   if (isLoading) {
     return (

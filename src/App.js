@@ -47,17 +47,17 @@ export default function App() {
               />{" "}
               {/* Billy  */}
               <Route
-                path="/library/story/:storyid"
+                path="/library/story/:storyId"
                 element={<StoryPage />}
               />{" "}
               {/* MISHA -- DONE*/}
               <Route
-                path="/library/parent/:parentid"
+                path="/library/parent"
                 element={<LibraryPage />}
               />{" "}
               {/* MISHA -- DONE */}
               <Route
-                path="/newstory/:childid"
+                path="/newstory/:childId"
                 element={<NewStoryPage />}
               />{" "}
               {/* MISHA -- DONE*/}

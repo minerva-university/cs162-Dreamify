@@ -8,6 +8,7 @@ import './styles/NewStoryPage.css';
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 
+//todo: redirect users to home page if they are not logged in
 
 export default function NewStoryPage() {
   const api = useApi();
@@ -15,7 +16,7 @@ export default function NewStoryPage() {
   const {login } = useAuth();
   
   const navigate = useNavigate();
-  const { childid } = useParams();
+  const { childId } = useParams();
   
   const [storyTopic, setStoryTopic] = useState('');
   const [imageStyle, setImageStyle] = useState('Cartoon'); 
@@ -24,8 +25,7 @@ export default function NewStoryPage() {
   const [isLoading, setIsLoading] = useState(false);
 
 
-
-  const handleGenerate = async () => {
+  const handleGenerate = async (storyTopic, imageStyle, storyLength, storyGenre) => {
     setIsLoading(true); // Start loading
 
     const email = "bob.ross@example.com";
@@ -36,10 +36,11 @@ export default function NewStoryPage() {
 
     try {
       const payload = {
-        child_id: childid,
+        child_id: childId,
         topic: storyTopic,
         image_style: imageStyle,
       };
+
     
       const response = await api.postGenerateStory(payload);
 
@@ -66,7 +67,7 @@ export default function NewStoryPage() {
         <h1>Create a new story</h1>
         <div className="hr-style"></div>
         
-        <label>Topic of the story</label>
+        <label htmlFor="storyTopic">Topic of the story</label>
         <input
           id="storyTopic"
           type="text"
@@ -91,7 +92,7 @@ export default function NewStoryPage() {
           ))}
         </div>
 
-        <label>The length of the story</label>
+        <label >The length of the story</label>
         <div className='buttons'>
           {['Short', 'Medium', 'Long'].map((length) => (
             <button
