@@ -51,6 +51,7 @@ def insert_parent(
         db.session.commit()
 
         parent_attributes = {
+            "user_id": parent.user_id,
             "first_name": parent.first_name,
             "last_name": parent.last_name,
             "email": parent.email,
