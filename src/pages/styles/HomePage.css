@@ -1,0 +1,190 @@
+@import "https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:0,undefined&display=swap";
+@import "https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap";
+
+.HpDecription_6_94 {
+  color: #000;
+  text-align: center;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  letter-spacing: -0.74px;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 960px;
+  height: 759px;
+  font-family: Newsreader;
+  font-size: 37px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  display: inline-block;
+}
+
+.title {
+  color: #000;
+  letter-spacing: -0.8px;
+  font-family: 'Newsreader', serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 120%;
+  display: block; /* Use block to ensure it takes the full width */
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+/* New class for the overlay text */
+.tree-overlay-text {
+  color: #FFF; /* White color */
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the text */
+  font-family: 'Newsreader', serif;
+  font-size: 64px;
+  font-weight: 1111;
+  line-height: 10%;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Container for the tree image to position the overlay text */
+.tree-image-container {
+  position: relative;
+  text-align: center;
+  display: flex; /* Use flex layout */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center-align flex items horizontally */
+  justify-content: center;
+}
+
+.CreateButton_6_68 {
+  background: #014a8a;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  padding: 23px 59px;
+  display: inline-flex;
+  overflow: hidden;
+  align-self: center; /* Ensure these items are centered within the flex container */
+  position: absolute;
+  top: 52%; /* Adjust this value as necessary to position below the text */
+  left: 50%;
+  transform: translate(-50%, -10%);
+  margin-top: 20px;
+}
+
+.Create_6_69 {
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+  
+}
+
+.featured_title {
+  text-align: center;
+  margin: 80px; /* Adjust as needed */
+  color: #000;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 160%;
+  display: inline-block;
+}
+
+.featured_box {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background: #fafaf5;
+  border: 2px solid #1a6598;
+  border-radius: 24px;
+  flex-shrink: 0;
+  width: 1053px;
+  height: 159px;
+  overflow: hidden;
+  margin: 0 auto; 
+  margin-bottom: 100px;
+}
+
+.feature_image {
+  flex: 0 0 15%; /* Fixed size */
+  border-top-left-radius: 24px; /* Adjust the radius as needed */
+  border-bottom-left-radius: 24px; /* Adjust the radius as needed */
+  background:
+    #d3d3d3 50% / cover no-repeat;
+  flex-shrink: 0;
+  width: 167px;
+  height: 159px;
+}
+
+.FeatureContent {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  margin-left: 20px; /* Adjust based on layout */
+  align-items: flex-start;
+  margin-top: -40px;
+}
+
+.feature_name{
+  color: #000;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+  
+}
+
+
+.feature_date {
+  color: #1a6598;
+  font-feature-settings:
+    "clig" off,
+    "liga" off;
+  font-family: Inter;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+  top: 10%;
+}
+
+.featured_button {
+  margin-left: auto; /* Pushes the button to the right */
+  margin-right: 40px;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+}
+
+.description {
+  /* Example styling for centered text */
+  color: #000;
+  text-align: center;
+  letter-spacing: -0.74px;
+ 
+  font-family: Newsreader;
+  font-size: 37px;
+  line-height: 120%;
+  display: block; /* Changed from inline-block to block */
+  margin: 60px auto; 
+  
+}
