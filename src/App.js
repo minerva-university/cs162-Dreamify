@@ -33,7 +33,9 @@ export default function App() {
         <ApiProvider>
           <AuthProvider>
             <Routes>
-              <Route path="/" element={<HomePage />} /> {/* Tamirlan */}
+              <Route 
+                path="/" 
+                element={<HomePage />} /> {/* Tamirlan */}
               <Route
                 path="/myprofile/:parentid"
                 element={<UserProfilePage />}
