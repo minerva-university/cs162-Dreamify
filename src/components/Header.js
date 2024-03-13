@@ -1,11 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styles from './styles/Header.module.css';
 
-export default function Header({ isLoggedIn }) {
+export default function Header() {
   const location = useLocation();
   const path = location.pathname;
+
+  const {isAuthenticated} = useAuth();
+
 
   // Function to determine the button's class based on the current path
   const getButtonClass = (buttonPath) => {
@@ -21,8 +25,10 @@ export default function Header({ isLoggedIn }) {
           <Nav className={`me-auto ${styles.NavLinksContainer}`}>
             
 
+             // TODO: fix the isAuthenicated to isLoggedIn
+
             {/* Conditional rendering based on isLoggedIn */}
-            {!isLoggedIn ? (
+            {!isAuthenticated ? (
               // Show "Get Started" if not logged in
               <>
               {/* Home Button */}
@@ -40,20 +46,21 @@ export default function Header({ isLoggedIn }) {
             ) : (
               // Show "New Story", "My Profile", and "Library" if logged in
               <>
+
               <div className={getButtonClass("/")}>
-              <Nav.Link href="/" className={styles.text_navbar}>Home</Nav.Link>
-            </div>
+                  <Link to="/" className={styles.text_navbar}>Home</Link>
+                </div>
                 {/* New Story Button */}
-                <div className={getButtonClass("/newstory")}>
-                  <Nav.Link href="/newstory" className={styles.text_navbar}>New Story</Nav.Link>
+                <div className={getButtonClass(`/newstory/${childid}`)}>
+                  <Link to={`/newstory/${childid}`} className={styles.text_navbar}>New Story</Link>
                 </div>
                 {/* My Profile Button */}
-                <div className={getButtonClass("/myprofile")}>
-                  <Nav.Link href="/myprofile" className={styles.text_navbar}>My Profile</Nav.Link>
+                <div className={getButtonClass(`/myprofile/${parentid}`)}>
+                  <Link to={`/myprofile/${parentid}`} className={styles.text_navbar}>My Profile</Link>
                 </div>
                 {/* Library Button */}
-                <div className={getButtonClass("/library")}>
-                  <Nav.Link href="/library" className={styles.text_navbar}>Library</Nav.Link>
+                <div className={getButtonClass(`/library/parent/${parentid}`)}>
+                  <Link to={`/library/parent/${parentid}`} className={styles.text_navbar}>Library</Link>
                 </div>
               </>
             )}
