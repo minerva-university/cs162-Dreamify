@@ -22,7 +22,7 @@ export default function Header({ isLoggedIn }) {
             
 
             {/* Conditional rendering based on isLoggedIn */}
-            {isLoggedIn ? (
+            {!isLoggedIn ? (
               // Show "Get Started" if not logged in
               <>
               {/* Home Button */}
