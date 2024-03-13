@@ -45,7 +45,6 @@ export default class ApiClient extends BaseApiClient {
 
     // Send the request
     const response = await this.post("children", payload);
-    console.log(this.base_url);
 
     // Parse the response
     if (response.ok) {
