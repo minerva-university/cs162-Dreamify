@@ -1,8 +1,18 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './styles/Footer.module.css';
+import { useLocation} from 'react-router-dom';
 
 export default function Footer() {
+  const location = useLocation();
+  const path = location.pathname;
+  // Check if the current path is the signup or login page
+  const isAuthPage = path === '/signup' || path === '/login';
+  if (isAuthPage) {
+    return null;
+  }
+
+
   return (
     <Container fluid className={styles.Footer_6_75}>
       <Row className="justify-content-center">
