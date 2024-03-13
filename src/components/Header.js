@@ -1,7 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import styles from './styles/Header.module.css';
 
 export default function Header() {
@@ -9,6 +8,7 @@ export default function Header() {
   const path = location.pathname;
 
   const {isAuthenticated} = useAuth();
+  const api = useApi();
 
 
   // Function to determine the button's class based on the current path
@@ -50,10 +50,13 @@ export default function Header() {
               <div className={getButtonClass("/")}>
                   <Link to="/" className={styles.text_navbar}>Home</Link>
                 </div>
-                {/* New Story Button */}
+                
+                {/* New Story Button 
                 <div className={getButtonClass(`/newstory/${childid}`)}>
                   <Link to={`/newstory/${childid}`} className={styles.text_navbar}>New Story</Link>
-                </div>
+                </div> 
+                */}
+
                 {/* My Profile Button */}
                 <div className={getButtonClass(`/myprofile/${parentid}`)}>
                   <Link to={`/myprofile/${parentid}`} className={styles.text_navbar}>My Profile</Link>
