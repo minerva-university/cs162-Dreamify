@@ -2,12 +2,12 @@ import React from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import styles from './styles/Header.module.css';
-//import { useAuth } from "../contexts/AuthProvider";
+import { useAuth } from "../contexts/AuthProvider";
 
 export default function Header() {
   const location = useLocation();
   const path = location.pathname;
-  /*const { isAuthenticated } = useAuth();*/
+  const { isAuthenticated } = useAuth();
   const { parentId } = useParams(); // Fetch parentId from URL params
 
   // Function to determine the button's class based on the current path
@@ -30,7 +30,7 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className={`me-auto ${styles.NavLinksContainer}`}>
             {/* Conditional rendering based on isAuthenticated */}
-            {!true /* supposed to be isAuthenticated */? (
+            {!isAuthenticated ? (
               // Show "Get Started" if not logged in
               <>
                 {/* Home Button */}
