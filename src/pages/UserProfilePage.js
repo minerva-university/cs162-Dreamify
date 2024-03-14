@@ -4,6 +4,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Container, Stack, Col, ListGroup, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../pages/styles/UserProfilePage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // Mock child profile data for two children
 const mockChildData1 = {
     id: 'child1',
@@ -31,7 +34,7 @@ export default function UserProfilePage() {
         <Container fluid>
             <Header />
             <Container className="page-container">
-                <h1 className="header">
+                <h1 className="page-title">
                     Children <span className="profile-subtitle">profiles</span>
                 </h1> 
                     <Stack className="profile-container" direction="horizontal" gap={3}>

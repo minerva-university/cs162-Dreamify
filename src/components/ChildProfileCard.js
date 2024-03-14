@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import PropTypes from "prop-types";
+import '../pages/styles/ChildProfileCard.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // ChildProfileCard component
 const ChildProfileCard = ({ childId }) => {
@@ -63,3 +67,6 @@ const ChildProfileCard = ({ childId }) => {
 };
 
 export default ChildProfileCard;
+ChildProfileCard.propTypes = {
+    childId: PropTypes.string.isRequired,
+  };

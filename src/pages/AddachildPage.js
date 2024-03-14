@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col, ToggleButtonGroup, ToggleButton, InputGroup, FormControl } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './styles/AddachildPage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const eyeColors = [
   { name: 'blue', imageUrl: require('../assets/blue_eye.webp')} ,
@@ -11,7 +13,7 @@ const eyeColors = [
   { name: 'amber', imageUrl: require('../assets/amber_eye.webp') }
 ];
 
-const AddChildProfile = () => {
+const AddachildPage = () => {
     // You can store form data in the state as needed
     const [selectedEyeColor, setSelectedEyeColor] = useState(null);
 
@@ -28,7 +30,7 @@ const AddChildProfile = () => {
       <Container fluid>
         <Header />
         <Container className='page-container'>
-            <h1 className='header'>Add a child's profile</h1>
+            <h1 className='page-title'>Add a child's profile</h1>
             <Form onSubmit={handleSubmit}>
                 <h5>DEMOGRAPHY</h5>
                 <Form.Group className="form-group">
@@ -112,4 +114,4 @@ const AddChildProfile = () => {
     );
 };
 
-export default AddChildProfile;
+export default AddachildPage;

@@ -1,0 +1,29 @@
+.child-profile-card img {
+    max-width: 100%; /* ensures the image is no wider than its container */
+    height: auto; /* maintains the aspect ratio */
+    object-fit: cover; /* this will cover the area of the box without stretching the image */
+    border-radius: 20px; /* optional: rounds the corners of the image */
+  }
+  
+  .child-profile-card {
+    border: 1px solid #ddd; /* optional: adds a border around the card */
+    padding: 0px; /* optional: adds some spacing inside the card */
+    border-radius: 20px; /* optional: rounds the corners of the card */
+    max-width: 300px; /* sets a max-width for the card */
+    width: 100%; /* makes the card responsive */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* optional: adds a shadow for depth */
+    background-color: #fff; /* Sets the background color of the card */
+  }
+  .child-profile-content {
+    padding: 16px; /* Apply padding to the text container only */
+  }
+  
+  .number-of-stories {
+    color: blue; /* This will turn the text color to blue */
+    /* Add any additional styling for this element */
+  }
+  
+  .created-on-text {
+    color: gray; /* This will turn the text color to gray */
+    /* Add any additional styling for this element */
+  }
