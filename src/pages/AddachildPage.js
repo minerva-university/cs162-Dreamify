@@ -64,7 +64,7 @@ const AddachildPage = () => {
                 </Form.Group>
               
                 <Form.Group className="mb-5">
-                    <h5>Visual Features</h5>
+                    <h5>VISUAL FEATURES</h5>
                     {/* You would map through your options to create these buttons dynamically */}
                     <Form.Group className="eye-color">
                       <Form.Label>Eye Color</Form.Label>
