@@ -30,7 +30,7 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className={`me-auto ${styles.NavLinksContainer}`}>
             {/* Conditional rendering based on isAuthenticated */}
-            {!isAuthenticated ? (
+            {!false ? (
               // Show "Get Started" if not logged in
               <>
                 {/* Home Button */}
