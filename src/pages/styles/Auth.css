@@ -1,0 +1,151 @@
+
+
+.signin-page {
+    display: flex;
+    height: 100%;
+  }
+  
+  .signin-image {
+    flex: 4;
+    background: url('../photos/login.jpeg') center center no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    color: white;
+    padding-top: 10%; /* Add padding to the top to push content down */
+  }
+  
+  .signin-image h1 {
+    margin-top: -5rem; /* Remove top margin if any */
+    margin-bottom: 5rem; /* Adjust bottom margin as needed */
+  }
+  
+  .signin-image p {
+    margin-top: 26.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 1 rem; /* Increase bottom margin to push 'Want to create an account?' down */
+  }
+
+  .signin-image button {
+    padding: 0.7rem 2rem;
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Rounded corners */
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  .signin-image button:hover {
+    background: rgba(255, 255, 255, 0.5); /* Slightly more opaque on hover */
+    transform: scale(1.05); /* Slight scale-up effect on hover */
+  }
+  
+  .signin-form {
+    flex: 6; /* Adjusted from 60% for better control */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signin-form h1 {
+    margin-bottom: 2rem; /* Adjust bottom margin as needed */
+    color: #0752a2;
+    text-align: center;
+  }
+  
+  form {
+    width: 100%;
+    max-width: 400px; /* Set a max-width for the form */
+    padding: 2rem;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the form */
+    align-items: center;
+    display: flex; /* Use flexbox to align form contents */
+    flex-direction: column; /* Stack form elements vertically */
+    align-items: center; /* Center-align the flex items */
+    text-align: center; /* Center-align text */
+  }
+  
+  .google-signin {
+    background: #0752a2;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 50% 50%;
+    margin-bottom: 1rem;
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the button */
+    cursor: pointer;
+  }
+  
+  .email-input input,
+  .password-input input {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    width: 250px;
+    box-sizing: border-box;
+  }
+  .alert-danger {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #f5c6cb; /* Light red border */
+    padding: 10px; /* Inner spacing */
+    margin-bottom: 20px; /* Space below the alert */
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the font bold */
+}
+  
+  a {
+    display: block; /* Make the link a block to allow for better click area */
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  
+  button[type="submit"] {
+    padding: 1rem;
+    background: #0752a2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-radius: 10%;
+  }
+  button[type="submit"]:hover {
+    background: #0a6cd6;
+  }
+  
+  h1, p, button {
+    margin-bottom: 1rem; /* Spacing between elements */
+  }
+  
+
+  /* Apply text-align center to all text within the form for explicit alignment */
+.signin-form h1, .signin-form p, .signin-form a {
+    text-align: center;
+  }
+
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+  .signin-page {
+    flex-direction: column;
+  }
+
+  .signin-image, .signin-form {
+    flex: none;
+    width: 100%;
+    padding: 20%;
+    margin-top: 20%;
+  }
+
+  .signin-form form {
+    padding: 0;
+  }
+}
