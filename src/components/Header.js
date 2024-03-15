@@ -7,22 +7,9 @@ import { useAuth } from "../contexts/AuthProvider";
 export default function Header() {
   const location = useLocation();
   const path = location.pathname;
-  const { isAuthenticated, login, logout } = useAuth();
+  //const { isAuthenticated, login, logout } = useAuth();
   const { parentId } = useParams(); // Fetch parentId from URL params
 
-  const fetchData = async () => {
-    try {
-      
-      await login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
-      logout();
-
-      
-    } catch (error) {
-      console.error("Error fetching story data:", error);
-    } finally {
-      console.log("Data fetched successfully!");
-    }
-  };
 
   // Function to determine the button's class based on the current path
   const getButtonClass = (buttonPath) => {
@@ -44,7 +31,7 @@ export default function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className={`me-auto ${styles.NavLinksContainer}`}>
             {/* Conditional rendering based on isAuthenticated */}
-            {!isAuthenticated ? (
+            {!false ? (
               // Show "Get Started" if not logged in
               <>
                 {/* Home Button */}
