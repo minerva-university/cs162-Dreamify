@@ -78,6 +78,9 @@ def create_story_prompt(child_params: dict[str, str], topic: str) -> str:
         child_params (dict[str, str]): The parameters for the child.
         topic (str): The topic of the story.
 
+    Raises:
+        ValueError: If there are missing required placeholders.
+
     Returns:
         str: The story prompt.
     """
