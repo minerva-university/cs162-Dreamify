@@ -4,20 +4,11 @@ This module contains the database models.
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint
-from uuid import uuid4
+
+from .utilities import generate_id
 
 # Create a SQLAlchemy instance
 db = SQLAlchemy()
-
-
-def generate_id() -> str:
-    """
-    Generate a unique ID.
-
-    Returns:
-        str: The generated ID.
-    """
-    return uuid4().hex
 
 
 class Parent(db.Model):
@@ -171,6 +162,7 @@ class Story(db.Model):
         ),
         nullable=False,
     )
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     # Relationship to Chapter
     chapters = db.relationship("Chapter", backref="story", lazy=True)

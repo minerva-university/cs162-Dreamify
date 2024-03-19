@@ -14,7 +14,9 @@ from .prompt_assembly import (
     create_image_prompt,
     split_story_into_chapters,
 )
-from ..database.models import db, Child, Story, Chapter
+from ..database.models import Child
+from ..database.inserts import insert_story
+from ..database.utilities import get_entry_attributes
 
 # TODO: remove this dummy story once the database is set up
 dummy_story = """\
@@ -65,14 +67,12 @@ def get_child_parameters(child_id: str) -> dict[str, str | int]:
             raise ValueError(f"Child with ID '{child_id}' does not exist")
 
         # Get the filtered parameters for the child
-        child_params = {
-            # Get all attributes of the child but not the private ones
-            attribute: getattr(child, attribute)
-            for attribute in vars(child)
-            if not attribute.startswith("_")
-        }
+        child_parameters = get_entry_attributes(
+            child,
+            exclude=["child_id", "parent_id"],
+        )
 
-        return child_params
+        return child_parameters
     except SQLAlchemyError as e:
         current_app.logger.error(f"Failed to get child parameters: {e}")
         raise e
@@ -151,73 +151,9 @@ def generate_chapter_images(
     return images
 
 
-def insert_story_into_db(
-    child_id: str,
-    topic: str,
-    image_style: str,
-    chapters: list[str],
-    images: list[str],
-) -> None:
-    """
-    Insert the story and its chapters into the database.
-
-    Args:
-        child_id (str): The ID of the child.
-        topic (str): The topic of the story.
-        image_style (str): The style of the images.
-        chapters (list[str]): The list of story chapters.
-        images (list[str]): The list of images.
-
-    Raises:
-        ValueError: If the child with the given ID does not exist.
-
-    Returns:
-        story_id (str): The ID of the story.
-    """
-    try:
-        # Verify that the child exists
-        child = Child.query.get(child_id)
-        if child is None:
-            raise ValueError(f"Child with ID {child_id} does not exist")
-
-        # Create a new story
-        story = Story(
-            child_id=child_id,
-            topic=topic,
-            image_style=image_style,
-        )
-
-        # Add the story to the database and flush it to get the story ID
-        db.session.add(story)
-        db.session.flush()
-
-        # Add the chapters to the database
-        for i in range(len(chapters)):
-            # Create a new chapter
-            chapter = Chapter(
-                story_id=story.story_id,
-                content=chapters[i],
-                image=images[i],
-                order=i + 1,
-            )
-
-            # Add the chapter to the database
-            db.session.add(chapter)
-
-        # Commit the changes to the database
-        db.session.commit()
-
-        # Return the story ID
-        return story.story_id
-    # Roll back the changes if an SQLAlchemy error occurs
-    except SQLAlchemyError as e:
-        db.session.rollback()
-        raise e
-
-
 def assemble_payload(
     child_id: str, topic: str, image_style: str
-) -> dict[str, list[str]]:
+) -> dict[str, str | list[str]]:
     """
     Assemble the payload for the given child ID, story topic, and image style.
 
@@ -242,15 +178,18 @@ def assemble_payload(
     images = generate_chapter_images(chapters, child_params, image_style)
 
     # Add the story to the database
-    story_id = insert_story_into_db(
+    inserted_story = insert_story(
         child_id, topic, image_style, chapters, images
     )
 
+    story_attributes = get_entry_attributes(inserted_story)
+
     # Create the payload
     payload = {
-        "story_id": story_id,
+        "story_id": story_attributes["story_id"],
         "chapters": chapters,
         "images": images,
+        "created_at": story_attributes["created_at"],
     }
 
     return payload

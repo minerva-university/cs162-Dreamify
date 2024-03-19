@@ -7,8 +7,9 @@ from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
 from ..functions.prepare_data import assemble_payload
-from ..database.queries import get_story, get_child_from_parent
 from ..functions.jwt_functions import get_current_parent
+from ..database.queries import get_story, get_child_from_parent
+from ..database.utilities import get_entry_attributes
 
 # Create a chapters namespace
 stories = Namespace(
@@ -114,12 +115,8 @@ class ChildStories(Resource):
             # Define the payload
             payload = {
                 "stories": [
-                    {
-                        # Get all attributes of the story but not the private ones
-                        attribute: getattr(story, attribute)
-                        for attribute in vars(story)
-                        if not attribute.startswith("_")
-                    }
+                    # Get the attributes of the story
+                    get_entry_attributes(story)
                     for story in child.stories
                 ]
             }

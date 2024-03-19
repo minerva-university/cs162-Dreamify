@@ -8,7 +8,8 @@ from flask_jwt_extended import jwt_required
 
 from ..database.queries import get_child_from_parent
 from ..database.inserts import insert_child
-from ..database.updates import update_child_info, child_belongs_to_parent
+from ..database.updates import update_child, child_belongs_to_parent
+from ..database.utilities import get_entry_attributes
 from ..functions.jwt_functions import get_current_parent
 
 # Create a children namespace
@@ -176,13 +177,11 @@ class Child(Resource):
             if not child:
                 return {"Error": f"Child with ID '{child_id}' not found"}, 404
 
+            # Get the child's attributes
+            child_attributes = get_entry_attributes(child)
+
             # Return the child data and a 200 status code
-            return {
-                # Get all attributes of the child but not the private ones
-                attribute: getattr(child, attribute)
-                for attribute in vars(child)
-                if not attribute.startswith("_")
-            }, 200
+            return child_attributes, 200
         except ValueError as e:
             return {"Error": str(e)}, 404
         except Exception as e:
@@ -216,7 +215,7 @@ class Child(Resource):
                 return {"Error": "Unauthorized, please log in"}, 401
 
             # Insert the child into the database
-            child_attributes = insert_child(
+            inserted_child = insert_child(
                 parent.user_id,
                 data["name"],
                 data["age_range"],
@@ -231,7 +230,10 @@ class Child(Resource):
                 data.get("fav_shows"),
             )
 
-            # Return the child ID and a status code
+            # Get the child's attributes
+            child_attributes = get_entry_attributes(inserted_child)
+
+            # Return the child data and a 200 status code
             return child_attributes, 200
         except Exception as e:
             current_app.logger.error(e)
@@ -290,22 +292,10 @@ class Child(Resource):
             updates = {k: v for k, v in updates.items() if v is not None}
 
             # Update the child using the new update_child_info function
-            updated_child = update_child_info(child_id, updates)
+            updated_child = update_child(child_id, updates)
 
-            # Prepare all child attributes to be used in frontend
-            child_attributes = {
-                "name": updated_child.name,
-                "age_range": updated_child.age_range,
-                "sex": updated_child.sex,
-                "sibling_relationship": updated_child.sibling_relationship,
-                "eye_color": updated_child.eye_color,
-                "hair_type": updated_child.hair_type,
-                "hair_color": updated_child.hair_color,
-                "skin_tone": updated_child.skin_tone,
-                "fav_animals": updated_child.fav_animals,
-                "fav_activities": updated_child.fav_activities,
-                "fav_shows": updated_child.fav_shows,
-            }
+            # Get the updated child's attributes
+            child_attributes = get_entry_attributes(updated_child)
 
             # Return the updated child data and a 200 status code
             return child_attributes, 200
@@ -343,13 +333,7 @@ class AllChildren(Resource):
             # Define the payload
             payload = {
                 "children": [
-                    {
-                        # Get all attributes of the child but not the private ones
-                        attribute: getattr(child, attribute)
-                        for attribute in vars(child)
-                        if not attribute.startswith("_")
-                    }
-                    for child in parent.children
+                    get_entry_attributes(child) for child in parent.children
                 ]
             }
 
