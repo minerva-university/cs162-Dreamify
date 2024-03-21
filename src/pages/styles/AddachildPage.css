@@ -1,58 +1,129 @@
-.eye-color label {
-    font-weight: light; /* Make the label text bold */
-    margin-bottom: 10px; /* Add some space below the label */
-    margin-left: 20px;  /* Add some space to the left of the label */
-  }
+/* Base styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+  background-color: white;
+  color: black;
+}
+
+
+.add-child-page .hr-style {
+  margin-left: 100px;
+  margin-right: 100px;
+  width: 80%;
+  border-top: 1.5px solid #77CFD1;
+  height: 10px;
+}
+
   
-  .eye-color .col {
-    padding: 20px; /* Add padding between columns */
-  }
-  
-  .eye-color .row {
-    padding: 10px; /* Add padding between columns */
-  }
-  
-  .eye-color .img-thumbnail {
-    width: 130px; /* Fixed width for the thumbnail images */
-    height: 110px; /* Fixed height for the thumbnail images */
-    border: 2px solid transparent; /* Default border color */
-    border-radius: 50%; /* Make the thumbnails circular */
-    cursor: pointer; /* Show pointer cursor on hover */
-    transition: border-color 0.3s ease; /* Add transition effect to border color */
-  }
-  
-  .eye-color .img-thumbnail:hover,
-  .eye-color .img-thumbnail.selected {
-    border-color: #007bff; /* Change border color on hover or when selected */
-  }
-  
-  
-  .form-label {
-    font-weight: 500; /* Make the label text normal */
-    display: block; /* Forces labels onto their own row */
-    margin-bottom: 5px; /* Add some space below each label */
-    margin-top: 20px;
-  }
-  
-  .form-group {
-    margin-top: 20px; /* Add margin above the form group */
-    margin-bottom: 50px; /* Add margin below the form group */
-    margin-left: 30px;
-  }
-  
-  .toggle-button-group .btn {
-    border-radius: 20px; /* This makes the corners rounded */
-    border: 1px solid #01605f; /* This sets the border color */
-    background-color: #09afa9; /* This is the default background color */
-    color: #495057; /* This sets the text color */
-    text-align: center; /* Aligns text to the center */
-    padding: .375rem .75rem; /* Adjusts the padding inside the buttons */
-    font-size: 1rem; /* Sets the font size */
-  }
-  
-  .toggle-button-group .btn.active,
-  .toggle-button-group .btn:active {
-      background-color: #083f7b; /* Active background color */
-      color: #fff; /* Active text color */
-      border-color: #007bff; /* Active border color */
-  }
+.add-child-page h1 {
+  margin-left: 100px;
+  font-family: 'Newsreader', serif;
+  font-size: 64px;
+  margin-bottom: 0px;
+}
+
+.add-child-page h5 {
+  font-family: 'Inter', sans-serif;
+  margin-left: 100px;
+  margin-top: 40px;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+.add-child-page label {
+  font-family: 'Inter', sans-serif;
+  margin-left: 140px;
+  margin-top: 40px;
+  display: block;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.add-child-page input[type="text"] {
+  margin-top: 20px;
+  width: 40%;
+  border: 1px solid #014A8A; 
+  border-radius: 10px;
+  background-color: #FAFAF5; 
+  padding: 12px; 
+  margin-bottom: 20px; 
+  margin-left: 130px;
+  display: block;
+}
+
+/* Image selection */
+.eye-color .img-thumbnail {
+  width: 130px;
+  height: 110px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.eye-color .img-thumbnail:hover,
+.eye-color .img-thumbnail.selected {
+  border-color: #007bff;
+}
+
+.add-child-page .buttons{
+  margin-top: 15px;
+  margin-left: 100px;
+}
+
+.add-child-page button {
+  margin-left: 30px;
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  width: 10%;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.add-child-page .generate-button {
+  display: block;
+  width: 15%;
+  height: 50px;
+  margin: 20px auto;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  background-color: #014A8A;
+  text-align: center;
+  color: white;
+  font-size: larger;
+}
+
+/* Eye color images container */
+.eye-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the space between the images as needed */
+  justify-content: left; /* Center the images within the container */
+  margin-left: 120px; /* Adjust the margin as needed */
+  padding: 20px; /* Add some padding around the container */
+}
+
+/* Eye color image styles */
+.eye-colors .eye-color {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover; /* Ensures the images are scaled correctly */
+  border: 2px solid transparent; /* Default state without a border */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+  transition: border-color 0.3s ease; /* Smooth transition for the border color */
+}
+
+/* Eye color image styles when selected */
+.eye-colors .eye-color.selected {
+  border-color: #014A8A; /* Border color when an image is selected */
+  box-shadow: 0 0 0 2px white; /* Adds a white outline around the border */
+}
