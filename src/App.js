@@ -33,11 +33,13 @@ export default function App() {
   return (
     <Container fluid className="App">
       <BrowserRouter>
-        {/* Tamirlan */}
-        {/* Render header if not on the login or signup page */}
-         <Header />
+        
         <ApiProvider>
           <AuthProvider>
+            {/* Tamirlan */}
+        {/* Render header if not on the login or signup page */}
+          <Header />
+          
             <Routes>
               {/* Tamirlan */}
               <Route 
@@ -77,12 +79,14 @@ export default function App() {
               {/* Flambeau */}
               <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
             </Routes>
+             {/* Tamirlan  */}
+          {/* Render footer if not on the login or signup page */}
+            <Footer />
+
           </AuthProvider>
         </ApiProvider>
-        {/* Tamirlan  */}
-        {/* Render footer if not on the login or signup page */}
-         <Footer />
+       
       </BrowserRouter>
-    </Container>
+      </Container>
   );
 }

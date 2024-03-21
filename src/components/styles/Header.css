@@ -4,7 +4,7 @@
 
 /* CONSTANTS */
 
-.Header {
+.header {
   background: #fff;
   width: 100%;
   height: 100%;
@@ -13,7 +13,7 @@
 }
 
 
-.Dreamify {
+.header_title {
   color: #000;
   font-feature-settings:
     "clig" off,
@@ -38,7 +38,7 @@
 
 
   /* SELECTED PAGE BUTTON*/
-  .button_selected {
+  .button-selected {
     box-sizing: border-box;
     background: #fff;
     border: 1px solid #014A8A;
@@ -54,7 +54,7 @@
 
   /* NON-SELECTED PAGE BUTTON */
 
-  .button_navbar {
+  .button-navbar {
     box-sizing: border-box;
     background: #fff;
     flex-shrink: 0;
@@ -66,7 +66,7 @@
     text-align: center;
   }
 
-  .text_navbar {
+  .text-navbar {
     color: #000;
     text-align: center;
     font-feature-settings:
@@ -86,7 +86,7 @@
 
   /* GET STARTED BUTTON*/
 
-  .button_get_started {
+  .button-get-started {
     box-sizing: border-box;
     background: #014a8a;
     flex-shrink: 0;
@@ -97,7 +97,7 @@
     align-items: center;
     text-align: center;
   }
-  .text_get_started{
+  .text-get-started{
     color: #fff;
     text-align: center;
     font-feature-settings:
@@ -109,4 +109,8 @@
     font-weight: 400;
     line-height: 130%;
     display: inline-block;
+  }
+
+  .logout-button {
+    color: rgb(205, 2, 2) !important; /* Use !important to override any existing styles */
   }

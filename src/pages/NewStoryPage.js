@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom'; 
 import { useParams } from 'react-router-dom';
@@ -62,7 +60,6 @@ export default function NewStoryPage() {
 
   return (
     <>
-      <Header />
       <div className="new-story-page">
         <h1>Create a new story</h1>
         <div className="hr-style"></div>
@@ -131,7 +128,6 @@ export default function NewStoryPage() {
           Generate
         </button>
       </div>
-      <Footer />
     </>
   );
 }
