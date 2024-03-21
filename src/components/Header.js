@@ -45,11 +45,15 @@ export default function Header() {
                 <div className={getButtonClass("/")}>
                   <Nav.Link as={Link} to="/" className="text-navbar">Home</Nav.Link>
                 </div>
-                <div className={getButtonClass(`/myprofile/${parentId}`)}>
-                  <Nav.Link as={Link} to={`/myprofile/${parentId}`} className="text-navbar">My Profile</Nav.Link>
+                <div className={getButtonClass(`/newstory`)}>
+                  <Nav.Link as={Link} to={`/newstory`} className="text-navbar">New Story</Nav.Link>
                 </div>
+                
                 <div className={getButtonClass(`/library/parent`)}>
                   <Nav.Link as={Link} to={`/library/parent`} className="text-navbar">Library</Nav.Link>
+                </div>
+                <div className={getButtonClass(`/myprofile/${parentId}`)}>
+                  <Nav.Link as={Link} to={`/myprofile/${parentId}`} className="text-navbar">My Profile</Nav.Link>
                 </div>
                 <div className="button-navbar" >
                   <Nav.Link as={Link} to="/" onClick={logout} className="text-navbar logout-button">Log Out</Nav.Link>

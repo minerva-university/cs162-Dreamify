@@ -12,12 +12,14 @@ html, body {
   background: #7cd1d2;
   flex-shrink: 0;
   width: 100%; /* Changed from 1440px to be responsive */
-  height: 143px;
+  height: 100px;
   overflow: hidden;
   display: flex; /* Added for flexbox layout */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center items horizontally for smaller screens */
   padding: 20px;
+  margin-top: auto;
+  width: 100%;
 }
 
 .footer-content {

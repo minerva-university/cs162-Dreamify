@@ -19,8 +19,8 @@ export default function Footer() {
           <span className='footer_text'>dreamify.minerva@gmail.com</span>
         </div>
         <div className="right-group">
-          <a href="#aboutus" className="footer_text">About Us</a>
-          <a href="#terms" className="footer_text">Terms of Service & Privacy Policy</a>
+          <a href="aboutus" className="footer_text">About Us</a>
+          <a href="terms" className="footer_text">Terms of Service & Privacy Policy</a>
         </div>
       </div>
     </div>
