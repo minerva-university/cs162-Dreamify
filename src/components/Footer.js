@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 export default function Footer() {
   const location = useLocation();
   const path = location.pathname;
-  // Check if the current path is the signup or login page
+
+  // If it's login or signup page, don't render the footer
   const isAuthPage = path === '/signup' || path === '/login';
   if (isAuthPage) {
     return null;
@@ -15,12 +16,12 @@ export default function Footer() {
     <div className="footer-container">
       <div className="footer-content">
         <div className="left-group">
-          <span className='footer_text' >&#xA9;2024 Dreamify</span>
-          <span className='footer_text'>dreamify.minerva@gmail.com</span>
+          <span className='footer-text' >&#xA9;2024 Dreamify</span>
+          <span className='footer-text'>dreamify.minerva@gmail.com</span>
         </div>
         <div className="right-group">
-          <a href="aboutus" className="footer_text">About Us</a>
-          <a href="terms" className="footer_text">Terms of Service & Privacy Policy</a>
+          <a href="/aboutus" className="footer-text">About Us</a>
+          <a href="/terms" className="footer-text">Terms of Service & Privacy Policy</a>
         </div>
       </div>
     </div>

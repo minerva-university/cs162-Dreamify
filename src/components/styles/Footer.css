@@ -1,22 +1,16 @@
 /* Footer.module.css */
 @import url("https://fonts.googleapis.com/css?family=Newsreader:0,500&display=swap");
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  /* Additional styles to ensure full height, such as setting min-height to 100% might be necessary */
-}
 
 .footer-container {
   background: #7cd1d2;
   flex-shrink: 0;
-  width: 100%; /* Changed from 1440px to be responsive */
+  width: 100%; 
   height: 100px;
   overflow: hidden;
-  display: flex; /* Added for flexbox layout */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally for smaller screens */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
   padding: 20px;
   margin-top: auto;
   width: 100%;
@@ -26,13 +20,11 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Adjust the width as necessary */
-  max-width: 1200px; /* Optional: max-width to prevent the footer from stretching too wide on large screens */
-  
+  width: 85%; 
 }
 
-.footer_text {
-  margin: 0 25px; /* Adjust the spacing between items as necessary */
+.footer-text {
+  margin: 0 25px; /* Spacing between items  */
   text-decoration: none;
   color: inherit;
   color: #000;

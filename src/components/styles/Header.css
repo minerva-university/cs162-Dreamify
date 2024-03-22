@@ -1,116 +1,137 @@
-@import "https://fonts.googleapis.com/css?family=Newsreader:0,500&display=swap";
-@import "https://fonts.googleapis.com/css?family=Inter:0,400&display=swap";
-@import "https://fonts.googleapis.com/css?family=Newsreader:0,500&display=swap";
-
-/* CONSTANTS */
+@import "https://fonts.googleapis.com/css?family=Newsreader:500&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:400&display=swap";
 
 .header {
   background: #fff;
   width: 100%;
   height: 100%;
-  padding: 2%;
+  padding: 2% 3% 2% 2.5%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 93%;
+}
 
-.header_title {
+.header-title {
   color: #000;
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
   letter-spacing: -0.32px;
   font-family: Newsreader;
-  font-size: 32px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 500;
   line-height: 100%;
   display: inline-block;
+  text-decoration: none;
 }
 
-.NavLinksContainer {
-    display: flex;
-    gap: 7px; /* Adjust the gap size as needed */
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-  }
+.nav-links-container {
+  display: flex;
+  gap: 7px; 
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
 
+/* SELECTED PAGE BUTTON */
+.button-selected {
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #014a8a;
+  flex-shrink: 0;
+  width: 104px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
+/* NON-SELECTED PAGE BUTTON */
+.button-navbar {
+  box-sizing: border-box;
+  background: #fff;
+  flex-shrink: 0;
+  width: 104px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  /* SELECTED PAGE BUTTON*/
-  .button-selected {
-    box-sizing: border-box;
-    background: #fff;
-    border: 1px solid #014A8A;
-    flex-shrink: 0;
-    width: 104px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
+.text-navbar {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  display: inline-block;
+  text-decoration: none;
+}
 
-  /* NON-SELECTED PAGE BUTTON */
+/* GET STARTED BUTTON */
+.button-get-started {
+  box-sizing: border-box;
+  background: #014a8a;
+  flex-shrink: 0;
+  width: 144px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
 
-  .button-navbar {
-    box-sizing: border-box;
-    background: #fff;
-    flex-shrink: 0;
-    width: 104px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+.button-get-started:hover {
+  background-color: #0056b3; /* Darker shade on hover for feedback */
+}
 
-  .text-navbar {
-    color: #000;
-    text-align: center;
-    font-feature-settings:
-      "clig" off,
-      "liga" off;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    display: inline-block;
-  }
+.button-get-started:active {
+  background-color: #004080; /* Even darker shade when the button is clicked */
+}
 
-  .Navbar .nav-link {
-    text-decoration: none;
-  }
+.text-white {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  display: inline-block;
+  text-decoration: none;
+}
 
-  /* GET STARTED BUTTON*/
+/* LOG OUT BUTTON */
+.button-logout {
+  box-sizing: border-box;
+  background: rgb(223, 45, 45);
+  flex-shrink: 0;
+  width: 103px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+}
 
-  .button-get-started {
-    box-sizing: border-box;
-    background: #014a8a;
-    flex-shrink: 0;
-    width: 144px;
-    height: 43px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .text-get-started{
-    color: #fff;
-    text-align: center;
-    font-feature-settings:
-      "clig" off,
-      "liga" off;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    display: inline-block;
-  }
+.button-logout:hover {
+  background-color: rgb(202, 28, 28); 
+}
 
-  .logout-button {
-    color: rgb(205, 2, 2) !important; /* Use !important to override any existing styles */
-  }
+.button-logout:active {
+  background-color: rgb(208, 33, 33); 
+}

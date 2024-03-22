@@ -1,88 +1,79 @@
-import * as React from "react";
-import './styles/HomePage.css';
-import tree from '../assets/home_page/hp_tree.png';
-import boy_balloon from '../assets/home_page/hp_boy_balloon.png';
-import boy_stars from '../assets/home_page/hp_boy_stars.png';
-import stars from '../assets/home_page/hp_stars.png';
-//import star from '../assets/home_page/hp_star.png';
-import { Container, Row, Col, Button} from 'react-bootstrap';
-
-
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
+import treeImage from "../assets/home_page/hp_tree.png";
+import boyWithBalloon from "../assets/home_page/hp_boy_balloon.png";
+import boyWithStars from "../assets/home_page/hp_boy_stars.png";
+import starsImage from "../assets/home_page/hp_stars.png";
+import "./styles/HomePage.css";
 
 export default function HomePage() {
+  const { isAuthenticated } = useAuth();
+
   return (
-    
-    <Container>
-          <Row className="mb-3">
-            <Col md={5}>
-              <img src={boy_stars} alt="Boy with stars" style={{ width: '100%' }} />
-            </Col>
-            <Col md={7}>
-              <img src={boy_balloon} alt="Boy with balloon" style={{ width: '100%' }} />
-              
-            </Col>
-          </Row>
-          <Row >
-            <Col >
-              <div className="title">Bring your child's imagination to life with bedtime stories</div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-            <div className="tree-image-container">
-              <img src={tree} alt="Tree" style={{ width: '100%' }} />
-              <div className="tree-overlay-text">Create your own bedtime story</div>
-              <button className="CreateButton_6_68" t>
-                <span className="Create_6_69">Create</span>
-              </button>
+    <div className="homepage-container">
+      <div className="row mb-3">
+        <div className="col-md-5">
+          <img src={boyWithStars} alt="Boy with stars" className="img-fluid" />
+        </div>
+        <div className="col-md-7">
+          <img src={boyWithBalloon} alt="Boy with balloon" className="img-fluid" />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="title">Bring your child's imagination to life with bedtime stories</div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="tree-image-container">
+            <img src={treeImage} alt="Tree" className="img-fluid" />
+            <div className="tree-overlay-text">Create your own bedtime story</div>
+            <div className="create-button">
+              <Link to={!isAuthenticated ? "/signup" : "/newstory"} className="create-link">
+                Create
+              </Link>
             </div>
-            </Col>
-          </Row>
-
-        
-          <Row>
-            <Col md={12} className="text-center">
-              <h2 className="featured_title">Featured Bedtime Stories</h2>
-            </Col>
-          </Row>
-          <Row className="justify-content-md-center">
-            <Col md={12} className="text-center" >
-              <div className="featured_box">
-                <img src={boy_stars} alt="Story" className="feature_image" />
-                <div className="FeatureContent">
-                  <h3 className="feature_name">Sweet Ty's Adventure</h3>
-                  <p className="feature_date">11/11/2024</p>
-                </div>
-                <Button variant="primary" className="featured_button">Read</Button>
-              </div>
-            </Col>
-          </Row>
-
-
-                <Container className="mt-5">
-            {/* Photo */}
-            <Row className="justify-content-md-center">
-              <Col md={6} className="text-center">
-                <img src={stars} alt="HP Stars" className="img-fluid" />
-              </Col>
-            </Row>
-            {/* Centered Text Block */}
-            <Row className="justify-content-md-center">
-              <Col md={9} className="text-center">
-                <p className="description">Dreamify — Where Dreams Come Alive. Transform pre-bedtime into an unforgettable adventure with Dreamify, the ultimate story generator for children. Immerse your kids in magical tales where they are the heroes, embarking on journeys across new lands, learning fascinating facts, and sparking their imagination like never before. Each story is a doorway to a world of wonder, tailored to inspire and educate, creating cherished memories that will last a lifetime. With Dreamify, bedtime isn't just about going to sleep; it's about setting sail to dreamland, where every night is a unique voyage of discovery and delight. Join us in nurturing young minds, fostering creativity, and making every night a special storytime adventure.</p>
-              </Col>
-            </Row>
-            {/* Same Photo Again */}
-            <Row className="justify-content-md-center">
-              <Col md={6} className="text-center">
-                <img src={stars} alt="HP Stars" className="img-fluid" style={{ marginBottom: '80px' }}/>
-              </Col>
-            </Row>
-          </Container>
-        </Container>
-        
-    
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12 text-center">
+          <h2 className="featured-title">Featured Bedtime Stories</h2>
+        </div>
+      </div>
+      <div className="row justify-content-center">
+        <div className="col-md-12 text-center">
+          <div className="featured-box">
+            <img src={boyWithStars} alt="Story" className="featured-image" />
+            <div className="featured-content">
+              <h3 className="featured-name">Sweet Ty's Adventure</h3>
+              <p className="featured-date">11/11/2024</p>
+            </div>
+            <button className="featured-button">Read</button>
+          </div>
+        </div>
+      </div>
+      <div className="homepage-container">
+        <div className="row justify-content-center">
+          <div className="col-md-6 text-center">
+            <img src={starsImage} alt="HP Stars" className="img-fluid" />
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-11 text-center">
+            <p className="description">
+              Dreamify — Where Dreams Come Alive. Transform pre-bedtime into an unforgettable adventure with Dreamify, the ultimate story generator for children. Immerse your kids in magical tales where they are the heroes, embarking on journeys across new lands, learning fascinating facts, and sparking their imagination like never before. Each story is a doorway to a world of wonder, tailored to inspire and educate, creating cherished memories that will last a lifetime. With Dreamify, bedtime isn't just about going to sleep; it's about setting sail to dreamland, where every night is a unique voyage of discovery and delight. Join us in nurturing young minds, fostering creativity, and making every night a special storytime adventure.
+            </p>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-6 text-center">
+            <img src={starsImage} alt="HP Stars" className="img-fluid" style={{ marginBottom: "80px" }} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
-

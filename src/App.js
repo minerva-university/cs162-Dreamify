@@ -20,6 +20,9 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
 
+import AboutUsPage from "./pages/AboutUsPage";
+import TermsPage from "./pages/TermsPage";
+
 // Components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -78,6 +81,10 @@ export default function App() {
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
               <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
+              {/* Tamir */}
+              <Route path="/aboutus" element={<AboutUsPage />}    />
+              {/* Tamir */}
+              <Route path="/terms" element={<TermsPage />} />
             </Routes>
              {/* Tamirlan  */}
           {/* Render footer if not on the login or signup page */}
