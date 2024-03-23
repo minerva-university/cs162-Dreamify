@@ -22,6 +22,7 @@ import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
+import SelectChildPage from "./pages/SelectChildPage";
 
 export default function App() {
   return (
@@ -62,6 +63,8 @@ export default function App() {
                 element={<NewStoryPage />}
               />{" "}
               {/* MISHA */}
+              <Route path="/children/:parentid" element={<SelectChildPage />} />
+              {/* Flambeau */}
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
               <Route path="/signup" element={<SignupPage />} /> 

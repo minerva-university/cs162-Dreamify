@@ -61,7 +61,7 @@ function SignUpPage() {
   }
 
   return (
-    <Container>
+    <div className="container">
       <div className="signin-page"> {/* Consider renaming this class to something neutral like "auth-page" */}
         <div className="signin-image">
           {/* Add your image here */}
@@ -77,12 +77,13 @@ function SignUpPage() {
                 {error}
               </Alert>
             )}
-            <button className="google-signin">G+</button> {/* If you're also enabling Google sign-up, otherwise remove this */}
+            <button className="google-signin">G+</button> 
+            <p> Or use your email account</p>
             <div className="email-input">
               <input
                 type="text"
                 id="firstName"
-                placeholder="Enter your first name"
+                placeholder="First name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -92,7 +93,7 @@ function SignUpPage() {
               <input
                 type="text"
                 id="lastName"
-                placeholder="Enter your last name"
+                placeholder="Last name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -102,7 +103,7 @@ function SignUpPage() {
               <input
                 type="email"
                 id="email"
-                placeholder="Enter your email"
+                placeholder="Email or Username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -112,7 +113,7 @@ function SignUpPage() {
               <input
                 type="password"
                 id="password"
-                placeholder="Create a password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -122,7 +123,7 @@ function SignUpPage() {
           </form>
         </div>
       </div>
-    </Container>
+    </div>
   );  
 }
 

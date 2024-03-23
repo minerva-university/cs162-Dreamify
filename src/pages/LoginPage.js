@@ -69,11 +69,12 @@ export default function LoginPage() {
             </Alert>
           )}
           <button className="google-signin">G+</button>
+          <p> Or use your email account</p>
           <div className="email-input">
           <input
             type="email"
             id="email"
-            placeholder="Enter your email"
+            placeholder="Email or Username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isLoading}
@@ -84,14 +85,14 @@ export default function LoginPage() {
           <input
             type="password"
             id="password"
-            placeholder="Enter your password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
             required
           />
           </div>
-          <a href="#">Forgot your password?</a>
+          {/* <a href="#">Forgot your password?</a> */}
           <button type="submit">Sign In</button>
         </form>
       </div>

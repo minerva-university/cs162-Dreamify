@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;700&display=swap');
 
+
+body {
+  margin: 0px;
+  font-family: 'Newsreader', serif;
+}
 
 .signin-page {
     display: flex;
@@ -14,16 +20,17 @@
     justify-content: flex-start; /* Align items to the start */
     align-items: center;
     color: white;
-    padding-top: 10%; /* Add padding to the top to push content down */
+    padding-top: 16%; /* Add padding to the top to push content down */
+    height: 100%;
   }
   
   .signin-image h1 {
-    margin-top: -5rem; /* Remove top margin if any */
+    margin-top: -25%; /* Remove top margin if any */
     margin-bottom: 5rem; /* Adjust bottom margin as needed */
   }
   
   .signin-image p {
-    margin-top: 26.5rem;
+    margin-top: 75%;
     font-size: 1.2rem;
     margin-bottom: 1 rem; /* Increase bottom margin to push 'Want to create an account?' down */
   }
@@ -89,6 +96,7 @@
     border: 1px solid #ccc;
     width: 250px;
     box-sizing: border-box;
+    background-color: #77CFD1;
   }
   .alert-danger {
     background-color: #f8d7da; /* Light red */
@@ -132,6 +140,12 @@
     text-align: center;
   }
 
+input {
+  border-radius: 5px;
+}
+input::placeholder, textarea::placeholder {
+  color: black;
+}
   /* Responsive adjustments */
 @media (max-width: 768px) {
   .signin-page {
@@ -140,9 +154,8 @@
 
   .signin-image, .signin-form {
     flex: none;
-    width: 100%;
+    width: 60%;
     padding: 20%;
-    margin-top: 20%;
   }
 
   .signin-form form {
