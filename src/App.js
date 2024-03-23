@@ -19,6 +19,7 @@ import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
+import SelectChildPage from "./pages/SelectChildPage";
 
 import AboutUsPage from "./pages/AboutUsPage";
 import TermsPage from "./pages/TermsPage";
@@ -77,14 +78,18 @@ export default function App() {
                 path="/newstory/:childId"
                 element={<NewStoryPage />}
               />{" "}
-              {/* MISHA -- DONE*/}
+              {/* MISHA */}
+              <Route path="/children/:parentid" element={<SelectChildPage />} />
+              {/* Flambeau */}
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
+
               <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
               {/* Tamir */}
               <Route path="/aboutus" element={<AboutUsPage />}    />
               {/* Tamir */}
               <Route path="/terms" element={<TermsPage />} />
+
             </Routes>
              {/* Tamirlan  */}
           {/* Render footer if not on the login or signup page */}
