@@ -14,12 +14,11 @@ You should first output the title in the format like this: Title of the story: <
 Every chapter title should be formatted like this: Chapter <number> title: <chapter_title>
 Every chapter should be formatted like this: Chapter <number> description: <chapter_description>
 Don't make the summary paragraph and end the story with "The end."
-Don't break any privacy policies. Be unique and creative when developing the story, so that it's interesting for children of the age range ${age_range} years to read it.
-\
+Don't break any privacy policies. Be unique and creative when developing the story, so that it's interesting for children of the age range ${age_range} years to read it.\
 """
 )
 
-image_prompt_template = Template(
+chapter_image_prompt_template = Template(
     """\
 Make an illustration for a story chapter in this style: ${image_style}.
 Here is a description of the character ${name}:
@@ -33,21 +32,20 @@ Here is a description of the character ${name}:
 Ensure the image complies with privacy policies and contains no text. Generate only one image.
 
 Story chapter:
-${chapter_content}
-\
+${chapter_content}\
 """
+)
 
-kids_image_prompt_template = """\
+child_image_prompt_template = Template(
+    """\
 Create an image of a child ${name} with specified characteristics:
 1. Age range: ${age_range}
 2. Gender: ${sex}
 3. Eye color: ${eye_color}
 4. Hair type: ${hair_type}
 5. Hair color: ${hair_color}
-6. Race: ${race}
+6. Ethnicity: ${ethnicity}
 
-The child should be smiling. Ensure the image complies with privacy policies and contains no text. Generate only one image.
-\
+The child should be smiling. Ensure the image complies with privacy policies and contains no text. Generate only one image.\
 """
-
 )
