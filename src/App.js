@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { Container } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Styles
 import "./App.css";
@@ -19,18 +20,34 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
 
+import AboutUsPage from "./pages/AboutUsPage";
+import TermsPage from "./pages/TermsPage";
 
+// Components
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 export default function App() {
+
+
+  // Check if the current path is the login or signup page
+
   return (
     <Container fluid className="App">
       <BrowserRouter>
-        {/* <Header />  Tamirlan (make sure to have two variants with a prop */}
+        
         <ApiProvider>
           <AuthProvider>
+            {/* Tamirlan */}
+        {/* Render header if not on the login or signup page */}
+          <Header />
+          
             <Routes>
-              <Route path="/" element={<HomePage />} /> {/* Tamirlan */}
+              {/* Tamirlan */}
+              <Route 
+                path="/" 
+                element={<HomePage />} /> 
               <Route
                 path="/myprofile/:parentid"
                 element={<UserProfilePage />}
@@ -64,11 +81,19 @@ export default function App() {
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}
               <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
+              {/* Tamir */}
+              <Route path="/aboutus" element={<AboutUsPage />}    />
+              {/* Tamir */}
+              <Route path="/terms" element={<TermsPage />} />
             </Routes>
+             {/* Tamirlan  */}
+          {/* Render footer if not on the login or signup page */}
+            <Footer />
+
           </AuthProvider>
         </ApiProvider>
-        {/* <Footer /> {/* Tamirlan  */}
+       
       </BrowserRouter>
-    </Container>
+      </Container>
   );
 }
