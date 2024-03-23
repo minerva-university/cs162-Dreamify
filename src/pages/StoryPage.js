@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Spinner from '../components/Spinner';
 import './styles/StoryPage.css';
 
@@ -55,7 +53,6 @@ export default function StoryPage() {
 
   return (
     <>
-      <Header />
       <div className="story-container">
         {storyData.chapters.map((chapter, index) => (
           <div key={index} className="story-block">
@@ -65,7 +62,6 @@ export default function StoryPage() {
           </div>
         ))}
       </div>
-      <Footer />
     </>
   );
 }

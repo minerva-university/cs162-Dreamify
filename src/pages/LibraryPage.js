@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import './styles/LibraryPage.css';
 
 //todo: it takes a while to load all the stories, so we need to add a spinner & make the process of loading faster
@@ -87,7 +85,6 @@ export default function LibraryPage() {
     
     return (
       <>
-        <Header />
         <div className="library-page">
           {storyData.map((childData) => (
             <div key={childData.childId}>
@@ -111,7 +108,6 @@ export default function LibraryPage() {
             </div>
           ))}
         </div>
-        <Footer />
       </>
     );
 }

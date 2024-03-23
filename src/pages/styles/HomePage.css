@@ -1,0 +1,189 @@
+@import "https://fonts.googleapis.com/css?family=Newsreader:400&display=swap";
+@import "https://fonts.googleapis.com/css?family=Inter:600&display=swap";
+
+.homepage-container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.title {
+  color: #000;
+  letter-spacing: -0.8px;
+  font-family: "Newsreader", serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 120%;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.tree-image-container {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tree-overlay-text {
+  color: #fff;
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Newsreader", serif;
+  font-size: 64px;
+  font-weight: 1111;
+  line-height: 10%;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.create-button {
+  background: #014a8a;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  padding: 23px 59px;
+  display: inline-flex;
+  overflow: hidden;
+  align-self: center;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
+
+.create-button:active {
+  background-color: #004080;
+}
+
+.create-link {
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.featured-title {
+  text-align: center;
+  margin: 80px;
+  color: #000;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 160%;
+  display: inline-block;
+}
+
+.featured-box {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background: #fafaf5;
+  border: 2px solid #1a6598;
+  border-radius: 24px;
+  flex-shrink: 0;
+  width: 90%;
+  height: 159px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.featured-image {
+  flex: 0 0 15%;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  background: #d3d3d3 50% / cover no-repeat;
+  flex-shrink: 0;
+  width: 167px;
+  height: 159px;
+}
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  align-items: flex-start;
+  margin-top: -40px;
+}
+
+.featured-name {
+  color: #000;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+}
+
+.featured-date {
+  color: #1a6598;
+  font-family: Inter;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  display: inline-block;
+  top: 10%;
+}
+
+.featured-button {
+  margin-left: auto;
+  margin-right: 40px;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.featured-button:hover {
+  background-color: #0056b3;
+}
+
+.featured-button:active {
+  background-color: #004080;
+}
+
+.description {
+  color: #000;
+  text-align: center;
+  letter-spacing: -0.74px;
+  font-family: Newsreader;
+  font-size: 37px;
+  line-height: 120%;
+  display: block;
+  margin: 60px auto;
+}
