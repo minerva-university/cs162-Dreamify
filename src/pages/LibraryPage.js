@@ -1,118 +1,117 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApi } from "../contexts/ApiProvider";
+import { useAuth } from "../contexts/AuthProvider";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import photo1 from './photos/chapter1.jpg';
-import photo2 from './photos/chapter2.jpg';
-import photo3 from './photos/chapter3.jpg';
-import './styles/LibraryPage.css'; // Ensure you import the CSS file correctly
+import './styles/LibraryPage.css';
+
+//todo: it takes a while to load all the stories, so we need to add a spinner & make the process of loading faster
 
 export default function LibraryPage() {
-    // Mapping images to their respective indices for easier access
-    const photos = {1: photo1, 2: photo2, 3: photo3};
+    const api = useApi();
+    const {isAuthenticated,login } = useAuth();
+    const navigate = useNavigate();
 
-    // Data structure for characters and their stories
-    const characters = {
-      Rally: {
-        numberOfStories: 2,
-        stories: [
-          { image: photo1, title: "Rally's First Adventure", dateGenerated: "2022-07-01" },
-          { image: photo2, title: "Rally and the Mystery Island", dateGenerated: "2022-08-15" }
-        ]
-      },
-      Ty: {
-        numberOfStories: 1,
-        stories: [
-          { image: photo3, title: "Ty's Journey to the Mountains", dateGenerated: "2022-09-05" }
-        ]
-      }
-    };
-  
+    const [storyData, setStoryData] = useState([]); 
+    const [isLoading, setIsLoading] = useState(true);
 
-  return (
-    <>
-      <Header />
-      <div className="library-page">
-        {Object.entries(characters).map(([name, data]) => (
-          <div key={name}>
-            <div className='storyh1h3'>
-            <div className='storyh1'><h1>{name}'s Bedtime Stories</h1></div>
-            <div className='storyh3'><h3>{data.numberOfStories} items</h3></div>
-            </div>
-            <div className="hr-style"></div>
-            {data.stories.map((story, index) => (
-              <div key={index} className="story-block">
-                <img src={story.image} alt={`Story ${index + 1}`} className="story-image" />
-                <div className="story-details">
-                  <div className='story-title-date'>
-                   <p className="story-title">{story.title}</p>
-                    <p className="story-date">{story.dateGenerated}</p>
-                  </div>
-                  <div className="story-private">PRIVATE</div>
-                </div>
+    const handleStoryClick = (storyId) => {
+      navigate(`/library/story/${storyId}`);
+    }
+
+    
+    useEffect(() => {
+
+      const fetchData = async () => {
+        try {
+
+
+          await login("bob.ross@example.com", "123");
+
+          //todo: make sure that only logged users can access this page
+
+          const childrenResponse = await api.getAllChildren();
+
+          let tempStoryData = [];
+
+          for (const child of childrenResponse.children) {
+            const storiesResponse = await api.getAllChildStories(child.child_id);
+          
+            let stories = []; 
+          
+            for (const story of storiesResponse.stories) {
+              const response = await api.getAllStoryChapters(story.story_id); 
+              const firstImage = response.chapters && response.chapters.length > 0 ? `data:image/png;base64,${response.chapters[0].image}` : '';
+              
+              stories.push({
+                title: story.topic,
+                image: firstImage, 
+                //todo: change when date is available
+                dateGenerated: story.dateGenerated || 'Unknown Date',
+                storyId: story.story_id,
+              });
+              
+            
+          }
+        
+          tempStoryData.push({
+            childId: child.child_id,
+            childName: child.name,
+            numberOfStories: stories.length,
+            stories: stories,
+          });
+        
+
+          setStoryData(tempStoryData);
+        };
+        } catch (error) {
+          console.error("Error fetching story data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+        
+      };
+
+      fetchData();
+    }, [api, login, isAuthenticated]);
+
+    if (isLoading) {
+        return <div>Loading stories...</div>;
+    }
+
+    if (!isLoading && !storyData.length) {
+        return <div>No stories found for this parent.</div>;
+    }
+
+    
+    return (
+      <>
+        <Header />
+        <div className="library-page">
+          {storyData.map((childData) => (
+            <div key={childData.childId}>
+              <div className='storyh1h3'>
+                <div className='storyh1'><h1>{childData.childName}'s Bedtime Stories</h1></div>
+                <div className='storyh3'><h3>{childData.numberOfStories} items</h3></div>
               </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <Footer />
-    </>
-  );
+              <div className="hr-style"></div>
+              {childData.stories.map((story) => (
+                <div key={story.storyId} className="story-block" onClick={() => handleStoryClick(story.storyId)}>
+                  <img src={story.image} alt={`Story`} className="story-image" />
+                  <div className="story-details">
+                    <div className='story-title-date'>
+                      <p className="story-title">{story.title}</p>
+                      <p className="story-date">{story.dateGenerated}</p>
+                    </div>
+                    <div className="story-private">PRIVATE</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <Footer />
+      </>
+    );
 }
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
-// import photo1 from './photos/chapter1.jpg';
-// import photo2 from './photos/chapter2.jpg';
-// import photo3 from './photos/chapter3.jpg';
-
-// export default function LibraryPage() {
-  // // Mapping images to their respective indices for easier access
-  // const photos = {1: photo1, 2: photo2, 3: photo3};
-
-  // // Data structure for characters and their stories
-  // const characters = {
-  //   Rally: {
-  //     numberOfStories: 2,
-  //     stories: [
-  //       { image: photo1, title: "Rally's First Adventure", dateGenerated: "2022-07-01" },
-  //       { image: photo2, title: "Rally and the Mystery Island", dateGenerated: "2022-08-15" }
-  //     ]
-  //   },
-  //   Ty: {
-  //     numberOfStories: 1,
-  //     stories: [
-  //       { image: photo3, title: "Ty's Journey to the Mountains", dateGenerated: "2022-09-05" }
-  //     ]
-  //   }
-  // };
-
-//   return (
-//     <>
-//       <Header />
-//       {Object.entries(characters).map(([name, data]) => (
-//         <div key={name}>
-//           <h1>{name}/Bedtime Stories</h1>
-//           <h3>{data.numberOfStories} items</h3>
-//           <hr />
-//           {data.stories.map((story, index) => (
-//             <div key={index}>
-//               <img src={story.image} alt={`Story ${index + 1}`} />
-//               <p>Title: {story.title}</p>
-//               <p>Date of Creation: {story.dateGenerated}</p>
-//             </div>
-//           ))}
-//         </div>
-//       ))}
-//       <Footer />
-//     </>
-//   );
-// }

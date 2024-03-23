@@ -12,6 +12,7 @@ from flask_jwt_extended import (
 from ..functions.jwt_functions import get_current_parent
 from ..database.inserts import insert_parent
 from ..database.queries import check_password, get_parent
+from ..database.utilities import get_entry_attributes
 
 # Create an auth namespace
 auth = Namespace("auth", path="/auth", description="Authentication operations")
@@ -80,11 +81,16 @@ class Register(Resource):
             data = request.get_json()
 
             # Create a new parent
-            parent_attributes = insert_parent(
+            inserted_parent = insert_parent(
                 data["first_name"],
                 data["last_name"],
                 data["email"],
                 data["password"],
+            )
+
+            # Get the parent's filtered attributes
+            parent_attributes = get_entry_attributes(
+                inserted_parent, exclude=["password"]
             )
 
             # Return the parent data and a 200 status code
@@ -149,7 +155,7 @@ class CurrentParent(Resource):
     @auth.response(200, "Success")
     @auth.response(401, "Unauthorized, please log in")
     @auth.response(500, "Internal Server Error")
-    def get(self) -> tuple[dict, int]:
+    def get(self) -> tuple[dict[str, str], int]:
         """
         Get the current authenticated parent.
         """
@@ -160,13 +166,13 @@ class CurrentParent(Resource):
             if not parent:
                 return {"Error": "Unauthorized, please log in"}, 401
 
+            # Get the parent's filtered attributes
+            parent_attributes = get_entry_attributes(
+                parent, exclude=["password"]
+            )
+
             # Return the parent data and a 200 status code
-            return {
-                "user_id": parent.user_id,
-                "first_name": parent.first_name,
-                "last_name": parent.last_name,
-                "email": parent.email,
-            }, 200
+            return parent_attributes, 200
         except Exception as e:
             current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500

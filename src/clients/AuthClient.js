@@ -1,6 +1,7 @@
 import BaseApiClient from "./BaseApiClient";
 
 export default class AuthClient extends BaseApiClient {
+
   /**
    * Register a new user.
    * @param {string} firstName

@@ -8,10 +8,6 @@ import "./App.css";
 import ApiProvider from "./contexts/ApiProvider";
 import AuthProvider from "./contexts/AuthProvider";
 
-// Components
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
 // Pages
 import HomePage from "./pages/HomePage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -49,17 +45,17 @@ export default function App() {
               />{" "}
               {/* Billy  */}
               <Route
-                path="/library/story/:storyid"
+                path="/library/story/:storyId"
                 element={<StoryPage />}
               />{" "}
-              {/* MISHA */}
+              {/* MISHA -- DONE*/}
               <Route
-                path="/library/parent/:parentid"
+                path="/library/parent"
                 element={<LibraryPage />}
               />{" "}
-              {/* MISHA */}
+              {/* MISHA -- DONE */}
               <Route
-                path="/newstory/:childid"
+                path="/newstory/:childId"
                 element={<NewStoryPage />}
               />{" "}
               {/* MISHA */}

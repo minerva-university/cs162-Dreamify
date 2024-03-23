@@ -6,12 +6,12 @@ from flask import current_app
 from sqlalchemy.exc import SQLAlchemyError
 
 from ..extensions import bcrypt
-from .models import db, Parent, Child
+from .models import db, Parent, Child, Story, Chapter
 
 
 def insert_parent(
     first_name: str, last_name: str, email: str, password: str
-) -> dict:
+) -> Parent:
     """
     Insert a parent into the database.
 
@@ -26,7 +26,7 @@ def insert_parent(
         SQLAlchemyError: If an error occurs with the database.
 
     Returns:
-        dict: The attributes of the parent.
+        Parent: The inserted parent.
     """
     try:
         # Check if a parent with this email already exists
@@ -50,14 +50,8 @@ def insert_parent(
         db.session.add(parent)
         db.session.commit()
 
-        parent_attributes = {
-            "first_name": parent.first_name,
-            "last_name": parent.last_name,
-            "email": parent.email,
-        }
-
-        # Return the ID of the parent
-        return parent_attributes
+        # Return the inserted parent
+        return parent
 
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -81,7 +75,7 @@ def insert_child(
     fav_animals: str | None = None,
     fav_activities: str | None = None,
     fav_shows: str | None = None,
-) -> dict:
+) -> Child:
     """
     Insert a child into the database.
 
@@ -103,7 +97,7 @@ def insert_child(
         ValueError: If the parent does not exist.
 
     Returns:
-        dict: The attributes of the child.
+        Child: The inserted child.
     """
     try:
         # Check if the parent exists
@@ -130,23 +124,8 @@ def insert_child(
         db.session.add(child)
         db.session.commit()
 
-        child_attributes = {
-            "child_id": child.child_id,
-            "name": child.name,
-            "age_range": child.age_range,
-            "sex": child.sex,
-            "sibling_relationship": child.sibling_relationship,
-            "eye_color": child.eye_color,
-            "hair_type": child.hair_type,
-            "hair_color": child.hair_color,
-            "skin_tone": child.skin_tone,
-            "fav_animals": child.fav_animals,
-            "fav_activities": child.fav_activities,
-            "fav_shows": child.fav_shows,
-        }
-
-        # Return the attributes of the child
-        return child_attributes
+        # Return the inserted child
+        return child
 
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -154,4 +133,68 @@ def insert_child(
         raise e
     except Exception as e:
         current_app.logger.error(f"Failed to add child: {e}")
+        raise e
+
+
+def insert_story(
+    child_id: str,
+    topic: str,
+    image_style: str,
+    chapters: list[str],
+    images: list[str],
+) -> Story:
+    """
+    Insert the story and its chapters into the database.
+
+    Args:
+        child_id (str): The ID of the child.
+        topic (str): The topic of the story.
+        image_style (str): The style of the images.
+        chapters (list[str]): The list of story chapters.
+        images (list[str]): The list of images.
+
+    Raises:
+        ValueError: If the child with the given ID does not exist.
+
+    Returns:
+        Story: The inserted story.
+    """
+    try:
+        # Verify that the child exists
+        child = Child.query.get(child_id)
+        if child is None:
+            raise ValueError(f"Child with ID {child_id} does not exist")
+
+        # Create a new story
+        story = Story(
+            child_id=child_id,
+            topic=topic,
+            image_style=image_style,
+        )
+
+        # Add the story to the database and flush it to get the story ID
+        db.session.add(story)
+        db.session.flush()
+
+        # Add the chapters to the database
+        for i in range(len(chapters)):
+            # Create a new chapter
+            chapter = Chapter(
+                story_id=story.story_id,
+                content=chapters[i],
+                image=images[i],
+                order=i + 1,
+            )
+
+            # Add the chapter to the database
+            db.session.add(chapter)
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        # Return the inserted story
+        return story
+    # Roll back the changes if an SQLAlchemy error occurs
+    except SQLAlchemyError as e:
+        db.session.rollback()
         raise e

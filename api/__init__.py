@@ -4,6 +4,11 @@ This module initializes the Flask app and configures it.
 
 from flask import Flask
 
+# todo: delete the lines below
+# Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
+# More sytematic solution will be implemented later
+# from flask_cors import CORS
+
 from .config import ApplicationConfig
 from .extensions import bcrypt, jwt
 from .database.models import db
@@ -25,17 +30,13 @@ def create_app() -> Flask:
     bcrypt.init_app(app)
     jwt.init_app(app)
 
+    # todo: delete the lines below
+    # Enable CORS for the entire app (see the comment above (line 7))
+    # CORS(app)
+
     # Create tables in the database
     with app.app_context():
         db.create_all()
-
-    # Add a route for the index
-    @app.route("/")
-    def index() -> str:
-        """
-        Return a simple message for the index route.
-        """
-        return "<h1>Flask API for Dreamify</h1>"
 
     from .api import api_blueprint
 
