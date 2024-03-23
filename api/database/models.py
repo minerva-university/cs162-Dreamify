@@ -51,13 +51,13 @@ class Child(db.Model):
         self,
         parent_id: str,
         name: str,
+        image: str,
         age_range: str,
         sex: str,
-        sibling_relationship: str,
         eye_color: str,
         hair_type: str,
         hair_color: str,
-        skin_tone: str,
+        ethnicity: str,
         fav_animals: str | None = None,
         fav_activities: str | None = None,
         fav_shows: str | None = None,
@@ -65,13 +65,13 @@ class Child(db.Model):
         super().__init__()
         self.parent_id = parent_id
         self.name = name
+        self.image = image
         self.age_range = age_range
         self.sex = sex
-        self.sibling_relationship = sibling_relationship
         self.eye_color = eye_color
         self.hair_type = hair_type
         self.hair_color = hair_color
-        self.skin_tone = skin_tone
+        self.ethnicity = ethnicity
         self.fav_animals = fav_animals
         self.fav_activities = fav_activities
         self.fav_shows = fav_shows
@@ -82,6 +82,7 @@ class Child(db.Model):
     child_id = db.Column(db.Text, primary_key=True, default=generate_id)
     parent_id = db.Column(db.Text, db.ForeignKey("parents.user_id"))
     name = db.Column(db.Text, nullable=False)
+    image = db.Column(db.Text, nullable=False)
     age_range = db.Column(
         db.Text,
         CheckConstraint("age_range IN ('0-3', '4-6', '7-9', '10-13')"),
@@ -89,13 +90,6 @@ class Child(db.Model):
     )
     sex = db.Column(
         db.Text, CheckConstraint("sex IN ('Male', 'Female')"), nullable=False
-    )
-    sibling_relationship = db.Column(
-        db.Text,
-        CheckConstraint(
-            "sibling_relationship IN ('Only', 'Youngest', 'Middle', 'Oldest')"
-        ),
-        nullable=False,
     )
     eye_color = db.Column(
         db.Text,
@@ -118,11 +112,8 @@ class Child(db.Model):
         ),
         nullable=False,
     )
-    skin_tone = db.Column(
+    ethnicity = db.Column(
         db.Text,
-        CheckConstraint(
-            "skin_tone IN ('Fair', 'Light', 'Medium', 'Tan', 'Brown', 'Dark')"
-        ),
         nullable=False,
     )
     fav_animals = db.Column(db.Text, nullable=True)
@@ -141,11 +132,13 @@ class Story(db.Model):
     def __init__(
         self,
         child_id: str,
+        title: str,
         topic: str,
         image_style: str,
     ) -> None:
         super().__init__()
         self.child_id = child_id
+        self.title = title
         self.topic = topic
         self.image_style = image_style
 
@@ -154,6 +147,7 @@ class Story(db.Model):
 
     story_id = db.Column(db.Text, primary_key=True, default=generate_id)
     child_id = db.Column(db.Text, db.ForeignKey("children.child_id"))
+    title = db.Column(db.Text, nullable=False)
     topic = db.Column(db.Text, nullable=False)
     image_style = db.Column(
         db.Text,
@@ -174,9 +168,10 @@ class Chapter(db.Model):
     """
 
     def __init__(
-        self, story_id: str, content: str, image: str, order: int
+        self, story_id: str, title: str, content: str, image: str, order: int
     ) -> None:
         self.story_id = story_id
+        self.title = title
         self.content = content
         self.image = image
         self.order = order
@@ -186,6 +181,7 @@ class Chapter(db.Model):
 
     chapter_id = db.Column(db.Text, primary_key=True, default=generate_id)
     story_id = db.Column(db.Text, db.ForeignKey("stories.story_id"))
+    title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text, nullable=False)
     order = db.Column(db.Integer, nullable=False)
