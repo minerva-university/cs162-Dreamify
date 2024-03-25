@@ -15,7 +15,6 @@ body {
   height: 10px;
 }
 
-  
 .add-child-page h1 {
   margin-left: 100px;
   font-family: 'Newsreader', serif;
@@ -32,7 +31,18 @@ body {
   font-weight: 600;
   text-transform: uppercase;
 }
-
+.add-child-page .add-child-form {
+  width: auto; /* Resets width to default */
+  max-width: none; /* Removes max-width */
+  padding: 0; /* Resets padding */
+  box-sizing: content-box; /* Resets box-sizing to default */
+  box-shadow: none; /* Removes box-shadow */
+  align-items: stretch; /* Resets align-items to default for forms */
+  display: block; /* Resets display to default for forms */
+  text-align: left; /* Resets text alignment to default */
+  margin-left: 0; /* Resets margin-left */
+  margin-right: 0; /* Resets margin-right */
+}
 
 .add-child-page label {
   font-family: 'Inter', sans-serif;
@@ -55,20 +65,6 @@ body {
   display: block;
 }
 
-/* Image selection */
-.eye-color .img-thumbnail {
-  width: 130px;
-  height: 110px;
-  border: 2px solid transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.eye-color .img-thumbnail:hover,
-.eye-color .img-thumbnail.selected {
-  border-color: #007bff;
-}
 
 .add-child-page .buttons{
   margin-top: 15px;
@@ -101,18 +97,33 @@ body {
   font-size: larger;
 }
 
+/* Image selection */
+.vis-feature .img-thumbnail {
+  width: 130px;
+  height: 110px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.vis-feature .img-thumbnail:hover,
+.vis-feature .img-thumbnail.selected {
+  border-color: #007bff;
+}
+
 /* Eye color images container */
-.eye-colors {
+.vis-features {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Adjust the space between the images as needed */
+  gap: 50px; /* Adjust the space between the images as needed */
   justify-content: left; /* Center the images within the container */
   margin-left: 120px; /* Adjust the margin as needed */
   padding: 20px; /* Add some padding around the container */
 }
 
 /* Eye color image styles */
-.eye-colors .eye-color {
+.vis-features .vis-feature {
   width: 100px; /* Adjust the size as needed */
   height: 100px; /* Adjust the size as needed */
   border-radius: 50%; /* Makes the image round */
@@ -123,7 +134,31 @@ body {
 }
 
 /* Eye color image styles when selected */
-.eye-colors .eye-color.selected {
+.vis-features .vis-feature.selected {
   border-color: #014A8A; /* Border color when an image is selected */
   box-shadow: 0 0 0 2px white; /* Adds a white outline around the border */
+}
+
+.vis-feature-name {
+  margin-top: 8px; /* Adjust as needed for spacing between image and text */
+  text-align: center; /* Centers the text below the image */
+}
+
+.custom-race {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.vis-features .vis-feature-container .custom-race-input {
+  width: 100%; /* Overrides the 40% width */
+  margin-top: 8px; /* Adjusts the top margin; consider other inputs' margin-top: 20px; */
+  border: 1px solid #014A8A; /* Keeps border consistency */
+  border-radius: 10px; /* Maintains the rounded borders */
+  background-color: #FAFAF5; /* Uncommented to ensure consistency */
+  padding: 0; /* Provides internal spacing */
+  margin-bottom: 20px; /* Ensures bottom margin consistency */
+  margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */
+  margin-right: auto; /* Adjusts to center or align as needed, auto for no specific right margin */
+  display: block; /* Ensures the input is block-level for width control */
 }
