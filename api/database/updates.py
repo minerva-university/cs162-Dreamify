@@ -5,7 +5,7 @@ This module contains functions for updating the database.
 from flask import current_app
 from sqlalchemy.exc import SQLAlchemyError
 
-from .models import db, Parent, Child
+from .models import db, Child
 
 
 def child_belongs_to_parent(parent_id: str, child_id: str) -> bool:
@@ -39,7 +39,7 @@ def child_belongs_to_parent(parent_id: str, child_id: str) -> bool:
         raise e
 
 
-def update_child_info(
+def update_child(
     child_id: str,
     updates: dict[str, str | int | None],
 ) -> Child:
