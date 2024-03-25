@@ -27,3 +27,33 @@
     color: gray; /* This will turn the text color to gray */
     /* Add any additional styling for this element */
   }
+
+  .child-profile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Adjust content spacing */
+}
+.created-on-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Adjust content spacing */
+}
+
+.child-profile-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+.edit-profile-btn {
+    align-self: flex-end; /* Align the button to the right */
+    padding: 4px; /* Button padding */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* Remove underline from link */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Change mouse cursor on hover */
+}
+
+.edit-profile-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

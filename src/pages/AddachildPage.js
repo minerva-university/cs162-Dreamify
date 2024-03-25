@@ -3,7 +3,7 @@ import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import { useParams } from 'react-router-dom';
 import './styles/AddachildPage.css'; 
-
+import Spinner from '../components/Spinner';
 
 const eyeColors = [
   { name: 'Blue', imageUrl: require('../assets/add_child_pics/image 9.jpg') },
@@ -53,6 +53,8 @@ const AddachildPage = () => {
   const [customRaceInput, setCustomRaceInput] = useState("");
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
@@ -76,6 +78,8 @@ const AddachildPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true); // Start loading
+
 
     try {
       // Perform the login operation
@@ -104,6 +108,10 @@ const AddachildPage = () => {
       // Handle error here (e.g., show an error message to the user)
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
       <div className="add-child-page">
