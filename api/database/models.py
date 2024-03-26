@@ -135,12 +135,14 @@ class Story(db.Model):
         title: str,
         topic: str,
         image_style: str,
+        story_genre: str,
     ) -> None:
         super().__init__()
         self.child_id = child_id
         self.title = title
         self.topic = topic
         self.image_style = image_style
+        self.story_genre = story_genre
 
     # Define the table name
     __tablename__ = "stories"
@@ -153,6 +155,13 @@ class Story(db.Model):
         db.Text,
         CheckConstraint(
             "image_style IN ('Cartoon', 'Realistic', 'Fantasy', 'Watercolor', 'Anime')"
+        ),
+        nullable=False,
+    )
+    story_genre = db.Column(
+        db.Text,
+        CheckConstraint(
+            "story_genre IN ('Fantasy', 'Adventure', 'Educational')"
         ),
         nullable=False,
     )

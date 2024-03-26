@@ -141,6 +141,7 @@ def insert_story(
     title: str,
     topic: str,
     image_style: str,
+    story_genre: str,
     chapter_titles: list[str],
     chapter_contents: list[str],
     images: list[str],
@@ -153,6 +154,7 @@ def insert_story(
         title (str): The title of the story.
         topic (str): The topic of the story.
         image_style (str): The style of the images.
+        story_genre (str): The genre of the story.
         chapter_titles (list[str]): The list of story chapter titles.
         chapter_contents (list[str]): The list of story chapter contents.
         images (list[str]): The list of images.
@@ -175,6 +177,7 @@ def insert_story(
             title=title,
             topic=topic,
             image_style=image_style,
+            story_genre=story_genre,
         )
 
         # Add the story to the database and flush it to get the story ID
