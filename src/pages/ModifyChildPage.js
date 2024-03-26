@@ -148,6 +148,7 @@ const Modifychild = () => {
       const response = await api.patchModifyChild(payload);
       console.log('Child created/modified successfully:', response);
       // Redirect to the user profile page
+      navigate(-1);
 
     } catch (error) {
       if (error instanceof Error) {
