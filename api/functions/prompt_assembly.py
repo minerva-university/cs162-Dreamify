@@ -7,29 +7,26 @@ from string import Template
 
 from ..prompting.prompt_templates import (
     story_prompt_template,
-    image_prompt_template,
+    chapter_image_prompt_template,
+    child_image_prompt_template,
 )
 
 
-def split_story_into_chapters(story: str) -> dict:
+def extract_story_components(
+    story: str,
+) -> tuple[str, list[str], list[str]]:
     """
-    Extract the story title, chapter titles, and chapter descriptions from a given story string.
-
-    This function processes a story formatted with specific markers for the story title,
-    chapter titles, and their descriptions. It returns a dictionary containing the story title and
-    a list of chapters, where each chapter includes its title and description.
+    Extract the components of a story from a string.
 
     Args:
-        story (str): The story text including the title, chapter titles, and chapter descriptions.
+        story (str): The story string.
 
     Returns:
-        dict: A dictionary containing the following keys:
-              - 'story_title': The title of the story.
-              - 'chapters': A list of dictionaries, each representing a chapter with its title and description.
+        tuple[str, list[str], list[str]]: A tuple containing the story title, story details, and chapters.
     """
     # Extract the story title
-    title_match = re.search(r'Title of the story: (.+)', story)
-    story_title = title_match.group(1) if title_match else 'Unknown'
+    title_match = re.search(r"Title of the story: (.+)", story)
+    title = title_match.group(1) if title_match else "Unknown"
 
     # Pattern to split and extract chapters
     chapter_pattern = re.compile(
@@ -40,23 +37,28 @@ def split_story_into_chapters(story: str) -> dict:
         Chapter\ \d+\ description: # Matches 'Chapter <number> description:' indicating the start of a chapter description
         (.+?)                    # Lazily captures the chapter description
         (?=\n\nChapter\ \d+\ title:|\n\nThe end.|$) # Lookahead for the start of the next chapter or the end of the story
-        """, 
-        re.DOTALL | re.VERBOSE
+        """,
+        re.DOTALL | re.VERBOSE,
     )
 
-    # Extract chapters
-    chapters = [
-        {'title': match.group(1).strip(), 'description': match.group(2).strip()}
-        for match in chapter_pattern.finditer(story)
-    ]
+    chapter_titles = []
+    chapter_contents = []
 
-    # Compile the story details
-    story_details = {
-        'story_title': story_title,
-        'chapters': chapters
-    }
+    # Extract chapters details
+    for match in chapter_pattern.finditer(story):
+        # Extract chapter title and content
+        chapter_title = (
+            match.group(1).strip() if match.group(1).strip() else "Unknown"
+        )
+        chapter_content = (
+            match.group(2).strip() if match.group(2).strip() else "Unknown"
+        )
 
-    return story_details
+        # Append the chapter title and content to the respective lists
+        chapter_titles.append(chapter_title)
+        chapter_contents.append(chapter_content)
+
+    return title, chapter_titles, chapter_contents
 
 
 def extract_placeholders_from_template(template: Template) -> list[str]:
@@ -90,13 +92,16 @@ def extract_placeholders_from_template(template: Template) -> list[str]:
     return list(required_placeholders)
 
 
-def create_story_prompt(child_params: dict[str, str], topic: str) -> str:
+def create_story_prompt(
+    child_params: dict[str, str], topic: str, story_genre: str
+) -> str:
     """
     Create a story prompt based on the child's parameters and the story topic.
 
     Args:
         child_params (dict[str, str]): The parameters for the child.
         topic (str): The topic of the story.
+        story_genre (str): The genre of the story.
 
     Raises:
         ValueError: If there are missing required placeholders.
@@ -108,6 +113,7 @@ def create_story_prompt(child_params: dict[str, str], topic: str) -> str:
     parameters = {
         **child_params,
         "topic": topic,
+        "story_genre": story_genre,
     }
 
     # Extract the required placeholders from the story prompt template
@@ -123,7 +129,7 @@ def create_story_prompt(child_params: dict[str, str], topic: str) -> str:
     # Raise an error if there are missing required placeholders
     if missing_placeholders:
         raise ValueError(
-            f"Missing required placeholders in child_params: {', '.join(missing_placeholders)}"
+            f"Missing required placeholders: {', '.join(missing_placeholders)}"
         )
 
     # Replace the Nones in the optional child_params with "unspecified"
@@ -135,14 +141,14 @@ def create_story_prompt(child_params: dict[str, str], topic: str) -> str:
     return story_prompt_template.substitute(parameters)
 
 
-def create_image_prompt(
-    child_params: dict[str, str | int],
+def create_chapter_image_prompt(
+    child_params: dict[str, str],
     image_style: str,
     chapter_content: str,
     chapter_number: int,
 ) -> str:
     """
-    Create an image prompt based on the child's parameters, image style,
+    Create a chapter image prompt based on the child's parameters, image style,
     chapter content, and chapter number.
 
     Args:
@@ -164,4 +170,19 @@ def create_image_prompt(
     }
 
     # Substitute the parameters into the image prompt template and return it
-    return image_prompt_template.substitute(**parameters)
+    return chapter_image_prompt_template.substitute(**parameters)
+
+
+def create_child_image_prompt(child_params: dict[str, str]) -> str:
+    """
+    Create a child image prompt based on the child's parameters and image style.
+
+    Args:
+        child_params (dict[str, str]): The parameters for the child.
+
+    Returns:
+        str: The image prompt.
+    """
+
+    # Substitute the parameters into the image prompt template and return it
+    return child_image_prompt_template.substitute(**child_params)
