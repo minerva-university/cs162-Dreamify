@@ -66,6 +66,11 @@ body {
 }
 
 
+.add-child-page input[type="text"]::placeholder {
+  color: #888; /* Change this color as needed */
+  opacity: 1;
+}
+
 .add-child-page .buttons{
   margin-top: 15px;
   margin-left: 100px;
@@ -116,6 +121,7 @@ body {
 .vis-features {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   gap: 50px; /* Adjust the space between the images as needed */
   justify-content: left; /* Center the images within the container */
   margin-left: 120px; /* Adjust the margin as needed */
@@ -145,8 +151,9 @@ body {
 }
 
 .custom-race {
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  margin-top: 30px;
   justify-content: center;
 }
 
@@ -156,7 +163,7 @@ body {
   border: 1px solid #014A8A; /* Keeps border consistency */
   border-radius: 10px; /* Maintains the rounded borders */
   background-color: #FAFAF5; /* Uncommented to ensure consistency */
-  padding: 0; /* Provides internal spacing */
+  padding: 10px; /* Provides internal spacing */
   margin-bottom: 20px; /* Ensures bottom margin consistency */
   margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */
   margin-right: auto; /* Adjusts to center or align as needed, auto for no specific right margin */

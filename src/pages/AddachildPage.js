@@ -219,21 +219,15 @@ const AddachildPage = () => {
                   <p className='vis-feature-name'>{race.name}</p>
                 </div>
               ))}
-              <div className="vis-feature-container custom-race">
-                <img
-                  src={require('../assets/add_child_pics/image 51.jpg')}
-                  alt="Custom Race"
-                  className="vis-feature"
-                  onClick={() => setSelectedRace('custom')}
-                />
-                <input
-                  type="text"
-                  className="custom-race-input"
-                  placeholder="Type custom race"
-                  value={customRaceInput}
-                  onChange={(e) => setCustomRaceInput(e.target.value)}
-                />
-              </div>
+                <div className="vis-feature-container custom-race">
+                  <input
+                    type="text"
+                    className="custom-race-input"
+                    placeholder="Type custom race"
+                    value={customRaceInput}
+                    onChange={(e) => setCustomRaceInput(e.target.value)}
+                  />
+                </div>
             </div>
 
 
