@@ -27,7 +27,7 @@ Here is a description of the character ${name}:
 3. Eye color: ${eye_color}
 4. Hair type: ${hair_type}
 5. Hair color: ${hair_color}
-6. Race: ${race}
+6. Ethnicity: ${ethnicity}
 
 Ensure the image complies with privacy policies and contains no text. Generate only one image.
 
