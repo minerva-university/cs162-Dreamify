@@ -44,7 +44,7 @@ export default class ApiClient extends BaseApiClient {
     }
 
     // Send the request
-    const response = await this.post("children", payload);
+    const response = await this.post("children/", payload);
 
     // Parse the response
     if (response.ok) {
@@ -148,7 +148,7 @@ export default class ApiClient extends BaseApiClient {
     }
 
     // Send the request
-    const response = await this.patch("children", payload);
+    const response = await this.patch("children/", payload);
 
     // Parse the response
     if (response.ok) {
