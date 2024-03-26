@@ -96,7 +96,7 @@ const AddachildPage = () => {
       const response = await api.postCreateChild(payload);
       console.log('Child created/modified successfully:', response);
       // Redirect to the newstory  page
-      navigate(`/newstory/${response.child_id}`)
+      navigate(-1)
       
     } catch (error) {
       if (error instanceof Error) {
