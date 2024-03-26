@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApi } from "../contexts/ApiProvider";
-import { useAuth } from "../contexts/AuthProvider";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import './styles/AddachildPage.css'; 
 import Spinner from '../components/Spinner';
 
@@ -42,11 +42,13 @@ const races = [
   {name: 'Middle Eastern', imageUrl: require('../assets/add_child_pics/image 50.jpg')}
 ]
 
-const AddachildPage = () => {
+// Your constants for eyeColors, hairType, hairColor, and races remain the same
+
+const Modifychild = () => {
   const api = useApi(); 
+  const location = useLocation(); 
 
-  const {login } = useAuth();
-
+  const [firstName, setFirstName] = useState(''); 
   const [selectedEyeColor, setSelectedEyeColor] = useState(null);
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
@@ -54,10 +56,56 @@ const AddachildPage = () => {
   const [customRaceInput, setCustomRaceInput] = useState("");
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
-  const [isLoading, setIsLoading] = useState(false);
+  const [favoriteAnimals, setFavoriteAnimals] = useState('');
+  const [favoriteActivities, setFavoriteActivities] = useState('');
+  const [favoriteShows, setFavoriteShows] = useState('');
 
+  const navigate = useNavigate();
+
+  // Initialize states with null or appropriate initial values
+  const [childData, setChildData] = useState(null); 
+  const [isLoading, setIsLoading] = useState(false);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
+
+  // Fetch child data on component mount
+  useEffect(() => {
+    const childId = location.pathname.split('/').pop();
+    const fetchChildData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await api.getChild(childId); 
+        setChildData(data);
+        // Set form fields based on fetched data
+        setFirstName(data.name);
+        setSelectedEyeColor(data.eye_color);
+        setSelectedHairType(data.hair_type);
+        setSelectedHairColor(data.hair_color);
+        setSelectedRace(data.skin_tone); // Adjust according to how race is handled in your application
+        setSelectedAgeRange(data.age_range);
+        setSelectedSex(data.sex);
+        setFavoriteAnimals(data.fav_animals);
+        setFavoriteActivities(data.fav_activities);
+        setFavoriteShows(data.fav_shows);
+
+      } catch (error) {
+        console.error('Error fetching child data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (childId) {
+      fetchChildData();
+    }
+  }, [location, api]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+  const handleInputChange = (setter) => (event) => {
+    setter(event.target.value);
+  };
 
   const handleEyeColorSelect = (color) => {
     setSelectedEyeColor(color);
@@ -78,40 +126,50 @@ const AddachildPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
-
-
+    setIsLoading(true); // Start loading
+  
     try {
-      // Perform the login operation
-      await login("john.doe@example.com", "password123");
-    
+      // Define your payload as before
       const payload = {
         name: event.target.firstName.value, 
+        child_id: childData.child_id,
         age_range: selectedAgeRange,
         sex: selectedSex,
-        sibling_relationship: "",
+        sibling_relationship: "Only",
         eye_color: selectedEyeColor,
         hair_type: selectedHairType,
         hair_color: selectedHairColor,
-        race: selectedRace === 'custom' ? customRaceInput : selectedRace,
+        skin_tone: selectedRace === 'custom' ? customRaceInput : selectedRace,
         fav_animals: event.target.favoriteAnimals.value,
         fav_activities: event.target.favoriteActivities.value, 
         fav_shows: event.target.favoriteShows.value, 
       };
-  
-      // Assuming you're creating a new child
+      // Attempt to create a child
       const response = await api.patchModifyChild(payload);
       console.log('Child created/modified successfully:', response);
-      // Handle success here (e.g., navigate to another page or show a success message)
+      // Redirect to the user profile page
+
     } catch (error) {
-      console.error('Error during operation:', error);
+      if (error instanceof Error) {
+        // Log the error message if it's an instance of Error
+        console.error('Error during operation:', error.message);
+      } else {
+        // If the error is not an instance of Error, it might be a response object
+        console.error('Error response:', error);
+        // Attempt to parse and log the JSON body of the response
+        try {
+          const errorBody = await error.json();
+          console.log('Error details:', errorBody);
+        } catch (jsonError) {
+          // If parsing the error body fails, log the parsing error
+          console.error('Error parsing error response:', jsonError);
+        }
+      }
       // Handle error here (e.g., show an error message to the user)
+    } finally {
+      setIsLoading(false); // Stop loading regardless of the outcome
     }
   };
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
       <div className="add-child-page">
@@ -120,8 +178,13 @@ const AddachildPage = () => {
         <form className='add-child-form' onSubmit={handleSubmit}>
             <h5>DEMOGRAPHY</h5>
             <label htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" placeholder="Kid's first name or the way you want them to be called in the stories" />
-            <input type="text" placeholder="Kid's first name or the way you want them to be called in the stories" />
+              <input
+                type="text"
+                id="firstName"
+                placeholder="Kid's first name or the way you want them to be called in the stories"
+                value={firstName}
+                onChange={handleInputChange(setFirstName)}
+              />       
 
             <label htmlFor="ageRange">Age Range</label>
             <div className="buttons">
@@ -232,18 +295,36 @@ const AddachildPage = () => {
             </div>
 
 
-              
-          <div className="form-section interests">
-            <h5>INTERESTS</h5>
-            <label htmlFor="favoriteAnimals">Favorite Animals</label>
-            <input type="text" id="favoriteAnimals" placeholder="Cats, Horses, Dinosaurs" />
+           <div className="form-section interests">
+              <h5>INTERESTS</h5>
 
-            <label htmlFor="favoriteActivities">Favorite Activities</label>
-            <input type="text" id="favoriteActivities" placeholder="Dancing, LEGO, Drawing" />
+              <label htmlFor="favoriteAnimals">Favorite Animals</label>
+              <input
+                type="text"
+                id="favoriteAnimals"
+                placeholder="Cats, Horses, Dinosaurs"
+                value={favoriteAnimals}
+                onChange={handleInputChange(setFavoriteAnimals)}
+              />
 
-            <label htmlFor="favoriteShows">Favorite Shows</label>
-            <input type="text" id="favoriteShows" placeholder="Doctor who, Harry Potter" />
-          </div>
+              <label htmlFor="favoriteActivities">Favorite Activities</label>
+              <input
+                type="text"
+                id="favoriteActivities"
+                placeholder="Dancing, LEGO, Drawing"
+                value={favoriteActivities}
+                onChange={handleInputChange(setFavoriteActivities)}
+              />
+
+              <label htmlFor="favoriteShows">Favorite Shows</label>
+              <input
+                type="text"
+                id="favoriteShows"
+                placeholder="Doctor Who, Harry Potter"
+                value={favoriteShows}
+                onChange={handleInputChange(setFavoriteShows)}
+              />
+            </div>
 
           <button className="generate-button">
            Modify
@@ -253,4 +334,4 @@ const AddachildPage = () => {
   );
 };
 
-export default AddachildPage;
+export default Modifychild;

@@ -136,7 +136,7 @@ body {
 /* Eye color image styles when selected */
 .vis-features .vis-feature.selected {
   border-color: #014A8A; /* Border color when an image is selected */
-  box-shadow: 0 0 0 2px white; /* Adds a white outline around the border */
+  box-shadow: 0 0 0 6px white; /* Adds a white outline around the border */
 }
 
 .vis-feature-name {

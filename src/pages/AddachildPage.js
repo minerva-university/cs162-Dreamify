@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useApi } from "../contexts/ApiProvider";
-import { useAuth } from "../contexts/AuthProvider";
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './styles/AddachildPage.css'; 
-import Spinner from '../components/Spinner';
 
 const eyeColors = [
   { name: 'Blue', imageUrl: require('../assets/add_child_pics/image 9.jpg') },
@@ -44,17 +42,16 @@ const races = [
 const AddachildPage = () => {
   const api = useApi(); 
 
-  const {login } = useAuth();
-
   const [selectedEyeColor, setSelectedEyeColor] = useState(null);
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
+  // Do not choose anything but brown! or it will lead to 400 error. (Need to change payload expectation from backend)
   const [customRaceInput, setCustomRaceInput] = useState("");
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
 
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
@@ -79,40 +76,49 @@ const AddachildPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true); // Start loading
-
-
+  
     try {
-      // Perform the login operation
-      await login("john.doe@example.com", "password123");
-    
+      // Define your payload as before
       const payload = {
         name: event.target.firstName.value, 
         age_range: selectedAgeRange,
         sex: selectedSex,
-        sibling_relationship: "",
+        sibling_relationship: "Only",
         eye_color: selectedEyeColor,
         hair_type: selectedHairType,
         hair_color: selectedHairColor,
-        race: selectedRace === 'custom' ? customRaceInput : selectedRace,
+        skin_tone: selectedRace === 'custom' ? customRaceInput : selectedRace,
         fav_animals: event.target.favoriteAnimals.value,
         fav_activities: event.target.favoriteActivities.value, 
         fav_shows: event.target.favoriteShows.value, 
       };
-  
-      // Assuming you're creating a new child
+      // Attempt to create a child
       const response = await api.postCreateChild(payload);
       console.log('Child created/modified successfully:', response);
-      // Handle success here (e.g., navigate to another page or show a success message)
+      // Redirect to the newstory  page
+      navigate(`/newstory/${response.child_id}`)
+      
     } catch (error) {
-      console.error('Error during operation:', error);
-      // Handle error here (e.g., show an error message to the user)
+      if (error instanceof Error) {
+        // Log the error message if it's an instance of Error
+        console.error('Error during operation:', error.message);
+      } else {
+        // If the error is not an instance of Error, it might be a response object
+        console.error('Error response:', error);
+        // Attempt to parse and log the JSON body of the response
+        try {
+          const errorBody = await error.json();
+          console.log('Error details:', errorBody);
+        } catch (jsonError) {
+          // If parsing the error body fails, log the parsing error
+          console.error('Error parsing error response:', jsonError);
+        }
+      }
+    } finally {
+      setIsLoading(false); // Stop loading regardless of the outcome
     }
   };
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
+  
   return (
       <div className="add-child-page">
         <h1>Add a child's profile</h1>
@@ -121,7 +127,6 @@ const AddachildPage = () => {
             <h5>DEMOGRAPHY</h5>
             <label htmlFor="firstName">First Name</label>
             <input type="text" id="firstName" placeholder="Kid's first name or the way you want them to be called in the stories" />
-            <input type="text" placeholder="Kid's first name or the way you want them to be called in the stories" />
 
             <label htmlFor="ageRange">Age Range</label>
             <div className="buttons">
