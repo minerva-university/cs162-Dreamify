@@ -62,8 +62,7 @@ def update_child(
 
         # Update the child attributes
         for attr, value in updates.items():
-            if value is not None:
-                setattr(child, attr, value)
+            setattr(child, attr, value)
 
         # Commit the changes
         db.session.commit()
