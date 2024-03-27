@@ -1,13 +1,65 @@
 @import "https://fonts.googleapis.com/css?family=Newsreader:400&display=swap";
 @import "https://fonts.googleapis.com/css?family=Inter:600&display=swap";
 
-.homepage-container {
+.hp-container {
   max-width: 90%;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-.title {
+.hp-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.hp-col, .hp-col-md-5, .hp-col-md-7, .hp-col-md-12, .hp-col-md-6, .hp-col-md-9 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.hp-col-md-5 {
+  flex: 0 0 39.66%;
+  max-width: 39.66%;
+}
+
+.hp-col-md-7 {
+  flex: 0 0 55.89%;
+  max-width: 55.89%;
+}
+
+.hp-col-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.hp-col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.hp-col-md-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.hp-img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.hp-text-center {
+  text-align: center;
+}
+
+.hp-justify-content-center {
+  justify-content: center;
+}
+
+.hp-title {
   color: #000;
   letter-spacing: -0.8px;
   font-family: "Newsreader", serif;
@@ -20,7 +72,7 @@
   margin-bottom: 35px;
 }
 
-.tree-image-container {
+.hp-tree-image-container {
   position: relative;
   text-align: center;
   display: flex;
@@ -29,7 +81,7 @@
   justify-content: center;
 }
 
-.tree-overlay-text {
+.hp-tree-overlay-text {
   color: #fff;
   position: absolute;
   top: 44%;
@@ -44,17 +96,17 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.create-button {
+.hp-create-button {
   background: #014a8a;
   justify-content: center;
   align-items: center;
-  height: 70px;
-  padding: 23px 59px;
-  display: inline-flex;
+  height: 20px;
+  padding: 34px 59px 20px 59px;
+  display: flex;
   overflow: hidden;
   align-self: center;
   position: absolute;
-  top: 52%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -10%);
   margin-top: 20px;
@@ -63,26 +115,25 @@
   transition: background-color 0.3s;
 }
 
-.create-button:hover {
+.hp-create-button:hover {
   background-color: #0056b3;
 }
 
-.create-button:active {
+.hp-create-button:active {
   background-color: #004080;
 }
 
-.create-link {
+.hp-create-text {
   color: #fff;
   font-family: "Inter", sans-serif;
   font-size: 26px;
   font-style: normal;
   font-weight: 600;
   line-height: 130%;
-  display: inline-block;
   text-decoration: none;
 }
 
-.featured-title {
+.hp-featured-title {
   text-align: center;
   margin: 80px;
   color: #000;
@@ -97,7 +148,7 @@
   display: inline-block;
 }
 
-.featured-box {
+.hp-featured-box {
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -112,7 +163,7 @@
   margin-bottom: 100px;
 }
 
-.featured-image {
+.hp-featured-image {
   flex: 0 0 15%;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -122,7 +173,7 @@
   height: 159px;
 }
 
-.featured-content {
+.hp-featured-content {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
@@ -130,7 +181,7 @@
   margin-top: -40px;
 }
 
-.featured-name {
+.hp-featured-name {
   color: #000;
   font-family: Inter;
   font-size: 18px;
@@ -140,7 +191,7 @@
   display: inline-block;
 }
 
-.featured-date {
+.hp-featured-date {
   color: #1a6598;
   font-family: Inter;
   font-size: 17px;
@@ -151,7 +202,7 @@
   top: 10%;
 }
 
-.featured-button {
+.hp-featured-button {
   margin-left: auto;
   margin-right: 40px;
   opacity: 0.8;
@@ -169,15 +220,15 @@
   transition: background-color 0.3s;
 }
 
-.featured-button:hover {
+.hp-featured-button:hover {
   background-color: #0056b3;
 }
 
-.featured-button:active {
+.hp-featured-button:active {
   background-color: #004080;
 }
 
-.description {
+.hp-description {
   color: #000;
   text-align: center;
   letter-spacing: -0.74px;

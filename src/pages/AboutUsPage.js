@@ -42,16 +42,16 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="container">
-      <h1 className="page-title">About Us</h1>
+    <div className="abus-container">
+      <h1 className="abus-title">About Us</h1>
 
       {teamMembers.map((member) => (
-        <div className="team-member" key={member.name}>
+        <div className="abus-team-member" key={member.name}>
           <img src={member.imageUrl} alt={`Developer ${member.name}`} />
-          <div className="team-member-info">
-            <h2 className="team-member-name">{member.name}</h2>
-            <p className="team-member-position">{member.position}</p>
-            <p className="team-member-fairytale">Favorite Fairy Tale: {member.fairytale}</p>
+          <div className="abus-team-member-info">
+            <h2 className="abus-team-member-name">{member.name}</h2>
+            <p className="abus-team-member-position">{member.position}</p>
+            <p className="abus-team-member-fairytale">Favorite Fairy Tale: {member.fairytale}</p>
           </div>
         </div>
       ))}
