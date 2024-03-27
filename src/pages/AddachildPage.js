@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useApi } from "../contexts/ApiProvider";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
@@ -11,7 +11,7 @@ const eyeColors = [
   { name: "Green", imageUrl: require("../assets/add_child_pics/image 11.jpg") },
   { name: "Hazel", imageUrl: require("../assets/add_child_pics/image 12.jpg") },
   { name: "Amber", imageUrl: require("../assets/add_child_pics/image 13.jpg") },
-  { name: "Grey", imageUrl: require("../assets/add_child_pics/image 14.jpg") },
+  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 14.jpg") },
 ];
 
 const hairType = [
@@ -37,7 +37,7 @@ const hairColor = [
     name: "Auburn",
     imageUrl: require("../assets/add_child_pics/image 30.jpg"),
   },
-  { name: "Grey", imageUrl: require("../assets/add_child_pics/image 31.jpg") },
+  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 31.jpg") },
   { name: "White", imageUrl: require("../assets/add_child_pics/image 32.jpg") },
 ];
 
@@ -56,16 +56,15 @@ const races = [
   },
 ];
 
-const Modifychild = () => {
+const AddachildPage = () => {
   const api = useApi();
-  const location = useLocation();
 
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState(null);
   const [selectedEyeColor, setSelectedEyeColor] = useState(null);
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
-  const [customRaceInput, setCustomRaceInput] = useState("");
+  const [customRaceInput, setCustomRaceInput] = useState(null);
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
@@ -75,41 +74,9 @@ const Modifychild = () => {
   const navigate = useNavigate();
 
   // Initialize states with null or appropriate initial values
-  const [childData, setChildData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
-
-  // Fetch child data on component mount
-  useEffect(() => {
-    const childId = location.pathname.split("/").pop();
-    const fetchChildData = async () => {
-      setIsLoading(true);
-      try {
-        const data = await api.getChild(childId);
-        setChildData(data);
-        // Set form fields based on fetched data
-        setFirstName(data.name);
-        setSelectedEyeColor(data.eye_color);
-        setSelectedHairType(data.hair_type);
-        setSelectedHairColor(data.hair_color);
-        setSelectedRace(data.ethnicity);
-        setSelectedAgeRange(data.age_range);
-        setSelectedSex(data.sex);
-        setFavoriteAnimals(data.fav_animals);
-        setFavoriteActivities(data.fav_activities);
-        setFavoriteShows(data.fav_shows);
-      } catch (error) {
-        console.error("Error fetching child data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (childId) {
-      fetchChildData();
-    }
-  }, [location, api]);
 
   // Show a spinner while loading
   if (isLoading) {
@@ -123,7 +90,7 @@ const Modifychild = () => {
     }
   };
 
-  const handleOptionalFieldChange = (setter) => (event) => {
+  const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
     setter(value === "" ? null : value);
   };
@@ -134,8 +101,7 @@ const Modifychild = () => {
 
     try {
       const payload = {
-        child_id: childData.child_id,
-        name: event.target.firstName.value,
+        name: firstName,
         age_range: selectedAgeRange,
         sex: selectedSex,
         eye_color: selectedEyeColor,
@@ -147,7 +113,7 @@ const Modifychild = () => {
         fav_shows: favoriteShows,
       };
       // Attempt to create a child
-      const response = await api.patchModifyChild(payload);
+      const response = await api.postCreateChild(payload);
       console.log("Child created/modified successfully:", response);
       // Redirect to the user profile page
       navigate(-1);
@@ -161,7 +127,7 @@ const Modifychild = () => {
 
   return (
     <div className="add-child-page">
-      <h1>Modify Child's Profile</h1>
+      <h1>Add a child's profile</h1>
       <div className="hr-style"></div>
       <form className="add-child-form" onSubmit={handleSubmit}>
         <h5>DEMOGRAPHY</h5>
@@ -170,8 +136,7 @@ const Modifychild = () => {
           type="text"
           id="firstName"
           placeholder="Kid's first name or the way you want them to be called in the stories"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={handleTextFieldChange(setFirstName)}
         />
 
         <label htmlFor="ageRange">Age Range</label>
@@ -281,7 +246,7 @@ const Modifychild = () => {
               type="text"
               className="custom-race-input"
               placeholder="Type custom race"
-              value={customRaceInput}
+              value={customRaceInput !== null ? customRaceInput : ""}
               onChange={(e) => setCustomRaceInput(e.target.value)}
             />
           </div>
@@ -295,8 +260,7 @@ const Modifychild = () => {
             type="text"
             id="favoriteAnimals"
             placeholder="Cats, Horses, Dinosaurs"
-            value={favoriteAnimals ? favoriteAnimals : ""}
-            onChange={handleOptionalFieldChange(setFavoriteAnimals)}
+            onChange={handleTextFieldChange(setFavoriteAnimals)}
           />
 
           <label htmlFor="favoriteActivities">Favorite Activities</label>
@@ -304,8 +268,7 @@ const Modifychild = () => {
             type="text"
             id="favoriteActivities"
             placeholder="Dancing, LEGO, Drawing"
-            value={favoriteActivities ? favoriteActivities : ""}
-            onChange={handleOptionalFieldChange(setFavoriteActivities)}
+            onChange={handleTextFieldChange(setFavoriteActivities)}
           />
 
           <label htmlFor="favoriteShows">Favorite Shows</label>
@@ -313,17 +276,16 @@ const Modifychild = () => {
             type="text"
             id="favoriteShows"
             placeholder="Doctor Who, Harry Potter"
-            value={favoriteShows ? favoriteShows : ""}
-            onChange={handleOptionalFieldChange(setFavoriteShows)}
+            onChange={handleTextFieldChange(setFavoriteShows)}
           />
         </div>
 
         <button type="submit" className="generate-button">
-          Modify
+          Add Child
         </button>
       </form>
     </div>
   );
 };
 
-export default Modifychild;
+export default AddachildPage;

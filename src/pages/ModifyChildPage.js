@@ -11,7 +11,7 @@ const eyeColors = [
   { name: "Green", imageUrl: require("../assets/add_child_pics/image 11.jpg") },
   { name: "Hazel", imageUrl: require("../assets/add_child_pics/image 12.jpg") },
   { name: "Amber", imageUrl: require("../assets/add_child_pics/image 13.jpg") },
-  { name: "Grey", imageUrl: require("../assets/add_child_pics/image 14.jpg") },
+  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 14.jpg") },
 ];
 
 const hairType = [
@@ -37,7 +37,7 @@ const hairColor = [
     name: "Auburn",
     imageUrl: require("../assets/add_child_pics/image 30.jpg"),
   },
-  { name: "Grey", imageUrl: require("../assets/add_child_pics/image 31.jpg") },
+  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 31.jpg") },
   { name: "White", imageUrl: require("../assets/add_child_pics/image 32.jpg") },
 ];
 
@@ -56,16 +56,16 @@ const races = [
   },
 ];
 
-const Modifychild = () => {
+const ModifyChildPage = () => {
   const api = useApi();
   const location = useLocation();
 
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState(null);
   const [selectedEyeColor, setSelectedEyeColor] = useState(null);
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
-  const [customRaceInput, setCustomRaceInput] = useState("");
+  const [customRaceInput, setCustomRaceInput] = useState(null);
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
@@ -123,7 +123,7 @@ const Modifychild = () => {
     }
   };
 
-  const handleOptionalFieldChange = (setter) => (event) => {
+  const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
     setter(value === "" ? null : value);
   };
@@ -135,7 +135,7 @@ const Modifychild = () => {
     try {
       const payload = {
         child_id: childData.child_id,
-        name: event.target.firstName.value,
+        name: firstName,
         age_range: selectedAgeRange,
         sex: selectedSex,
         eye_color: selectedEyeColor,
@@ -170,8 +170,8 @@ const Modifychild = () => {
           type="text"
           id="firstName"
           placeholder="Kid's first name or the way you want them to be called in the stories"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={firstName !== null ? firstName : ""}
+          onChange={handleTextFieldChange(setFirstName)}
         />
 
         <label htmlFor="ageRange">Age Range</label>
@@ -281,7 +281,7 @@ const Modifychild = () => {
               type="text"
               className="custom-race-input"
               placeholder="Type custom race"
-              value={customRaceInput}
+              value={customRaceInput !== null ? customRaceInput : ""}
               onChange={(e) => setCustomRaceInput(e.target.value)}
             />
           </div>
@@ -295,8 +295,8 @@ const Modifychild = () => {
             type="text"
             id="favoriteAnimals"
             placeholder="Cats, Horses, Dinosaurs"
-            value={favoriteAnimals ? favoriteAnimals : ""}
-            onChange={handleOptionalFieldChange(setFavoriteAnimals)}
+            value={favoriteAnimals !== null ? favoriteAnimals : ""}
+            onChange={handleTextFieldChange(setFavoriteAnimals)}
           />
 
           <label htmlFor="favoriteActivities">Favorite Activities</label>
@@ -304,8 +304,8 @@ const Modifychild = () => {
             type="text"
             id="favoriteActivities"
             placeholder="Dancing, LEGO, Drawing"
-            value={favoriteActivities ? favoriteActivities : ""}
-            onChange={handleOptionalFieldChange(setFavoriteActivities)}
+            value={favoriteActivities !== null ? favoriteActivities : ""}
+            onChange={handleTextFieldChange(setFavoriteActivities)}
           />
 
           <label htmlFor="favoriteShows">Favorite Shows</label>
@@ -313,8 +313,8 @@ const Modifychild = () => {
             type="text"
             id="favoriteShows"
             placeholder="Doctor Who, Harry Potter"
-            value={favoriteShows ? favoriteShows : ""}
-            onChange={handleOptionalFieldChange(setFavoriteShows)}
+            value={favoriteShows !== null ? favoriteShows : ""}
+            onChange={handleTextFieldChange(setFavoriteShows)}
           />
         </div>
 
@@ -326,4 +326,4 @@ const Modifychild = () => {
   );
 };
 
-export default Modifychild;
+export default ModifyChildPage;
