@@ -6,8 +6,8 @@ from flask import request, current_app
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
+from ..functions.prepare_data import assemble_child_payload
 from ..database.queries import get_child_from_parent
-from ..database.inserts import insert_child
 from ..database.updates import update_child, child_belongs_to_parent
 from ..database.utilities import get_entry_attributes
 from ..functions.jwt_functions import get_current_parent
@@ -32,11 +32,6 @@ add_child_model = children.model(
             description="Sex of the child",
             enum=["Male", "Female"],
         ),
-        "sibling_relationship": fields.String(
-            required=True,
-            description="Sibling relationship of the child",
-            enum=["Only", "Youngest", "Middle", "Oldest"],
-        ),
         "eye_color": fields.String(
             required=True,
             description="Eye color of the child",
@@ -60,10 +55,8 @@ add_child_model = children.model(
                 "White",
             ],
         ),
-        "skin_tone": fields.String(
-            required=True,
-            description="Skin tone of the child",
-            enum=["Fair", "Light", "Medium", "Tan", "Brown", "Dark"],
+        "ethnicity": fields.String(
+            required=True, description="Ethnicity of the child"
         ),
         "fav_animals": fields.String(
             required=False, description="Favorite animals of the child"
@@ -91,11 +84,6 @@ modify_child_model = children.model(
             description="Sex of the child",
             enum=["Male", "Female"],
         ),
-        "sibling_relationship": fields.String(
-            required=False,
-            description="Sibling relationship of the child",
-            enum=["Only", "Youngest", "Middle", "Oldest"],
-        ),
         "eye_color": fields.String(
             required=False,
             description="Eye color of the child",
@@ -119,10 +107,8 @@ modify_child_model = children.model(
                 "White",
             ],
         ),
-        "skin_tone": fields.String(
-            required=False,
-            description="Skin tone of the child",
-            enum=["Fair", "Light", "Medium", "Tan", "Brown", "Dark"],
+        "ethnicity": fields.String(
+            required=False, description="Ethnicity of the child"
         ),
         "fav_animals": fields.String(
             required=False, description="Favorite animals of the child"
@@ -214,27 +200,23 @@ class Child(Resource):
             if not parent:
                 return {"Error": "Unauthorized, please log in"}, 401
 
-            # Insert the child into the database
-            inserted_child = insert_child(
+            # Assemble the child payload
+            payload = assemble_child_payload(
                 parent.user_id,
                 data["name"],
                 data["age_range"],
                 data["sex"],
-                data["sibling_relationship"],
                 data["eye_color"],
                 data["hair_type"],
                 data["hair_color"],
-                data["skin_tone"],
+                data["ethnicity"],
                 data.get("fav_animals"),
                 data.get("fav_activities"),
                 data.get("fav_shows"),
             )
 
-            # Get the child's attributes
-            child_attributes = get_entry_attributes(inserted_child)
-
             # Return the child data and a 200 status code
-            return child_attributes, 200
+            return payload, 200
         except Exception as e:
             current_app.logger.error(e)
             return {"Error": "Internal Server Error"}, 500
@@ -278,11 +260,10 @@ class Child(Resource):
                 "name": data.get("name"),
                 "age_range": data.get("age_range"),
                 "sex": data.get("sex"),
-                "sibling_relationship": data.get("sibling_relationship"),
                 "eye_color": data.get("eye_color"),
                 "hair_type": data.get("hair_type"),
                 "hair_color": data.get("hair_color"),
-                "skin_tone": data.get("skin_tone"),
+                "ethnicity": data.get("ethnicity"),
                 "fav_animals": data.get("fav_animals"),
                 "fav_activities": data.get("fav_activities"),
                 "fav_shows": data.get("fav_shows"),

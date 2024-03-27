@@ -11,41 +11,48 @@ from sqlalchemy.exc import SQLAlchemyError
 from .openai_functions import text_gen, image_gen
 from .prompt_assembly import (
     create_story_prompt,
-    create_image_prompt,
-    split_story_into_chapters,
+    create_chapter_image_prompt,
+    create_child_image_prompt,
+    extract_story_components,
 )
 from ..database.models import Child
-from ..database.inserts import insert_story
+from ..database.inserts import insert_story, insert_child
 from ..database.utilities import get_entry_attributes
 
 # TODO: remove this dummy story once the database is set up
 dummy_story = """\
-Chapter 1: Pablo's Paris Dream
-Once upon a time, in a cozy little house on the outskirts of a bustling city, there lived a young boy named Pablo. Pablo was four years old, with eyes that sparkled like stars in the night sky and a smile that could brighten even the gloomiest of days. He lived with his parents in a quaint neighborhood where the streets were lined with colorful houses and friendly neighbors waved hello as they passed by.
-Pablo had always dreamt of going on an adventure, exploring faraway lands and discovering new wonders. And of all the places he dreamed of visiting, none captured his imagination quite like the enchanting city of Paris. He had seen pictures of the Eiffel Tower towering high above the city skyline, and he imagined himself standing at the top, gazing out at the breathtaking views below.
-Every night before bed, Pablo would close his eyes and picture himself strolling along the cobbled streets of Paris, the aroma of freshly baked croissants wafting through the air and the sound of laughter filling the bustling cafes. He dreamed of tasting creamy gelato by the Seine River and watching street performers dance beneath the twinkling lights of the city.
-But most of all, Pablo dreamed of riding through the streets of Paris on the back of a magnificent horse, feeling the wind in his hair as they galloped past historic landmarks and hidden treasures.
-Chapter 2: Pablo's Magical Journey Begins
-One sunny morning, Pablo's parents surprised him with an exciting announcement. "Pablo," his mother said with a twinkle in her eye, "we're going on a special adventure today."
-Pablo's heart leaped with joy as he listened to his parents reveal their plans. They were going to Paris! His dream was finally coming true.
-With hearts full of excitement, Pablo and his parents packed their bags and set off on their journey. They boarded a shiny airplane and soared through the clouds, watching as the world below transformed into a patchwork of green fields and winding rivers.
-As they touched down in Paris, Pablo's eyes widened with wonder at the sight of the majestic Eiffel Tower standing tall against the sky. "It's even more beautiful than I imagined!" he exclaimed, his voice filled with awe.
-Chapter 3: Pablo's Parisian Adventures
-Over the next few days, Pablo and his parents explored every corner of the magical city. They wandered through the charming streets of Montmartre, where artists painted colorful masterpieces and musicians filled the air with melodies. They visited the grand Louvre Museum, marveling at famous paintings and ancient artifacts from around the world.
-But the highlight of Pablo's trip was yet to come. One sunny afternoon, as they strolled along the banks of the Seine River, they came across a bustling square filled with people and horses.
-Pablo's eyes lit up with excitement as he spotted a row of beautifully adorned carriages, each pulled by a majestic horse. "Can we ride in one?" he asked, his voice filled with anticipation.
-Chapter 4: Pablo's Horseback Adventure
-With a smile, Pablo's parents led him to the nearest carriage, where a friendly coachman greeted them with a tip of his hat. "Would you like a ride through the city?" he asked, his voice as warm as the summer sun.
-Pablo nodded eagerly, his heart racing with excitement. With a gentle hand, the coachman helped him climb into the carriage, where he settled onto the plush seat beside his parents.
-As the carriage set off down the bustling streets of Paris, Pablo's laughter filled the air. He watched in awe as they passed historic landmarks and hidden alleyways, the wind whipping through his hair as the horse trotted along.
-Chapter 5: Pablo's Parisian Farewell
-As the sun began to set on their final day in Paris, Pablo felt a pang of sadness knowing their adventure was coming to an end. But as they stood beneath the twinkling lights of the Eiffel Tower, he knew that their memories would last a lifetime.
-With one last glance at the breathtaking city skyline, Pablo whispered a silent thank you to Paris for fulfilling his dreams. And as they boarded the plane home, he knew that no matter where life took him, a piece of Paris would always remain in his heart.
-And so, with hearts full of joy and memories to last a lifetime, Pablo and his family bid farewell to the city of lights, knowing that their adventures had only just begun.\
+Title of the story: Pablo's Magical Journey to Hogwarts
+
+Chapter 1 title: The Mysterious Invitation
+
+Chapter 1 description:
+In a cozy little town nestled between rolling hills and whispering forests, lived a young boy named Pablo. Pablo was an adventurous soul with a heart full of curiosity. He loved exploring the woods near his home, chasing butterflies, and dreaming of faraway places. One sunny afternoon, as Pablo was playing in his backyard, a fluttering owl caught his attention. The owl carried a letter with a strange seal. Pablo, intrigued, approached cautiously. The letter was addressed to him! With trembling hands, he opened it and read the words that would change his life forever: an invitation to Hogwarts School of Witchcraft and Wizardry. Pablo's heart raced with excitement as he realized he was about to embark on a magical adventure.
+
+Chapter 2 title: The Journey Begins
+
+Chapter 2 description:
+Filled with anticipation, Pablo packed his bags with his favorite snacks and toys. As the sun dipped below the horizon, he set out on his journey to Hogwarts. Through dark forests and shimmering streams, Pablo followed the enchanted path laid out by the owl. Along the way, he encountered friendly creatures like talking rabbits and mischievous fairies who guided him on his way. The night air was alive with whispers of magic, and Pablo couldn't help but feel a thrill of excitement coursing through his veins.
+
+Chapter 3 title: Arrival at Hogwarts
+
+Chapter 3 description:
+After what felt like both an eternity and the blink of an eye, Pablo finally arrived at the towering gates of Hogwarts. The castle stood majestic against the starry sky, its turrets reaching for the heavens. With a mixture of awe and nervousness, Pablo stepped through the gates and into the Great Hall. The room was filled with the warm glow of candlelight and the chatter of students. Pablo's eyes widened as he took in the sight of floating candles and the Sorting Hat perched upon a stool. He knew that his adventure was only just beginning.
+
+Chapter 4 title: Making Friends
+
+Chapter 4 description:
+As Pablo settled into life at Hogwarts, he made friends with students from all walks of life. There was Lily, the kind-hearted witch who could talk to animals, and Max, the mischievous wizard with a knack for pranks. Together, they explored the secret passages of the castle, attended magical classes, and cheered on their house during Quidditch matches. Every day brought new wonders and surprises, and Pablo felt like he belonged in this magical world more than anywhere else.
+
+Chapter 5 title: The Grand Adventure
+
+Chapter 5 description:
+One fateful day, a dark shadow loomed over Hogwarts as news spread of an ancient evil stirring in the depths of the Forbidden Forest. Determined to help protect his newfound home, Pablo joined forces with his friends to uncover the truth. Through bravery, friendship, and a sprinkle of magic, they faced challenges and overcame obstacles they never thought possible. In the end, it was Pablo's unwavering courage and belief in the power of good that saved the day. As the sun rose over Hogwarts once more, Pablo knew that his journey was far from over, but he also knew that he would face whatever adventures came his way with a smile on his face and magic in his heart.
+
+The end.\
 """
 
 
-def get_child_parameters(child_id: str) -> dict[str, str | int]:
+def get_child_parameters(child_id: str) -> dict[str, str]:
     """
     Get the parameters for a child based on the given child ID.
 
@@ -56,7 +63,7 @@ def get_child_parameters(child_id: str) -> dict[str, str | int]:
         ValueError: If the child with the given ID does not exist.
 
     Returns:
-        dict[str, str | int]: The parameters for the child.
+        dict[str, str]: The parameters for the child.
     """
     try:
         # Get the child with the given ID
@@ -78,34 +85,35 @@ def get_child_parameters(child_id: str) -> dict[str, str | int]:
         raise e
 
 
-def generate_story_chapters(
-    child_params: dict[str, str | int], topic: str
-) -> list[str]:
+def generate_story(
+    child_params: dict[str, str], topic: str, story_genre: str
+) -> tuple[str, list[str], list[str]]:
     """
     Generate chapters for a story based on the given child parameters and story topic.
 
     Args:
-        child_params (dict[str, str | int]): The parameters for the child.
+        child_params (dict[str, str]): The parameters for the child.
         topic (str): The topic of the story.
+        story_genre (str): The genre of the story.
 
     Returns:
-        list[str]: The generated story chapters.
+        tuple[str, list[str], list[str]]: The generated story title, chapter_contents and chapter titles.
     """
 
     # Create a prompt for generating the story
-    prompt = create_story_prompt(child_params, topic)
+    prompt = create_story_prompt(child_params, topic, story_genre)
 
     # Generate the story based on the prompt
     # story = text_gen(prompt)
     story = dummy_story  # TODO: use the real story instead of the dummy story
 
-    # Split the story into chapters and return them
-    return split_story_into_chapters(story)
+    # Extract the story title, chapter titles and chapter contents
+    return extract_story_components(story)
 
 
 def generate_chapter_images(
     chapters: list[str],
-    child_params: dict[str, str | int],
+    child_params: dict[str, str],
     image_style: str,
 ) -> list[str]:
     """
@@ -113,7 +121,7 @@ def generate_chapter_images(
 
     Args:
         chapters (list[str]): The generated story chapters.
-        child_params (dict[str, str | int]): The parameters for the child.
+        child_params (dict[str, str]): The parameters for the child.
         image_style (str): The style of the images.
 
     Returns:
@@ -125,7 +133,7 @@ def generate_chapter_images(
     # Generate an image for each chapter
     for i, chapter in enumerate(chapters, start=1):
         # Create a prompt for generating the images
-        prompt = create_image_prompt(
+        prompt = create_chapter_image_prompt(
             child_params=child_params,
             image_style=image_style,
             chapter_content=chapter,
@@ -151,8 +159,37 @@ def generate_chapter_images(
     return images
 
 
-def assemble_payload(
-    child_id: str, topic: str, image_style: str
+def generate_child_image(child_params: dict[str, str]) -> str:
+    """
+    Generate an image for the child based on the given parameters.
+
+    Args:
+        child_params (dict[str, str]): The parameters for the child.
+
+    Returns:
+        str: The generated image in base64 format.
+    """
+    # Create a prompt for generating the image
+    prompt = create_child_image_prompt(child_params=child_params)
+
+    # Generate the image based on the prompt
+    # image = image_gen(prompt)
+
+    # TODO: use the real image instead of the dummy image
+    # Open the image and convert it to a base64 string
+    path = os.path.join(os.getcwd(), "temp", "child_image.jpg")
+    with open(path, "rb") as file:
+        image_bytes = file.read()
+
+        # Convert the image to a base64 string to send it in the response
+        base64_str = b64encode(image_bytes).decode("utf-8")
+
+    # Return the image in base64 string format
+    return base64_str
+
+
+def assemble_story_payload(
+    child_id: str, topic: str, image_style: str, story_genre: str
 ) -> dict[str, str | list[str]]:
     """
     Assemble the payload for the given child ID, story topic, and image style.
@@ -161,6 +198,7 @@ def assemble_payload(
         child_id (str): The ID of the child.
         topic (str): The topic of the story.
         image_style (str): The style of the images.
+        story_genre (str): The genre of the story.
 
     Raises:
         ValueError: If the child with the given ID does not exist.
@@ -171,25 +209,109 @@ def assemble_payload(
     # Get the parameters for the kid
     child_params = get_child_parameters(child_id)
 
-    # Generate the story chapters
-    chapters = generate_story_chapters(child_params, topic)
+    # Generate the story
+    story_title, chapter_titles, chapter_contents = generate_story(
+        child_params, topic, story_genre
+    )
 
     # Generate the images for the story chapters
-    images = generate_chapter_images(chapters, child_params, image_style)
+    images = generate_chapter_images(
+        chapter_contents, child_params, image_style
+    )
 
     # Add the story to the database
     inserted_story = insert_story(
-        child_id, topic, image_style, chapters, images
+        child_id,
+        story_title,
+        topic,
+        image_style,
+        story_genre,
+        chapter_titles,
+        chapter_contents,
+        images,
     )
 
+    # Get the story attributes
     story_attributes = get_entry_attributes(inserted_story)
 
     # Create the payload
     payload = {
         "story_id": story_attributes["story_id"],
-        "chapters": chapters,
-        "images": images,
+        "title": story_title,
+        "chapter_titles": chapter_titles,
+        "chapter_contents": chapter_contents,
+        "chapter_images": images,
         "created_at": story_attributes["created_at"],
     }
 
     return payload
+
+
+def assemble_child_payload(
+    parent_id: str,
+    name: str,
+    age_range: str,
+    sex: str,
+    eye_color: str,
+    hair_type: str,
+    hair_color: str,
+    ethnicity: str,
+    fav_animals: str | None = None,
+    fav_activities: str | None = None,
+    fav_shows: str | None = None,
+) -> dict[str, str]:
+    """
+    Assemble the payload for the given child parameters.
+
+    Args:
+        parent_id (str): The ID of the parent.
+        name (str): The name of the child.
+        age_range (str): The age range of the child.
+        sex (str): The sex of the child.
+        eye_color (str): The eye color of the child.
+        hair_type (str): The hair type of the child.
+        hair_color (str): The hair color of the child.
+        ethnicity (str): The ethnicity of the child.
+        fav_animals (str | None, optional): The favorite animals of the child. Defaults to None.
+        fav_activities (str | None, optional): The favorite activities of the child. Defaults to None.
+        fav_shows (str | None, optional): The favorite shows of the child. Defaults to None.
+
+    Returns:
+        dict[str, str]: The assembled payload containing child attributes.
+    """
+    # Create a dictionary of the child parameters
+    child_params = {
+        "name": name,
+        "age_range": age_range,
+        "sex": sex,
+        "eye_color": eye_color,
+        "hair_type": hair_type,
+        "hair_color": hair_color,
+        "ethnicity": ethnicity,
+        "fav_animals": fav_animals,
+        "fav_activities": fav_activities,
+        "fav_shows": fav_shows,
+    }
+
+    # Generate the image for the child
+    image = generate_child_image(child_params=child_params)
+
+    # Generate the image for the child
+    # Add the story to the database
+    inserted_child = insert_child(
+        parent_id,
+        name,
+        image,
+        age_range,
+        sex,
+        eye_color,
+        hair_type,
+        hair_color,
+        ethnicity,
+        fav_animals,
+        fav_activities,
+        fav_shows,
+    )
+
+    # Get the child attributes and return them
+    return get_entry_attributes(inserted_child)

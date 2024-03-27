@@ -54,7 +54,9 @@ def get_entry_attributes(
     # Transform the attributes to strings if the flag is set
     if transform_to_str:
         for key, value in attributes.items():
-            attributes[key] = str(value)
+            # Exclude the None values
+            if value is not None:
+                attributes[key] = str(value)
 
     # Return the attributes
     return attributes
