@@ -1,7 +1,7 @@
+import { concatErrors } from "../utils/clientUtils";
 import BaseApiClient from "./BaseApiClient";
 
 export default class AuthClient extends BaseApiClient {
-
   /**
    * Register a new user.
    * @param {string} firstName
@@ -16,7 +16,9 @@ export default class AuthClient extends BaseApiClient {
   async register(firstName, lastName, email, password) {
     // Validate the input and throw an error if it's invalid
     if (!firstName || !lastName || !email || !password) {
-      throw new Error("First name, last name, email and password are required");
+      throw new Error(
+        "Error while registering: First name, last name, email and password are required"
+      );
     }
 
     // Set the payload and make a request to the server
@@ -30,8 +32,11 @@ export default class AuthClient extends BaseApiClient {
 
     // If the request was not successful, throw an error
     if (!response.ok) {
-      console.error("Login failed:", response.body.error);
-      throw new Error(`Error: ${response.body.error}`);
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
+      throw new Error(`Error while registering: ${errorMessage}`);
     }
   }
 
@@ -47,7 +52,9 @@ export default class AuthClient extends BaseApiClient {
   async login(email, password) {
     // Validate the input and throw an error if it's invalid
     if (!email || !password) {
-      throw new Error("Email and password are required");
+      throw new Error(
+        "Error while logging in: Email and password are required"
+      );
     }
 
     // Set the payload and make a request to the server
@@ -59,8 +66,11 @@ export default class AuthClient extends BaseApiClient {
       localStorage.setItem("access_token", response.body.access_token);
       // If the request was not successful, throw an error
     } else {
-      console.error("Login failed:", response.body.error);
-      throw new Error(`Error: ${response.body.error}`);
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
+      throw new Error(`Error while logging in: ${errorMessage}`);
     }
   }
 
@@ -79,8 +89,11 @@ export default class AuthClient extends BaseApiClient {
     if (response.ok) {
       return response.body;
     } else {
-      console.error("Error while fetching current user:", response.body.error);
-      throw new Error(`Error: ${response.body.error}`);
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
+      throw new Error(`Error while getting the current user: ${errorMessage}`);
     }
   }
 }
