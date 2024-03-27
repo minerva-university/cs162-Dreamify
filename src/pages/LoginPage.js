@@ -3,7 +3,7 @@ import '../pages/styles/Auth.css'
 //Flambeau
 
 import { useState, useEffect } from "react";
-import { Container, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner.js";
 import { useAuth } from "../contexts/AuthProvider";
@@ -51,7 +51,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Container>
+
       <div className="signin-page">
       <div className="signin-image">
         {/* Add your image here */}
@@ -68,8 +68,8 @@ export default function LoginPage() {
               {error}
             </Alert>
           )}
-          <button className="google-signin">G+</button>
-          <p> Or use your email account</p>
+          {/* <button className="google-signin">G+</button>
+          <p> Or use your email account</p> */}
           <div className="email-input">
           <input
             type="email"
@@ -97,6 +97,6 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
-    </Container>
+
   );
 }

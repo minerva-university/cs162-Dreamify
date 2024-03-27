@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';  
-import Footer from '../components/Footer';
 import { Container, Stack } from 'react-bootstrap';
 import { useApi } from '../contexts/ApiProvider';
 import { useState } from 'react';
@@ -41,7 +39,6 @@ export default function SelectChildPage() {
 
   return (
     <Container fluid>
-            <Header />
             <Container className="page-container">
                 <h1 className="page-title"> Pick one of your children: </h1> 
                     <Stack className="profile-container" direction="horizontal" gap={3}>
@@ -50,7 +47,6 @@ export default function SelectChildPage() {
                     </Stack>
                 
             </Container>
-            <Footer />
         </Container>
 
   );

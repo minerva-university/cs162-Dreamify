@@ -54,7 +54,7 @@ export default function Header() {
                 </Link>
               </div>
               <div className={getButtonClass("/newstory")}>
-                <Link to="/newstory" className="text-navbar">
+                <Link to={`/children${parentId}`} className="text-navbar">
                   New Story
                 </Link>
               </div>
