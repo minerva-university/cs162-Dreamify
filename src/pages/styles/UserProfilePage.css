@@ -77,3 +77,13 @@
   height: 10px;
 }
 
+.child-selection button {
+  background-color: #77CFD1;
+  border-color: #77CFD1;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  margin-top: 20px;
+  padding: 10px;
+
+}
