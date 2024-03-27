@@ -169,7 +169,7 @@ const ModifyChildPage = () => {
         <input
           type="text"
           id="firstName"
-          placeholder="Kid's first name or the way you want them to be called in the stories"
+          placeholder="Kid's first name"
           value={firstName !== null ? firstName : ""}
           onChange={handleTextFieldChange(setFirstName)}
         />
