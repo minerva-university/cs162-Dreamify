@@ -1,8 +1,6 @@
 // Base class for API clients to be inherited from
 
-
 export default class BaseApiClient {
-  
   //todo: Delete the lines below
   // Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
   // More sytematic solution will be implemented later
@@ -12,7 +10,6 @@ export default class BaseApiClient {
   constructor() {
     this.base_url = "/api/";
   }
-
 
   // Send a request to the server
   async request(options) {

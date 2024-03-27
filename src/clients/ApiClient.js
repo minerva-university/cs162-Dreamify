@@ -3,6 +3,7 @@ Based on the ApiClient from the react mega tutorial:
 https://blog.miguelgrinberg.com/post/the-react-mega-tutorial-chapter-6-building-an-api-client
 */
 
+import { concatErrors } from "../utils/clientUtils";
 import BaseApiClient from "./BaseApiClient";
 
 // API client for the application
@@ -13,11 +14,10 @@ export default class ApiClient extends BaseApiClient {
    * @param {string} payload.name - The name of the child
    * @param {string} payload.age_range - The age range of the child
    * @param {string} payload.sex - The sex of the child
-   * @param {string} payload.sibling_relationship - The sibling relationship of the child
    * @param {string} payload.eye_color - The eye color of the child
    * @param {string} payload.hair_type - The hair type of the child
    * @param {string} payload.hair_color - The hair color of the child
-   * @param {string} payload.skin_tone - The skin tone of the child
+   * @param {string} payload.ethnicity - The ethnicity of the child
    * @param {string} payload.fav_animals - The favorite animals of the child (optional)
    * @param {string} payload.fav_activities - The favorite activities of the child (optional)
    * @param {string} payload.fav_shows - The favorite shows of the child (optional)
@@ -29,11 +29,10 @@ export default class ApiClient extends BaseApiClient {
    *  name: "Pablo",
    *  age_range: "4-6",
    *  sex: "Male",
-   *  sibling_relationship: "Only",
    *  eye_color: "Brown",
    *  hair_type: "Curly",
    *  hair_color: "Black",
-   *  skin_tone: "Light"
+   *  ethnicity: "Asian"
    * }
    * const response = await apiClient.postCreateChild(payload);
    */
@@ -44,16 +43,17 @@ export default class ApiClient extends BaseApiClient {
     }
 
     // Send the request
-    const response = await this.post("children/", payload);
+    const response = await this.post("children", payload);
 
     // Parse the response
     if (response.ok) {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while creating child: ${errorMessage}`);
     }
   }
@@ -65,7 +65,7 @@ export default class ApiClient extends BaseApiClient {
    * @throws {Error} If childId is not provided
    * @throws {Error} If the response is not ok
    * @example
-   * const childId = "1234";
+   * const childId = "4e1bb09b712c40749329c978e5061717";
    * const response = await apiClient.getChild(childId);
    */
   async getChild(childId) {
@@ -82,9 +82,10 @@ export default class ApiClient extends BaseApiClient {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(
         `Error while fetching child information: ${errorMessage}`
       );
@@ -107,9 +108,10 @@ export default class ApiClient extends BaseApiClient {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while fetching children: ${errorMessage}`);
     }
   }
@@ -121,11 +123,10 @@ export default class ApiClient extends BaseApiClient {
    * @param {string} payload.name - The name of the child (optional)
    * @param {string} payload.age_range - The age range of the child (optional)
    * @param {string} payload.sex - The sex of the child (optional)
-   * @param {string} payload.sibling_relationship - The sibling relationship of the child (optional)
    * @param {string} payload.eye_color - The eye color of the child (optional)
    * @param {string} payload.hair_type - The hair type of the child (optional)
    * @param {string} payload.hair_color - The hair color of the child (optional)
-   * @param {string} payload.skin_tone - The skin tone of the child (optional)
+   * @param {string} payload.ethnicity - The ethnicity of the child (optional)
    * @param {string} payload.fav_animals - The favorite animals of the child (optional)
    * @param {string} payload.fav_activities - The favorite activities of the child (optional)
    * @param {string} payload.fav_shows - The favorite shows of the child (optional)
@@ -148,16 +149,17 @@ export default class ApiClient extends BaseApiClient {
     }
 
     // Send the request
-    const response = await this.patch("children/", payload);
+    const response = await this.patch("children", payload);
 
     // Parse the response
     if (response.ok) {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while modifying child: ${errorMessage}`);
     }
   }
@@ -167,6 +169,7 @@ export default class ApiClient extends BaseApiClient {
    * @param {Object} payload - The payload to generate a story
    * @param {string} payload.child_id - The ID of the child
    * @param {string} payload.topic - The topic of the story
+   * @param {string} payload.story_genre - The genre of the story
    * @param {string} payload.image_style - The image style of the story
    * @returns {Promise<Object>} The response body
    * @throws {Error} If payload is not provided
@@ -174,7 +177,8 @@ export default class ApiClient extends BaseApiClient {
    * @example
    * const payload = {
    *  child_id: "83adfb09110747bc93575bd208a52d8b",
-   *  topic: "Adventure",
+   *  topic: "Travelling to Hogwarts",
+   *  story_genre: "Fantasy",
    *  image_style: "Cartoon"
    * }
    * const response = await apiClient.postGenerateStory(payload);
@@ -193,9 +197,10 @@ export default class ApiClient extends BaseApiClient {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while generating story: ${errorMessage}`);
     }
   }
@@ -226,9 +231,10 @@ export default class ApiClient extends BaseApiClient {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while fetching child stories: ${errorMessage}`);
     }
   }
@@ -257,9 +263,10 @@ export default class ApiClient extends BaseApiClient {
       return response.body;
       // If the response is not ok, throw an error
     } else {
-      const errorMessage = response?.body?.errors
-        ? response?.body?.errors
-        : response?.body?.Error;
+      const errorMessage =
+        response?.body?.Error ||
+        response?.body?.error ||
+        concatErrors(response?.body?.errors);
       throw new Error(`Error while fetching story chapters: ${errorMessage}`);
     }
   }
