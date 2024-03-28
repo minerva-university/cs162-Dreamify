@@ -167,6 +167,7 @@ class StoryChapters(Resource):
 
             # Define the payload
             payload = {
+                "story_title": story.title,
                 "chapters": [
                     # Get the attributes of the chapter
                     get_entry_attributes(chapter)

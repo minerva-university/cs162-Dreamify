@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import './styles/LibraryPage.css';
+import Spinner from '../components/Spinner';
 
 //todo: it takes a while to load all the stories, so we need to add a spinner & make the process of loading faster
 
@@ -23,12 +24,6 @@ export default function LibraryPage() {
 
       const fetchData = async () => {
         try {
-
-
-          await login("bob.ross@example.com", "123");
-
-          //todo: make sure that only logged users can access this page
-
           const childrenResponse = await api.getAllChildren();
 
           let tempStoryData = [];
@@ -75,7 +70,7 @@ export default function LibraryPage() {
     }, [api, login, isAuthenticated]);
 
     if (isLoading) {
-        return <div>Loading stories...</div>;
+        return <Spinner />;
     }
 
     if (!isLoading && !storyData.length) {
@@ -94,7 +89,7 @@ export default function LibraryPage() {
               </div>
               <div className="hr-style"></div>
               {childData.stories.map((story) => (
-                <div key={story.storyId} className="story-block" onClick={() => handleStoryClick(story.storyId)}>
+                <div key={story.storyId} className="story-block" onClick={() => handleStoryClick(story.storyId)} style={{ cursor: 'pointer' }}>
                   <img src={story.image} alt={`Story`} className="story-image" />
                   <div className="story-details">
                     <div className='story-title-date'>

@@ -1,9 +1,9 @@
 import React from "react";
 import '../pages/styles/Auth.css'
-//Flambeau
 
+//Flambeau
 import { useState, useEffect } from "react";
-import { Container, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
@@ -61,8 +61,7 @@ function SignUpPage() {
   }
 
   return (
-    <div className="container">
-      <div className="signin-page"> {/* Consider renaming this class to something neutral like "auth-page" */}
+      <div className="signin-page"> 
         <div className="signin-image">
           {/* Add your image here */}
           <h1>Welcome Aboard!</h1>
@@ -77,8 +76,6 @@ function SignUpPage() {
                 {error}
               </Alert>
             )}
-            <button className="google-signin">G+</button> 
-            <p> Or use your email account</p>
             <div className="email-input">
               <input
                 type="text"
@@ -103,7 +100,7 @@ function SignUpPage() {
               <input
                 type="email"
                 id="email"
-                placeholder="Email or Username"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -123,7 +120,6 @@ function SignUpPage() {
           </form>
         </div>
       </div>
-    </div>
   );  
 }
 
