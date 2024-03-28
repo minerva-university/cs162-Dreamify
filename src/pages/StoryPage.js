@@ -16,12 +16,8 @@ export default function StoryPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
-        // await login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
-        
         const response = await api.getAllStoryChapters(storyId);
-        
-        setStoryTitle(response?.title || "No story title available");
+        setStoryTitle(response?.story_title || "No story title available");
         setStoryData({
           chapters: response?.chapters?.map(chapter => ({
             title: chapter.title || "No chapter title available",
@@ -48,12 +44,10 @@ export default function StoryPage() {
     );
   }
 
-
-  const renderStory = storyData.length > 0 ? (
+  const renderStory = storyData.chapters ? (
   storyData.chapters.map((chapter, index) => (
       <div key={index} className="story-block">
-        <h2 className="story-headline">{"Chapter " + (index + 1)}</h2>
-        <h3 className="story-subheadline">{chapter.title}</h3>
+        <h3 className="story-headline">{chapter.title}</h3>
         <p className="story-text">{chapter.text.split('\n').map((line, i) => (<span key={i}>{line}<br/></span>))}</p>
         <img src={`${chapter.imageBase64}`} alt={`Chapter ${index + 1}`} className="story-photo" />
       </div>
@@ -67,6 +61,7 @@ export default function StoryPage() {
     <>
       <div className="story-container">
         <h1 className="page-title">{storyTitle}</h1>
+        <hr className="story-hr-line"></hr>
         {renderStory}
       </div>
     </>

@@ -46,7 +46,7 @@
 }
 .edit-profile-btn {
     align-self: flex-end; /* Align the button to the right */
-    padding: 4px; /* Button padding */
+    padding: 5px 10px; /* Button padding */
     background-color: #007bff; /* Button background color */
     color: white; /* Button text color */
     text-decoration: none; /* Remove underline from link */

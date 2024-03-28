@@ -17,21 +17,25 @@
     align-items: center;
     color: white;
     padding-top: 16%; /* Add padding to the top to push content down */
-    height: 100%;
+    height: 70%;
+    position: relative;
   }
   
   .signin-image h1 {
-    margin-top: -30%;
-    margin-bottom: 10rem; 
+    position: absolute; 
+    top: 5%; /* Distance from the top */
   }
   
   .signin-image p {
-    margin-top: 85%;
+    position: absolute; 
+    bottom: 10%; /* Distance from the bottom */
     font-size: 1.2rem;
-    margin-bottom: 1 rem; /* Increase bottom margin to push 'Want to create an account?' down */
+    margin-bottom: 1rem; /* Increase bottom margin to push 'Want to create an account?' down */
   }
 
   .signin-image button {
+    position: absolute; 
+    bottom: 2%; /* Distance from the bottom */
     padding: 0.7rem 2rem;
     background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
     color: white;
@@ -64,25 +68,13 @@
     width: 100%;
     max-width: 400px; /* Set a max-width for the form */
     padding: 2rem;
+    margin: auto;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the form */
     align-items: center;
-    display: flex; /* Use flexbox to align form contents */
     flex-direction: column; /* Stack form elements vertically */
     align-items: center; /* Center-align the flex items */
     text-align: center; /* Center-align text */
-  }
-  
-  .signin-page .google-signin {
-    background: #0752a2;
-    color: white;
-    padding: 1rem;
-    border: none;
-    border-radius: 50% 50%;
-    margin-bottom: 1rem;
-
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the button */
-    cursor: pointer;
   }
   
   .signin-page .email-input input,
@@ -90,7 +82,8 @@
     padding: 1rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     box-sizing: border-box;
     background-color: #77CFD1;
   }
@@ -103,6 +96,7 @@
     margin-bottom: 20px; /* Space below the alert */
     text-align: center; /* Center the text */
     font-weight: bold; /* Make the font bold */
+    font-size: 12px;
 }
   
   .signin-page a {
