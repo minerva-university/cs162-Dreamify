@@ -18,6 +18,15 @@ children = Namespace(
 )
 
 
+class NullableString(fields.String):
+    """
+    Custom field for a nullable string.
+    """
+
+    __schema_type__ = ["string", "null"]
+    __schema_example__ = "nullable string"
+
+
 add_child_model = children.model(
     "AddChild",
     {
@@ -56,16 +65,20 @@ add_child_model = children.model(
             ],
         ),
         "ethnicity": fields.String(
-            required=True, description="Ethnicity of the child"
+            required=True,
+            description="Ethnicity of the child",
         ),
-        "fav_animals": fields.String(
-            required=False, description="Favorite animals of the child"
+        "fav_animals": NullableString(
+            required=False,
+            description="Favorite animals of the child",
         ),
-        "fav_activities": fields.String(
-            required=False, description="Favorite activities of the child"
+        "fav_activities": NullableString(
+            required=False,
+            description="Favorite activities of the child",
         ),
-        "fav_shows": fields.String(
-            required=False, description="Favorite shows of the child"
+        "fav_shows": NullableString(
+            required=False,
+            description="Favorite shows of the child",
         ),
     },
 )
@@ -110,14 +123,17 @@ modify_child_model = children.model(
         "ethnicity": fields.String(
             required=False, description="Ethnicity of the child"
         ),
-        "fav_animals": fields.String(
-            required=False, description="Favorite animals of the child"
+        "fav_animals": NullableString(
+            required=False,
+            description="Favorite animals of the child",
         ),
-        "fav_activities": fields.String(
-            required=False, description="Favorite activities of the child"
+        "fav_activities": NullableString(
+            required=False,
+            description="Favorite activities of the child",
         ),
-        "fav_shows": fields.String(
-            required=False, description="Favorite shows of the child"
+        "fav_shows": NullableString(
+            required=False,
+            description="Favorite shows of the child",
         ),
     },
 )
@@ -268,9 +284,6 @@ class Child(Resource):
                 "fav_activities": data.get("fav_activities"),
                 "fav_shows": data.get("fav_shows"),
             }
-
-            # Remove keys with None values
-            updates = {k: v for k, v in updates.items() if v is not None}
 
             # Update the child using the new update_child_info function
             updated_child = update_child(child_id, updates)

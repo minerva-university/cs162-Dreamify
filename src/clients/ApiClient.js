@@ -18,9 +18,9 @@ export default class ApiClient extends BaseApiClient {
    * @param {string} payload.hair_type - The hair type of the child
    * @param {string} payload.hair_color - The hair color of the child
    * @param {string} payload.ethnicity - The ethnicity of the child
-   * @param {string} payload.fav_animals - The favorite animals of the child (optional)
-   * @param {string} payload.fav_activities - The favorite activities of the child (optional)
-   * @param {string} payload.fav_shows - The favorite shows of the child (optional)
+   * @param {string|null} payload.fav_animals - The favorite animals of the child
+   * @param {string|null} payload.fav_activities - The favorite activities of the child
+   * @param {string|null} payload.fav_shows - The favorite shows of the child
    * @returns {Promise<Object>} The response body
    * @throws {Error} If payload is not provided
    * @throws {Error} If the response is not ok
@@ -127,9 +127,9 @@ export default class ApiClient extends BaseApiClient {
    * @param {string} payload.hair_type - The hair type of the child (optional)
    * @param {string} payload.hair_color - The hair color of the child (optional)
    * @param {string} payload.ethnicity - The ethnicity of the child (optional)
-   * @param {string} payload.fav_animals - The favorite animals of the child (optional)
-   * @param {string} payload.fav_activities - The favorite activities of the child (optional)
-   * @param {string} payload.fav_shows - The favorite shows of the child (optional)
+   * @param {string|null} payload.fav_animals - The favorite animals of the child
+   * @param {string|null} payload.fav_activities - The favorite activities of the child
+   * @param {string|null} payload.fav_shows - The favorite shows of the child
    * @returns {Promise<Object>} The response body
    * @throws {Error} If payload is not provided
    * @throws {Error} If the response is not ok
