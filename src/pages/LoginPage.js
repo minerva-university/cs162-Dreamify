@@ -68,8 +68,6 @@ export default function LoginPage() {
               {error}
             </Alert>
           )}
-          {/* <button className="google-signin">G+</button>
-          <p> Or use your email account</p> */}
           <div className="email-input">
           <input
             type="email"
