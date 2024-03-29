@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 // Styles
@@ -19,85 +19,84 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
 import SelectChildPage from "./pages/SelectChildPage";
-
 import AboutUsPage from "./pages/AboutUsPage";
 import TermsPage from "./pages/TermsPage";
 
 // Components
+import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-
 export default function App() {
-
-
-  // Check if the current path is the login or signup page
-
   return (
     <Container fluid className="App">
       <BrowserRouter>
-        
         <ApiProvider>
           <AuthProvider>
-            {/* Tamirlan */}
-        {/* Render header if not on the login or signup page */}
-          <Header />
-          
+            <Header />
             <Routes>
-              {/* Tamirlan */}
-              <Route 
-                path="/" 
-                element={<HomePage />} /> 
+              <Route path="/" element={<HomePage />} />
               <Route
                 path="/myprofile/:parentid"
                 element={<UserProfilePage />}
-              />{" "}
-              {/* Billy */}
+              />
               <Route
                 path="/addachild/:parentid"
-                element={<AddachildPage />}
-              />{" "}
-              {/* Billy  */}
+                element={
+                  <ProtectedRoute>
+                    <AddachildPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/modify/:childid"
-                element={<ModifyChildPage />}
-              />{" "}
-              {/* Billy  */}
+                element={
+                  <ProtectedRoute>
+                    <ModifyChildPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/library/story/:storyId"
-                element={<StoryPage />}
-              />{" "}
-              {/* MISHA -- DONE*/}
+                element={
+                  <ProtectedRoute>
+                    <StoryPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/library/parent"
-                element={<LibraryPage />}
-              />{" "}
-              {/* MISHA -- DONE */}
+                element={
+                  <ProtectedRoute>
+                    <LibraryPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/newstory/:childId"
-                element={<NewStoryPage />}
-              />{" "}
-              {/* MISHA */}
-              <Route path="/children" element={<SelectChildPage />} />
-              {/* Flambeau */}
+                element={
+                  <ProtectedRoute>
+                    <NewStoryPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/children"
+                element={
+                  <ProtectedRoute>
+                    <SelectChildPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/login" element={<LoginPage />} />
-              {/* Flambeau */}
-
-              <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
-              {/* Tamir */}
-              <Route path="/aboutus" element={<AboutUsPage />}    />
-              {/* Tamir */}
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/aboutus" element={<AboutUsPage />} />
               <Route path="/terms" element={<TermsPage />} />
-
             </Routes>
-             {/* Tamirlan  */}
-          {/* Render footer if not on the login or signup page */}
             <Footer />
-
           </AuthProvider>
         </ApiProvider>
-       
       </BrowserRouter>
-      </Container>
+    </Container>
   );
 }
