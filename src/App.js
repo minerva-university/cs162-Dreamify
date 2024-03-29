@@ -24,6 +24,7 @@ import TermsPage from "./pages/TermsPage";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthRoute from "./components/AuthRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -88,8 +89,22 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
+              <Route
+                path="/login"
+                element={
+                  <AuthRoute>
+                    <LoginPage />
+                  </AuthRoute>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <AuthRoute>
+                    <SignupPage />
+                  </AuthRoute>
+                }
+              />
               <Route path="/aboutus" element={<AboutUsPage />} />
               <Route path="/terms" element={<TermsPage />} />
             </Routes>
