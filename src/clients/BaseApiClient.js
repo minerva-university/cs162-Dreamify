@@ -1,14 +1,16 @@
 // Base class for API clients to be inherited from
 
 export default class BaseApiClient {
-  //todo: Delete the lines below
-  // Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
-  // More sytematic solution will be implemented later
   // constructor() {
-  //   this.base_url = "http://127.0.0.1:5000/api/";
+  //   this.base_url = "/api/";
   // }
+
+  // Note: originally it was planned to use proxy instead of CORS,
+  // however, Mykhailo and now also Flambeau and Billy have a weird
+  // issue with the proxy not working properly,
+  // so we have to use CORS instead
   constructor() {
-    this.base_url = "/api/";
+    this.base_url = "http://127.0.0.1:5000/api/";
   }
 
   // Send a request to the server
