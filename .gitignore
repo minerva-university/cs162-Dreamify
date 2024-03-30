@@ -28,8 +28,11 @@ yarn-error.log*
 # Flask
 instance
 
-# VS Code
+# VS Code settings
 .vscode
 
 # Apple files
 **/._*
+
+# Temporary files
+api/gen_outputs/*.txt

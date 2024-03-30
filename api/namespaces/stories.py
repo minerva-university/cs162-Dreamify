@@ -6,7 +6,7 @@ from flask import request, current_app
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
-from ..functions.prepare_data import assemble_story_payload
+from ..functions.prepare_data import assemble_story_payload_async
 from ..functions.jwt_functions import get_current_parent
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
@@ -52,9 +52,9 @@ class GenerateStory(Resource):
     @stories.response(200, "Success")
     @stories.response(400, "Validation Error")
     @stories.response(500, "Internal Server Error")
-    def post(self):
+    async def post(self):
         """
-        Generate a story based on the provided data.
+        Generate a story based on the provided data asynchronously.
         """
         try:
             # Get the data from the request
@@ -64,9 +64,8 @@ class GenerateStory(Resource):
             if not data:
                 return {"Error": "No data provided"}, 400
 
-            # TODO: Adjust story info to new table schema
-            # Assemble the payload
-            payload = assemble_story_payload(
+            # Assemble the payload asynchronously
+            payload = await assemble_story_payload_async(
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
@@ -172,7 +171,7 @@ class StoryChapters(Resource):
                     # Get the attributes of the chapter
                     get_entry_attributes(chapter)
                     for chapter in story.chapters
-                ]
+                ],
             }
 
             # Return the story data and a 200 status code
