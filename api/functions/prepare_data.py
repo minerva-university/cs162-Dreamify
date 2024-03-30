@@ -115,6 +115,7 @@ def generate_story(
             # Use a dummy story instead of generating one
             story = dummy_story
 
+        # TODO: remove this once the story generation is working robustly
         with open("gen_outputs/story.txt", "w") as f:
             f.write("Story prompt:\n")
             f.write(prompt)
@@ -184,6 +185,7 @@ async def _generate_chapter_image_async(
             async with aiofiles.open(path, "rb") as file:
                 image = await file.read()
 
+        # TODO: remove this once the image generation is working robustly
         # Write the prompt and image URL to a file asynchronously
         async with aiofiles.open("gen_outputs/prompts_urls.txt", "a") as f:
             await f.write(
@@ -259,6 +261,7 @@ def generate_child_image(child_params: dict[str, str]) -> str:
             # Get the image bytes from the URL
             image = requests.get(image_url).content
 
+            # Log the generated image URL
             current_app.logger.info(f"Generated child image:\n{image_url}\n")
         else:
             # Set a dummy image URL
@@ -302,8 +305,7 @@ async def assemble_story_payload_async(
         dict[str, list[str]]: The assembled payload containing chapters and images.
     """
     try:
-        # Assuming get_child_parameters and generate_story are synchronous and quick;
-        # if they involve IO, consider making them async too
+        # Get the child parameters
         child_params = get_child_parameters(child_id)
 
         # Generate the story
@@ -311,6 +313,7 @@ async def assemble_story_payload_async(
             child_params, topic, story_genre
         )
 
+        # TODO: remove this once the story generation is working robustly
         async with aiofiles.open("gen_outputs/story_extraction.txt", "w") as f:
             await f.write(f"Story title: {story_title}\n\n")
             for title, content in zip(chapter_titles, chapter_contents):
@@ -334,8 +337,10 @@ async def assemble_story_payload_async(
             images,
         )
 
+        # Get the story attributes and return them
         story_attributes = get_entry_attributes(inserted_story)
 
+        # Assemble the payload for the story
         payload = {
             "story_id": story_attributes["story_id"],
             "title": story_title,
@@ -401,7 +406,6 @@ def assemble_child_payload(
         # Generate the image for the child
         image = generate_child_image(child_params=child_params)
 
-        # Generate the image for the child
         # Add the story to the database
         inserted_child = insert_child(
             parent_id,

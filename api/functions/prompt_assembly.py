@@ -29,6 +29,7 @@ def extract_story_components(
         tuple[str, list[str], list[str]]: A tuple containing the story title, chapter titles, and chapter descriptions.
     """
     try:
+        # Raise an error if the story is an empty string
         if not story:
             raise ValueError("The story is an empty string.")
 
@@ -36,7 +37,7 @@ def extract_story_components(
         title_match = re.search(r"Title of the story: (.+)", story)
         title = title_match.group(1) if title_match else "Unknown"
 
-        # Pattern to split and extract chapters
+        # Pattern to extract chapter titles and descriptions
         chapter_pattern = re.compile(
             r"""
             Chapter\ \d+\ title:\s*    # Matches 'Chapter <number> title:' possibly followed by spaces
@@ -62,11 +63,13 @@ def extract_story_components(
             chapter_titles.append(chapter_title)
             chapter_contents.append(chapter_content)
 
+        # Raise an error if the story components could not be extracted
         if not story or not chapter_titles or not chapter_contents:
             raise ValueError(
                 "Invalid story format, could not extract story components."
             )
 
+        # Return the story components
         return title, chapter_titles, chapter_contents
     except Exception as e:
         current_app.logger.error(f"Error extracting story components: {e}")
@@ -128,7 +131,7 @@ def create_story_prompt(
         str: The story prompt.
     """
     try:
-        # Combine the child's parameters with the topic
+        # Combine the child's parameters with the topic and story genre
         parameters = {
             **child_params,
             "topic": topic,
@@ -156,7 +159,7 @@ def create_story_prompt(
             if key in parameters and parameters[key] is None:
                 parameters[key] = "unspecified"
 
-        # Create the story prompt
+        # Substitute the parameters into the story prompt template and return it
         return story_prompt_template.substitute(parameters)
     except Exception as e:
         current_app.logger.error(f"Error creating story prompt: {e}")
@@ -191,7 +194,7 @@ def create_chapter_image_prompt(
             "image_style": image_style,
         }
 
-        # Substitute the parameters into the image prompt template and return it
+        # Substitute the parameters into the chapter image prompt template and return it
         return chapter_image_prompt_template.substitute(**parameters)
     except Exception as e:
         current_app.logger.error(f"Error creating chapter image prompt: {e}")
@@ -209,7 +212,7 @@ def create_child_image_prompt(child_params: dict[str, str]) -> str:
         str: The image prompt.
     """
     try:
-        # Substitute the parameters into the image prompt template and return it
+        # Substitute the parameters into the child image prompt template and return it
         return child_image_prompt_template.substitute(**child_params)
     except Exception as e:
         current_app.logger.error(f"Error creating child image prompt: {e}")
