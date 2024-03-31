@@ -15,11 +15,11 @@ export default function Footer() {
   return (
     <div className="footer-container">
       <div className="footer-content">
-        <div className="left-group">
+        <div className="footer-left-group">
           <span className='footer-text' >&#xA9;2024 Dreamify</span>
           <span className='footer-text'>dreamify.minerva@gmail.com</span>
         </div>
-        <div className="right-group">
+        <div className="footer-right-group">
           <a href="/aboutus" className="footer-text">About Us</a>
           <a href="/terms" className="footer-text">Terms of Service & Privacy Policy</a>
         </div>

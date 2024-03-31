@@ -1,137 +1,78 @@
-@import "https://fonts.googleapis.com/css?family=Newsreader:500&display=swap";
-@import "https://fonts.googleapis.com/css?family=Inter:400&display=swap";
-
+/* Main Header styling */
 .header {
-  background: #fff;
-  width: 100%;
-  height: 100%;
-  padding: 2% 3% 2% 2.5%;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fff;
+  padding: 2% 0 2%;
+  width: 100%;
 }
 
 .header-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 93%;
+  width: 90%;
 }
 
 .header-title {
   color: #000;
-  letter-spacing: -0.32px;
-  font-family: Newsreader;
+  font-family: 'Newsreader', serif;
   font-size: 40px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 100%;
-  display: inline-block;
   text-decoration: none;
 }
 
-.nav-links-container {
+.header-nav-links-container {
   display: flex;
-  gap: 7px; 
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
+  gap: 7px;
 }
 
-/* SELECTED PAGE BUTTON */
-.button-selected {
-  box-sizing: border-box;
-  background: #fff;
-  border: 1px solid #014a8a;
-  flex-shrink: 0;
-  width: 104px;
-  height: 43px;
+.header-button-navbar, .header-button-selected, .header-button-get-started, .header-button-logout {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-}
-
-/* NON-SELECTED PAGE BUTTON */
-.button-navbar {
-  box-sizing: border-box;
   background: #fff;
-  flex-shrink: 0;
-  width: 104px;
   height: 43px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  width: 90px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.header-3s;
 }
 
-.text-navbar {
+.header-button-selected {
+  border-color: #014a8a;
+}
+
+.header-text-navbar, .header-text-white {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   color: #000;
-  text-align: center;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 130%;
-  display: inline-block;
   text-decoration: none;
 }
 
-/* GET STARTED BUTTON */
-.button-get-started {
-  box-sizing: border-box;
+.header-button-get-started, .header-button-logout {
   background: #014a8a;
-  flex-shrink: 0;
-  width: 144px;
-  height: 43px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
-
-.button-get-started:hover {
-  background-color: #0056b3; /* Darker shade on hover for feedback */
-}
-
-.button-get-started:active {
-  background-color: #004080; /* Even darker shade when the button is clicked */
-}
-
-.text-white {
   color: #fff;
-  text-align: center;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 130%;
-  display: inline-block;
-  text-decoration: none;
+  width: 100px;
 }
 
-/* LOG OUT BUTTON */
-.button-logout {
-  box-sizing: border-box;
-  background: rgb(223, 45, 45);
-  flex-shrink: 0;
-  width: 103px;
-  height: 43px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer; 
-  transition: background-color 0.3s; 
+.header-button-get-started:hover, .header-button-logout:hover {
+  background-color: #0056b3;
 }
 
-.button-logout:hover {
-  background-color: rgb(202, 28, 28); 
+.header-button-get-started:active, .header-button-logout:active {
+  background-color: #004080;
 }
 
-.button-logout:active {
-  background-color: rgb(208, 33, 33); 
+.header-text-white {
+  color: #fff;
 }
+
+.header-button-logout {
+  background: rgb(223, 45, 45); /* Logout button has a distinct color */
+}
+
+
+
