@@ -68,8 +68,8 @@
   line-height: 120%;
   display: block;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 35px;
+  margin: 25px;
+
 }
 
 .hp-tree-image-container {
@@ -101,7 +101,7 @@
   justify-content: center;
   align-items: center;
   height: 20px;
-  padding: 34px 59px 20px 59px;
+  padding: 25px 60px ;
   display: flex;
   overflow: hidden;
   align-self: center;
@@ -159,7 +159,6 @@
   width: 90%;
   height: 159px;
   overflow: hidden;
-  margin: 0 auto;
   margin-bottom: 100px;
 }
 
@@ -178,7 +177,7 @@
   flex-direction: column;
   margin-left: 20px;
   align-items: flex-start;
-  margin-top: -40px;
+  margin-top: -70px;
 }
 
 .hp-featured-name {
@@ -199,12 +198,13 @@
   font-weight: 600;
   line-height: 130%;
   display: inline-block;
-  top: 10%;
+  margin-top: -10px;
 }
 
 .hp-featured-button {
   margin-left: auto;
   margin-right: 40px;
+  margin-top: 15px;
   opacity: 0.8;
   background: #014a8a;
   border-radius: 10px;

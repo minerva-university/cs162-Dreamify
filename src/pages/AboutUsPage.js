@@ -5,9 +5,28 @@ import billy from '../assets/about_us_page/billy.png';
 import paul from '../assets/about_us_page/paul.png';
 import tamir from '../assets/about_us_page/tamir.png';
 import flambeau from '../assets/about_us_page/flambeau.png';
+import Spinner from "../components/Spinner.js"; 
+import {useState, useEffect} from "react";
 
+export default function AboutUs() {
+  
+  const [isLoading, setIsLoading] = useState(true); // Set isLoading to true initially
 
-const AboutUs = () => {
+  useEffect(() => {
+    document.title = "Dreamify | About Us";
+  }, []);
+
+  // Simulate data loading
+  useEffect(() => {
+    // Simulate an asynchronous operation (e.g., fetching data from an API)
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false after data is loaded
+    }, 200); 
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   const teamMembers = [
     {
       name: 'Mykhailo Chudyk',
@@ -58,5 +77,3 @@ const AboutUs = () => {
     </div>
   );
 };
-
-export default AboutUs;

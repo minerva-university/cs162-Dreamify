@@ -5,10 +5,33 @@ import treeImage from "../assets/home_page/hp_tree.png";
 import boyWithBalloon from "../assets/home_page/hp_boy_balloon.png";
 import boyWithStars from "../assets/home_page/hp_boy_stars.png";
 import starsImage from "../assets/home_page/hp_stars.png";
+
+import {useState, useEffect} from "react";
+import Spinner from "../components/Spinner.js";
 import "./styles/HomePage.css";
 
 export default function HomePage() {
+
   const { isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(true); // Set isLoading to true initially
+
+  useEffect(() => {
+    document.title = "Dreamify | Home";
+  }, []);
+
+  // Simulate data loading
+  useEffect(() => {
+    // Simulate an asynchronous operation (e.g., fetching data from an API)
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false after data is loaded
+    }, 200); 
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  
 
   return (
     <div className="hp-container">

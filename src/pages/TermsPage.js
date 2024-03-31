@@ -1,8 +1,23 @@
 import React from 'react';
 import './styles/TermsPage.css';
+import {useState, useEffect} from "react";
+import Spinner from "../components/Spinner.js"; 
 
+export default function TermsAndPrivacy() {
+    
+    useEffect(() => {
+        document.title = "Dreamify | Terms of Service and Privacy Policy";
+      }, []);
 
-const TermsAndPrivacy = () => {
+    const [isLoading, setIsLoading] = useState(true); // Set isLoading to true initially    
+    // Simulate data loading
+    setTimeout(() => {
+        setIsLoading(false); // Set isLoading to false after data is loaded
+    }, 200); // Adjust the delay (2000ms = 2 seconds) as needed
+    if (isLoading) {
+        return <Spinner />;
+    }
+
   return (
     <div className="terms-container">
     <h1 className="terms-title">Terms of Service and Privacy Policy</h1>
@@ -23,5 +38,3 @@ const TermsAndPrivacy = () => {
 </div>
   );
 };
-
-export default TermsAndPrivacy;
