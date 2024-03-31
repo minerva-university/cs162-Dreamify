@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;700&display=swap');
 
-
-body {
-  margin: 0px;
-  font-family: 'Newsreader', serif;
-}
-
 .signin-page {
     display: flex;
-    height: 100%;
+    height: 100vh;
+    margin: 0px;
+    font-family: 'Newsreader', serif;
   }
   
   .signin-image {
@@ -21,21 +17,25 @@ body {
     align-items: center;
     color: white;
     padding-top: 16%; /* Add padding to the top to push content down */
-    height: 100%;
+    height: 70%;
+    position: relative;
   }
   
   .signin-image h1 {
-    margin-top: -25%; /* Remove top margin if any */
-    margin-bottom: 5rem; /* Adjust bottom margin as needed */
+    position: absolute; 
+    top: 5%; /* Distance from the top */
   }
   
   .signin-image p {
-    margin-top: 75%;
+    position: absolute; 
+    bottom: 10%; /* Distance from the bottom */
     font-size: 1.2rem;
-    margin-bottom: 1 rem; /* Increase bottom margin to push 'Want to create an account?' down */
+    margin-bottom: 1rem; /* Increase bottom margin to push 'Want to create an account?' down */
   }
 
   .signin-image button {
+    position: absolute; 
+    bottom: 2%; /* Distance from the bottom */
     padding: 0.7rem 2rem;
     background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
     color: white;
@@ -64,41 +64,30 @@ body {
     text-align: center;
   }
   
-  form {
+  .signin-page form {
     width: 100%;
     max-width: 400px; /* Set a max-width for the form */
     padding: 2rem;
+    margin: auto;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the form */
     align-items: center;
-    display: flex; /* Use flexbox to align form contents */
     flex-direction: column; /* Stack form elements vertically */
     align-items: center; /* Center-align the flex items */
     text-align: center; /* Center-align text */
   }
   
-  .google-signin {
-    background: #0752a2;
-    color: white;
-    padding: 1rem;
-    border: none;
-    border-radius: 50% 50%;
-    margin-bottom: 1rem;
-
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add some shadow to lift the button */
-    cursor: pointer;
-  }
-  
-  .email-input input,
-  .password-input input {
+  .signin-page .email-input input,
+  .signin-page .password-input input {
     padding: 1rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     box-sizing: border-box;
     background-color: #77CFD1;
   }
-  .alert-danger {
+  .signin-page .alert-danger {
     background-color: #f8d7da; /* Light red */
     color: #721c24; /* Dark red */
     border-radius: 4px; /* Rounded corners */
@@ -107,9 +96,10 @@ body {
     margin-bottom: 20px; /* Space below the alert */
     text-align: center; /* Center the text */
     font-weight: bold; /* Make the font bold */
+    font-size: 12px;
 }
   
-  a {
+  .signin-page a {
     display: block; /* Make the link a block to allow for better click area */
     color: #007bff;
     text-decoration: none;
@@ -117,7 +107,7 @@ body {
     cursor: pointer;
   }
   
-  button[type="submit"] {
+  .signin-page button[type="submit"] {
     padding: 1rem;
     background: #0752a2;
     color: white;
@@ -126,11 +116,11 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border-radius: 10%;
   }
-  button[type="submit"]:hover {
+  .signin-page button[type="submit"]:hover {
     background: #0a6cd6;
   }
   
-  h1, p, button {
+  .signin-page h1, p, button {
     margin-bottom: 1rem; /* Spacing between elements */
   }
   
@@ -140,10 +130,10 @@ body {
     text-align: center;
   }
 
-input {
+  .signin-page input {
   border-radius: 5px;
 }
-input::placeholder, textarea::placeholder {
+.signin-page input::placeholder, textarea::placeholder {
   color: black;
 }
   /* Responsive adjustments */

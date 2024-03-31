@@ -1,36 +1,3 @@
-.Sidebar {
-  width: 120px;
-  margin: 5px;
-  position: sticky;
-  top: 62px;
-  align-self: flex-start;
-  align-items: start;
-}
-
-.Sidebar .nav-item {
-  width: 100%;
-}
-
-.Sidebar a {
-  color: #444;
-}
-
-.Sidebar a:hover {
-  background-color: #eee;
-}
-
-.Sidebar a:visited {
-  color: #444;
-}
-
-.Sidebar .nav-item .active {
-  background-color: #def;
-}
-
-.App {
-  padding: 0;
-}
-
-.Header {
-  border-bottom: 1px solid #ddd;
+body {
+  margin: 0;
 }

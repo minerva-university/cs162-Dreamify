@@ -65,13 +65,13 @@ def insert_parent(
 def insert_child(
     parent_id: str,
     name: str,
+    image: str,
     age_range: str,
     sex: str,
-    sibling_relationship: str,
     eye_color: str,
     hair_type: str,
     hair_color: str,
-    skin_tone: str,
+    ethnicity: str,
     fav_animals: str | None = None,
     fav_activities: str | None = None,
     fav_shows: str | None = None,
@@ -82,13 +82,13 @@ def insert_child(
     Args:
         parent_id (str): The ID of the parent.
         name (str): The name of the child.
+        image (str): The image of the child in base64 string format.
         age_range (str): The age range of the child.
         sex (str): The sex of the child.
-        sibling_relationship (str): The sibling relationship of the child.
         eye_color (str): The eye color of the child.
         hair_type (str): The hair type of the child.
         hair_color (str): The hair color of the child.
-        skin_tone (str): The skin tone of the child.
+        ethnicity (str): The ethnicity of the child.
         fav_animals (str | None): The child's favorite animals. Optional.
         fav_activities (str | None): The child's favorite activities. Optional.
         fav_shows (str | None): The child's favorite shows. Optional.
@@ -108,13 +108,13 @@ def insert_child(
         child = Child(
             parent_id=parent_id,
             name=name,
+            image=image,
             age_range=age_range,
             sex=sex,
-            sibling_relationship=sibling_relationship,
             eye_color=eye_color,
             hair_type=hair_type,
             hair_color=hair_color,
-            skin_tone=skin_tone,
+            ethnicity=ethnicity,
             fav_animals=fav_animals,
             fav_activities=fav_activities,
             fav_shows=fav_shows,
@@ -138,9 +138,12 @@ def insert_child(
 
 def insert_story(
     child_id: str,
+    title: str,
     topic: str,
     image_style: str,
-    chapters: list[str],
+    story_genre: str,
+    chapter_titles: list[str],
+    chapter_contents: list[str],
     images: list[str],
 ) -> Story:
     """
@@ -148,9 +151,12 @@ def insert_story(
 
     Args:
         child_id (str): The ID of the child.
+        title (str): The title of the story.
         topic (str): The topic of the story.
         image_style (str): The style of the images.
-        chapters (list[str]): The list of story chapters.
+        story_genre (str): The genre of the story.
+        chapter_titles (list[str]): The list of story chapter titles.
+        chapter_contents (list[str]): The list of story chapter contents.
         images (list[str]): The list of images.
 
     Raises:
@@ -168,8 +174,10 @@ def insert_story(
         # Create a new story
         story = Story(
             child_id=child_id,
+            title=title,
             topic=topic,
             image_style=image_style,
+            story_genre=story_genre,
         )
 
         # Add the story to the database and flush it to get the story ID
@@ -177,11 +185,12 @@ def insert_story(
         db.session.flush()
 
         # Add the chapters to the database
-        for i in range(len(chapters)):
+        for i in range(len(chapter_contents)):
             # Create a new chapter
             chapter = Chapter(
                 story_id=story.story_id,
-                content=chapters[i],
+                title=chapter_titles[i],
+                content=chapter_contents[i],
                 image=images[i],
                 order=i + 1,
             )

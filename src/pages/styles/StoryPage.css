@@ -41,3 +41,12 @@ story-container body {
   .story-container  .story-photo {
     height: auto; 
   }
+
+  .story-hr-line {
+    width: 100%;
+    max-width: 900px; 
+    margin: auto;
+    display: block;
+    margin-bottom: 20px;
+    border-top: 1.5px solid #77CFD1;
+  }

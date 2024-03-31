@@ -4,10 +4,12 @@ This module initializes the Flask app and configures it.
 
 from flask import Flask
 
-# todo: delete the lines below
-# Base URL for the API (Mykhailo's application doesn't work without that, so I commented it out)
-# More sytematic solution will be implemented later
-# from flask_cors import CORS
+# Note: originally it was planned to use proxy instead of CORS,
+# however, Mykhailo and now also Flambeau and Billy have a weird
+# issue with the proxy not working properly,
+# so we have to use CORS instead
+
+from flask_cors import CORS
 
 from .config import ApplicationConfig
 from .extensions import bcrypt, jwt
@@ -30,9 +32,8 @@ def create_app() -> Flask:
     bcrypt.init_app(app)
     jwt.init_app(app)
 
-    # todo: delete the lines below
-    # Enable CORS for the entire app (see the comment above (line 7))
-    # CORS(app)
+    # Enable CORS for the entire app (see the comment at line 7)
+    CORS(app)
 
     # Create tables in the database
     with app.app_context():

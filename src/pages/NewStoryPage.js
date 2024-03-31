@@ -18,12 +18,11 @@ export default function NewStoryPage() {
   
   const [storyTopic, setStoryTopic] = useState('');
   const [imageStyle, setImageStyle] = useState('Cartoon'); 
-  const [storyLength, setStoryLength] = useState('Short');
   const [storyGenre, setStoryGenre] = useState('Fantasy');
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const handleGenerate = async (storyTopic, imageStyle, storyLength, storyGenre) => {
+  const handleGenerate = async (storyTopic, imageStyle, storyGenre) => {
     setIsLoading(true); // Start loading
 
     const email = "bob.ross@example.com";
@@ -89,22 +88,6 @@ export default function NewStoryPage() {
           ))}
         </div>
 
-        <label >The length of the story</label>
-        <div className='buttons'>
-          {['Short', 'Medium', 'Long'].map((length) => (
-            <button
-              key={length}
-              onClick={() => setStoryLength(length)}
-              style={{
-                backgroundColor: storyLength === length ? '#014A8A' : '#77CFD1',
-                color: storyLength === length ? 'white' : 'black',
-              }}
-            >
-              {length}
-            </button>
-          ))}
-        </div>
-
         <label>Story Genre</label>
         <div className='buttons'>
           {['Fantasy', 'Adventure', 'Educational'].map((genre) => (
@@ -123,7 +106,7 @@ export default function NewStoryPage() {
 
         <button
           className="generate-button"
-          onClick={() => handleGenerate(storyTopic, imageStyle, storyLength, storyGenre)}
+          onClick={() => handleGenerate(storyTopic, imageStyle, storyGenre)}
         >
           Generate
         </button>

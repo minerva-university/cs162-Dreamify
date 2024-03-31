@@ -78,7 +78,7 @@ export default function App() {
                 element={<NewStoryPage />}
               />{" "}
               {/* MISHA */}
-              <Route path="/children/:parentid" element={<SelectChildPage />} />
+              <Route path="/children" element={<SelectChildPage />} />
               {/* Flambeau */}
               <Route path="/login" element={<LoginPage />} />
               {/* Flambeau */}

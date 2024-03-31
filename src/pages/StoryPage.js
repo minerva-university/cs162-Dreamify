@@ -9,19 +9,18 @@ export default function StoryPage() {
   const { storyId } = useParams();
   const api = useApi();
   const { login } = useAuth();
-  const [storyData, setStoryData] = useState(null);
+  const [storyData, setStoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [storyTitle, setStoryTitle] = useState("No title available");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
-        await login("bob.ross@example.com", "123");  //FOR TESTING PURPOSES
-        
         const response = await api.getAllStoryChapters(storyId);
-
+        setStoryTitle(response?.story_title || "No story title available");
         setStoryData({
           chapters: response?.chapters?.map(chapter => ({
+            title: chapter.title || "No chapter title available",
             text: chapter.content || "No text available",
             imageBase64: "data:image/png;base64," + chapter.image
           })) || []
@@ -45,22 +44,25 @@ export default function StoryPage() {
     );
   }
 
-  if (!storyData) {
-    return (
-      <div>Story not found</div>
+  const renderStory = storyData.chapters ? (
+  storyData.chapters.map((chapter, index) => (
+      <div key={index} className="story-block">
+        <h3 className="story-headline">{chapter.title}</h3>
+        <p className="story-text">{chapter.text.split('\n').map((line, i) => (<span key={i}>{line}<br/></span>))}</p>
+        <img src={`${chapter.imageBase64}`} alt={`Chapter ${index + 1}`} className="story-photo" />
+      </div>
+    ))) : (
+      <div className="story-block">
+        <h2 className="story-headline">No chapters available</h2>
+      </div>
     );
-  }
 
   return (
     <>
       <div className="story-container">
-        {storyData.chapters.map((chapter, index) => (
-          <div key={index} className="story-block">
-            <h2 className="story-headline">{"Chapter " + (index + 1)}</h2>
-            <p className="story-text">{chapter.text.split('\n').map((line, i) => (<span key={i}>{line}<br/></span>))}</p>
-            <img src={`${chapter.imageBase64}`} alt={`Chapter ${index + 1}`} className="story-photo" />
-          </div>
-        ))}
+        <h1 className="page-title">{storyTitle}</h1>
+        <hr className="story-hr-line"></hr>
+        {renderStory}
       </div>
     </>
   );
