@@ -1,37 +1,35 @@
-@import url("https://fonts.googleapis.com/css?family=Newsreader:400,500&display=swap");
-
-.footer-container {
+.footer {
   background: #7cd1d2;
   flex-shrink: 0;
   width: 100%;
-  height: auto; /* Adjusted to auto to accommodate content */
+  height: auto;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: auto;
-  padding: 40px 0; /* Added padding for better spacing */
+  padding: 40px 0;
 }
 
-.footer-content {
+.footer .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  flex-wrap: wrap; /* Allow items to wrap if needed */
+  flex-wrap: wrap;
 }
 
-.footer-text {
+.footer .footer-text {
   text-decoration: none;
   color: #000;
-  font-family: 'Newsreader', serif;
   font-size: 22px;
   font-weight: 500;
   line-height: 100%;
-  margin: 0 15px; /* Adjusted spacing between items */
+  margin: 0 15px;
 }
 
-.footer-left-group, .footer-right-group {
-  display: flex; /* Ensure groups also use flex layout */
+.footer .footer-left-group,
+.footer .footer-right-group {
+  display: flex;
   align-items: center;
 }
