@@ -64,7 +64,7 @@ const AddachildPage = () => {
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
-  const [customRaceInput, setCustomRaceInput] = useState(null);
+  const [customRaceInput, setCustomRaceInput] = useState("");
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
@@ -83,11 +83,18 @@ const AddachildPage = () => {
     return <Spinner />;
   }
 
+
   const handleRaceSelect = (race) => {
     setSelectedRace(race);
     if (race !== "custom") {
       setCustomRaceInput("");
     }
+  };
+
+  const handleCustomRaceInput = (e) => {
+    const value = e.target.value;
+    setCustomRaceInput(value);
+    setSelectedRace(value ? "custom" : null);
   };
 
   const handleTextFieldChange = (setter) => (event) => {
@@ -247,7 +254,7 @@ const AddachildPage = () => {
               className="custom-race-input"
               placeholder="Type custom race"
               value={customRaceInput !== null ? customRaceInput : ""}
-              onChange={(e) => setCustomRaceInput(e.target.value)}
+              onChange={(e) => handleCustomRaceInput(e)}
             />
           </div>
         </div>

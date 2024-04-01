@@ -36,7 +36,7 @@ export default function NewStoryPage() {
 
       if (response?.story_id) {
         setIsLoading(false);
-        navigate(`/library/story/${response.story_id}`);
+        navigate(`/library/${response.story_id}`);
       } else {
         throw new Error("Story generation failed");
       }

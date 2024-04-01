@@ -38,11 +38,11 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route
-                path="/myprofile/:parentid"
+                path="/myprofile"
                 element={<UserProfilePage />}
               />
               <Route
-                path="/addachild/:parentid"
+                path="/addachild"
                 element={
                   <ProtectedRoute>
                     <AddachildPage />
@@ -58,7 +58,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/library/story/:storyId"
+                path="/library/:storyId"
                 element={
                   <ProtectedRoute>
                     <StoryPage />
@@ -66,7 +66,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/library/parent"
+                path="/library"
                 element={
                   <ProtectedRoute>
                     <LibraryPage />
