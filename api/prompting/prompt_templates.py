@@ -29,7 +29,9 @@ Here is a description of the character ${name}:
 5. Hair color: ${hair_color}
 6. Ethnicity: ${ethnicity}
 
-Ensure the image complies with privacy policies and contains no text. Generate only one image.
+The image must contain only one single scene of the chapter.
+There must be only a image without any text in it.
+Generate only one image.
 
 Story chapter:
 ${chapter_content}\
@@ -38,14 +40,20 @@ ${chapter_content}\
 
 child_image_prompt_template = Template(
     """\
-Create an image of a child ${name} with specified characteristics:
-1. Age range: ${age_range}
-2. Gender: ${sex}
-3. Eye color: ${eye_color}
-4. Hair type: ${hair_type}
-5. Hair color: ${hair_color}
-6. Ethnicity: ${ethnicity}
+Create an image of a child with these characteristics:
+- Age range: ${age_range}
+- Gender: ${sex}
+- Eye color: ${eye_color}
+- Hair type: ${hair_type}
+- Hair color: ${hair_color}
+- Ethnicity: ${ethnicity}
 
-The child should be smiling. Ensure the image complies with privacy policies and contains no text. Generate only one image.\
+The image must show portrait-view of the child, cut off at the bottom image border.
+The child should be smiling and the background should be neutral.
+Generate only one version of the child.
+The image style should be realistic-cartoonish.
+
+There must be only a image without any text in it.
+Generate only one image.\
 """
 )

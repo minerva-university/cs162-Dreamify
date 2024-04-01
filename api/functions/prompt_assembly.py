@@ -4,6 +4,7 @@ This module contains functions for assembling prompts.
 
 import re
 from string import Template
+from flask import current_app
 
 from ..prompting.prompt_templates import (
     story_prompt_template,
@@ -16,49 +17,63 @@ def extract_story_components(
     story: str,
 ) -> tuple[str, list[str], list[str]]:
     """
-    Extract the components of a story from a string.
+    Extract the components of a story.
 
     Args:
         story (str): The story string.
 
+    Raises:
+        ValueError: If the story is empty or if the story components cannot be extracted.
+
     Returns:
-        tuple[str, list[str], list[str]]: A tuple containing the story title, story details, and chapters.
+        tuple[str, list[str], list[str]]: A tuple containing the story title, chapter titles, and chapter descriptions.
     """
-    # Extract the story title
-    title_match = re.search(r"Title of the story: (.+)", story)
-    title = title_match.group(1) if title_match else "Unknown"
+    try:
+        # Raise an error if the story is an empty string
+        if not story:
+            raise ValueError("The story is an empty string.")
 
-    # Pattern to split and extract chapters
-    chapter_pattern = re.compile(
-        r"""
-        Chapter\ \d+\ title:     # Matches 'Chapter <number> title:' indicating the start of a chapter title
-        (.+?)                    # Lazily captures the chapter title
-        \n\n                     # Matches two newline characters separating title and description
-        Chapter\ \d+\ description: # Matches 'Chapter <number> description:' indicating the start of a chapter description
-        (.+?)                    # Lazily captures the chapter description
-        (?=\n\nChapter\ \d+\ title:|\n\nThe end.|$) # Lookahead for the start of the next chapter or the end of the story
-        """,
-        re.DOTALL | re.VERBOSE,
-    )
+        # Extract the story title
+        title_match = re.search(r"Title of the story: (.+)", story)
+        title = title_match.group(1) if title_match else "Unknown"
 
-    chapter_titles = []
-    chapter_contents = []
-
-    # Extract chapters details
-    for match in chapter_pattern.finditer(story):
-        # Extract chapter title and content
-        chapter_title = (
-            match.group(1).strip() if match.group(1).strip() else "Unknown"
-        )
-        chapter_content = (
-            match.group(2).strip() if match.group(2).strip() else "Unknown"
+        # Pattern to extract chapter titles and descriptions
+        chapter_pattern = re.compile(
+            r"""
+            Chapter\ \d+\ title:\s*    # Matches 'Chapter <number> title:' possibly followed by spaces
+            (.+?)                      # Lazily captures the chapter title
+            \s*                        # Optional whitespace characters
+            Chapter\ \d+\ description:\s* # Matches 'Chapter <number> description:' possibly followed by spaces
+            (.+?)                      # Lazily captures the chapter description
+            (?=\s*Chapter\ \d+\ title:|\s*The end.|$) # Lookahead for the start of the next chapter, the end of the story, or the end of the document
+            """,
+            re.DOTALL | re.VERBOSE,
         )
 
-        # Append the chapter title and content to the respective lists
-        chapter_titles.append(chapter_title)
-        chapter_contents.append(chapter_content)
+        chapter_titles = []
+        chapter_contents = []
 
-    return title, chapter_titles, chapter_contents
+        # Extract chapters details
+        for match in chapter_pattern.finditer(story):
+            # Extract chapter title and content
+            chapter_title = match.group(1).strip()
+            chapter_content = match.group(2).strip()
+
+            # Append the chapter title and content to the respective lists
+            chapter_titles.append(chapter_title)
+            chapter_contents.append(chapter_content)
+
+        # Raise an error if the story components could not be extracted
+        if not story or not chapter_titles or not chapter_contents:
+            raise ValueError(
+                "Invalid story format, could not extract story components."
+            )
+
+        # Return the story components
+        return title, chapter_titles, chapter_contents
+    except Exception as e:
+        current_app.logger.error(f"Error extracting story components: {e}")
+        raise e
 
 
 def extract_placeholders_from_template(template: Template) -> list[str]:
@@ -71,25 +86,31 @@ def extract_placeholders_from_template(template: Template) -> list[str]:
     Returns:
         list[str]: A list of unique placeholder names found in the template.
     """
-    # Regular expression to find ${placeholder} or $placeholder in the template
-    placeholder_pattern = re.compile(
-        r"""
-        \$              # Start with a dollar sign
-        \{?             # Optionally followed by an opening brace
-        (\w+)           # Capture one or more word characters (the placeholder name)
-        \}?             # Optionally followed by a closing brace
-    """,
-        re.VERBOSE,
-    )
+    try:
+        # Regular expression to find ${placeholder} or $placeholder in the template
+        placeholder_pattern = re.compile(
+            r"""
+            \$              # Start with a dollar sign
+            \{?             # Optionally followed by an opening brace
+            (\w+)           # Capture one or more word characters (the placeholder name)
+            \}?             # Optionally followed by a closing brace
+        """,
+            re.VERBOSE,
+        )
 
-    # Find all matches in the template's template string
-    required_placeholders = placeholder_pattern.findall(template.template)
+        # Find all matches in the template's template string
+        required_placeholders = placeholder_pattern.findall(template.template)
 
-    # Filter out duplicates by converting the list to a set
-    required_placeholders = set(required_placeholders)
+        # Filter out duplicates by converting the list to a set
+        required_placeholders = set(required_placeholders)
 
-    # Return the required placeholders as a list
-    return list(required_placeholders)
+        # Return the required placeholders as a list
+        return list(required_placeholders)
+    except Exception as e:
+        current_app.logger.error(
+            f"Error extracting placeholders from template: {e}"
+        )
+        raise e
 
 
 def create_story_prompt(
@@ -109,36 +130,40 @@ def create_story_prompt(
     Returns:
         str: The story prompt.
     """
-    # Combine the child's parameters with the topic
-    parameters = {
-        **child_params,
-        "topic": topic,
-        "story_genre": story_genre,
-    }
+    try:
+        # Combine the child's parameters with the topic and story genre
+        parameters = {
+            **child_params,
+            "topic": topic,
+            "story_genre": story_genre,
+        }
 
-    # Extract the required placeholders from the story prompt template
-    required_placeholders = extract_placeholders_from_template(
-        story_prompt_template
-    )
-
-    # Check for missing required placeholders
-    missing_placeholders = [
-        param for param in required_placeholders if param not in parameters
-    ]
-
-    # Raise an error if there are missing required placeholders
-    if missing_placeholders:
-        raise ValueError(
-            f"Missing required placeholders: {', '.join(missing_placeholders)}"
+        # Extract the required placeholders from the story prompt template
+        required_placeholders = extract_placeholders_from_template(
+            story_prompt_template
         )
 
-    # Replace the Nones in the optional child_params with "unspecified"
-    for key in ["fav_animals", "fav_activities", "fav_shows"]:
-        if key in parameters and parameters[key] is None:
-            parameters[key] = "unspecified"
+        # Check for missing required placeholders
+        missing_placeholders = [
+            param for param in required_placeholders if param not in parameters
+        ]
 
-    # Create the story prompt
-    return story_prompt_template.substitute(parameters)
+        # Raise an error if there are missing required placeholders
+        if missing_placeholders:
+            raise ValueError(
+                f"Missing required placeholders: {', '.join(missing_placeholders)}"
+            )
+
+        # Replace the Nones in the optional child_params with "unspecified"
+        for key in ["fav_animals", "fav_activities", "fav_shows"]:
+            if key in parameters and parameters[key] is None:
+                parameters[key] = "unspecified"
+
+        # Substitute the parameters into the story prompt template and return it
+        return story_prompt_template.substitute(parameters)
+    except Exception as e:
+        current_app.logger.error(f"Error creating story prompt: {e}")
+        raise e
 
 
 def create_chapter_image_prompt(
@@ -160,17 +185,20 @@ def create_chapter_image_prompt(
     Returns:
         str: The image prompt.
     """
+    try:
+        # Combine the child's parameters with the image generation parameters
+        parameters = {
+            **child_params,
+            "chapter_content": chapter_content,
+            "chapter_number": chapter_number,
+            "image_style": image_style,
+        }
 
-    # Combine the child's parameters with the image generation parameters
-    parameters = {
-        **child_params,
-        "chapter_content": chapter_content,
-        "chapter_number": chapter_number,
-        "image_style": image_style,
-    }
-
-    # Substitute the parameters into the image prompt template and return it
-    return chapter_image_prompt_template.substitute(**parameters)
+        # Substitute the parameters into the chapter image prompt template and return it
+        return chapter_image_prompt_template.substitute(**parameters)
+    except Exception as e:
+        current_app.logger.error(f"Error creating chapter image prompt: {e}")
+        raise e
 
 
 def create_child_image_prompt(child_params: dict[str, str]) -> str:
@@ -183,6 +211,9 @@ def create_child_image_prompt(child_params: dict[str, str]) -> str:
     Returns:
         str: The image prompt.
     """
-
-    # Substitute the parameters into the image prompt template and return it
-    return child_image_prompt_template.substitute(**child_params)
+    try:
+        # Substitute the parameters into the child image prompt template and return it
+        return child_image_prompt_template.substitute(**child_params)
+    except Exception as e:
+        current_app.logger.error(f"Error creating child image prompt: {e}")
+        raise e

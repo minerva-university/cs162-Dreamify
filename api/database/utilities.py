@@ -2,8 +2,9 @@
 This module contains utility functions for the database.
 """
 
-from sqlalchemy.inspection import inspect
+from flask import current_app
 from uuid import uuid4
+from sqlalchemy.inspection import inspect
 from typing import Any
 
 
@@ -14,7 +15,11 @@ def generate_id() -> str:
     Returns:
         str: The generated ID.
     """
-    return uuid4().hex
+    try:
+        return uuid4().hex
+    except Exception as e:
+        current_app.logger.error(f"Failed to generate ID: {e}")
+        raise e
 
 
 def get_entry_attributes(
@@ -39,24 +44,27 @@ def get_entry_attributes(
     Returns:
         dict: The attributes of the entry.
     """
+    try:
+        # Get the attributes of the entry
+        attributes = {
+            attr.key: getattr(entry, attr.key)
+            for attr in inspect(entry, raiseerr=True).mapper.column_attrs
+        }
 
-    # Get the attributes of the entry
-    attributes = {
-        attr.key: getattr(entry, attr.key)
-        for attr in inspect(entry, raiseerr=True).mapper.column_attrs
-    }
+        # Remove the excluded attributes
+        if exclude is not None:
+            for key in exclude:
+                attributes.pop(key, None)
 
-    # Remove the excluded attributes
-    if exclude is not None:
-        for key in exclude:
-            attributes.pop(key, None)
+        # Transform the attributes to strings if the flag is set
+        if transform_to_str:
+            for key, value in attributes.items():
+                # Exclude the None values
+                if value is not None:
+                    attributes[key] = str(value)
 
-    # Transform the attributes to strings if the flag is set
-    if transform_to_str:
-        for key, value in attributes.items():
-            # Exclude the None values
-            if value is not None:
-                attributes[key] = str(value)
-
-    # Return the attributes
-    return attributes
+        # Return the attributes
+        return attributes
+    except Exception as e:
+        current_app.logger.error(f"Failed to get entry attributes: {e}")
+        raise e
