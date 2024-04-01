@@ -1,16 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;700&display=swap');
-
-
 .library-page h1 {
   font-size: 64px;
-  font-family: 'Newsreader', serif;
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .library-page h3 {
   font-size: 23px;
-  font-family: 'Inter', sans-serif;
   margin-right: 200px;
   text-align: center;
   flex-direction: bottom;
@@ -19,70 +13,68 @@
 
 .library-page .hr-style {
   width: 80%;
-  border-top: 1.5px solid #77CFD1;
+  border-top: 1.5px solid #77cfd1;
   margin-left: 100px;
   height: 10px;
 }
 
-.library-page  .story-block {
+.library-page .story-block {
   display: flex;
   width: 750px;
   margin: 20px;
   margin-left: 100px;
-  border: 1px solid #014A8A;
+  border: 1px solid #014a8a;
   border-radius: 10px;
   overflow: hidden;
 }
 
-.library-page  .story-image {
+.library-page .story-image {
   width: 20%;
 }
 
-.library-page  .story-details {
+.library-page .story-details {
   width: 80%;
   padding: 20px;
-  background-color: #FAFAF5;
+  background-color: #fafaf5;
   display: flex;
   justify-content: space-between;
 }
 
-.library-page  .story-title-date {
-    width: 100%;
+.library-page .story-title-date {
+  width: 100%;
 }
 
-.library-page  .story-title {
+.library-page .story-title {
   color: black;
   font-weight: bold;
 }
 
 .library-page .story-date {
-  color: #014A8A;
+  color: #014a8a;
 }
 
-.library-page  .story-private {
-  text-align: right;
-  background-color: #014A8A;
+.library-page .story-private {
+  background-color: #014a8a;
   color: white;
   padding: 5px;
   border-radius: 5px;
-  height: 20px;
+  height: 25%;
   width: 15%;
   text-align: center;
   justify-content: center;
 }
 
-.library-page  .storyh1h3{
-    padding-top: 40px;
-    display: flex;
-    justify-content: space-between;
-    margin-right: 100px; 
-    margin-left: 100px;
-    
+.library-page .storyh1h3 {
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 100px;
+  margin-left: 100px;
 }
 
-.library-page .storyh3{
-    display: flex;
-    margin-left: 200px;
-    align-items: flex-end;
-    padding-bottom: 7px;
+.library-page .storyh3 {
+  display: flex;
+  margin-left: 200px;
+  align-items: flex-end;
+  padding-bottom: 7px;
 }

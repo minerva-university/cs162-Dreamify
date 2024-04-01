@@ -1,32 +1,27 @@
-@import "https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap";
-@import "https://fonts.googleapis.com/css?family=Inter:0,undefined&display=swap";
-
-.terms-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
+.terms-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
 }
 
-.terms-title {
-    text-align: center;
-    font-family: 'Newsreader', serif;
-    font-size: 40px;
-    margin-bottom: 40px;
+.terms-page .terms-title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 40px;
 }
 
-.terms-section {
-    margin-bottom: 40px;
+.terms-page .terms-section {
+  margin-bottom: 40px;
 }
 
-.terms-section-title {
-    font-family: 'Newsreader', serif;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 10px;
+.terms-page .terms-section-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 
-.terms-section-content {
-    font-size: 18px;
-    line-height: 1.5;
-    color: #1a6598;
+.terms-page .terms-section-content {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #1a6598;
 }

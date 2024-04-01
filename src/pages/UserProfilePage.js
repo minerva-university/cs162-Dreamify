@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ChildProfileCard from "../components/ChildProfileCard";
 import { useNavigate } from "react-router-dom";
+
+import ChildProfileCard from "../components/ChildProfileCard";
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/UserProfilePage.css";

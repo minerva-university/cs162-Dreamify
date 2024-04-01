@@ -1,59 +1,59 @@
+.child-profile-card {
+  border: 1px solid #ddd;
+  padding: 0px;
+  border-radius: 20px;
+  max-width: 300px; /* sets a max-width for the card */
+  width: 100%; /* makes the card responsive */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Sets the background color of the card */
+}
+
 .child-profile-card img {
-    max-width: 100%; /* ensures the image is no wider than its container */
-    height: auto; /* maintains the aspect ratio */
-    object-fit: cover; /* this will cover the area of the box without stretching the image */
-    border-radius: 20px; /* optional: rounds the corners of the image */
-  }
-  
-  .child-profile-card {
-    border: 1px solid #ddd; /* optional: adds a border around the card */
-    padding: 0px; /* optional: adds some spacing inside the card */
-    border-radius: 20px; /* optional: rounds the corners of the card */
-    max-width: 300px; /* sets a max-width for the card */
-    width: 100%; /* makes the card responsive */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* optional: adds a shadow for depth */
-    background-color: #fff; /* Sets the background color of the card */
-  }
-  .child-profile-content {
-    padding: 16px; /* Apply padding to the text container only */
-  }
-  
-  .number-of-stories {
-    color: blue; /* This will turn the text color to blue */
-    /* Add any additional styling for this element */
-  }
-  
-  .created-on-text {
-    color: gray; /* This will turn the text color to gray */
-    /* Add any additional styling for this element */
-  }
-
-  .child-profile-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Adjust content spacing */
-}
-.created-on-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; /* Adjust content spacing */
+  max-width: 100%; /* ensures the image is no wider than its container */
+  height: auto; /* maintains the aspect ratio */
+  object-fit: cover; /* this will cover the area of the box without stretching the image */
+  border-radius: 20px;
 }
 
-.child-profile-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-}
-.edit-profile-btn {
-    align-self: flex-end; /* Align the button to the right */
-    padding: 5px 10px; /* Button padding */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    text-decoration: none; /* Remove underline from link */
-    border-radius: 5px; /* Rounded corners for the button */
-    cursor: pointer; /* Change mouse cursor on hover */
+.child-profile-card .number-of-stories {
+  color: blue; /* This will turn the text color to blue */
+  /* Add any additional styling for this element */
 }
 
-.edit-profile-btn:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+.child-profile-card .created-on-text {
+  color: gray; /* This will turn the text color to gray */
+  /* Add any additional styling for this element */
+}
+
+.child-profile-card .child-profile-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust content spacing */
+  padding: 16px; /* Apply padding to the text container only */
+}
+
+.child-profile-card .created-on-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Adjust content spacing */
+}
+
+.child-profile-card .child-profile-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.child-profile-card .edit-profile-btn {
+  align-self: flex-end; /* Align the button to the right */
+  padding: 5px 10px; /* Button padding */
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  text-decoration: none; /* Remove underline from link */
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer; /* Change mouse cursor on hover */
+}
+
+.child-profile-card .edit-profile-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }

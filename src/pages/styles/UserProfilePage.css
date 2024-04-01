@@ -1,13 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
 .user-profile-page {
   background-color: white;
   color: black;
-  font-family: 'Inter', sans-serif;
 }
+
 .user-profile-page h1 {
   margin-left: 100px;
-  font-family: 'Newsreader', serif;
   font-size: 64px;
   margin-bottom: 0px;
 }
@@ -26,7 +23,7 @@
 .user-profile-page button {
   display: inline-block;
   margin-top: 20px;
-  background-color: #014A8A;
+  background-color: #014a8a;
   color: white;
   border: none;
   border-radius: 10px;
@@ -42,13 +39,12 @@
 }
 
 .user-profile-page .account-info-list {
-  background-color: #FAFAF5;
-  border: 1px solid #014A8A;
+  background-color: #fafaf5;
+  border: 1px solid #014a8a;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
-
 }
 
 .user-profile-page .account-info-item {
@@ -57,9 +53,9 @@
   font-size: 18px;
 }
 
-.add-kid-button {
-  background-color: #77CFD1; /* Lighter color for the add kid button */
-  border-color: #77CFD1;
+.user-profile-page .add-kid-button {
+  background-color: #77cfd1; /* Lighter color for the add kid button */
+  border-color: #77cfd1;
   color: black;
   margin-top: 50px; /* Adjusted margin for visual spacing */
 }
@@ -73,11 +69,12 @@
   margin-left: 100px;
   margin-right: 100px;
   width: 80%;
-  border-top: 1.5px solid #77CFD1;
+  border-top: 1.5px solid #77cfd1;
   height: 10px;
 }
 
-.children-cards-container, .child-selection {
+.user-profile-page .children-cards-container,
+.user-profile-page .child-selection {
   display: flex;
   justify-content: center; /* Horizontally center the content */
   align-items: center; /* Vertically center the content */
@@ -87,9 +84,9 @@
   margin-bottom: 100px;
 }
 
-.child-selection button {
-  background-color: #77CFD1;
-  border-color: #77CFD1;
+.user-profile-page .child-selection button {
+  background-color: #77cfd1;
+  border-color: #77cfd1;
   border: none;
   border-radius: 10px;
   color: black;
@@ -99,13 +96,13 @@
   font-size: 20px;
 }
 
-.child-selection button:hover {
+.user-profile-page .child-selection button:hover {
   background-color: #84dee0;
   opacity: 0.9;
   transition: 0.3s;
 }
 
-.children-cards-container {
+.user-profile-page .children-cards-container {
   display: flex;
   gap: 30px;
   margin-top: 20px;

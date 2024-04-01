@@ -6,7 +6,7 @@ import { useApi } from "../contexts/ApiProvider";
 import Spinner from "./Spinner";
 import "./styles/ChildProfileCard.css";
 
-const ChildProfileCard = ({ childId }) => {
+const ChildProfileCard = ({ childId, disableEdit }) => {
   const [childProfile, setChildProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,10 +41,12 @@ const ChildProfileCard = ({ childId }) => {
       />
       <div className="child-profile-content">
         <div className="created-on-button">
-          <h3>{childProfile.name}</h3>
-          <Link to={`/modify/${childId}`} className="edit-profile-btn">
-            Edit
-          </Link>
+          <strong>{childProfile.name}</strong>
+          {!disableEdit && (
+            <Link to={`/modify/${childId}`} className="edit-profile-btn">
+              Edit
+            </Link>
+          )}
         </div>
       </div>
     </div>
@@ -55,4 +57,5 @@ export default ChildProfileCard;
 
 ChildProfileCard.propTypes = {
   childId: PropTypes.string.isRequired,
+  disableEdit: PropTypes.bool,
 };
