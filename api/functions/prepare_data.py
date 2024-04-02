@@ -50,6 +50,10 @@ def get_generate_flag() -> bool:
                 "OPENAI_GENERATE is set to 'True' but OPENAI_API_KEY environment variable is not set"
             )
 
+        # Create a directory to store generated outputs
+        if generate_flag:
+            os.makedirs("gen_outputs", exist_ok=True)
+
         return generate_flag
     except Exception as e:
         current_app.logger.error(f"Failed to get generate flag: {e}")
