@@ -97,7 +97,7 @@ class TestRegisterPost:
         )
 
         assert response.status_code == 400
-        assert "Invalid email" in response.json["error"]
+        assert "Invalid email" in response.json["Error"]
 
     @staticmethod
     def test_duplicate_email(client: FlaskClient) -> None:
@@ -126,7 +126,7 @@ class TestRegisterPost:
 
         assert (
             "User with email 'duplicate.email@gmail.com' already exists"
-            in response.json["error"]
+            in response.json["Error"]
         )
 
     @pytest.mark.parametrize(
@@ -160,7 +160,7 @@ class TestRegisterPost:
         )
 
         assert response.status_code == 400
-        assert "must be a non-empty string" in response.json["error"]
+        assert "must be a non-empty string" in response.json["Error"]
 
     @pytest.mark.parametrize(
         "email, password, first_name, last_name",
@@ -280,7 +280,7 @@ class TestLoginPost:
 
         assert response.status_code == 401
         assert (
-            f"Parent with email '{email}' not found" in response.json["error"]
+            f"Parent with email '{email}' not found" in response.json["Error"]
         )
 
     @staticmethod
@@ -297,7 +297,7 @@ class TestLoginPost:
         )
 
         assert response.status_code == 401
-        assert "Incorrect password" in response.json["error"]
+        assert "Incorrect password" in response.json["Error"]
 
     @pytest.mark.parametrize(
         "missing_field, payload",
@@ -329,7 +329,7 @@ class TestLoginPost:
         )
 
         assert response.status_code == 400
-        assert "Invalid email" in response.json["error"]
+        assert "Invalid email" in response.json["Error"]
 
     @pytest.mark.parametrize(
         "email, password",
@@ -356,7 +356,7 @@ class TestLoginPost:
         )
 
         assert response.status_code == 400
-        assert "must be a non-empty string" in response.json["error"]
+        assert "must be a non-empty string" in response.json["Error"]
 
     @pytest.mark.parametrize(
         "email, password",
