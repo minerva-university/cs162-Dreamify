@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useApi } from "../contexts/ApiProvider";
-import { useAuth } from "../contexts/AuthProvider";
 import ChildProfileCard from "../components/ChildProfileCard";
 import Spinner from "../components/Spinner";
 import "./styles/SelectChildPage.css";
@@ -10,25 +9,8 @@ import "./styles/SelectChildPage.css";
 export default function SelectChildPage() {
   const [children, setChildren] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [parentId, setParentId] = useState(null);
   const api = useApi();
-  const { getCurrentParent } = useAuth();
-
-  // Get the parent id
-  useEffect(() => {
-    const fetchParentId = async () => {
-      try {
-        const parent = await getCurrentParent();
-        setParentId(parent.parent_id);
-      } catch (error) {
-        console.error("Failed to fetch parent data:", error);
-      }
-    };
-
-    fetchParentId();
-  }, [getCurrentParent]);
-
-  // Get the navigate function from the router
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,7 +55,7 @@ export default function SelectChildPage() {
       ))
     ) : (
       <div className="child-selection">
-        <button onClick={() => navigate(`/addachild/${parentId}`)}>
+        <button onClick={() => navigate(`/addachild`)}>
           {" "}
           Create a new child profile
         </button>
