@@ -7,10 +7,14 @@ from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
 from ..functions.prepare_data import assemble_child_payload
-from ..database.queries import get_child_from_parent
-from ..database.updates import update_child, child_belongs_to_parent
-from ..database.utilities import get_entry_attributes
 from ..functions.jwt_functions import get_current_parent
+from ..functions.input_validation import (
+    validate_non_empty_string,
+    validate_id_format,
+)
+from ..database.queries import get_child_from_parent, child_belongs_to_parent
+from ..database.updates import update_child
+from ..database.utilities import get_entry_attributes
 
 # Create a children namespace
 children = Namespace(
@@ -86,29 +90,32 @@ add_child_model = children.model(
 modify_child_model = children.model(
     "ModifyChild",
     {
-        "name": fields.String(required=False, description="Name of the child"),
+        "child_id": fields.String(
+            required=True, description="ID of the child to modify"
+        ),
+        "name": fields.String(required=True, description="Name of the child"),
         "age_range": fields.String(
-            required=False,
+            required=True,
             description="Age range of the child",
             enum=["0-3", "4-6", "7-9", "10-13"],
         ),
         "sex": fields.String(
-            required=False,
+            required=True,
             description="Sex of the child",
             enum=["Male", "Female"],
         ),
         "eye_color": fields.String(
-            required=False,
+            required=True,
             description="Eye color of the child",
             enum=["Blue", "Brown", "Green", "Hazel", "Amber", "Gray"],
         ),
         "hair_type": fields.String(
-            required=False,
+            required=True,
             description="Hair type of the child",
             enum=["Straight", "Wavy", "Curly", "Kinky", "Bald"],
         ),
         "hair_color": fields.String(
-            required=False,
+            required=True,
             description="Hair color of the child",
             enum=[
                 "Blonde",
@@ -121,7 +128,7 @@ modify_child_model = children.model(
             ],
         ),
         "ethnicity": fields.String(
-            required=False, description="Ethnicity of the child"
+            required=True, description="Ethnicity of the child"
         ),
         "fav_animals": NullableString(
             required=False,
@@ -164,13 +171,11 @@ class Child(Resource):
             if not child_id:
                 return {"Error": "Parameter 'child_id' is required"}, 400
 
+            # Validate the child_id format
+            validate_id_format(child_id, "child_id")
+
             # Get the current parent
             parent = get_current_parent()
-
-            # Return an error if the parent does not exist,
-            # meaning the user is not logged in
-            if not parent:
-                return {"error": "Unauthorized, please log in"}, 401
 
             # Get the child
             child = get_child_from_parent(parent.user_id, child_id)
@@ -185,7 +190,7 @@ class Child(Resource):
             # Return the child data and a 200 status code
             return child_attributes, 200
         except ValueError as e:
-            return {"Error": str(e)}, 404
+            return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500
@@ -204,17 +209,17 @@ class Child(Resource):
             # Get the data from the request
             data = request.get_json()
 
-            # Return an error if no data is provided
-            if not data:
-                return {"Error": "No data provided"}, 400
+            # Validate the data
+            validate_non_empty_string(data["name"], "name")
+            validate_non_empty_string(data["age_range"], "age_range")
+            validate_non_empty_string(data["sex"], "sex")
+            validate_non_empty_string(data["eye_color"], "eye_color")
+            validate_non_empty_string(data["hair_type"], "hair_type")
+            validate_non_empty_string(data["hair_color"], "hair_color")
+            validate_non_empty_string(data["ethnicity"], "ethnicity")
 
             # Get the current parent
             parent = get_current_parent()
-
-            # Return an error if the parent does not exist,
-            # meaning the user is not logged in
-            if not parent:
-                return {"Error": "Unauthorized, please log in"}, 401
 
             # Assemble the child payload
             payload = assemble_child_payload(
@@ -233,6 +238,8 @@ class Child(Resource):
 
             # Return the child data and a 200 status code
             return payload, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(e)
             return {"Error": "Internal Server Error"}, 500
@@ -252,27 +259,30 @@ class Child(Resource):
             # Get the data from the request
             data = request.get_json()
 
-            # Return an error if no data is provided
-            if not data:
-                return {"Error": "No data provided"}, 400
+            # Validate the data
+            validate_non_empty_string(data["name"], "name")
+            validate_non_empty_string(data["age_range"], "age_range")
+            validate_non_empty_string(data["sex"], "sex")
+            validate_non_empty_string(data["eye_color"], "eye_color")
+            validate_non_empty_string(data["hair_type"], "hair_type")
+            validate_non_empty_string(data["hair_color"], "hair_color")
+            validate_non_empty_string(data["ethnicity"], "ethnicity")
+
+            # Validate the child_id format
+            validate_id_format(data.get("child_id"), "child_id")
 
             # Get the current parent
             parent = get_current_parent()
-
-            # Return an error if the parent does not exist,
-            # meaning the user is not logged in
-            if not parent:
-                return {"Error": "Unauthorized, please log in"}, 401
 
             # Check if the child belongs to the current parent
             child_id = data.get("child_id")
             if not child_id or not child_belongs_to_parent(
                 parent.user_id, child_id
             ):
-                return {"Error": "Child not found"}, 404
+                return {"Error": f"Child with ID '{child_id}' not found"}, 404
 
             # Prepare the updates
-            updates = {
+            child_updates = {
                 "name": data.get("name"),
                 "age_range": data.get("age_range"),
                 "sex": data.get("sex"),
@@ -285,8 +295,8 @@ class Child(Resource):
                 "fav_shows": data.get("fav_shows"),
             }
 
-            # Update the child using the new update_child_info function
-            updated_child = update_child(child_id, updates)
+            # Update the child with the provided data
+            updated_child = update_child(child_id, **child_updates)
 
             # Get the updated child's attributes
             child_attributes = get_entry_attributes(updated_child)
@@ -295,7 +305,7 @@ class Child(Resource):
             return child_attributes, 200
 
         except ValueError as e:
-            return {"Error": str(e)}, 404
+            return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(e)
             return {"Error": "Internal Server Error"}, 500
@@ -318,11 +328,6 @@ class AllChildren(Resource):
         try:
             # Get the current parent
             parent = get_current_parent()
-
-            # Return an error if the parent does not exist,
-            # meaning the user is not logged in
-            if not parent:
-                return {"error": "Unauthorized, please log in"}, 401
 
             # Define the payload
             payload = {

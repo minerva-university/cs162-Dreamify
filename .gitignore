@@ -8,6 +8,8 @@ venv
 
 # testing
 /coverage
+.coverage
+.pytest_cache
 
 # production
 /build
@@ -28,7 +30,7 @@ yarn-error.log*
 # Flask
 instance
 
-# VS Code
+# VS Code settings
 .vscode
 
 # Apple files

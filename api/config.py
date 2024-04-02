@@ -22,3 +22,15 @@ class ApplicationConfig:
 
     # Set the SQLAlchemy database URI
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
+
+
+class TestingConfig(ApplicationConfig):
+    """
+    This class contains the configuration for the Flask app in testing mode.
+    """
+
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+
+    # Disable CSRF protection in testing
+    WTF_CSRF_ENABLED = False
