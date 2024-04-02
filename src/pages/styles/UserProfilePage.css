@@ -107,3 +107,7 @@
   gap: 30px;
   margin-top: 20px;
 }
+
+.user-profile-page .child-cards-container .no-children-found {
+  font-size: 2rem;
+}
