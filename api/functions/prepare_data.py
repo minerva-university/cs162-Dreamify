@@ -38,7 +38,11 @@ def get_generate_flag() -> bool:
     try:
         # Get the generate flag from the environment variable
         generate_flag = (
-            True if os.getenv("OPENAI_GENERATE") == "True" else False
+            True
+            if os.getenv("OPENAI_GENERATE") == "True"
+            # Check if the app is not in testing mode
+            and current_app.config["TESTING"] is not True
+            else False
         )
 
         if generate_flag and not os.getenv("OPENAI_API_KEY"):
