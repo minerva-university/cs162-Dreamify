@@ -2,6 +2,8 @@
 This module contains the configuration for the Flask app.
 """
 
+import os
+from uuid import uuid4
 from datetime import timedelta
 
 
@@ -11,17 +13,18 @@ class ApplicationConfig:
     """
 
     # Set the secret key for the Flask app and JWT
-    # (I'd use an environment variable in production, but for testing purposes,
-    # I'll use a hardcoded string for simplicity. This is not secure!)
-    # TODO: Use an environment variable for the secret key
-    SECRET_KEY = "dev"
-    JWT_SECRET_KEY = "dev"
+    SECRET_KEY = os.getenv("FLASK_SECRET_KEY", uuid4().hex)
+    JWT_SECRET_KEY = os.getenv("FLASK_JWT_SECRET_KEY", uuid4().hex)
 
-    # Set the JWT expiration time to 3 days
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=3)
+    # Set the JWT expiration time to the specified number of days
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(
+        days=int(os.getenv("JWT_DAYS_EXPIRATION", 3))
+    )
 
-    # Set the SQLAlchemy database URI
-    SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
+    # Set the default SQLAlchemy database URI
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DEFAULT_DATABASE_URI", "sqlite:///db.sqlite"
+    )
 
 
 class TestingConfig(ApplicationConfig):
@@ -30,7 +33,9 @@ class TestingConfig(ApplicationConfig):
     """
 
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "TEST_DATABASE_URI", "sqlite:///:memory:"
+    )
 
     # Disable CSRF protection in testing
     WTF_CSRF_ENABLED = False

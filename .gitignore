@@ -35,3 +35,6 @@ instance
 
 # Apple files
 **/._*
+
+# Temporary files
+api/gen_outputs/*.txt

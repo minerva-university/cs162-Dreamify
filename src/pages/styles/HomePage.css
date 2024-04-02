@@ -1,41 +1,75 @@
-@import "https://fonts.googleapis.com/css?family=Newsreader:400&display=swap";
-@import "https://fonts.googleapis.com/css?family=Inter:600&display=swap";
-
-.homepage-container {
+.home-page {
   max-width: 90%;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-.title {
+.home-page .hp-row {
+  display: flex;
+  justify-content: center; /* Aligns children (images) on the main axis (horizontally) */
+  align-items: center; /* Aligns children (images) on the cross axis (vertically) */
+  flex-wrap: wrap; /* Allows items to wrap to the next line if necessary */
+}
+
+.home-page .image-item {
+  text-align: center; /* Centers the image within the container */
+  padding: 15px; /* Adds some space around the image */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.home-page .hp-col {
+  position: relative;
+  width: 100%;
+  padding-right: 12px;
+  padding-left: 15px;
+}
+
+.home-page .hp-img-fluid {
+  max-width: 100%;
+  height: 500px;
+}
+
+.home-page .hp-img-auto {
+  height: auto;
+}
+
+.home-page .hp-text-center {
+  text-align: center;
+}
+
+.home-page .hp-title {
   color: #000;
   letter-spacing: -0.8px;
-  font-family: "Newsreader", serif;
   font-size: 40px;
   font-weight: 400;
   line-height: 120%;
   display: block;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 35px;
+  margin: 25px;
 }
 
-.tree-image-container {
-  position: relative;
-  text-align: center;
+.home-page .hp-tree-image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  position: relative;
+  text-align: center;
+  justify-content: flex-end;
 }
 
-.tree-overlay-text {
-  color: #fff;
-  position: absolute;
-  top: 44%;
-  left: 50%;
+.home-page .hp-tree-overlay-text,
+.home-page .hp-create-button {
+  position: absolute; /* Absolutely position both elements */
+  top: 50%; /* Start at 50% from the top */
+  left: 50%; /* Start at 50% from the left */
   transform: translate(-50%, -50%);
-  font-family: "Newsreader", serif;
+  width: max-content; /* This ensures the width is only as wide as the content inside */
+}
+
+.home-page .hp-tree-overlay-text {
+  display: flex;
+  margin-top: -50px; /* Add some space between the button and the text */
+  color: #fff;
   font-size: 64px;
   font-weight: 1111;
   line-height: 10%;
@@ -44,52 +78,46 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.create-button {
+.home-page .hp-create-button {
+  display: flex;
+  margin-top: 50px;
   background: #014a8a;
   justify-content: center;
   align-items: center;
-  height: 70px;
-  padding: 23px 59px;
-  display: inline-flex;
+  padding: 25px 60px;
   overflow: hidden;
   align-self: center;
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -10%);
-  margin-top: 20px;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.create-button:hover {
+.home-page .hp-create-button:hover {
   background-color: #0056b3;
 }
 
-.create-button:active {
+.home-page .hp-create-button:active {
   background-color: #004080;
 }
 
-.create-link {
+.home-page .hp-create-text {
   color: #fff;
-  font-family: "Inter", sans-serif;
   font-size: 26px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 130%;
-  display: inline-block;
   text-decoration: none;
 }
 
-.featured-title {
+.home-page .hp-featured-title {
   text-align: center;
   margin: 80px;
   color: #000;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   flex-shrink: 0;
-  font-family: Inter;
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
@@ -97,42 +125,42 @@
   display: inline-block;
 }
 
-.featured-box {
+.home-page .hp-featured-box {
   display: flex;
+  flex: 0 0 50%;
+  max-width: 50%;
   align-items: center;
   box-sizing: border-box;
   background: #fafaf5;
   border: 2px solid #1a6598;
   border-radius: 24px;
-  flex-shrink: 0;
-  width: 90%;
-  height: 159px;
-  overflow: hidden;
   margin: 0 auto;
   margin-bottom: 100px;
 }
 
-.featured-image {
+.home-page .hp-featured-image {
   flex: 0 0 15%;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   background: #d3d3d3 50% / cover no-repeat;
   flex-shrink: 0;
-  width: 167px;
-  height: 159px;
+  height: 300px;
 }
 
-.featured-content {
+.home-page .hp-featured-content {
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
-  align-items: flex-start;
-  margin-top: -40px;
+  align-items: center;
+  padding: 20px; /* Provide some padding around the content */
+  text-align: center;
+  gap: 10px; /* Space between the text and button */
+  height: 100%; /* Make the container fill the height of the parent */
 }
 
-.featured-name {
+.home-page .hp-featured-name {
   color: #000;
-  font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -140,20 +168,20 @@
   display: inline-block;
 }
 
-.featured-date {
+.home-page .hp-featured-date {
   color: #1a6598;
-  font-family: Inter;
   font-size: 17px;
   font-style: normal;
   font-weight: 600;
   line-height: 130%;
   display: inline-block;
-  top: 10%;
+  margin-top: -10px;
+  margin-left: 0;
 }
 
-.featured-button {
+.home-page .hp-featured-button {
   margin-left: auto;
-  margin-right: 40px;
+  margin-right: auto;
   opacity: 0.8;
   background: #014a8a;
   border-radius: 10px;
@@ -163,25 +191,28 @@
   border: none;
   cursor: pointer;
   color: #fff;
-  font-family: Inter;
   font-size: 16px;
   font-weight: 600;
   transition: background-color 0.3s;
 }
 
-.featured-button:hover {
+.home-page .hp-featured-button:hover {
   background-color: #0056b3;
 }
 
-.featured-button:active {
+.home-page .hp-featured-button:active {
   background-color: #004080;
 }
 
-.description {
+.home-page .hp-description-container {
+  flex: 0 0 85%;
+  max-width: 85%;
+}
+
+.home-page .hp-description {
   color: #000;
   text-align: center;
   letter-spacing: -0.74px;
-  font-family: Newsreader;
   font-size: 37px;
   line-height: 120%;
   display: block;

@@ -1,62 +1,79 @@
-import React from 'react';
-import './styles/AboutUsPage.css';
-import misha from '../assets/about_us_page/misha.png';
-import billy from '../assets/about_us_page/billy.png';
-import paul from '../assets/about_us_page/paul.png';
-import tamir from '../assets/about_us_page/tamir.png';
-import flambeau from '../assets/about_us_page/flambeau.png';
+import React, { useState, useEffect } from "react";
 
+import misha from "../assets/about_us_page/misha.png";
+import billy from "../assets/about_us_page/billy.png";
+import paul from "../assets/about_us_page/paul.png";
+import tamir from "../assets/about_us_page/tamir.png";
+import flambeau from "../assets/about_us_page/flambeau.png";
+import Spinner from "../components/Spinner.js";
+import "./styles/AboutUsPage.css";
 
-const AboutUs = () => {
+export default function AboutUs() {
+  const [isLoading, setIsLoading] = useState(true); // Set isLoading to true initially
+
+  useEffect(() => {
+    document.title = "Dreamify | About Us";
+  }, []);
+
+  // Simulate data loading
+  useEffect(() => {
+    // Simulate an asynchronous operation (e.g., fetching data from an API)
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false after data is loaded
+    }, 200);
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   const teamMembers = [
     {
-      name: 'Mykhailo Chudyk',
-      fairytale: 'Cinderella',
+      name: "Mykhailo Chudyk",
+      fairytale: "Cinderella",
       imageUrl: misha,
-      position: 'Product Manager',
+      position: "Product Manager",
     },
     {
-      name: 'Paul Franek',
-      fairytale: 'Beauty and the Beast',
+      name: "Paul Franek",
+      fairytale: "Beauty and the Beast",
       imageUrl: paul,
-      position: 'Software Engineer',
+      position: "Software Engineer",
     },
     {
-      name: 'Flambeau Iriho',
-      fairytale: 'The Little Mermaid',
+      name: "Flambeau Iriho",
+      fairytale: "The Little Mermaid",
       imageUrl: flambeau,
-      position: 'Software Engineer',
+      position: "Software Engineer",
     },
     {
-      name: 'Tamirlan Bektemissov',
-      fairytale: 'Sleeping Beauty',
+      name: "Tamirlan Bektemissov",
+      fairytale: "Sleeping Beauty",
       imageUrl: tamir,
-      position: 'Software Engineer',
+      position: "Software Engineer",
     },
     {
-      name: 'Billy Altangerel',
-      fairytale: 'Snow White and the Seven Dwarfs',
+      name: "Billy Altangerel",
+      fairytale: "Snow White and the Seven Dwarfs",
       imageUrl: billy,
-      position: 'Software Engineer',
+      position: "Software Engineer",
     },
   ];
 
   return (
-    <div className="container">
-      <h1 className="page-title">About Us</h1>
-
+    <div className="about-us-page">
+      <h1 className="abus-title">About Us</h1>
       {teamMembers.map((member) => (
-        <div className="team-member" key={member.name}>
+        <div className="abus-team-member" key={member.name}>
           <img src={member.imageUrl} alt={`Developer ${member.name}`} />
-          <div className="team-member-info">
-            <h2 className="team-member-name">{member.name}</h2>
-            <p className="team-member-position">{member.position}</p>
-            <p className="team-member-fairytale">Favorite Fairy Tale: {member.fairytale}</p>
+          <div className="abus-team-member-info">
+            <h2 className="abus-team-member-name">{member.name}</h2>
+            <p className="abus-team-member-position">{member.position}</p>
+            <p className="abus-team-member-fairytale">
+              Favorite Fairy Tale: {member.fairytale}
+            </p>
           </div>
         </div>
       ))}
     </div>
   );
-};
-
-export default AboutUs;
+}

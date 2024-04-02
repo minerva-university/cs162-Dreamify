@@ -3,6 +3,7 @@ This module initializes the Flask app and configures it.
 """
 
 from flask import Flask
+from dotenv import load_dotenv
 
 # Note: originally it was planned to use proxy instead of CORS,
 # however, Mykhailo and now also Flambeau and Billy have a weird
@@ -23,6 +24,9 @@ def create_app(config=ApplicationConfig) -> Flask:
     Returns:
         Flask: The configured Flask app.
     """
+    # Load the environment variables from the '.env' file
+    load_dotenv()
+
     app = Flask(__name__, static_folder="../build", static_url_path="/")
 
     # Load the configuration for the Flask app

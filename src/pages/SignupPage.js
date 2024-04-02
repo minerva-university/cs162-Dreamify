@@ -1,13 +1,10 @@
-import React from "react";
-import '../pages/styles/Auth.css'
-
-//Flambeau
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
+
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
-
+import "../pages/styles/AuthPages.css";
 
 function SignUpPage() {
   // Set the title of the page
@@ -52,75 +49,73 @@ function SignUpPage() {
     setLastName("");
     setEmail("");
     setPassword("");
-};
+  };
 
   if (isLoading) {
-    return (
-      <Spinner></Spinner>
-    );
+    return <Spinner></Spinner>;
   }
 
   return (
-      <div className="signin-page"> 
-        <div className="signin-image">
-          {/* Add your image here */}
-          <h1>Welcome Aboard!</h1>
-          <p>Already have an account?</p>
-          <button onClick={() => navigate("/login")}>Sign In</button>
-        </div>
-        <div className="signin-form">
-          <form onSubmit={handleSubmit}>
-            <h1>Sign Up</h1>
-            {error && (
-              <Alert variant="danger" className="mt-3">
-                {error}
-              </Alert>
-            )}
-            <div className="email-input">
-              <input
-                type="text"
-                id="firstName"
-                placeholder="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="email-input"> {/* You might want to rename this class to something like "input-field" */}
-              <input
-                type="text"
-                id="lastName"
-                placeholder="Last name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="email-input">
-              <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="password-input">
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Sign Up</button>
-          </form>
-        </div>
+    <div className="signin-page">
+      <div className="signin-image">
+        <h1>Welcome Aboard!</h1>
+        <p>Already have an account?</p>
+        <button onClick={() => navigate("/login")}>Sign In</button>
       </div>
-  );  
+      <div className="signin-form">
+        <form onSubmit={handleSubmit}>
+          <h1>Sign Up</h1>
+          {error && (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          )}
+          <div className="email-input">
+            <input
+              type="text"
+              id="firstName"
+              placeholder="First name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="email-input">
+            {" "}
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="email-input">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="password-input">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default SignUpPage;

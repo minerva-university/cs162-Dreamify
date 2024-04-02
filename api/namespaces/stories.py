@@ -6,7 +6,7 @@ from flask import request, current_app
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
-from ..functions.prepare_data import assemble_story_payload
+from ..functions.prepare_data import assemble_story_payload_async
 from ..functions.jwt_functions import get_current_parent
 from ..functions.input_validation import (
     validate_non_empty_string,
@@ -56,9 +56,9 @@ class GenerateStory(Resource):
     @stories.response(200, "Success")
     @stories.response(400, "Validation Error")
     @stories.response(500, "Internal Server Error")
-    def post(self):
+    async def post(self):
         """
-        Generate a story based on the provided data.
+        Generate a story based on the provided data asynchronously.
         """
         try:
             # Get the data from the request
@@ -81,8 +81,8 @@ class GenerateStory(Resource):
                     "Error": f"Child with ID '{data['child_id']}' not found"
                 }, 404
 
-            # Assemble the payload
-            payload = assemble_story_payload(
+            # Assemble the payload asynchronously
+            payload = await assemble_story_payload_async(
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],

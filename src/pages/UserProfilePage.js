@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ChildProfileCard from "../components/ChildProfileCard";
 import { useNavigate } from "react-router-dom";
+
+import ChildProfileCard from "../components/ChildProfileCard";
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/UserProfilePage.css";
@@ -58,7 +59,7 @@ export default function UserProfilePage() {
           className="add-kid-button"
           onClick={() => {
             if (userInfo.user_id) {
-              navigate(`/addachild/${userInfo.user_id}`);
+              navigate(`/addachild`);
             } else {
               console.error("Error: Parent ID not available.");
             }

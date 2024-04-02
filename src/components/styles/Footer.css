@@ -1,48 +1,35 @@
-/* Footer.module.css */
-@import url("https://fonts.googleapis.com/css?family=Newsreader:0,500&display=swap");
-
-
-.footer-container {
+.footer {
   background: #7cd1d2;
   flex-shrink: 0;
-  width: 100%; 
-  height: 100px;
-  overflow: hidden;
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  padding: 20px;
-  margin-top: auto;
   width: 100%;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 40px 0;
 }
 
-.footer-content {
+.footer .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 85%; 
+  width: 90%;
+  flex-wrap: wrap;
 }
 
-.footer-text {
-  margin: 0 25px; /* Spacing between items  */
+.footer .footer-text {
   text-decoration: none;
-  color: inherit;
   color: #000;
-  font-feature-settings: "clig" off, "liga" off;
-  letter-spacing: -0.28px;
-  font-family: 'Newsreader', serif;
   font-size: 22px;
-  font-style: normal;
   font-weight: 500;
   line-height: 100%;
-  margin: 0 50px;
+  margin: 0 15px;
 }
 
-.left-group {
-  margin-left: -100px; /* Adjusting the first item */
+.footer .footer-left-group,
+.footer .footer-right-group {
+  display: flex;
+  align-items: center;
 }
-
-.right-group {
-  margin-right: -100px; /* Adjusting the first item */
-}
- 
