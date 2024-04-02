@@ -34,7 +34,7 @@
 }
 
 .user-profile-page .account-information {
-  margin-top: 40px;
+  margin-top: 150px;
   margin-left: 100px;
 }
 
@@ -44,7 +44,8 @@
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
+  width: 60%;
 }
 
 .user-profile-page .account-info-item {

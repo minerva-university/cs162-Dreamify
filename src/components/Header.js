@@ -62,15 +62,15 @@ export default function Header() {
                 New Story
               </Link>
               <Link
-                to="/library/parent"
+                to="/library"
                 className={`${getButtonClass(
-                  "/library/parent"
+                  "/library"
                 )} header-text-navbar`}
               >
                 Library
               </Link>
               <Link
-                to={`/myprofile/${parentId}`}
+                to={`/myprofile`}
                 className={`${getButtonClass(
                   `/myprofile/${parentId}`
                 )} header-text-navbar`}

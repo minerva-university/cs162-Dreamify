@@ -61,7 +61,7 @@ export default function UserProfilePage() {
           className="add-kid-button"
           onClick={() => {
             if (userInfo.user_id) {
-              navigate(`/addachild/${userInfo.user_id}`);
+              navigate(`/addachild`);
             } else {
               console.error("Error: Parent ID not available.");
             }

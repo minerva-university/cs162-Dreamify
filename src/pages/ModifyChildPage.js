@@ -65,7 +65,7 @@ const ModifyChildPage = () => {
   const [selectedHairType, setSelectedHairType] = useState(null);
   const [selectedHairColor, setSelectedHairColor] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
-  const [customRaceInput, setCustomRaceInput] = useState(null);
+  const [customRaceInput, setCustomRaceInput] = useState("");
   const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
   const [selectedSex, setSelectedSex] = useState("Male");
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
@@ -93,7 +93,14 @@ const ModifyChildPage = () => {
         setSelectedEyeColor(data.eye_color);
         setSelectedHairType(data.hair_type);
         setSelectedHairColor(data.hair_color);
-        setSelectedRace(data.ethnicity);
+        const isEthnicityPredefined = races.some(race => race.name === data.ethnicity);
+        console.log(data.ethnicity);
+        console.log(isEthnicityPredefined);
+        if (isEthnicityPredefined) {
+          setSelectedRace(data.ethnicity);
+        } else {
+          setCustomRaceInput(data.ethnicity);
+        }
         setSelectedAgeRange(data.age_range);
         setSelectedSex(data.sex);
         setFavoriteAnimals(data.fav_animals);
@@ -123,6 +130,13 @@ const ModifyChildPage = () => {
     }
   };
 
+  const handleCustomRaceInput = (e) => {
+    const value = e.target.value;
+    setCustomRaceInput(value);
+    setSelectedRace(value ? "custom" : null);
+  };
+
+
   const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
     setter(value === "" ? null : value);
@@ -141,7 +155,7 @@ const ModifyChildPage = () => {
         eye_color: selectedEyeColor,
         hair_type: selectedHairType,
         hair_color: selectedHairColor,
-        ethnicity: selectedRace === "custom" ? customRaceInput : selectedRace,
+        ethnicity: selectedRace === null ? customRaceInput : selectedRace,
         fav_animals: favoriteAnimals,
         fav_activities: favoriteActivities,
         fav_shows: favoriteShows,
@@ -282,7 +296,7 @@ const ModifyChildPage = () => {
               className="custom-race-input"
               placeholder="Type custom race"
               value={customRaceInput !== null ? customRaceInput : ""}
-              onChange={(e) => setCustomRaceInput(e.target.value)}
+              onChange={(e) => handleCustomRaceInput(e)}
             />
           </div>
         </div>

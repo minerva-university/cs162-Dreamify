@@ -46,7 +46,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/addachild/:parentid"
+                path="/addachild"
                 element={
                   <ProtectedRoute>
                     <AddachildPage />
@@ -62,7 +62,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/library/story/:storyId"
+                path="/library/:storyId"
                 element={
                   <ProtectedRoute>
                     <StoryPage />
@@ -70,7 +70,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/library/parent"
+                path="/library"
                 element={
                   <ProtectedRoute>
                     <LibraryPage />
