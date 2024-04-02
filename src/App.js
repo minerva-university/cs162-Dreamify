@@ -38,7 +38,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route
-                path="/myprofile/:parentid"
+                path="/myprofile"
                 element={
                   <ProtectedRoute>
                     <UserProfilePage />
