@@ -13,7 +13,7 @@ export default function LibraryPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleStoryClick = (storyId) => {
-    navigate(`/library/story/${storyId}`);
+    navigate(`/library/${storyId}`);
   };
 
   useEffect(() => {
