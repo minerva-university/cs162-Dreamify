@@ -22,7 +22,7 @@ Read this [tutorial](https://blog.miguelgrinberg.com/post/how-to-create-a-react-
 <br />
 <div align="center">
   <a href="https://github.com/minerva-university">
-    <img src="src/assets/readme/minerva_logo.png" alt="Logo" width="90" height="90" style="border:5px; border-radius: 50%;">
+    <img src="readme_images/minerva_logo.png" alt="Logo" width="90" height="90" style="border:5px; border-radius: 50%;">
   </a>
 
 <h3 align="center">Dreamify</h3>
@@ -84,7 +84,7 @@ In today's fast-paced world, parents cherish the intimate moments of reading bed
         <p align="center">
             Bring your child's imagination to life with bedtime stories that are as unique as they are
             <br>
-          <img src="src/assets/readme/homepage.png" alt="Dreamify Home Page" width="400"/>
+          <img src="readme_images/homepage.png" alt="Dreamify Home Page" width="400"/>
         </p>
       </td>
       <td>
@@ -92,7 +92,7 @@ In today's fast-paced world, parents cherish the intimate moments of reading bed
         <p align="center">
             Immerse your child in a world of adventure with stories that inspire and excite.
             <br>
-          <img src="src/assets/readme/storypage.png" alt="Dreamify Story Page" width="400"/>  
+          <img src="readme_images/storypage.png" alt="Dreamify Story Page" width="400"/>  
         </p>
       </td>
     </tr>
