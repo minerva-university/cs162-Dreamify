@@ -1,31 +1,27 @@
-@import "https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap";
-@import "https://fonts.googleapis.com/css?family=Inter:0,undefined&display=swap";
-@import "https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap";
-
-.abus-container {
+.about-us-page {
   max-width: 1200px;
   margin: 0 15%;
   padding: 40px;
 }
 
-.abus-team-member {
+.about-us-page .abus-team-member {
   display: flex;
   align-items: center;
   margin-bottom: 40px; /* Adjusted for spacing between team members */
 }
 
 /* Align odd and even team members differently */
-.abus-team-member:nth-child(odd) {
+.about-us-page .abus-team-member:nth-child(odd) {
   flex-direction: row-reverse;
   text-align: right;
 }
 
-.abus-team-member:nth-child(even) {
+.about-us-page .abus-team-member:nth-child(even) {
   flex-direction: row;
   text-align: left;
 }
 
-.abus-team-member img {
+.about-us-page .abus-team-member img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -33,32 +29,30 @@
   margin: 0 20px; /* Margins for spacing around the image */
 }
 
-.abus-team-member-info {
+.about-us-page .abus-team-member-info {
   flex: 1; /* Allows the text block to fill the available space */
 }
 
-.abus-team-member-name {
-  font-family: 'Newsreader', serif;
+.about-us-page .abus-team-member-name {
   font-size: 24px;
   font-weight: 400;
   margin-bottom: 5px;
 }
 
-.abus-team-member-position {
+.about-us-page .abus-team-member-position {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.abus-team-member-fairytale {
+.about-us-page .abus-team-member-fairytale {
   font-size: 18px;
   line-height: 1.5;
   color: #1a6598;
 }
 
-.abus-title {
+.about-us-page .abus-title {
   text-align: center;
-  font-family: 'Newsreader', serif;
   font-size: 40px;
   margin-bottom: 40px;
 }

@@ -1,29 +1,25 @@
 /* Base styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-body {
+.add-child-page body {
   background-color: white;
   color: black;
 }
-
 
 .add-child-page .hr-style {
   margin-left: 100px;
   margin-right: 100px;
   width: 80%;
-  border-top: 1.5px solid #77CFD1;
+  border-top: 1.5px solid #77cfd1;
   height: 10px;
 }
 
 .add-child-page h1 {
   margin-left: 100px;
-  font-family: 'Newsreader', serif;
   font-size: 64px;
   margin-bottom: 0px;
 }
 
 .add-child-page h5 {
-  font-family: 'Inter', sans-serif;
   margin-left: 100px;
   margin-top: 40px;
   display: block;
@@ -31,6 +27,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
 }
+
 .add-child-page .add-child-form {
   width: auto; /* Resets width to default */
   max-width: none; /* Removes max-width */
@@ -45,7 +42,6 @@ body {
 }
 
 .add-child-page label {
-  font-family: 'Inter', sans-serif;
   margin-left: 140px;
   margin-top: 40px;
   display: block;
@@ -56,22 +52,21 @@ body {
 .add-child-page input[type="text"] {
   margin-top: 20px;
   width: 40%;
-  border: 1px solid #014A8A; 
+  border: 1px solid #014a8a;
   border-radius: 10px;
-  background-color: #FAFAF5; 
-  padding: 12px; 
-  margin-bottom: 20px; 
+  background-color: #fafaf5;
+  padding: 12px;
+  margin-bottom: 20px;
   margin-left: 130px;
   display: block;
 }
-
 
 .add-child-page input[type="text"]::placeholder {
   color: #888; /* Change this color as needed */
   opacity: 1;
 }
 
-.add-child-page .buttons{
+.add-child-page .buttons {
   margin-top: 15px;
   margin-left: 100px;
 }
@@ -96,14 +91,14 @@ body {
   justify-content: center;
   margin-top: 100px;
   margin-bottom: 100px;
-  background-color: #014A8A;
+  background-color: #014a8a;
   text-align: center;
   color: white;
   font-size: larger;
 }
 
 /* Image selection */
-.vis-feature .img-thumbnail {
+.add-child-page .vis-feature .img-thumbnail {
   width: 130px;
   height: 110px;
   border: 2px solid transparent;
@@ -112,13 +107,13 @@ body {
   transition: border-color 0.3s ease;
 }
 
-.vis-feature .img-thumbnail:hover,
-.vis-feature .img-thumbnail.selected {
+.add-child-page .vis-feature .img-thumbnail:hover,
+.add-child-page .vis-feature .img-thumbnail.selected {
   border-color: #007bff;
 }
 
 /* Eye color images container */
-.vis-features {
+.add-child-page .vis-features {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -129,7 +124,7 @@ body {
 }
 
 /* Eye color image styles */
-.vis-features .vis-feature {
+.add-child-page .vis-features .vis-feature {
   width: 100px; /* Adjust the size as needed */
   height: 100px; /* Adjust the size as needed */
   border-radius: 50%; /* Makes the image round */
@@ -140,29 +135,29 @@ body {
 }
 
 /* Eye color image styles when selected */
-.vis-features .vis-feature.selected {
-  border-color: #014A8A; /* Border color when an image is selected */
+.add-child-page .vis-features .vis-feature.selected {
+  border-color: #014a8a; /* Border color when an image is selected */
   box-shadow: 0 0 0 6px white; /* Adds a white outline around the border */
 }
 
-.vis-feature-name {
+.add-child-page .vis-feature-name {
   margin-top: 8px; /* Adjust as needed for spacing between image and text */
   text-align: center; /* Centers the text below the image */
 }
 
-.custom-race {
+.add-child-page .custom-race {
   flex-direction: row;
   align-items: center;
   margin-top: 30px;
   justify-content: center;
 }
 
-.vis-features .vis-feature-container .custom-race-input {
+.add-child-page .vis-features .vis-feature-container .custom-race-input {
   width: 100%; /* Overrides the 40% width */
   margin-top: 8px; /* Adjusts the top margin; consider other inputs' margin-top: 20px; */
-  border: 1px solid #014A8A; /* Keeps border consistency */
+  border: 1px solid #014a8a; /* Keeps border consistency */
   border-radius: 10px; /* Maintains the rounded borders */
-  background-color: #FAFAF5; /* Uncommented to ensure consistency */
+  background-color: #fafaf5; /* Uncommented to ensure consistency */
   padding: 10px; /* Provides internal spacing */
   margin-bottom: 20px; /* Ensures bottom margin consistency */
   margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */

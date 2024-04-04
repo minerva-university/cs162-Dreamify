@@ -8,14 +8,14 @@
   width: 100%;
 }
 
-.header-container {
+.header .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 90%;
 }
 
-.header-title {
+.header .header-title {
   color: #000;
   font-family: 'Newsreader', serif;
   font-size: 40px;
@@ -23,12 +23,15 @@
   text-decoration: none;
 }
 
-.header-nav-links-container {
+.header .header-nav-links-container {
   display: flex;
   gap: 7px;
 }
 
-.header-button-navbar, .header-button-selected, .header-button-get-started, .header-button-logout {
+.header .header-button-navbar,
+.header .header-button-selected,
+.header .header-button-get-started,
+.header .header-button-logout {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,15 +41,16 @@
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.header-3s;
+  transition: background-color 0 header-3s;
+  border-radius: 5px;
 }
 
-.header-button-selected {
+.header .header-button-selected {
   border-color: #014a8a;
 }
 
-.header-text-navbar, .header-text-white {
-  font-family: 'Inter', sans-serif;
+.header .header-text-navbar,
+.header .header-text-white {
   font-size: 16px;
   color: #000;
   text-decoration: none;
@@ -56,17 +60,24 @@
   background: #014a8a;
   color: #fff;
   width: 100px;
+  border-radius: 5px;
 }
 
-.header-button-get-started:hover, .header-button-logout:hover {
-  background-color: #0056b3;
+.header .header-button-logout {
+  background: rgb(223, 45, 45); /* Logout button has a distinct color */
 }
 
-.header-button-get-started:active, .header-button-logout:active {
+.header-button-get-started:active,
+.header .header-button-logout:active {
   background-color: #004080;
 }
 
-.header-text-white {
+.header .header-button-get-started:hover,
+.header .header-button-logout:hover {
+  background-color: #0056b3;
+}
+
+.header .header-text-white {
   color: #fff;
 }
 
