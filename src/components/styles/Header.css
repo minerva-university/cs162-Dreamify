@@ -72,9 +72,13 @@
   background-color: #004080;
 }
 
-.header .header-button-get-started:hover,
-.header .header-button-logout:hover {
+.header .header-button-get-started:hover
+ {
   background-color: #0056b3;
+}
+
+.header .header-button-logout:hover {
+  background-color: rgb(215, 30, 30);
 }
 
 .header .header-text-white {

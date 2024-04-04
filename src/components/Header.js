@@ -72,7 +72,7 @@ export default function Header() {
               <Link
                 to={`/myprofile`}
                 className={`${getButtonClass(
-                  `/myprofile/${parentId}`
+                  `/myprofile`
                 )} header-text-navbar`}
               >
                 My Profile

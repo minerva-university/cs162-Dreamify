@@ -31,7 +31,7 @@ export default function LoginPage() {
     setError("");
     try {
       await login(email, password);
-      navigate(`/myprofile/${parentId}`);
+      navigate(`/myprofile`);
     } catch (error) {
       console.error("Error while logging in:", error.message);
       setError("An error occurred while logging in. Please try again.");
