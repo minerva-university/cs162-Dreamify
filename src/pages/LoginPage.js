@@ -4,7 +4,7 @@ import '../pages/styles/Auth.css'
 
 import { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner.js";
 import { useAuth } from "../contexts/AuthProvider";
 
@@ -20,6 +20,9 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Get the parentId from the URL params
+  const { parentId } = useParams();
+
   // Set the title of the page
   useEffect(() => {
     document.title = "Dreamify | Login";
@@ -31,7 +34,7 @@ export default function LoginPage() {
     setError("");
     try {
       await login(email, password);
-      navigate("/");
+      navigate(`/myprofile/${parentId}`);
     } catch (error) {
       console.error("Error while logging in:", error.message);
       setError("An error occurred while logging in. Please try again.");

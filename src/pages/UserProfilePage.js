@@ -14,6 +14,11 @@ export default function UserProfilePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Dreamify | My profile";
+  }, []);
+  
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);

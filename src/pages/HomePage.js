@@ -54,7 +54,7 @@ export default function HomePage() {
             <img src={treeImage} alt="Tree" className="hp-img-fluid" />
             <div className="hp-tree-overlay-text">Create your own bedtime story</div>
             <div className="hp-create-button">
-              <Link to={!isAuthenticated ? "/signup" : "/newstory"} className="hp-create-text">
+              <Link to={!isAuthenticated ? "/signup" : "/children"} className="hp-create-text">
                 Create
               </Link>
             </div>

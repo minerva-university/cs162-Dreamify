@@ -35,7 +35,7 @@ export default function Header() {
           ) : (
             <>
               <Link to="/" className={`${getButtonClass("/")} header-text-navbar`}>Home</Link>
-              <Link to="/children" className={`${getButtonClass("/newstory")} header-text-navbar`}>New Story</Link>
+              <Link to="/children" className={`${getButtonClass("/children")} header-text-navbar`}>New Story</Link>
               <Link to="/library/parent" className={`${getButtonClass("/library/parent")} header-text-navbar`}>Library</Link>
               <Link to={`/myprofile/${parentId}`} className={`${getButtonClass(`/myprofile/${parentId}`)} header-text-navbar`}>My Profile</Link>
               <Link to="/" onClick={logout} className="header-button-logout header-text-white">Log Out</Link>

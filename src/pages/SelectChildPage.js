@@ -7,8 +7,14 @@ import Spinner from '../components/Spinner';
 import { useNavigate } from "react-router-dom";
 import './styles/UserProfilePage.css';
 
+
 // Flambeau
 export default function SelectChildPage() {
+  
+  useEffect(() => {
+    document.title = "Dreamify | New Story";
+  }, []);
+  
 
   const [children, setChildren] = useState([]);
   const [loading, setLoading] = useState(false);

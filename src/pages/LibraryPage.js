@@ -6,6 +6,8 @@ import Spinner from "../components/Spinner";
 import "./styles/LibraryPage.css";
 
 export default function LibraryPage() {
+
+  
   const api = useApi();
   const navigate = useNavigate();
 
@@ -15,6 +17,11 @@ export default function LibraryPage() {
   const handleStoryClick = (storyId) => {
     navigate(`/library/story/${storyId}`);
   };
+
+  useEffect(() => {
+    document.title = "Dreamify | Library";
+  }, []);
+  
 
   useEffect(() => {
     const fetchData = async () => {
