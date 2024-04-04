@@ -67,7 +67,7 @@ export default function HomePage() {
             </p>
             <div className="hp-create-button">
               <Link
-                to={!isAuthenticated ? "/signup" : "/newstory"}
+                to={!isAuthenticated ? "/signup" : "/children"}
                 className="hp-create-text"
               >
                 Create

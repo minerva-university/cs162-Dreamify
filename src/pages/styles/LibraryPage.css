@@ -26,6 +26,7 @@
   border: 1px solid #014a8a;
   border-radius: 10px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .library-page .story-image {
@@ -77,4 +78,50 @@
   margin-left: 200px;
   align-items: flex-end;
   padding-bottom: 7px;
+}
+
+.library-page .content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  flex-direction: column;
+}
+
+.library-page .no-stories-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.library-page .no-stories-found div {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.library-page .no-stories-found button {
+  display: inline-block;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 20px;
+  text-transform: uppercase;
+  background-color: #77cfd1;
+  border-color: #77cfd1;
+  cursor: pointer;
+  color: black;
+}
+
+.library-page .no-stories-found button:hover {
+  opacity: 0.9;
+}
+
+.library-page .no-stories-found button:focus {
+  outline: none;
 }
