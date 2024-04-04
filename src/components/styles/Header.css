@@ -85,18 +85,4 @@
   color: #fff;
 }
 
-.header-button-logout {
-  background: rgb(223, 45, 45); /* Logout button has a distinct color */
-  color: #fff;
-  width: 100px;
-}
-
-.header-button-logout:hover {
-  background-color: rgb(215, 30, 30);
-}
-
-.header-button-logout:active {
-  background-color: rgb(215, 30, 30);
-}
-
 
