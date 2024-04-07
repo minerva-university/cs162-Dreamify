@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -57,6 +57,11 @@ const races = [
 ];
 
 const AddachildPage = () => {
+
+  useEffect(() => {
+    document.title = "Dreamify | Add Child";
+  }, []);
+
   const api = useApi();
 
   const [firstName, setFirstName] = useState(null);

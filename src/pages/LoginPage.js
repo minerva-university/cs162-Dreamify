@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Spinner from "../components/Spinner.js";
 import { useAuth } from "../contexts/AuthProvider";
 import "../pages/styles/AuthPages.css";
@@ -29,7 +28,7 @@ export default function LoginPage() {
     setError("");
     try {
       await login(email, password);
-      navigate("/");
+      navigate(`/myprofile`);
     } catch (error) {
       console.error("Error while logging in:", error.message);
       setError("An error occurred while logging in. Please try again.");
