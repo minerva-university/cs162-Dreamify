@@ -46,7 +46,9 @@ export default function UserProfilePage() {
         <ChildProfileCard key={child.child_id} childId={child.child_id} />
       ))
     ) : (
-      <div>No children profiles found.</div>
+      <div className="no-children-found">
+        No children profiles were created yet.
+      </div>
     );
 
   return (
@@ -69,10 +71,11 @@ export default function UserProfilePage() {
         </button>
       </div>
       <div className="account-information">
-        <h3>Account Information</h3>
+        <h2>Account Information</h2>
         <div className="account-info-list">
           <div className="account-info-item">
-            <strong>USERNAME</strong> {userInfo.first_name}
+            <strong>Name</strong>{" "}
+            {`${userInfo.first_name} ${userInfo.last_name}`}
           </div>
           <div className="account-info-item">
             <strong>Email</strong> {userInfo.email}

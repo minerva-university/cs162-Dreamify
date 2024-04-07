@@ -50,7 +50,6 @@
 
 .user-profile-page .account-info-item {
   margin-top: 10px;
-
   font-size: 18px;
 }
 
@@ -107,4 +106,8 @@
   display: flex;
   gap: 30px;
   margin-top: 20px;
+}
+
+.user-profile-page .child-cards-container .no-children-found {
+  font-size: 2rem;
 }
