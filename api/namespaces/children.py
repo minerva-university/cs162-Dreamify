@@ -164,6 +164,13 @@ class Child(Resource):
         Get a child by ID.
         """
         try:
+            # Get the current parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Use query parameter to get child_id
             child_id = request.args.get("child_id", None)
 
@@ -173,9 +180,6 @@ class Child(Resource):
 
             # Validate the child_id format
             validate_id_format(child_id, "child_id")
-
-            # Get the current parent
-            parent = get_current_parent()
 
             # Get the child
             child = get_child_from_parent(parent.user_id, child_id)
@@ -206,6 +210,13 @@ class Child(Resource):
         Add a child.
         """
         try:
+            # Get the current parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Get the data from the request
             data = request.get_json()
 
@@ -217,9 +228,6 @@ class Child(Resource):
             validate_non_empty_string(data["hair_type"], "hair_type")
             validate_non_empty_string(data["hair_color"], "hair_color")
             validate_non_empty_string(data["ethnicity"], "ethnicity")
-
-            # Get the current parent
-            parent = get_current_parent()
 
             # Assemble the child payload
             payload = assemble_child_payload(
@@ -256,6 +264,13 @@ class Child(Resource):
         Modify a child's attributes.
         """
         try:
+            # Get the current parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Get the data from the request
             data = request.get_json()
 
@@ -270,9 +285,6 @@ class Child(Resource):
 
             # Validate the child_id format
             validate_id_format(data.get("child_id"), "child_id")
-
-            # Get the current parent
-            parent = get_current_parent()
 
             # Check if the child belongs to the current parent
             child_id = data.get("child_id")
@@ -328,6 +340,10 @@ class AllChildren(Resource):
         try:
             # Get the current parent
             parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
 
             # Define the payload
             payload = {

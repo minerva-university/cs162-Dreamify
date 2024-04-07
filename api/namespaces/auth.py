@@ -183,6 +183,10 @@ class CurrentParent(Resource):
             # Get the parent
             parent = get_current_parent()
 
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Get the parent's filtered attributes
             parent_attributes = get_entry_attributes(
                 parent, exclude=["password"]

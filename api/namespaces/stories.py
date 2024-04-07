@@ -61,6 +61,13 @@ class GenerateStory(Resource):
         Generate a story based on the provided data asynchronously.
         """
         try:
+            # Get the parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Get the data from the request
             data = request.get_json()
 
@@ -69,9 +76,6 @@ class GenerateStory(Resource):
             validate_non_empty_string(data["topic"], "topic")
             validate_non_empty_string(data["image_style"], "image_style")
             validate_non_empty_string(data["story_genre"], "story_genre")
-
-            # Get the parent
-            parent = get_current_parent()
 
             # Get the child
             child = get_child_from_parent(parent.user_id, data["child_id"])
@@ -115,6 +119,13 @@ class ChildStories(Resource):
         Get all stories for a child.
         """
         try:
+            # Get the parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
             # Get the child_id from the query parameter
             child_id = request.args.get("child_id", None)
 
@@ -124,9 +135,6 @@ class ChildStories(Resource):
 
             # Validate the child_id
             validate_id_format(child_id, "child_id")
-
-            # Get the parent
-            parent = get_current_parent()
 
             # Get the child
             child = get_child_from_parent(parent.user_id, child_id)
@@ -169,6 +177,12 @@ class StoryChapters(Resource):
         Get all chapters for a story.
         """
         try:
+            # Get the parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
             # Use query parameter to get story_id
             story_id = request.args.get("story_id", None)
 
