@@ -129,6 +129,7 @@ def insert_child(
         "Auburn",
         "Grey",
         "White",
+        "Bald",
     ]
 
     try:

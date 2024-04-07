@@ -58,6 +58,7 @@ def update_child(
         "Auburn",
         "Grey",
         "White",
+        "Bald",
     ]
     try:
         # Check if the child exists
