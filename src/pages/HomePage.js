@@ -66,7 +66,10 @@ export default function HomePage() {
               Create your own bedtime story
             </p>
             <div className="hp-create-button">
-              <Link to={!isAuthenticated ? "/signup" : "/children"} className="hp-create-text">
+              <Link
+                to={!isAuthenticated ? "/signup" : "/children"}
+                className="hp-create-text"
+              >
                 Create
               </Link>
             </div>

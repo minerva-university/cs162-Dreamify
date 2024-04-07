@@ -39,7 +39,11 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route
                 path="/myprofile"
-                element={<UserProfilePage />}
+                element={
+                  <ProtectedRoute>
+                    <UserProfilePage />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 path="/addachild"
