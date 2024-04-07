@@ -51,8 +51,7 @@ def get_generate_flag() -> bool:
             )
 
         # Create a directory to store generated outputs
-        if generate_flag:
-            os.makedirs("gen_outputs", exist_ok=True)
+        os.makedirs("gen_outputs", exist_ok=True)
 
         return generate_flag
     except Exception as e:
