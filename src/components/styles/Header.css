@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   background: #fff;
-  padding: 2% 0 2%;
+  padding: 1% 0 0;
   width: 100%;
 }
 
@@ -17,7 +17,7 @@
 
 .header .header-title {
   color: #000;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 500;
   text-decoration: none;
 }
