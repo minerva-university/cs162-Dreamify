@@ -7,6 +7,12 @@ import Spinner from "../components/Spinner";
 import "./styles/SelectChildPage.css";
 
 export default function SelectChildPage() {
+  
+  useEffect(() => {
+    document.title = "Dreamify | New Story";
+  }, []);
+  
+
   const [children, setChildren] = useState([]);
   const [loading, setLoading] = useState(false);
   const api = useApi();

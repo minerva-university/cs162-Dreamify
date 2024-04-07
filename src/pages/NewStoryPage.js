@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useApi } from "../contexts/ApiProvider";
@@ -15,6 +15,11 @@ export default function NewStoryPage() {
   const [imageStyle, setImageStyle] = useState("Cartoon");
   const [storyGenre, setStoryGenre] = useState("Fantasy");
   const [isLoading, setIsLoading] = useState(false);
+  
+  useEffect(() => {
+    document.title = "Dreamify | New Story";
+  }, []);
+  
 
   const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
@@ -46,9 +51,12 @@ export default function NewStoryPage() {
     }
   };
 
+  
   if (isLoading) {
     return <Spinner />;
   }
+
+  
 
   return (
     <div className="new-story-page">

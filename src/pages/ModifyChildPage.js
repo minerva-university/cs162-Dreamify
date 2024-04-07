@@ -80,6 +80,11 @@ const ModifyChildPage = () => {
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
 
+  // Page title
+  useEffect(() => {
+    document.title = "Dreamify | Update Child Details";
+  }, []);
+
   // Fetch child data on component mount
   useEffect(() => {
     const childId = location.pathname.split("/").pop();
