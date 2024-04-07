@@ -1,6 +1,5 @@
 import React from "react";
-import { useLocation, Link, useParams } from "react-router-dom";
-
+import { useLocation, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/Header.css";
 
@@ -8,7 +7,6 @@ export default function Header() {
   const location = useLocation();
   const path = location.pathname;
   const { isAuthenticated, logout } = useAuth(); // Get authentication state and logout function from AuthProvider
-  const { parentId } = useParams(); // Get parentId from URL params
 
   // Function to determine the button's class based on the current path
   // If the current path is the same as the button's path, button will have a selected style

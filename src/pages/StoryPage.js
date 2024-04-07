@@ -15,6 +15,10 @@ export default function StoryPage() {
   const [storyTitle, setStoryTitle] = useState("No title available");
 
   useEffect(() => {
+    document.title = "Dreamify | Story";
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.getAllStoryChapters(storyId);

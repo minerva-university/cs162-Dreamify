@@ -5,7 +5,7 @@ import "./styles/TermsPage.css";
 
 export default function TermsAndPrivacy() {
   useEffect(() => {
-    document.title = "Dreamify | Terms of Service and Privacy Policy";
+    document.title = "Dreamify | TOS & Privacy Policy";
   }, []);
 
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true initially
