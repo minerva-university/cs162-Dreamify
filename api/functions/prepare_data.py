@@ -74,7 +74,7 @@ def get_child_parameters(child_id: str) -> dict[str, str]:
     """
     try:
         # Get the child with the given ID
-        child = Child.query.get(child_id)
+        child = Child.query.filter_by(child_id=child_id).first()
 
         # Check if the child exists
         if child is None:
