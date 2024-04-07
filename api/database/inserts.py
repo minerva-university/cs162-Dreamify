@@ -267,7 +267,7 @@ def insert_story(
         validate_list_of_non_empty_strings(images, "images")
 
         # Verify that the child exists
-        if not Child.query.get(child_id):
+        if not Child.query.filter_by(child_id=child_id).first():
             raise ValueError(f"Child with ID '{child_id}' does not exist")
 
         # Create and insert the story
