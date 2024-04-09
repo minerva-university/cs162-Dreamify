@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link} from "react-router-dom";
 
 import "./styles/Footer.css";
 
@@ -17,16 +17,16 @@ export default function Footer() {
     <div className="footer">
       <div className="footer-content">
         <div className="footer-left-group">
-          <span className="footer-text">&#xA9;2024 Dreamify</span>
-          <span className="footer-text">dreamify.minerva@gmail.com</span>
+          <span className="footer-text"><h3>&#xA9;2024 Dreamify</h3></span>
+          <span className="footer-text"><h3>dreamify.minerva@gmail.com</h3></span>
         </div>
         <div className="footer-right-group">
-          <a href="/aboutus" className="footer-text">
-            About Us
-          </a>
-          <a href="/terms" className="footer-text">
-            Terms of Service & Privacy Policy
-          </a>
+          <Link to="/aboutus" className="footer-text">
+          <h3>About Us</h3>
+          </Link>
+          <Link to="/terms" className="footer-text">
+          <h3>Terms of Service & Privacy Policy</h3>
+          </Link>
         </div>
       </div>
     </div>

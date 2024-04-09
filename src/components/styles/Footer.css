@@ -2,7 +2,7 @@
   background: #7cd1d2;
   flex-shrink: 0;
   width: 100%;
-  height: auto;
+  height: 100px;
   overflow: hidden;
   display: flex;
   align-items: center;

@@ -96,21 +96,22 @@ export default function LibraryPage() {
   if (!isLoading && !storyData.length) {
     return (
       <div className="library-page">
-        <div className="content-wrapper">
           <div className="no-stories-found">
-            <div className="no-stories-text">No stories were created yet.</div>
+            <div className="no-stories-text"> <h1>No stories were created yet.</h1></div>
+            <div className="hr-style"></div>
             <button onClick={() => navigate("/children")}>
               Create a new Story
             </button>
           </div>
         </div>
-      </div>
     );
   }
 
   return (
     <div className="library-page">
+
       {storyData.map((childData) => (
+        
         <div key={childData.childId}>
           <div className="storyh1h3">
             <div className="storyh1">

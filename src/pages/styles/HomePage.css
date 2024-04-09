@@ -1,7 +1,6 @@
 .home-page {
   max-width: 90%;
   margin: 0 auto;
-  padding: 0 15px;
 }
 
 .home-page .hp-row {
@@ -46,6 +45,7 @@
   display: block;
   text-align: center;
   margin: 25px;
+  padding: 0 0 1%;
 }
 
 .home-page .hp-tree-image-container {
@@ -127,8 +127,8 @@
 
 .home-page .hp-featured-box {
   display: flex;
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 70%;
+  max-width: 70%;
   align-items: center;
   box-sizing: border-box;
   background: #fafaf5;
@@ -139,12 +139,12 @@
 }
 
 .home-page .hp-featured-image {
-  flex: 0 0 15%;
+  flex: 0 0 10%;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
-  background: #d3d3d3 50% / cover no-repeat;
+  background: #d3d3d3 40% / cover no-repeat;
   flex-shrink: 0;
-  height: 300px;
+  height: 200px;
 }
 
 .home-page .hp-featured-content {
@@ -161,7 +161,6 @@
 
 .home-page .hp-featured-name {
   color: #000;
-  font-size: 18px;
   font-style: normal;
   font-weight: 600;
   line-height: 130%;

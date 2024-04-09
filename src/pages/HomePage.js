@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
 import treeImage from "../assets/home_page/hp_tree.png";
-import boyWithBalloon from "../assets/home_page/hp_boy_balloon.png";
+import boyTwoPhotos from "../assets/home_page/hp_boy_two_photos.png";
 import boyWithStars from "../assets/home_page/hp_boy_stars.png";
 import starsImage from "../assets/home_page/hp_stars.png";
 import "./styles/HomePage.css";
@@ -34,15 +34,8 @@ export default function HomePage() {
       <div className="image-container hp-row hp-mb-3">
         <div className="image-item">
           <img
-            src={boyWithStars}
-            alt="Boy with stars"
-            className="hp-img-fluid"
-          />
-        </div>
-        <div className="image-item">
-          <img
-            src={boyWithBalloon}
-            alt="Boy with balloon"
+            src={boyTwoPhotos}
+            alt="Boy two photos"
             className="hp-img-fluid"
           />
         </div>
@@ -85,7 +78,7 @@ export default function HomePage() {
         <div className="hp-featured-box">
           <img src={boyWithStars} alt="Story" className="hp-featured-image" />
           <div className="hp-featured-content">
-            <h3 className="hp-featured-name">Sweet Ty's Adventure</h3>
+            <h2 className="hp-featured-name">Sweet Ty's Adventure</h2>
             <p className="hp-featured-date">11/11/2024</p>
           </div>
           <button className="hp-featured-button">Read</button>
