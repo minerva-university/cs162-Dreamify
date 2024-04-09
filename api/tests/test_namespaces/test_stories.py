@@ -493,20 +493,6 @@ class TestChildStoriesGet:
         assert response.status_code == 400
         assert "Parameter 'child_id' is required" in response.json["Error"]
 
-    @staticmethod
-    def test_none_child_id(client: FlaskClient, access_token: str) -> None:
-        """
-        Test the GET method of the child_stories endpoint with a None child_id.
-        """
-        response = client.get(
-            "/api/stories/child_stories",
-            headers={"Authorization": f"Bearer {access_token}"},
-            query_string={"child_id": None},
-        )
-
-        assert response.status_code == 400
-        assert "Parameter 'child_id' is required" in response.json["Error"]
-
 
 class TestStoryChaptersGet:
     """
@@ -641,20 +627,6 @@ class TestStoryChaptersGet:
         response = client.get(
             "/api/stories/chapters",
             headers={"Authorization": f"Bearer {access_token}"},
-        )
-
-        assert response.status_code == 400
-        assert "Parameter 'story_id' is required" in response.json["Error"]
-
-    @staticmethod
-    def test_none_story_id(client: FlaskClient, access_token: str) -> None:
-        """
-        Test the GET method of the chapters endpoint with a None story_id.
-        """
-        response = client.get(
-            "/api/stories/chapters",
-            headers={"Authorization": f"Bearer {access_token}"},
-            query_string={"story_id": None},
         )
 
         assert response.status_code == 400

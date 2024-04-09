@@ -115,20 +115,6 @@ class TestChildGet:
         assert "Parameter 'child_id' is required" in response.json["Error"]
 
     @staticmethod
-    def test_none_id(client: FlaskClient, access_token: str) -> None:
-        """
-        Test the GET method of the children endpoint with a None child_id.
-        """
-        response = client.get(
-            "/api/children",
-            headers={"Authorization": f"Bearer {access_token}"},
-            query_string={"child_id": None},
-        )
-
-        assert response.status_code == 400
-        assert "Parameter 'child_id' is required" in response.json["Error"]
-
-    @staticmethod
     def test_child_not_found(client: FlaskClient, access_token: str) -> None:
         """
         Test the GET method of the children endpoint with a child that does not exist.
@@ -853,7 +839,7 @@ class TestAllChildrenGet:
 
     @staticmethod
     def test_success(
-        client: FlaskClient, child: str, access_token: str
+        client: FlaskClient, child: Child, access_token: str
     ) -> None:
         """
         Test if the GET method of the all_children endpoint returns all children.
