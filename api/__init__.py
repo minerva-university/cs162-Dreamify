@@ -17,7 +17,7 @@ from .extensions import bcrypt, jwt
 from .database.models import db
 
 
-def create_app() -> Flask:
+def create_app(config=ApplicationConfig) -> Flask:
     """
     Create and configure the Flask app.
 
@@ -30,7 +30,7 @@ def create_app() -> Flask:
     app = Flask(__name__, static_folder="../build", static_url_path="/")
 
     # Load the configuration for the Flask app
-    app.config.from_object(ApplicationConfig)
+    app.config.from_object(config)
 
     # Initialize the Flask extensions
     db.init_app(app)

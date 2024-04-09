@@ -8,6 +8,10 @@ from flask_jwt_extended import jwt_required
 
 from ..functions.prepare_data import assemble_story_payload_async
 from ..functions.jwt_functions import get_current_parent
+from ..functions.input_validation import (
+    validate_non_empty_string,
+    validate_id_format,
+)
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
 
@@ -57,12 +61,29 @@ class GenerateStory(Resource):
         Generate a story based on the provided data asynchronously.
         """
         try:
-            # Get the data from the request
-            data = request.json
+            # Get the parent
+            parent = get_current_parent()
 
-            # Return an error if no data is provided and a 400 status code
-            if not data:
-                return {"Error": "No data provided"}, 400
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
+            # Get the data from the request
+            data = request.get_json()
+
+            # Validate the data
+            validate_id_format(data["child_id"], "child_id")
+            validate_non_empty_string(data["topic"], "topic")
+            validate_non_empty_string(data["image_style"], "image_style")
+            validate_non_empty_string(data["story_genre"], "story_genre")
+
+            # Get the child
+            child = get_child_from_parent(parent.user_id, data["child_id"])
+
+            if not child:
+                return {
+                    "Error": f"Child with ID '{data['child_id']}' not found"
+                }, 404
 
             # Assemble the payload asynchronously
             payload = await assemble_story_payload_async(
@@ -101,8 +122,9 @@ class ChildStories(Resource):
             # Get the parent
             parent = get_current_parent()
 
+            # Return an error if the parent is not found, meaning the user is not logged in
             if not parent:
-                return {"error": "Unauthorized, please log in"}, 401
+                return {"Error": "Unauthorized, please log in"}, 401
 
             # Get the child_id from the query parameter
             child_id = request.args.get("child_id", None)
@@ -111,12 +133,15 @@ class ChildStories(Resource):
             if not child_id:
                 return {"Error": "Parameter 'child_id' is required"}, 400
 
+            # Validate the child_id
+            validate_id_format(child_id, "child_id")
+
             # Get the child
             child = get_child_from_parent(parent.user_id, child_id)
 
             # Return an error if the child does not exist
             if not child:
-                return {"error": "Child does not exist."}, 404
+                return {"Error": f"Child with ID '{child_id}' not found."}, 404
 
             # Define the payload
             payload = {
@@ -129,6 +154,8 @@ class ChildStories(Resource):
 
             # Return the story data and a 200 status code
             return payload, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500
@@ -150,6 +177,12 @@ class StoryChapters(Resource):
         Get all chapters for a story.
         """
         try:
+            # Get the parent
+            parent = get_current_parent()
+
+            # Return an error if the parent is not found, meaning the user is not logged in
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
             # Use query parameter to get story_id
             story_id = request.args.get("story_id", None)
 
@@ -157,12 +190,15 @@ class StoryChapters(Resource):
             if not story_id:
                 return {"Error": "Parameter 'story_id' is required"}, 400
 
+            # Validate the story_id
+            validate_id_format(story_id, "story_id")
+
             # Get the story
             story = get_story(story_id)
 
             # Return an error if the story does not exist
             if not story:
-                return {"error": "Story does not exist."}, 404
+                return {"Error": f"Story with ID '{story_id}' not found."}, 404
 
             # Define the payload
             payload = {
@@ -176,6 +212,8 @@ class StoryChapters(Resource):
 
             # Return the story data and a 200 status code
             return payload, 200
+        except ValueError as e:
+            return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(f"Error: {e}")
             return {"Error": "Internal Server Error"}, 500

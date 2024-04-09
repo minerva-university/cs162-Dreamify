@@ -38,13 +38,20 @@ def get_generate_flag() -> bool:
     try:
         # Get the generate flag from the environment variable
         generate_flag = (
-            True if os.getenv("OPENAI_GENERATE") == "True" else False
+            True
+            if os.getenv("OPENAI_GENERATE") == "True"
+            # Check if the app is not in testing mode
+            and current_app.config["TESTING"] is not True
+            else False
         )
 
         if generate_flag and not os.getenv("OPENAI_API_KEY"):
             raise ValueError(
                 "OPENAI_GENERATE is set to 'True' but OPENAI_API_KEY environment variable is not set"
             )
+
+        # Create a directory to store generated outputs
+        os.makedirs("gen_outputs", exist_ok=True)
 
         return generate_flag
     except Exception as e:
@@ -67,7 +74,7 @@ def get_child_parameters(child_id: str) -> dict[str, str]:
     """
     try:
         # Get the child with the given ID
-        child = Child.query.get(child_id)
+        child = Child.query.filter_by(child_id=child_id).first()
 
         # Check if the child exists
         if child is None:
