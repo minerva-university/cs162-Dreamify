@@ -9,7 +9,7 @@ The main character's name is ${name}, and their age range is ${age_range} years.
 ${name} is ${sex}.
 The main topic of bedtime story should be: ${topic}.The story genre is ${story_genre}.
 Incorporate favorite animals (${fav_animals}), favorite activities (${fav_activities}), and favorite shows (${fav_shows}) in the story only if relevant.
-The should be NO text or words on the images.
+There should be NO text or words on the images.
 The length of the story is about 2000 words and it should be clearly divided into 5 chapters.
 You should first output the title in the format like this: Title of the story: <title>.
 Every chapter title should be formatted like this: Chapter <number> title: <chapter_title>
