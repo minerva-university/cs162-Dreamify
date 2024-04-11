@@ -28,8 +28,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   };
 
   const typingTextStyle = {
-    width: "80%",
-    height: "20px",
+    width: "60%",
+    height: "30px",
     marginBottom: "10px",
     background: "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, #eee 70%)",
     borderRadius: "5px",
@@ -37,8 +37,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   };
 
   const typingTextStyle2 = {
-    width: "80%",
-    height: "20px",
+    width: "60%",
+    height: "30px",
     marginBottom: "10px",
     background: "linear-gradient(to right, white 0%, white 15%,  #dbdbdb 33%, #eee 70%)",
     borderRadius: "5px",
@@ -52,9 +52,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   };
 
   const typingTextStyle3 = {
-    width: "80%",
-    height: "20px",
-    marginBottom: "10px",
+    width: "60%",
+    height: "30px",
     background:  "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, white 85%, white 100%)",
     borderRadius: "5px",
     animation: "slowFade 3s ease-in-out infinite",
@@ -104,6 +103,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
             </React.Fragment>
           ))}
           <div style={typingTextStyle3}></div>
+          <style>{spinnerKeyframes}</style>
+        <div className="spinner" style={defaultSpinnerStyle}></div>
         </>
       );
     } else {
