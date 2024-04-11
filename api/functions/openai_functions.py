@@ -7,7 +7,7 @@ from flask import current_app
 
 
 def text_gen(
-    prompt: str, *, model: str = "gpt-3.5-turbo", max_tokens: int = 2000
+    prompt: str, *, model: str = "gpt-4-turbo", max_tokens: int = 3000
 ) -> str:
     """
     Call the OpenAI API to generate a response based on the given prompt.
@@ -48,7 +48,7 @@ def image_gen(
     *,
     model: str = "dall-e-3",
     size: str = "1024x1024",
-    quality: str = "standard",
+    quality: str = "hd",
     n: int = 1,
 ) -> str:
     """
@@ -95,7 +95,7 @@ async def image_gen_async(
     *,
     model: str = "dall-e-3",
     size: str = "1024x1024",
-    quality: str = "standard",
+    quality: str = "hd",
     n: int = 1,
 ) -> str:
     """
