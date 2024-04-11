@@ -56,7 +56,7 @@ def update_child(
         "Black",
         "Red",
         "Auburn",
-        "Grey",
+        "Gray",
         "White",
         "Bald",
     ]

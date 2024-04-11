@@ -58,6 +58,8 @@ const races = [
 
 const AddachildPage = () => {
 
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
     document.title = "Dreamify | Add Child";
   }, []);
@@ -88,18 +90,29 @@ const AddachildPage = () => {
     return <Spinner />;
   }
 
+  const handleHairTypeSelect = (hairType) => {
+    if (hairType === "Bald") {
+      setIsVisible(false);
+      setSelectedHairColor("Bald");
+    }
+    else {
+      if (isVisible === false) {
+        setIsVisible(true);
+        setSelectedHairColor(null);
+      }
+    }
+    setSelectedHairType(hairType);
+  };
 
   const handleRaceSelect = (race) => {
     setSelectedRace(race);
-    if (race !== "custom") {
-      setCustomRaceInput("");
-    }
+    setCustomRaceInput("");
   };
 
   const handleCustomRaceInput = (e) => {
     const value = e.target.value;
     setCustomRaceInput(value);
-    setSelectedRace(value ? "custom" : null);
+    setSelectedRace(value ? value : null);
   };
 
   const handleTextFieldChange = (setter) => (event) => {
@@ -119,7 +132,7 @@ const AddachildPage = () => {
         eye_color: selectedEyeColor,
         hair_type: selectedHairType,
         hair_color: selectedHairColor,
-        ethnicity: selectedRace === "custom" ? customRaceInput : selectedRace,
+        ethnicity: customRaceInput !== "" ? customRaceInput : selectedRace,
         fav_animals: favoriteAnimals,
         fav_activities: favoriteActivities,
         fav_shows: favoriteShows,
@@ -215,29 +228,35 @@ const AddachildPage = () => {
                 className={`vis-feature ${
                   selectedHairType === hair.name ? "selected" : ""
                 }`}
-                onClick={() => setSelectedHairType(hair.name)}
+                onClick={() => handleHairTypeSelect(hair.name)}
               />
               <p className="vis-feature-name">{hair.name}</p>
             </div>
           ))}
         </div>
 
-        <label htmlFor="hairColor">Hair Color</label>
-        <div className="vis-features">
-          {hairColor.map((color) => (
-            <div className="vis-feature-container" key={color.name}>
-              <img
-                src={color.imageUrl}
-                alt={color.name}
-                className={`vis-feature ${
-                  selectedHairColor === color.name ? "selected" : ""
-                }`}
-                onClick={() => setSelectedHairColor(color.name)}
-              />
-              <p className="vis-feature-name">{color.name}</p>
-            </div>
-          ))}
-        </div>
+
+        {isVisible && (
+          <>
+          <label htmlFor="hairColor">Hair Color</label>
+          <div className="vis-features">
+            {hairColor.map((color) => (
+              <div className="vis-feature-container" key={color.name}>
+                <img
+                  src={color.imageUrl}
+                  alt={color.name}
+                  className={`vis-feature ${
+                    selectedHairColor === color.name ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedHairColor(color.name)}
+                />
+                <p className="vis-feature-name">{color.name}</p>
+              </div>
+            ))}
+          </div>
+        </>
+        )}
+
         <label htmlFor="race">Race/Ethnicity</label>
         <div className="vis-features">
           {races.map((race) => (
@@ -253,6 +272,7 @@ const AddachildPage = () => {
               <p className="vis-feature-name">{race.name}</p>
             </div>
           ))}
+
           <div className="vis-feature-container custom-race">
             <input
               type="text"
