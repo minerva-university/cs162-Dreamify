@@ -53,7 +53,7 @@ export default function NewStoryPage() {
 
   
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner text="Generating story and images, please wait... (This should take approximately 1 minute)" creatingStory={true}/>;
   }
 
   

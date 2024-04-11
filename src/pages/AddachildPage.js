@@ -87,7 +87,7 @@ const AddachildPage = () => {
 
   // Show a spinner while loading
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;
   }
 
   const handleHairTypeSelect = (hairType) => {
