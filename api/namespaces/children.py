@@ -66,6 +66,7 @@ add_child_model = children.model(
                 "Auburn",
                 "Grey",
                 "White",
+                "Bald",
             ],
         ),
         "ethnicity": fields.String(
@@ -125,6 +126,7 @@ modify_child_model = children.model(
                 "Auburn",
                 "Grey",
                 "White",
+                "Bald",
             ],
         ),
         "ethnicity": fields.String(

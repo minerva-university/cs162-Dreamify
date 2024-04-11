@@ -108,7 +108,7 @@ class Child(db.Model):
     hair_color = db.Column(
         db.Text,
         CheckConstraint(
-            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Grey', 'White')"
+            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Grey', 'White', 'Bald')"
         ),
         nullable=False,
     )
