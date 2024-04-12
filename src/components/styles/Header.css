@@ -15,6 +15,12 @@
   width: 90%;
 }
 
+.header .logo {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  /* margin-left: 20px; */
+}
 .header .header-title {
   color: #000;
   font-size: 20px;
@@ -83,5 +89,4 @@
 .header .header-text-white {
   color: #fff;
 }
-
 

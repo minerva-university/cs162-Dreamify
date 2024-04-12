@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/Header.css";
+import logo from "../assets/logo.png";
 
 export default function Header() {
   const location = useLocation();
@@ -23,7 +24,9 @@ export default function Header() {
     <nav className="header">
       <div className="header-container">
         <Link to="/" className="header-title">
-        <h1>Dreamify</h1>
+        {/* <h1>Dreamify</h1> */}
+        <img src={logo} alt="dreamify logo" className="logo"/>
+
         </Link>
         <div className="header-nav-links-container">
           {/* Render different navigation links based on authentication state */}

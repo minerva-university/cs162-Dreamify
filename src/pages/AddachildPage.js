@@ -156,7 +156,7 @@ const AddachildPage = () => {
       <div className="hr-style"></div>
       <form className="add-child-form" onSubmit={handleSubmit}>
         <h5>DEMOGRAPHY</h5>
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="firstName">First Name *</label>
         <input
           type="text"
           id="firstName"
@@ -164,7 +164,7 @@ const AddachildPage = () => {
           onChange={handleTextFieldChange(setFirstName)}
         />
 
-        <label htmlFor="ageRange">Age Range</label>
+        <label htmlFor="ageRange">Age Range *</label>
         <div className="buttons">
           {ageRanges.map((range) => (
             <button
@@ -182,7 +182,7 @@ const AddachildPage = () => {
           ))}
         </div>
 
-        <label htmlFor="sex">Sex</label>
+        <label htmlFor="sex">Sex *</label>
         <div className="buttons">
           {sexes.map((sex) => (
             <button
@@ -201,7 +201,7 @@ const AddachildPage = () => {
 
         <h5>VISUAL FEATURES</h5>
 
-        <label htmlFor="eyeColor">Eye Color</label>
+        <label htmlFor="eyeColor">Eye Color *</label>
         <div className="vis-features">
           {eyeColors.map((eyeColor) => (
             <div className="vis-feature-container" key={eyeColor.name}>
@@ -218,7 +218,7 @@ const AddachildPage = () => {
           ))}
         </div>
 
-        <label htmlFor="hairType">Hair Type</label>
+        <label htmlFor="hairType">Hair Type *</label>
         <div className="vis-features">
           {hairType.map((hair) => (
             <div className="vis-feature-container" key={hair.name}>
@@ -238,7 +238,7 @@ const AddachildPage = () => {
 
         {isVisible && (
           <>
-          <label htmlFor="hairColor">Hair Color</label>
+          <label htmlFor="hairColor">Hair Color *</label>
           <div className="vis-features">
             {hairColor.map((color) => (
               <div className="vis-feature-container" key={color.name}>
@@ -257,7 +257,7 @@ const AddachildPage = () => {
         </>
         )}
 
-        <label htmlFor="race">Race/Ethnicity</label>
+        <label htmlFor="race">Race/Ethnicity *</label>
         <div className="vis-features">
           {races.map((race) => (
             <div className="vis-feature-container" key={race.name}>
