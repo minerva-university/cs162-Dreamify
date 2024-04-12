@@ -8,6 +8,7 @@ import Spinner from "./Spinner";
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
+  console.log(location.pathname);
 
   // If the authentication state is not yet defined, render a spinner
   if (isAuthenticated === undefined) {
@@ -18,7 +19,7 @@ export default function ProtectedRoute({ children }) {
   // the login page with the current location as the
   // state which will be used to redirect the user
   // back to the original location after successful login
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !location.pathname.includes("/example-story")) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
