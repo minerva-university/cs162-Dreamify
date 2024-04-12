@@ -14,8 +14,8 @@ def text_gen(
 
     Args:
         prompt (str): The input prompt.
-        model (str): The model to use for generating the response. Default is "gpt-3.5-turbo".
-        max_tokens (int): The maximum number of tokens to generate. Default is 1.
+        model (str): The model to use for generating the response. Default is "gpt-4-turbo".
+        max_tokens (int): The maximum number of tokens to generate. Default is 3000.
 
     Returns:
         str: The generated response from the OpenAI API.
@@ -48,7 +48,7 @@ def image_gen(
     *,
     model: str = "dall-e-3",
     size: str = "1024x1024",
-    quality: str = "hd",
+    quality: str = "standard",
     n: int = 1,
 ) -> str:
     """
@@ -95,7 +95,7 @@ async def image_gen_async(
     *,
     model: str = "dall-e-3",
     size: str = "1024x1024",
-    quality: str = "hd",
+    quality: str = "standard",
     n: int = 1,
 ) -> str:
     """
