@@ -15,7 +15,6 @@
 
 .add-child-page h1 {
   margin-left: 100px;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -23,7 +22,6 @@
   margin-left: 100px;
   margin-top: 40px;
   display: block;
-  font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -45,7 +43,6 @@
   margin-left: 140px;
   margin-top: 40px;
   display: block;
-  font-size: 18px;
   text-transform: uppercase;
 }
 
@@ -74,7 +71,6 @@
 .add-child-page button {
   margin-left: 30px;
   height: 40px;
-  font-size: 15px;
   text-align: center;
   width: 10%;
   border: 2px solid white;

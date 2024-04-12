@@ -31,7 +31,7 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <div className="image-container hp-row hp-mb-3">
+      <div className="image-container hp-row">
         <div className="image-item">
           <img
             src={boyTwoPhotos}
@@ -42,9 +42,9 @@ export default function HomePage() {
       </div>
       <div className="hp-row">
         <div className="hp-col">
-          <h2 className="hp-title">
+          <h1 className="hp-title">
             Bring your child's imagination to life with bedtime stories
-          </h2>
+          </h1>
         </div>
       </div>
       <div className="hp-row">
@@ -55,17 +55,28 @@ export default function HomePage() {
               alt="Tree"
               className="hp-img-fluid hp-img-auto"
             />
-            <p className="hp-tree-overlay-text">
+            
+            
+            <Link
+                to={!isAuthenticated ? "/signup" : "/children"}
+                className="hp-create-text"
+              >
+            <h1 className="hp-tree-overlay-text">
               Create your own bedtime story
-            </p>
+            </h1>
+            </Link>
+  {/*
             <div className="hp-create-button">
               <Link
                 to={!isAuthenticated ? "/signup" : "/children"}
                 className="hp-create-text"
               >
+                <h3>
                 Create
+                </h3>
               </Link>
             </div>
+            */}
           </div>
         </div>
       </div>
@@ -81,7 +92,7 @@ export default function HomePage() {
             <h2 className="hp-featured-name">Sweet Ty's Adventure</h2>
             <p className="hp-featured-date">11/11/2024</p>
           </div>
-          <button className="hp-featured-button">Read</button>
+          <button className="hp-featured-button"><p>Read</p></button>
         </div>
       </div>
       <div className="hp-homepage-container">
@@ -96,7 +107,7 @@ export default function HomePage() {
         </div>
         <div className="hp-row">
           <div className="hp-description-container hp-text-center">
-            <p className="hp-description">
+            <h3 className="hp-description">
               Dreamify — Where Dreams Come Alive. Transform pre-bedtime into an
               unforgettable adventure with Dreamify, the ultimate story
               generator for children. Immerse your kids in magical tales where
@@ -109,7 +120,7 @@ export default function HomePage() {
               night is a unique voyage of discovery and delight. Join us in
               nurturing young minds, fostering creativity, and making every
               night a special storytime adventure.
-            </p>
+            </h3>
           </div>
         </div>
         <div className="hp-row">

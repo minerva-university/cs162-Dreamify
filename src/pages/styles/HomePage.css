@@ -39,8 +39,6 @@
 .home-page .hp-title {
   color: #000;
   letter-spacing: -0.8px;
-  font-size: 40px;
-  font-weight: 400;
   line-height: 120%;
   display: block;
   text-align: center;
@@ -67,15 +65,20 @@
 }
 
 .home-page .hp-tree-overlay-text {
+  font-size: 60px;
   display: flex;
-  margin-top: -50px; /* Add some space between the button and the text */
+  margin-top: -15px; /* Add some space between the button and the text */
   color: #fff;
-  font-size: 64px;
-  font-weight: 1111;
   line-height: 10%;
   letter-spacing: -0.8px;
   white-space: nowrap;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-decoration: none; /* Remove underline by default */
+  transition: text-shadow 0.3s, transform 0.3s;
+}
+
+.home-page .hp-tree-overlay-text:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
 .home-page .hp-create-button {
@@ -104,9 +107,7 @@
 
 .home-page .hp-create-text {
   color: #fff;
-  font-size: 26px;
   font-style: normal;
-  font-weight: 400;
   line-height: 130%;
   text-decoration: none;
 }
@@ -115,13 +116,8 @@
   text-align: center;
   margin: 80px;
   color: #000;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
   flex-shrink: 0;
-  font-size: 30px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 160%;
   display: inline-block;
 }
 
@@ -162,16 +158,13 @@
 .home-page .hp-featured-name {
   color: #000;
   font-style: normal;
-  font-weight: 600;
   line-height: 130%;
   display: inline-block;
 }
 
 .home-page .hp-featured-date {
   color: #1a6598;
-  font-size: 17px;
   font-style: normal;
-  font-weight: 600;
   line-height: 130%;
   display: inline-block;
   margin-top: -10px;
@@ -190,8 +183,6 @@
   border: none;
   cursor: pointer;
   color: #fff;
-  font-size: 16px;
-  font-weight: 600;
   transition: background-color 0.3s;
 }
 
@@ -212,7 +203,6 @@
   color: #000;
   text-align: center;
   letter-spacing: -0.74px;
-  font-size: 37px;
   line-height: 120%;
   display: block;
   margin: 60px auto;

@@ -47,7 +47,6 @@
 .signin-page .signin-image p {
   position: absolute;
   bottom: 10%; /* Distance from the bottom */
-  font-size: 1.2rem;
   margin-bottom: 1rem; /* Increase bottom margin to push 'Want to create an account?' down */
 }
 
@@ -59,7 +58,6 @@
   color: white;
   border: none;
   border-radius: 20px; /* Rounded corners */
-  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
@@ -119,7 +117,6 @@
   margin-bottom: 20px; /* Space below the alert */
   text-align: center; /* Center the text */
   font-weight: bold; /* Make the font bold */
-  font-size: 12px;
 }
 
 .signin-page button[type="submit"] {

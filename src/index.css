@@ -4,6 +4,7 @@
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
+  font-size: 18px;
 }
 
 body {
@@ -12,7 +13,28 @@ body {
 
 h1,
 h2,
-h3,
-p {
+h3
+{
   font-family: "Newsreader", sans-serif;
+  font-weight: 400;
 }
+
+h1
+{
+  font-size: 45px;
+}
+h2
+{
+  font-size: 38px;
+}
+h3
+{
+  font-size: 28px;
+}
+
+
+p
+{
+font-size: 15px;
+}
+

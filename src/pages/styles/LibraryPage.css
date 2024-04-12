@@ -1,12 +1,10 @@
 .library-page h1 {
-  font-size: 50px;
   margin-bottom: 0px;
 }
 
 .library-page h3 {
-  font-size: 23px;
-  margin-right: 200px;
-  text-align: center;
+
+
   flex-direction: bottom;
   margin-bottom: 0px;
 }
@@ -47,7 +45,6 @@
 
 .library-page .story-title {
   color: black;
-  font-weight: bold;
 }
 
 .library-page .story-date {
@@ -75,8 +72,10 @@
 .library-page .storyh3 {
   display: flex;
   margin-left: 200px;
+  margin-right: 200px;
   align-items: flex-end;
   padding-bottom: 7px;
+  text-align: center;
 }
 
 .library-page .content-wrapper {
@@ -95,12 +94,8 @@
   height: 100%;
 }
 
-.library-page .no-stories-found h1{
-  font-size: 64px;
-}
 .library-page .no-stories-found div {
   color: #000;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -126,7 +121,6 @@
   border: none;
   border-radius: 10px;
   padding: 20px;
-  font-size: 20px;
   text-transform: uppercase;
   background-color: #77cfd1;
   cursor: pointer;
