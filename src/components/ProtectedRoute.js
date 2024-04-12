@@ -8,7 +8,6 @@ import Spinner from "./Spinner";
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  console.log(location.pathname);
 
   // If the authentication state is not yet defined, render a spinner
   if (isAuthenticated === undefined) {
