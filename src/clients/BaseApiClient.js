@@ -10,7 +10,12 @@ export default class BaseApiClient {
   // issue with the proxy not working properly,
   // so we have to use CORS instead
   constructor() {
-    this.base_url = "http://127.0.0.1:5000/api/";
+    // Set the base URL based on the environment
+    if (process.env.REACT_APP_MODE === "production") {
+      this.base_url = "/api/";
+    } else {
+      this.base_url = "http://127.0.0.1:5000/api/";
+    }
   }
 
   // Send a request to the server

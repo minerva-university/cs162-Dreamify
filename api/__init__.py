@@ -2,6 +2,7 @@
 This module initializes the Flask app and configures it.
 """
 
+import os
 from flask import Flask
 from dotenv import load_dotenv
 
@@ -12,7 +13,7 @@ from dotenv import load_dotenv
 
 from flask_cors import CORS
 
-from .config import ApplicationConfig
+from .config import ApplicationConfig, ProductionConfig
 from .extensions import bcrypt, jwt
 from .database.models import db
 
@@ -28,6 +29,10 @@ def create_app(config=ApplicationConfig) -> Flask:
     load_dotenv()
 
     app = Flask(__name__, static_folder="../build", static_url_path="/")
+
+    # If the app is in production, use the ProductionConfig
+    if os.getenv("FLASK_ENV") == "production":
+        config = ProductionConfig
 
     # Load the configuration for the Flask app
     app.config.from_object(config)

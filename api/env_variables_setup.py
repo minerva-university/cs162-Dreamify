@@ -3,17 +3,48 @@ This script creates the .env file with the necessary environment variables.
 """
 
 import os
+import sys
 from uuid import uuid4
 
 
 def main():
+
+    # Get the app_mode from the command line argument
+    app_mode = "development"
+
+    # Check if the app_mode is provided as a command line argument
+    if len(sys.argv) > 1:
+        app_mode = sys.argv[1].lower()
+
+        if app_mode not in ["development", "production", "testing"]:
+            print(
+                "ERROR: Invalid app mode. Please enter 'development', 'production' or 'testing'."
+            )
+            print("Usage: python env_variables_setup.py [app_mode]")
+            sys.exit(1)
+
     file_content = f"""\
-# Set this to True to enable the OpenAI API generation
+# 1. Set this to True to enable the OpenAI API generation
 # (Otherwise, dummy data will be used)
 OPENAI_GENERATE=False
 
-# Set your OpenAI API key here (starts with sk-...)
+# 2. Set your OpenAI API key here (starts with sk-...)
 OPENAI_API_KEY=SET_YOUR_API_KEY_HERE
+
+# 3. Change the Database settings below
+
+# 4. Change other settings as needed
+
+# --- Database settings (only get used in production mode) ---
+
+DATABASE_NAME=dreamify_db
+DATABASE_USER=dreamify
+DATABASE_PASSWORD=dreamify
+
+# --- Frontend settings ---
+
+# Set the app mode ("development", "production" or "testing")
+REACT_APP_MODE={app_mode}
 
 # --- Backend settings ---
 
@@ -49,13 +80,19 @@ JWT_DAYS_EXPIRATION=3
 
             print(
                 "Successfully created the .env file.\n"
-                "Please set the variable 'OPENAI_GENERATE' to 'True' "
-                "and enter your OpenAI API key in the 'OPENAI_API_KEY' variable.\n"
-                "(Otherwise, dummy data will be used.)"
+                "Please set the variable 'OPENAI_GENERATE' to 'True', "
+                "enter your OpenAI API key in the 'OPENAI_API_KEY' variable "
+                "(otherwise, dummy data will be used) and set the database settings "
+                "(if production mode is set)."
             )
     except Exception as e:
         print(f"An error occurred: {e}")
-        print("Please delete the .env file (if it was created) and try again.")
+
+        # Delete the file if it was created
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        print("Please try again.")
 
 
 if __name__ == "__main__":
