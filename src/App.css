@@ -1,15 +1,23 @@
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Newsreader:0,400&display=swap");
+
 
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, p {
+  font-family: "Newsreader", sans-serif;
 }
