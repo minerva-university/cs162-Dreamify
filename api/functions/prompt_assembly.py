@@ -39,11 +39,12 @@ def extract_story_components(
             # Matches 'Title of the story:' possibly followed by whitespace characters and stars
             Title\ of\ the\ story:\s*\**\s*
 
-            # Captures the title of the story
-            ([^*]+)
+            # Lazily captures the title of the story
+            (.*?)
 
-            # Optional whitespace characters and stars
-            \s*\**\s*
+            # Positive lookahead for the start of the first chapter
+            # (with stars and optional whitespace characters)
+            (?=\s*\**\s*\n)
             """,
             re.IGNORECASE | re.VERBOSE,
         )
