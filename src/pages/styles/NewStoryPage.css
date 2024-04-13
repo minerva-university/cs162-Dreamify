@@ -5,7 +5,6 @@
 
 .new-story-page h1 {
   margin-left: 100px;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -38,14 +37,12 @@
   margin-left: 100px;
   margin-top: 40px;
   display: block;
-  font-size: 18px;
   text-transform: uppercase;
 }
 
 .new-story-page button {
   margin-left: 30px;
   height: 40px;
-  font-size: 15px;
   text-align: center;
   width: 10%;
   border: 2px solid white;
