@@ -45,13 +45,11 @@ def get_generate_flag() -> bool:
             else False
         )
 
+        # Check if the generate flag is set to True but the API key is not set
         if generate_flag and not os.getenv("OPENAI_API_KEY"):
             raise ValueError(
                 "OPENAI_GENERATE is set to 'True' but OPENAI_API_KEY environment variable is not set"
             )
-
-        # Create a directory to store generated outputs
-        os.makedirs("gen_outputs", exist_ok=True)
 
         return generate_flag
     except Exception as e:
@@ -122,13 +120,6 @@ def generate_story(
             # Use a dummy story instead of generating one
             story = dummy_story
 
-        # TODO: remove this once the story generation is working robustly
-        with open("gen_outputs/story.txt", "w") as f:
-            f.write("Story prompt:\n")
-            f.write(prompt)
-            f.write("\n\nGenerated story:\n")
-            f.write(story)
-
         # Extract the story title, chapter titles and chapter contents
         return extract_story_components(story)
     except Exception as e:
@@ -180,9 +171,6 @@ async def _generate_chapter_image_async(
                 async with session.get(image_url) as response:
                     image = await response.read()
         else:
-            # Set a dummy image URL
-            image_url = "dummy_image_url"
-
             # Use a dummy image instead of generating one
             path = os.path.join(
                 os.getcwd(), "dummy_data", f"image_{chapter_number}.webp"
@@ -191,14 +179,6 @@ async def _generate_chapter_image_async(
             # Read the dummy image asynchronously
             async with aiofiles.open(path, "rb") as file:
                 image = await file.read()
-
-        # TODO: remove this once the image generation is working robustly
-        # Write the prompt and image URL to a file asynchronously
-        async with aiofiles.open("gen_outputs/prompts_urls.txt", "a") as f:
-            await f.write(
-                f"Chapter {chapter_number} prompt:\n{prompt}\n\n"
-                f"Chapter {chapter_number} image URL:\n{image_url}\n\n"
-            )
 
         # Convert the image to a base64 string and return it
         return b64encode(image).decode("utf-8")
@@ -279,13 +259,6 @@ def generate_child_image(child_params: dict[str, str]) -> str:
             with open(path, "rb") as file:
                 image = file.read()
 
-        # Write the prompt and image URL to a file
-        with open("gen_outputs/child_image_gen.txt", "w") as f:
-            f.write("Image prompt:\n")
-            f.write(prompt)
-            f.write("\n\nImage URL:\n")
-            f.write(image_url)
-
         # Convert the image to a base64 string and return it
         return b64encode(image).decode("utf-8")
     except Exception as e:
@@ -319,13 +292,6 @@ async def assemble_story_payload_async(
         story_title, chapter_titles, chapter_contents = generate_story(
             child_params, topic, story_genre
         )
-
-        # TODO: remove this once the story generation is working robustly
-        async with aiofiles.open("gen_outputs/story_extraction.txt", "w") as f:
-            await f.write(f"Story title: {story_title}\n\n")
-            for title, content in zip(chapter_titles, chapter_contents):
-                await f.write(f"Chapter title: {title}\n")
-                await f.write(f"Chapter content: {content}\n\n")
 
         # Generate the images for the story chapters asynchronously
         images = await generate_chapter_images_async(
