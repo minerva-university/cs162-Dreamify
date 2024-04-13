@@ -120,7 +120,7 @@ export default function HomePage() {
         </div>
         <div className="hp-row">
           <div className="hp-description-container hp-text-center">
-            <h3 className="hp-description">
+            <h2 className="hp-description">
               Dreamify — Where Dreams Come Alive. Transform pre-bedtime into an
               unforgettable adventure with Dreamify, the ultimate story
               generator for children. Immerse your kids in magical tales where
@@ -133,7 +133,7 @@ export default function HomePage() {
               night is a unique voyage of discovery and delight. Join us in
               nurturing young minds, fostering creativity, and making every
               night a special storytime adventure.
-            </h3>
+            </h2>
           </div>
         </div>
         <div className="hp-row">
