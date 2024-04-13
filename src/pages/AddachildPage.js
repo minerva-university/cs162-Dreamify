@@ -94,15 +94,13 @@ const AddachildPage = () => {
     if (hairType === "Bald") {
       setIsVisible(false);
       setSelectedHairColor("Bald");
-    }
-    else {
-      if (isVisible === false) {
-        setIsVisible(true);
-        setSelectedHairColor(null);
-      }
+    } else if (!isVisible) {
+      setIsVisible(true);
+      setSelectedHairColor(null);
     }
     setSelectedHairType(hairType);
-  };
+};
+
 
   const handleRaceSelect = (race) => {
     setSelectedRace(race);
@@ -112,12 +110,13 @@ const AddachildPage = () => {
   const handleCustomRaceInput = (e) => {
     const value = e.target.value;
     setCustomRaceInput(value);
-    setSelectedRace(value ? value : null);
+    setSelectedRace(value || null);
   };
 
   const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
     setter(value === "" ? null : value);
+    
   };
 
   const handleSubmit = async (event) => {

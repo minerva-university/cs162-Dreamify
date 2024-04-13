@@ -11,11 +11,11 @@ import story1chapter2 from "../assets/featured-stories/story1picture2.png";
 import story1chapter3 from "../assets/featured-stories/story1picture3.png";
 import story1chapter4 from "../assets/featured-stories/story1picture4.png";
 import story1chapter5 from "../assets/featured-stories/story1picture5.png";
-import story2chapter1 from "../assets/featured-stories/story2picture1.webp";
-import story2chapter2 from "../assets/featured-stories/story2picture2.webp";
-import story2chapter3 from "../assets/featured-stories/story2picture3.webp";
-import story2chapter4 from "../assets/featured-stories/story2picture4.webp";
-import story2chapter5 from "../assets/featured-stories/story2picture5.webp";
+import story2chapter1 from "../assets/featured-stories/story2picture1.png";
+import story2chapter2 from "../assets/featured-stories/story2picture2.png";
+import story2chapter3 from "../assets/featured-stories/story2picture3.png";
+import story2chapter4 from "../assets/featured-stories/story2picture4.png";
+import story2chapter5 from "../assets/featured-stories/story2picture5.png";
 import data from "../assets/featured-stories/featured-stories.json";
 
 export default function StoryPage() {

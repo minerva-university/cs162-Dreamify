@@ -24,9 +24,7 @@ export default function Header() {
     <nav className="header">
       <div className="header-container">
         <Link to="/" className="header-title">
-        {/* <h1>Dreamify</h1> */}
         <img src={logo} alt="dreamify logo" className="logo"/>
-
         </Link>
         <div className="header-nav-links-container">
           {/* Render different navigation links based on authentication state */}

@@ -36,9 +36,15 @@ export default function App() {
           <AuthProvider>
             {/* Header components for all the pages */}
             <Header />  
+            {/* Routes for the application */}
             <Routes>
-              {/* Routes for the application */}
-              <Route path="/" element={<HomePage />} />
+              {/* Add a new route for the HomePage component */}
+              <Route path="/" 
+                element={
+                  <HomePage />
+                } 
+              />
+              {/* Add a new route for the MyProfile component */}
               <Route path="/myprofile"
                 element={
                   <ProtectedRoute>

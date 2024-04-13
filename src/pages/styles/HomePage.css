@@ -12,7 +12,7 @@
 
 .home-page .image-item {
   text-align: center; /* Centers the image within the container */
-  padding-top: 15px; /* Adds some space around the image */
+  padding-top: 15px; /* Adds some space on top of the image */
   box-sizing: border-box; /* Ensures padding is included in the width */
 }
 

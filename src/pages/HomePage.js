@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
 import treeImage from "../assets/home_page/hp_tree.png";
 import firstExample from "../assets/featured-stories/story1picture1.png";
-import secondExample from "../assets/featured-stories/story2picture1.webp";
+import secondExample from "../assets/featured-stories/story2picture1.png";
 import boyTwoPhotos from "../assets/home_page/hp_boy_two_photos.png";
 import starsImage from "../assets/home_page/hp_stars.png";
 import "./styles/HomePage.css";
@@ -87,7 +86,7 @@ export default function HomePage() {
           <div className="story-details">
             <div className="story-title-date">
               <h2 className="story-title">Julia and the Enchanted Mic</h2>
-              <p className="story-date">04/07/2024</p>
+              <p className="story-date">2024/04/11</p>
             </div>
           </div>
         </div>
@@ -97,7 +96,7 @@ export default function HomePage() {
           <div className="story-details">
             <div className="story-title-date">
               <h2 className="story-title">Pablo's Magical Journey to Hogwarts</h2>
-              <p className="story-date">04/03/2024</p>
+              <p className="story-date">2024/04/12</p>
             </div>
           </div>
         </div>
