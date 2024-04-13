@@ -46,6 +46,10 @@ DATABASE_PASSWORD=dreamify
 # Set the app mode ("development", "production" or "testing")
 REACT_APP_MODE={app_mode}
 
+# Backend API settings
+REACT_APP_DEV_SERVER=http://127.0.0.1:5000
+REACT_APP_API_SUFFIX=/api/
+
 # --- Backend settings ---
 
 # Default database URI
