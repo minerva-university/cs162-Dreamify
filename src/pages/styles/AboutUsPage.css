@@ -34,7 +34,6 @@
 }
 
 .about-us-page .abus-team-member-name {
-  font-weight: 400;
   margin-bottom: 5px;
 }
 
@@ -42,10 +41,6 @@
   margin-bottom: 10px;
 }
 
-.about-us-page .abus-team-member-fairytale {
-  line-height: 1.5;
-  color: #1a6598;
-}
 
 .about-us-page .abus-title {
   text-align: center;
