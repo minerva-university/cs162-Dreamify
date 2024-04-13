@@ -56,16 +56,10 @@ export default function HomePage() {
               className="hp-img-fluid hp-img-auto"
             />
             
-            
-            <Link
-                to={!isAuthenticated ? "/signup" : "/children"}
-                className="hp-create-text"
-              >
             <h1 className="hp-tree-overlay-text">
               Create your own bedtime story
             </h1>
-            </Link>
-  {/*
+
             <div className="hp-create-button">
               <Link
                 to={!isAuthenticated ? "/signup" : "/children"}
@@ -76,7 +70,7 @@ export default function HomePage() {
                 </h3>
               </Link>
             </div>
-            */}
+
           </div>
         </div>
       </div>

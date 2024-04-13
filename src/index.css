@@ -4,7 +4,7 @@
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 body {
@@ -30,11 +30,5 @@ h2
 h3
 {
   font-size: 28px;
-}
-
-
-p
-{
-font-size: 15px;
 }
 
