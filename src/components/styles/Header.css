@@ -15,6 +15,11 @@
   width: 90%;
 }
 
+.header .logo {
+  display: flex;
+  align-items: center;
+  width: 120px;
+}
 .header .header-title {
   color: #000;
   font-weight: 500;
@@ -81,5 +86,4 @@
 .header .header-text-white {
   color: #fff;
 }
-
 

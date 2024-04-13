@@ -18,7 +18,7 @@
 
 .library-page .story-block {
   display: flex;
-  width: 750px;
+  width: 1000px;
   margin: 20px;
   margin-left: 100px;
   border: 1px solid #014a8a;
@@ -49,6 +49,7 @@
 
 .library-page .story-date {
   color: #014a8a;
+  font-size: 20px;
 }
 
 .library-page .story-private {
@@ -112,7 +113,6 @@
   align-self: flex-start; 
   width: 100%; 
   margin-left: 100px; 
-  
 }
 
 .library-page .no-stories-found button {

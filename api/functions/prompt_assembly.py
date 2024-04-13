@@ -33,21 +33,60 @@ def extract_story_components(
         if not story:
             raise ValueError("The story is an empty string.")
 
+        # Title pattern
+        title_pattern = re.compile(
+            r"""
+            # Matches 'Title of the story:' possibly followed by whitespace characters and stars
+            Title\ of\ the\ story:\s*\**\s*
+
+            # Lazily captures the title of the story
+            (.*?)
+
+            # Positive lookahead for the start of the first chapter
+            # (with stars and optional whitespace characters)
+            (?=\s*\**\s*\n)
+            """,
+            re.IGNORECASE | re.VERBOSE,
+        )
+
         # Extract the story title
-        title_match = re.search(r"Title of the story: (.+)", story)
-        title = title_match.group(1) if title_match else "Unknown"
+        title_match = re.search(title_pattern, story)
+
+        # Extract the title if it exists
+        title = title_match.group(1).strip() if title_match.group(1) else None
+
+        # Raise an error if the title could not be extracted
+        if not title:
+            raise ValueError(
+                "Invalid story format, could not extract story components."
+            )
 
         # Pattern to extract chapter titles and descriptions
         chapter_pattern = re.compile(
             r"""
-            Chapter\ \d+\ title:\s*    # Matches 'Chapter <number> title:' possibly followed by spaces
-            (.+?)                      # Lazily captures the chapter title
-            \s*                        # Optional whitespace characters
-            Chapter\ \d+\ description:\s* # Matches 'Chapter <number> description:' possibly followed by spaces
-            (.+?)                      # Lazily captures the chapter description
-            (?=\s*Chapter\ \d+\ title:|\s*The end.|$) # Lookahead for the start of the next chapter, the end of the story, or the end of the document
+            # Matches 'Chapter <number> title:' possibly followed by whitespace characters and stars
+            Chapter\ \d+\ title:\s*\**\s*
+
+            # Lazily captures the chapter title
+            (.+?)
+
+            # Optional stars and whitespace characters
+            \s*\**\s*
+
+            # Matches 'Chapter <number> description:' possibly followed by whitespace characters
+            Chapter\ \d+\ description:\s*\**\s*
+
+            # Lazily captures the chapter description
+            (.+?)
+
+            # Optional stars and whitespace characters
+            \s*\**\s*
+
+            # Lookahead for the start of the next chapter, the end of the story
+            # or the end of the document (with stars and optional whitespace characters)
+            (?=\s*Chapter\ \d+\ title:\s*\**\s*|\s*The end.|$)
             """,
-            re.DOTALL | re.VERBOSE,
+            re.DOTALL | re.IGNORECASE | re.VERBOSE,
         )
 
         chapter_titles = []
@@ -64,7 +103,7 @@ def extract_story_components(
             chapter_contents.append(chapter_content)
 
         # Raise an error if the story components could not be extracted
-        if not story or not chapter_titles or not chapter_contents:
+        if not chapter_titles or not chapter_contents:
             raise ValueError(
                 "Invalid story format, could not extract story components."
             )

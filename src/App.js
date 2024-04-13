@@ -34,57 +34,65 @@ export default function App() {
       <BrowserRouter>
         <ApiProvider>
           <AuthProvider>
-            <Header />
+            {/* Header components for all the pages */}
+            <Header />  
+            {/* Routes for the application */}
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route
-                path="/myprofile"
+              {/* Add a new route for the HomePage component */}
+              <Route path="/" 
+                element={
+                  <HomePage />
+                } 
+              />
+              {/* Add a new route for the MyProfile component */}
+              <Route path="/myprofile"
                 element={
                   <ProtectedRoute>
                     <UserProfilePage />
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/addachild"
+              {/* Add a new route for the AddachildPage component */}
+              <Route path="/addachild"
                 element={
                   <ProtectedRoute>
                     <AddachildPage />
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/modify/:childid"
+              {/* Add a new route for the ModifyChildPage component */}
+              <Route path="/modify/:childid"
                 element={
                   <ProtectedRoute>
                     <ModifyChildPage />
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/library/:storyId"
+              {/* Add a new route for the StoryPage component */}
+              <Route path="/library/:storyId"
                 element={
                   <ProtectedRoute>
                     <StoryPage />
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/library"
+              {/* Add a new route for the LibraryPage component */}
+              <Route path="/library"
                 element={
                   <ProtectedRoute>
                     <LibraryPage />
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/newstory/:childId"
+              {/* Add a new route for the NewStoryPage component */}
+              <Route path="/newstory/:childId"
                 element={
                   <ProtectedRoute>
                     <NewStoryPage />
                   </ProtectedRoute>
                 }
               />
+              {/* Add a new route for the SelectChildPage component */}
               <Route
                 path="/children"
                 element={
@@ -93,6 +101,7 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
+              {/* Add a new route for the Login component */}
               <Route
                 path="/login"
                 element={
@@ -101,6 +110,7 @@ export default function App() {
                   </AuthRoute>
                 }
               />
+              {/* Add a new route for the SignUp Page component */}
               <Route
                 path="/signup"
                 element={
@@ -109,9 +119,12 @@ export default function App() {
                   </AuthRoute>
                 }
               />
+              {/* Add a new route for the AboutUs Page component */}
               <Route path="/aboutus" element={<AboutUsPage />} />
+              {/* Add a new route for the Terms Page component */}
               <Route path="/terms" element={<TermsPage />} />
             </Routes>
+            {/* Footer components for all the pages */}
             <Footer />
           </AuthProvider>
         </ApiProvider>

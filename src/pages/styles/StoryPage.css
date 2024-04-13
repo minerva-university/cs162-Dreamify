@@ -29,8 +29,7 @@
   line-height: 1.3;
 }
 
-.story-page .story-text,
-.story-page .story-photo {
+.story-page .story-text, .story-page .story-photo {
   margin: auto;
   display: block;
   margin-bottom: 30px;

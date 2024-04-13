@@ -12,15 +12,13 @@
 
 .home-page .image-item {
   text-align: center; /* Centers the image within the container */
-  padding: 15px; /* Adds some space around the image */
+  padding-top: 15px; /* Adds some space on top of the image */
   box-sizing: border-box; /* Ensures padding is included in the width */
 }
 
 .home-page .hp-col {
   position: relative;
   width: 100%;
-  padding-right: 12px;
-  padding-left: 15px;
 }
 
 .home-page .hp-img-fluid {
@@ -212,4 +210,48 @@
   line-height: 120%;
   display: block;
   margin: 60px auto;
+}
+
+
+
+.home-page .story-block {
+  display: flex;
+  width: 1000px;
+  margin: 20px;
+  margin-left: 100px;
+  border: 1px solid #014a8a;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.home-page .story-image {
+  width: 20%;
+}
+
+.home-page .story-details {
+  width: 80%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-page .story-title-date {
+  width: 100%;
+}
+
+.home-page .story-title {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.home-page .story-date {
+  color: #014a8a;
+  font-size: 20px;
+}
+
+.home-page #fivestars{
+  margin-top: 80px;
 }

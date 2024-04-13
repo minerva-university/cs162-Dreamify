@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useApi } from "../contexts/ApiProvider";
 import Spinner from "../components/Spinner";
 import "./styles/LibraryPage.css";
 
 export default function LibraryPage() {
-
-  
+  // Get the API object from the API context  
   const api = useApi();
   const navigate = useNavigate();
 
+  // Set the initial state of the story data and loading state
   const [storyData, setStoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Function to handle the click on a story
   const handleStoryClick = (storyId) => {
     navigate(`/library/${storyId}`);
   };
 
+  // Set the title of the page
   useEffect(() => {
     document.title = "Dreamify | Library";
   }, []);
   
-
+  // Fetch the data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -51,6 +52,7 @@ export default function LibraryPage() {
                   .slice(0, 10)
                   .replace(/-/g, "/");
 
+                // Return the processed story data
                 return {
                   title: story.title,
                   image: firstImage,
@@ -63,6 +65,7 @@ export default function LibraryPage() {
             // Await for all stories' data to be fetched and processed
             const stories = await Promise.all(storiesPromises);
 
+            // Return the processed child data
             return {
               childId: child.child_id,
               childName: child.name,
@@ -107,11 +110,11 @@ export default function LibraryPage() {
     );
   }
 
+  // Render the stories
   return (
     <div className="library-page">
-
+      {/* Render each child data */}
       {storyData.map((childData) => (
-        
         <div key={childData.childId}>
           <div className="storyh1h3">
             <div className="storyh1">
@@ -122,6 +125,7 @@ export default function LibraryPage() {
             </div>
           </div>
           <div className="hr-style"></div>
+          {/* Render each story */}
           {childData.stories.map((story) => (
             <div
               key={story.storyId}
