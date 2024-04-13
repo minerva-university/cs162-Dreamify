@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
 
@@ -79,6 +79,7 @@ const ModifyChildPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
+  const [error, setError] = useState("");
 
   // Page title
   useEffect(() => {
@@ -149,6 +150,26 @@ const ModifyChildPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let missedInputs = [];
+      if (!selectedEyeColor) {
+        missedInputs.push(' Eye Color')
+      }
+      if (!selectedHairType){
+        missedInputs.push(' Hair Type')
+      }
+
+      if (!selectedHairColor){
+        missedInputs.push(' Hair Color')
+      }
+
+      if (!selectedRace){
+        missedInputs.push(' Ethnicity')
+      }
+      if (missedInputs) {
+        setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+
     setIsLoading(true); // Start loading
 
     try {
@@ -176,7 +197,7 @@ const ModifyChildPage = () => {
     } finally {
       setIsLoading(false); // Stop loading regardless of the outcome
     }
-  };
+  }};
 
   return (
     <div className="add-child-page">
@@ -191,6 +212,7 @@ const ModifyChildPage = () => {
           placeholder="Kid's first name"
           value={firstName !== null ? firstName : ""}
           onChange={handleTextFieldChange(setFirstName)}
+          required
         />
 
         <label htmlFor="ageRange">Age Range</label>
@@ -316,6 +338,7 @@ const ModifyChildPage = () => {
             placeholder="Cats, Horses, Dinosaurs"
             value={favoriteAnimals !== null ? favoriteAnimals : ""}
             onChange={handleTextFieldChange(setFavoriteAnimals)}
+            required
           />
 
           <label htmlFor="favoriteActivities">Favorite Activities</label>
@@ -325,6 +348,7 @@ const ModifyChildPage = () => {
             placeholder="Dancing, LEGO, Drawing"
             value={favoriteActivities !== null ? favoriteActivities : ""}
             onChange={handleTextFieldChange(setFavoriteActivities)}
+            required
           />
 
           <label htmlFor="favoriteShows">Favorite Shows</label>
@@ -334,12 +358,20 @@ const ModifyChildPage = () => {
             placeholder="Doctor Who, Harry Potter"
             value={favoriteShows !== null ? favoriteShows : ""}
             onChange={handleTextFieldChange(setFavoriteShows)}
+            required
           />
         </div>
 
+        <div className="lastOnPage">
+        {error && (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          )}
         <button type="submit" className="generate-button">
           Modify
         </button>
+        </div>
       </form>
     </div>
   );

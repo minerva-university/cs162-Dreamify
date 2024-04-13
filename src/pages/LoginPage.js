@@ -31,7 +31,12 @@ export default function LoginPage() {
       navigate(`/myprofile`);
     } catch (error) {
       console.error("Error while logging in:", error.message);
-      setError("An error occurred while logging in. Please try again.");
+
+      if(error.message.includes("Invalid email")){
+        setError(`No matching account found, Please Sign Up!`);
+      }
+      else{
+      setError("An error occurred while logging in. Please try again.");}
       // We can handle errors here and display them to the user
     } finally {
       setIsLoading(false);
@@ -42,7 +47,7 @@ export default function LoginPage() {
     setPassword("");
   };
   if (isLoading) {
-    return <Spinner></Spinner>;
+    return <Spinner />;
   }
 
   return (

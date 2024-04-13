@@ -5,6 +5,7 @@ import ChildProfileCard from "../components/ChildProfileCard";
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/UserProfilePage.css";
+import Spinner from "../components/Spinner";
 
 export default function UserProfilePage() {
   const api = useApi();
@@ -41,7 +42,7 @@ export default function UserProfilePage() {
 
   // Loading state UI
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />
   }
 
   // UI for when children is empty
@@ -72,7 +73,20 @@ export default function UserProfilePage() {
             }
           }}
         >
-          Add a kid
+          Add a child
+        </button>
+        <button
+          className="add-kid-button"
+          onClick={() => {
+            if (userInfo.user_id) {
+              navigate(`/children`);
+            } else {
+              console.error("Error: Parent ID not available.");
+            }
+          }}
+        style={{marginLeft: "20px"}}
+        >
+          New Story
         </button>
       </div>
       <div className="account-information">

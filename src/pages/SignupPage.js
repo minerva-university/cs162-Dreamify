@@ -38,7 +38,17 @@ function SignUpPage() {
       navigate("/login"); // Assuming you're using react-router for navigation
     } catch (error) {
       console.error("Error while signing up:", error.message);
-      setError("An error occurred while signing up. Please try again.");
+
+      if (error.message.includes('already exists')) {
+        setError("You email already exist, use a new email or login.");
+      }
+      else if(error.message.includes('Invalid email')){
+        setError("Please use an existing email!");
+      }
+      else{
+        setError("An error occurred while signing up. Please try again.");
+      }
+      
       // Handle errors here and display them to the user
     } finally {
       setIsLoading(false);
