@@ -95,7 +95,7 @@ export default function HomePage() {
           <img src={secondExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
-              <h2 className="story-title">Pablo's Magical Journey to Hogwarts</h2>
+              <h2 className="story-title">The Racquet Quest</h2>
               <p className="story-date">2024/04/12</p>
             </div>
           </div>
