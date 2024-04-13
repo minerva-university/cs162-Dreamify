@@ -18,7 +18,7 @@ export default function ProtectedRoute({ children }) {
   // the login page with the current location as the
   // state which will be used to redirect the user
   // back to the original location after successful login
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !location.pathname.includes("/example-story")) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

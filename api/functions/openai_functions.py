@@ -7,15 +7,15 @@ from flask import current_app
 
 
 def text_gen(
-    prompt: str, *, model: str = "gpt-3.5-turbo", max_tokens: int = 2000
+    prompt: str, *, model: str = "gpt-4-turbo", max_tokens: int = 3000
 ) -> str:
     """
     Call the OpenAI API to generate a response based on the given prompt.
 
     Args:
         prompt (str): The input prompt.
-        model (str): The model to use for generating the response. Default is "gpt-3.5-turbo".
-        max_tokens (int): The maximum number of tokens to generate. Default is 1.
+        model (str): The model to use for generating the response. Default is "gpt-4-turbo".
+        max_tokens (int): The maximum number of tokens to generate. Default is 3000.
 
     Returns:
         str: The generated response from the OpenAI API.

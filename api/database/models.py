@@ -41,6 +41,16 @@ class Parent(db.Model):
     # Relationship to Child
     children = db.relationship("Child", backref="parent", lazy=True)
 
+    # Indices
+    __table_args__ = (
+        # Index to optimize get_parent (with user_id),
+        # insert_parent (email uniqueness check)
+        # and insert_child (parent existence check)
+        db.Index("idx_parents_user_id", "user_id"),
+        # Index to optimize get_parent (with email) and check_password
+        db.Index("idx_parents_email", "email"),
+    )
+
 
 class Child(db.Model):
     """
@@ -108,7 +118,7 @@ class Child(db.Model):
     hair_color = db.Column(
         db.Text,
         CheckConstraint(
-            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Grey', 'White', 'Bald')"
+            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Gray', 'White', 'Bald')"
         ),
         nullable=False,
     )
@@ -122,6 +132,14 @@ class Child(db.Model):
 
     # Relationship to Story
     stories = db.relationship("Story", backref="child", lazy=True)
+
+    # Indices
+    __table_args__ = (
+        # Index to optimize update_child and insert_story (child existence check)
+        db.Index("idx_children_child_id", "child_id"),
+        # Composite index to optimize get_child_from_parent and child_belongs_to_parent
+        db.Index("idx_children_parent_id_child_id", "parent_id", "child_id"),
+    )
 
 
 class Story(db.Model):
@@ -169,6 +187,12 @@ class Story(db.Model):
 
     # Relationship to Chapter
     chapters = db.relationship("Chapter", backref="story", lazy=True)
+
+    # Indices
+    __table_args__ = (
+        # Index to optimize get_story
+        db.Index("idx_stories_story_id", "story_id"),
+    )
 
 
 class Chapter(db.Model):

@@ -57,6 +57,9 @@ const races = [
 ];
 
 const ModifyChildPage = () => {
+
+  const [isVisible, setIsVisible] = useState(true);
+
   const api = useApi();
   const location = useLocation();
 
@@ -76,7 +79,7 @@ const ModifyChildPage = () => {
 
   // Initialize states with null or appropriate initial values
   const [childData, setChildData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
   const [error, setError] = useState("");
@@ -99,7 +102,9 @@ const ModifyChildPage = () => {
         setSelectedEyeColor(data.eye_color);
         setSelectedHairType(data.hair_type);
         setSelectedHairColor(data.hair_color);
+        setIsVisible(data.hair_type !== "Bald");
         const isEthnicityPredefined = races.some(race => race.name === data.ethnicity);
+        // todo: delete the console.log statements
         console.log(data.ethnicity);
         console.log(isEthnicityPredefined);
         if (isEthnicityPredefined) {
@@ -131,15 +136,28 @@ const ModifyChildPage = () => {
 
   const handleRaceSelect = (race) => {
     setSelectedRace(race);
-    if (race !== "custom") {
-      setCustomRaceInput("");
+    setCustomRaceInput("");
+
+  };
+
+  const handleHairTypeSelect = (hairType) => {
+    if (hairType === "Bald") {
+      setIsVisible(false);
+      setSelectedHairColor("Bald");
     }
+    else {
+      if (isVisible === false) {
+        setIsVisible(true);
+        setSelectedHairColor(null);
+      }
+    }
+    setSelectedHairType(hairType);
   };
 
   const handleCustomRaceInput = (e) => {
     const value = e.target.value;
     setCustomRaceInput(value);
-    setSelectedRace(value ? "custom" : null);
+    setSelectedRace(value ? value: null);
   };
 
 
@@ -269,6 +287,7 @@ const ModifyChildPage = () => {
           ))}
         </div>
 
+
         <label htmlFor="hairType">Hair Type</label>
         <div className="vis-features">
           {hairType.map((hair) => (
@@ -279,13 +298,15 @@ const ModifyChildPage = () => {
                 className={`vis-feature ${
                   selectedHairType === hair.name ? "selected" : ""
                 }`}
-                onClick={() => setSelectedHairType(hair.name)}
+                onClick={() => handleHairTypeSelect(hair.name)}
               />
               <p className="vis-feature-name">{hair.name}</p>
             </div>
           ))}
         </div>
 
+        {isVisible && (
+          <>
         <label htmlFor="hairColor">Hair Color</label>
         <div className="vis-features">
           {hairColor.map((color) => (
@@ -302,6 +323,10 @@ const ModifyChildPage = () => {
             </div>
           ))}
         </div>
+        </>
+        )}
+
+
         <label htmlFor="race">Race/Ethnicity</label>
         <div className="vis-features">
           {races.map((race) => (
