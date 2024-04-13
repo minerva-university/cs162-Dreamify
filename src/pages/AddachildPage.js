@@ -44,15 +44,11 @@ const hairColor = [
 const races = [
   { name: "Asian", imageUrl: require("../assets/add_child_pics/image 45.jpg") },
   { name: "Black", imageUrl: require("../assets/add_child_pics/image 46.jpg") },
-  { name: "Brown", imageUrl: require("../assets/add_child_pics/image 47.jpg") },
+  { name: "Pacific islander", imageUrl: require("../assets/add_child_pics/image 47.jpg") },
   { name: "White", imageUrl: require("../assets/add_child_pics/image 48.jpg") },
   {
-    name: "Hispanic",
+    name: "Hispanic or Latino",
     imageUrl: require("../assets/add_child_pics/image 49.jpg"),
-  },
-  {
-    name: "Middle Eastern",
-    imageUrl: require("../assets/add_child_pics/image 50.jpg"),
   },
 ];
 
