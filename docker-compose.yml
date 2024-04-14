@@ -19,9 +19,7 @@ services:
 
     # Specify the dependencies
     depends_on:
-      db:
-        # Wait for the database service to be healthy
-        condition: "service_healthy"
+      - db
 
     # Define the network to be used
     networks:
