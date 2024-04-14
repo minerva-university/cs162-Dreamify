@@ -114,11 +114,11 @@ export default function UserProfilePage() {
         <h2>Account Information</h2>
         <div className="account-info-list">
           <div className="account-info-item">
-            <strong>Name</strong>{" "}
+            <strong>Name:</strong>{" "}
             {`${userInfo.first_name} ${userInfo.last_name}`}
           </div>
           <div className="account-info-item">
-            <strong>Email</strong> {userInfo.email}
+            <strong>Email:</strong> {userInfo.email}
           </div>
         </div>
       </div>
