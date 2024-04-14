@@ -4,6 +4,7 @@ import { useApi } from "../contexts/ApiProvider";
 import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/NewStoryPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function NewStoryPage() {
   // Get the API object from the API context
@@ -17,6 +18,22 @@ export default function NewStoryPage() {
   const [storyGenre, setStoryGenre] = useState("Fantasy");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your bedtime story, please reload and try again or contact us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  }
   
   // Set the title of the page
   useEffect(() => {
@@ -54,8 +71,7 @@ export default function NewStoryPage() {
       if (error.message.includes("topic: None is not of type 'string'")) {
         setError('Please input a topic');
     } else {
-        setError('Something went wrong, please reload and try again.');
-        
+        showAlert();
     }
       }
   };
@@ -66,7 +82,9 @@ export default function NewStoryPage() {
   }
 
   return (
+    <>{popAnAlert()}
     <div className="new-story-page">
+      
       {/* Add a heading and a horizontal rule */}
       <h1>Create a new story</h1>
       <div className="hr-style"></div>
@@ -84,6 +102,7 @@ export default function NewStoryPage() {
         {["Cartoon", "Realistic", "Fantasy", "Watercolor", "Anime"].map(
           (style) => (
             <button
+              type="button"
               key={style}
               onClick={() => setImageStyle(style)}
               style={{
@@ -102,6 +121,7 @@ export default function NewStoryPage() {
       <div className="buttons">
         {["Fantasy", "Adventure", "Educational"].map((genre) => (
           <button
+            type="button"
             key={genre}
             onClick={() => setStoryGenre(genre)}
             style={{
@@ -136,5 +156,6 @@ export default function NewStoryPage() {
       </form>
 
     </div>
+    </>
   );
 }

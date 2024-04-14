@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useApi } from "../contexts/ApiProvider";
 import Spinner from "../components/Spinner";
 import "./styles/LibraryPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function LibraryPage() {
   // Get the API object from the API context  
@@ -12,6 +13,22 @@ export default function LibraryPage() {
   // Set the initial state of the story data and loading state
   const [storyData, setStoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble getting your stories, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   // Function to handle the click on a story
   const handleStoryClick = (storyId) => {
@@ -81,6 +98,7 @@ export default function LibraryPage() {
         setStoryData(processedChildrenData);
       } catch (error) {
         console.error("Error fetching story data:", error);
+        showAlert();
       } finally {
         setIsLoading(false);
       }
@@ -112,6 +130,7 @@ export default function LibraryPage() {
 
   // Render the stories
   return (
+    <>{popAnAlert()}
     <div className="library-page">
       {/* Render each child data */}
       {storyData.map((childData) => (
@@ -144,5 +163,6 @@ export default function LibraryPage() {
         </div>
       ))}
     </div>
+    </>
   );
 }

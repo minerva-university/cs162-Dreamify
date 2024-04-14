@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 const eyeColors = [
   { name: "Blue", imageUrl: require("../assets/add_child_pics/image 9.jpg") },
@@ -77,6 +78,23 @@ const AddachildPage = () => {
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
   const [favoriteActivities, setFavoriteActivities] = useState(null);
   const [favoriteShows, setFavoriteShows] = useState(null);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your child's profile, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
+
 
   const navigate = useNavigate();
 
@@ -164,10 +182,8 @@ const AddachildPage = () => {
       navigate(-1);
     } catch (error) {
       // Log the error
-      
-      console.log(missedInputs)
-
-      console.error("Error modifying child:", error);
+      console.error("Error creating child:", error);
+      showAlert();
       
 
     } finally {
@@ -176,6 +192,8 @@ const AddachildPage = () => {
   }};
 
   return (
+    <>
+    {popAnAlert()}
     <div className="add-child-page">
       <h1>Add a child's profile</h1>
       <div className="hr-style"></div>
@@ -319,7 +337,6 @@ const AddachildPage = () => {
             id="favoriteAnimals"
             placeholder="Cats, Horses, Dinosaurs"
             onChange={handleTextFieldChange(setFavoriteAnimals)}
-            required
           />
 
           <label htmlFor="favoriteActivities">Favorite Activities</label>
@@ -328,7 +345,6 @@ const AddachildPage = () => {
             id="favoriteActivities"
             placeholder="Dancing, LEGO, Drawing"
             onChange={handleTextFieldChange(setFavoriteActivities)}
-            required
           />
 
           <label htmlFor="favoriteShows">Favorite Shows</label>
@@ -337,7 +353,6 @@ const AddachildPage = () => {
             id="favoriteShows"
             placeholder="Doctor Who, Harry Potter"
             onChange={handleTextFieldChange(setFavoriteShows)}
-            required
           />
         </div>
         <div className="lastOnPage">
@@ -352,6 +367,7 @@ const AddachildPage = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

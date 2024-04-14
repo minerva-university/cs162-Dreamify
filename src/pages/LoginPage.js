@@ -4,6 +4,7 @@ import { useNavigate} from "react-router-dom";
 import Spinner from "../components/Spinner.js";
 import { useAuth } from "../contexts/AuthProvider";
 import "../pages/styles/AuthPages.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function LoginPage() {
   // Get the login function from the authentication context
@@ -16,6 +17,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble logging you in, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   // Set the title of the page
   useEffect(() => {
@@ -31,13 +48,15 @@ export default function LoginPage() {
       navigate(`/myprofile`);
     } catch (error) {
       console.error("Error while logging in:", error.message);
-
-      if(error.message.includes("Invalid email")){
+      if(error.message.includes("Invalid email") || error.message.includes("not found")){
         setError(`No matching account found, Please Sign Up!`);
+      }
+      else if(error.message.includes("Incorrect password")){
+        setError("Incorrect password. Please try again.");
       }
       else{
       setError("An error occurred while logging in. Please try again.");}
-      // We can handle errors here and display them to the user
+      showAlert();
     } finally {
       setIsLoading(false);
     }
@@ -51,6 +70,8 @@ export default function LoginPage() {
   }
 
   return (
+    <>
+    {popAnAlert()}
     <div className="signin-page">
       <div className="signin-image">
         <h1>Start New Journey!</h1>
@@ -91,5 +112,6 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+    </>
   );
 }

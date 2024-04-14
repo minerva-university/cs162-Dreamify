@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 const eyeColors = [
   { name: "Blue", imageUrl: require("../assets/add_child_pics/image 9.jpg") },
@@ -83,6 +84,22 @@ const ModifyChildPage = () => {
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
   const [error, setError] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble accessing your child's information, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   // Page title
   useEffect(() => {
@@ -119,6 +136,7 @@ const ModifyChildPage = () => {
         setFavoriteShows(data.fav_shows);
       } catch (error) {
         console.error("Error fetching child data:", error);
+        showAlert();
       } finally {
         setIsLoading(false);
       }
@@ -212,12 +230,15 @@ const ModifyChildPage = () => {
     } catch (error) {
       // Log the error
       console.error("Error modifying child:", error);
+      showAlert();
     } finally {
       setIsLoading(false); // Stop loading regardless of the outcome
     }
   }};
 
   return (
+    <>
+    {popAnAlert()}
     <div className="add-child-page">
       <h1>Modify Child's Profile</h1>
       <div className="hr-style"></div>
@@ -363,7 +384,6 @@ const ModifyChildPage = () => {
             placeholder="Cats, Horses, Dinosaurs"
             value={favoriteAnimals !== null ? favoriteAnimals : ""}
             onChange={handleTextFieldChange(setFavoriteAnimals)}
-            required
           />
 
           <label htmlFor="favoriteActivities">Favorite Activities</label>
@@ -373,7 +393,6 @@ const ModifyChildPage = () => {
             placeholder="Dancing, LEGO, Drawing"
             value={favoriteActivities !== null ? favoriteActivities : ""}
             onChange={handleTextFieldChange(setFavoriteActivities)}
-            required
           />
 
           <label htmlFor="favoriteShows">Favorite Shows</label>
@@ -383,7 +402,6 @@ const ModifyChildPage = () => {
             placeholder="Doctor Who, Harry Potter"
             value={favoriteShows !== null ? favoriteShows : ""}
             onChange={handleTextFieldChange(setFavoriteShows)}
-            required
           />
         </div>
 
@@ -399,6 +417,7 @@ const ModifyChildPage = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

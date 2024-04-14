@@ -5,6 +5,7 @@ import { useApi } from "../contexts/ApiProvider";
 import ChildProfileCard from "../components/ChildProfileCard";
 import Spinner from "../components/Spinner";
 import "./styles/SelectChildPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function SelectChildPage() {
   
@@ -16,6 +17,22 @@ export default function SelectChildPage() {
   const [children, setChildren] = useState([]);
   const [loading, setLoading] = useState(false);
   const api = useApi();
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble accessing your children profiles, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
   
   const navigate = useNavigate();
 
@@ -27,6 +44,7 @@ export default function SelectChildPage() {
         setChildren(response.children || []);
       } catch (error) {
         setChildren([]);
+        showAlert();
       } finally {
         setLoading(false);
       }
@@ -75,6 +93,7 @@ export default function SelectChildPage() {
 
   return (
     <div className="select-child-page">
+      {popAnAlert()}
       <h1> {pageTitle} </h1>
       <div className="hr-style"></div>
       <div className="child-cards-container">{renderChildren}</div>

@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
 import "../pages/styles/AuthPages.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 function SignUpPage() {
   // Set the title of the page
   useEffect(() => {
     document.title = "Dreamify | Sign Up";
   }, []);
+
 
   // Get the navigate function from the router
   const navigate = useNavigate();
@@ -24,6 +26,22 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your account, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,13 +58,14 @@ function SignUpPage() {
       console.error("Error while signing up:", error.message);
 
       if (error.message.includes('already exists')) {
-        setError("You email already exist, use a new email or login.");
+        setError("Your email already exist, use a new email or login.");
       }
       else if(error.message.includes('Invalid email')){
         setError("Please use an existing email!");
       }
       else{
         setError("An error occurred while signing up. Please try again.");
+        showAlert();
       }
       
       // Handle errors here and display them to the user
@@ -66,6 +85,8 @@ function SignUpPage() {
   }
 
   return (
+    <>
+    {popAnAlert()}
     <div className="signin-page">
       <div className="signin-image">
         <h1>Welcome Aboard!</h1>
@@ -125,6 +146,7 @@ function SignUpPage() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 
