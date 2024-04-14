@@ -44,7 +44,8 @@ class ProductionConfig(ApplicationConfig):
     SQLALCHEMY_DATABASE_URI = (
         f"postgresql://{os.getenv('DATABASE_USER')}"
         f":{os.getenv('DATABASE_PASSWORD')}"
-        "@db"
+        f"@{os.getenv('DATABASE_HOST')}"
+        f"{':' + os.getenv('DATABASE_PORT') if os.getenv('DATABASE_HOST') != 'db' else ''}"
         f"/{os.getenv('DATABASE_NAME')}"
     )
 
