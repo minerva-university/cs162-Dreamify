@@ -209,33 +209,53 @@ Dreamify is designed to make bedtime stories a personal and engaging experience 
   <tr>
     <td align="center">
       <a href="src/assets/about_us_page/misha.png">
-        <img src="src/assets/about_us_page/misha.png" alt="Member 1" width="100" /><br>
+        <img src="src/assets/about_us_page/misha.png" alt="Member 1" width="150" /><br>
         Mykhailo Chudyk
       </a>
+      <p>Main Role: Frontend Developer (Routes for frontend, New story Page, Library Page, Story Page, Component templates); Designer (Website Design)
+       Support Role: Project Manager (Project Planning, Agenda, Splitting of work); 
+      </p>
     </td>
     <td align="center">
       <a href="src/assets/about_us_page/paul.png">
-        <img src="src/assets/about_us_page/paul.png" alt="Member 2" width="100" /><br>
+        <img src="src/assets/about_us_page/paul.png" alt="Member 2" width="150" /><br>
         Paul Franek
       </a>
+      <p>
+      Main Role: Backend Developer (Database, OpenAI API connectivity, Routes for frontend, Tests, Docker, Continuous Integration)
+      Supporting Role: Frontend Developer (client for backend, bug fixes, small style fixes)
+      </p>
     </td>
     <td align="center">
       <a href="src/assets/about_us_page/tamir.png">
-        <img src="src/assets/about_us_page/tamir.png" alt="Member 3" width="100" /><br>
+        <img src="src/assets/about_us_page/tamir.png" alt="Member 3" width="150" /><br>
         Tamirlan Bektemissov
       </a>
+      <p>
+      Main Role: Frontend Developer (Home page, About Us page, Terms page, Header, Footer)
+      Supporting Role: Backend support (Database design, PR reviewer)
+      </p>
     </td>
     <td align="center">
       <a href="src/assets/about_us_page/flambeau.png">
-        <img src="src/assets/about_us_page/flambeau.png" alt="Member 4" width="100" /><br>
+        <img src="src/assets/about_us_page/flambeau.png" alt="Member 4" width="150" /><br>
         Flambeau Iriho
       </a>
+      <p>
+      Main Roles: 
+        Frontend Developer (The Login page, Sign-up page, New story page, and Displaying story page)
+        Product Design (Figma)
+        Supporting Role: PR reviewer for front-end pages.
+      </p>
     </td>
     <td align="center">
       <a href="src/assets/about_us_page/billy.png">
-        <img src="src/assets/about_us_page/billy.png" alt="Member 5" width="100" /><br>
+        <img src="src/assets/about_us_page/billy.png" alt="Member 5" width="150" /><br>
         Billy Altangerel
       </a>
+      <p>Main Role: Frontend Developer (Add a child, Modify a child pages)
+        Support Role: Docker, Deployment 
+        </p>
     </td>
   </tr>
 </table>
