@@ -7,11 +7,11 @@ const ChildProfileForm = ({ formData, setFormData, handleSubmit, isLoading, isVi
   };
   
   const handleSelectChange = (field, value) => {
-    if (field === 'hairType' && value === 'Bald') {
-      setIsVisible(false);
-      setFormData({ ...formData, hairColor: 'Bald', [field]: value });
+    if (field === 'hairType') {
+      const isBald = value === 'Bald';
+      setIsVisible(!isBald);
+      setFormData({ ...formData, hairColor: isBald ? 'Bald' : formData.hairColor, [field]: value });
     } else {
-      if (!isVisible) setIsVisible(true);
       setFormData({ ...formData, [field]: value });
     }
   };
