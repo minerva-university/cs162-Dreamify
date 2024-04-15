@@ -154,7 +154,7 @@ export default function LibraryPage() {
               <img src={story.image} alt={`Story`} className="story-image" />
               <div className="story-details">
                 <div className="story-title-date">
-                  <h2 className="story-title">{story.title}</h2>
+                  <h3 className="story-title">{story.title}</h3>
                   <p className="story-date">{story.dateGenerated}</p>
                 </div>
               </div>

@@ -66,11 +66,8 @@ export default function AboutUs() {
         <div className="abus-team-member" key={member.name}>
           <img src={member.imageUrl} alt={`Developer ${member.name}`} />
           <div className="abus-team-member-info">
-            <h2 className="abus-team-member-name">{member.name}</h2>
+            <h3 className="abus-team-member-name">{member.name}</h3>
             <p className="abus-team-member-position">{member.position}</p>
-            <p className="abus-team-member-fairytale">
-              Favorite Fairy Tale: {member.fairytale}
-            </p>
           </div>
         </div>
       ))}

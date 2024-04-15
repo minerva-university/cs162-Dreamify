@@ -31,19 +31,22 @@ export default function Header() {
           {!isAuthenticated ? (
             <>
               <Link to="/" className="header-button-navbar header-text-navbar">
+                <p>
                 Home
+                </p>
               </Link>
               <Link
                 to="/login"
                 className="header-button-navbar header-text-navbar"
               >
-                Log In
+                <p>Log In</p>
+             
               </Link>
               <Link
                 to="/signup"
                 className="header-button-get-started header-text-white"
               >
-                Get Started
+                <p>Get Started</p>
               </Link>
             </>
           ) : (
@@ -52,13 +55,14 @@ export default function Header() {
                 to="/"
                 className={`${getButtonClass("/")} header-text-navbar`}
               >
-                Home
+                <p>Home</p>
               </Link>
               <Link
                 to="/children"
                 className={`${getButtonClass("/children")} header-text-navbar`}
               >
-                New Story
+                <p> New Story</p>
+               
               </Link>
               <Link
                 to="/library"
@@ -66,7 +70,7 @@ export default function Header() {
                   "/library"
                 )} header-text-navbar`}
               >
-                Library
+                <p>Library</p>
               </Link>
               <Link
                 to={`/myprofile`}
@@ -74,14 +78,14 @@ export default function Header() {
                   `/myprofile`
                 )} header-text-navbar`}
               >
-                My Profile
+                <p>My Profile</p>
               </Link>
               <Link
                 to="/"
                 onClick={logout}
                 className="header-button-logout header-text-white"
               >
-                Log Out
+                <p>Log Out</p>
               </Link>
             </>
           )}

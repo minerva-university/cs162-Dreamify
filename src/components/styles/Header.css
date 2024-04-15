@@ -22,7 +22,6 @@
 }
 .header .header-title {
   color: #000;
-  font-size: 20px;
   font-weight: 500;
   text-decoration: none;
 }
@@ -41,7 +40,7 @@
   align-items: center;
   background: #fff;
   height: 43px;
-  width: 90px;
+  width: 100px;
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
@@ -55,7 +54,6 @@
 
 .header .header-text-navbar,
 .header .header-text-white {
-  font-size: 16px;
   color: #000;
   text-decoration: none;
 }
