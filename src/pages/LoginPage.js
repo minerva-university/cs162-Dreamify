@@ -62,8 +62,9 @@ export default function LoginPage() {
         setError("Incorrect password. Please try again.");
       }
       else{
-      setError("An error occurred while logging in. Please try again.");}
+      setError("An error occurred while logging in. Please try again.");
       showAlert();
+    }
     } finally {
       setIsLoading(false);
     }
