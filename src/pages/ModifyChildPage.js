@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 const eyeColors = [
   { name: "Blue", imageUrl: require("../assets/add_child_pics/image 9.jpg") },
@@ -82,6 +83,23 @@ const ModifyChildPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
+  const [error, setError] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble accessing your child's information, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   // Page title
   useEffect(() => {
@@ -118,6 +136,7 @@ const ModifyChildPage = () => {
         setFavoriteShows(data.fav_shows);
       } catch (error) {
         console.error("Error fetching child data:", error);
+        showAlert();
       } finally {
         setIsLoading(false);
       }
@@ -167,6 +186,26 @@ const ModifyChildPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let missedInputs = [];
+      if (!selectedEyeColor) {
+        missedInputs.push(' Eye Color')
+      }
+      if (!selectedHairType){
+        missedInputs.push(' Hair Type')
+      }
+
+      if (!selectedHairColor){
+        missedInputs.push(' Hair Color')
+      }
+
+      if (!selectedRace){
+        missedInputs.push(' Ethnicity')
+      }
+      if (missedInputs.length > 0) {
+        setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+
     setIsLoading(true); // Start loading
 
     try {
@@ -191,12 +230,15 @@ const ModifyChildPage = () => {
     } catch (error) {
       // Log the error
       console.error("Error modifying child:", error);
+      showAlert();
     } finally {
       setIsLoading(false); // Stop loading regardless of the outcome
     }
-  };
+  }};
 
   return (
+    <>
+    {popAnAlert()}
     <div className="add-child-page">
       <h1>Modify Child's Profile</h1>
       <div className="hr-style"></div>
@@ -209,6 +251,7 @@ const ModifyChildPage = () => {
           placeholder="Kid's first name"
           value={firstName !== null ? firstName : ""}
           onChange={handleTextFieldChange(setFirstName)}
+          required
         />
 
         <label htmlFor="ageRange">Age Range</label>
@@ -362,11 +405,19 @@ const ModifyChildPage = () => {
           />
         </div>
 
+        <div className="lastOnPage">
+        {error && (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          )}
         <button type="submit" className="generate-button">
           Modify
         </button>
+        </div>
       </form>
     </div>
+    </>
   );
 };
 

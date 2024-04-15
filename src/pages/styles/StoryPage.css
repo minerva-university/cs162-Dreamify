@@ -22,6 +22,10 @@
   
 }
 
+.story-headline{
+  font-family: 'Inter', sans-serif;
+}
+
 .story-page .page-title {
   padding-top: 20px;
   margin: auto;

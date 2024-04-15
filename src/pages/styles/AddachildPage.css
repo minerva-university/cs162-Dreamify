@@ -79,13 +79,34 @@
   cursor: pointer;
 }
 
+.lastOnPage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-child-form .alert-danger {
+  display: block;
+  justify-content: center;
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 50px;
+  width: 40%;
+}
+
 .add-child-page .generate-button {
   display: block;
   width: 15%;
   height: 50px;
-  margin: 20px auto;
+  margin-top: 30px;
   justify-content: center;
-  margin-top: 100px;
   margin-bottom: 100px;
   background-color: #014a8a;
   text-align: center;
@@ -159,4 +180,17 @@
   margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */
   margin-right: auto; /* Adjusts to center or align as needed, auto for no specific right margin */
   display: block; /* Ensures the input is block-level for width control */
+}
+
+.add-child-form .alert-danger {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 20px;
+  width: 40%;
 }
