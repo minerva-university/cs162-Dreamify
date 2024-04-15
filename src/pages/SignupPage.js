@@ -8,6 +8,9 @@ import "../pages/styles/AuthPages.css";
 import PopUpAlert from "../components/PopUpAlert";
 
 function SignUpPage() {
+  // This function is used to create the sign up page for the user to create an account.
+
+
   // Set the title of the page
   useEffect(() => {
     document.title = "Dreamify | Sign Up";
@@ -20,6 +23,7 @@ function SignUpPage() {
   // Get the register function from the authentication context
   const { register } = useAuth();
 
+  // Set the state for the first name, last name, email, password, error, and loading
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,20 +33,24 @@ function SignUpPage() {
   const [alertVisible, setAlertVisible] = useState(false);
 
   const showAlert = () => {
+    // This function is used to show an alert for server errors
     setAlertVisible(true);
   };
 
   const closeAlert = () => {
+    // This function is used to close the alert for server errors
     setAlertVisible(false);
   };
 
   const popAnAlert = () => {
+    // This function is used to create an alert for server errors
     const message = "We are having trouble creating your account, please try reloading or contacting us.";
     return(
       <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
     );
   };
 
+  // This function is used to handle the submission of the sign up form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Assuming you have an isLoading state
@@ -80,8 +88,9 @@ function SignUpPage() {
     setPassword("");
   };
 
+  // This condition is used to check if the page is loading and render a spinner
   if (isLoading) {
-    return <Spinner></Spinner>;
+    return <Spinner />;
   }
 
   return (

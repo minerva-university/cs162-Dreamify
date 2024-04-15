@@ -7,12 +7,15 @@ import "../pages/styles/AuthPages.css";
 import PopUpAlert from "../components/PopUpAlert";
 
 export default function LoginPage() {
+  // This function is used to create the login page for the user to log in to their account.
+
   // Get the login function from the authentication context
   const { login } = useAuth();
 
   // Get the navigate function from the router
   const navigate = useNavigate();
 
+  // Set the state for the email, password, error, and loading
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,14 +23,17 @@ export default function LoginPage() {
   const [alertVisible, setAlertVisible] = useState(false);
 
   const showAlert = () => {
+    // This function is used to show an alert for server errors
     setAlertVisible(true);
   };
 
   const closeAlert = () => {
+    // This function is used to close the alert for server errors
     setAlertVisible(false);
   };
 
   const popAnAlert = () => {
+    // This function is used to create an alert for server errors
     const message = "We are having trouble logging you in, please try reloading or contacting us.";
     return(
       <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
@@ -39,6 +45,7 @@ export default function LoginPage() {
     document.title = "Dreamify | Login";
   }, []);
 
+  // This function is used to handle the submission of the login form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -65,6 +72,8 @@ export default function LoginPage() {
     setEmail("");
     setPassword("");
   };
+
+  // This condition is used to render the loading spinner
   if (isLoading) {
     return <Spinner />;
   }

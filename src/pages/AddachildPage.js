@@ -156,7 +156,7 @@ const AddachildPage = () => {
       if (!selectedRace){
         missedInputs.push(' Ethnicity')
       }
-      if (missedInputs) {
+      if (missedInputs.length > 0) {
         setError(`You have missed the following input(s): ${missedInputs}`);
     } else {
         

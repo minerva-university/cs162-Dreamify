@@ -113,7 +113,7 @@ export default function StoryPage() {
     // Map over the chapters and render each chapter
     storyData.chapters.map((chapter, index) => (
       <div key={index} className="story-block">
-        <h3 className="story-headline">{chapter.title}</h3>
+        <p className="story-headline">{chapter.title}</p>
         <p className="story-text">
           {chapter.text.split("\n").map((line, i) => (
             <span key={i}>
