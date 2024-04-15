@@ -27,12 +27,45 @@ class ApplicationConfig:
     )
 
 
+class ProductionConfig(ApplicationConfig):
+    """
+    This class contains the configuration for the Flask app in production mode.
+    """
+
+    # Check if all database environment variables are set when in production
+    if os.getenv("FLASK_ENV") == "production" and (
+        not os.getenv("DATABASE_USER")
+        or not os.getenv("DATABASE_PASSWORD")
+        or not os.getenv("DATABASE_NAME")
+    ):
+        raise ValueError("Not all database environment variables are set.")
+
+    # Build the database port string
+    port_string = (
+        ":" + os.getenv("DATABASE_PORT")
+        if os.getenv("DATABASE_PORT") and os.getenv("DATABASE_HOST") != "db"
+        else ""
+    )
+
+    # Set the SQLAlchemy database URI for the production environment
+    SQLALCHEMY_DATABASE_URI = (
+        f"postgresql://{os.getenv('DATABASE_USER')}"
+        f":{os.getenv('DATABASE_PASSWORD')}"
+        f"@{os.getenv('DATABASE_HOST')}"
+        f"{port_string}"
+        f"/{os.getenv('DATABASE_NAME')}"
+    )
+
+
 class TestingConfig(ApplicationConfig):
     """
     This class contains the configuration for the Flask app in testing mode.
     """
 
+    # Set the testing flag to True
     TESTING = True
+
+    # Set the SQLAlchemy database URI for the testing environment
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "TEST_DATABASE_URI", "sqlite:///:memory:"
     )

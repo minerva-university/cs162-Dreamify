@@ -23,6 +23,12 @@ from ..database.inserts import insert_story, insert_child
 from ..database.utilities import get_entry_attributes
 from ..dummy_data.dummy_story import dummy_story
 
+# Set the path to the dummy data directory based on the current environment
+if os.path.exists(os.path.join(".", "dummy_data")):
+    DUMMY_PATH = os.path.join(".", "dummy_data")
+else:
+    DUMMY_PATH = os.path.join(".", "api", "dummy_data")
+
 
 def get_generate_flag() -> bool:
     """
@@ -172,9 +178,7 @@ async def _generate_chapter_image_async(
                     image = await response.read()
         else:
             # Use a dummy image instead of generating one
-            path = os.path.join(
-                os.getcwd(), "dummy_data", f"image_{chapter_number}.webp"
-            )
+            path = os.path.join(DUMMY_PATH, f"image_{chapter_number}.webp")
 
             # Read the dummy image asynchronously
             async with aiofiles.open(path, "rb") as file:
@@ -255,7 +259,7 @@ def generate_child_image(child_params: dict[str, str]) -> str:
             image_url = "temp_image_url"
 
             # Use a dummy image instead of generating one
-            path = os.path.join(os.getcwd(), "dummy_data", "child_image.jpg")
+            path = os.path.join(DUMMY_PATH, "child_image.jpg")
             with open(path, "rb") as file:
                 image = file.read()
 

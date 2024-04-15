@@ -1,0 +1,73 @@
+# Name of the workflow
+name: Dreamify API - Build and Test
+
+# When to trigger the workflow
+on:
+  # Trigger the workflow on push for any branch
+  push:
+
+  # Trigger the workflow on pull request for any branch
+  pull_request:
+
+# Permissions needed by the workflow
+permissions:
+  # Read access to the contents of the repository
+  contents: read
+
+# Jobs to be executed by the workflow
+jobs:
+  tests:
+    # Run the job on the latest version of Ubuntu
+    runs-on: ubuntu-latest
+
+    # Set the working directory for the job
+    defaults:
+      run:
+        working-directory: api
+
+    # Steps to be executed by the job
+    steps:
+      # Checkout the repository to the runner
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Set up Python 3.11
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # Activate the virtual environment and install dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+
+      # Run the setup script to set up environment variables
+      - name: Run environment variables setup script
+        run: python env_variables_setup.py testing
+
+      # Run the tests
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest
+
+  build:
+    # Run the job on the latest version of Ubuntu
+    runs-on: ubuntu-latest
+
+    # Steps to be executed by the job
+    steps:
+      # Checkout the repository to the runner
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Run the setup script to set up environment variables
+      - name: Run environment variables setup script
+        run: python api/env_variables_setup.py production
+
+      # Build the Docker images
+      - name: Build Docker containers
+        run: docker-compose build
