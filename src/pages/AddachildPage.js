@@ -24,6 +24,45 @@ const AddachildPage = () => {
   const api = useApi();
   const navigate = useNavigate();
 
+  // Initialize states with null or appropriate initial values
+  const [isLoading, setIsLoading] = useState(false);
+  const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
+  const sexes = ["Male", "Female"];
+
+  // Show a spinner while loading
+  if (isLoading) {
+    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;
+  }
+
+  const handleHairTypeSelect = (hairType) => {
+    if (hairType === "Bald") {
+      setIsVisible(false);
+      setSelectedHairColor("Bald");
+    } else if (!isVisible) {
+      setIsVisible(true);
+      setSelectedHairColor(null);
+    }
+    setSelectedHairType(hairType);
+};
+
+
+  const handleRaceSelect = (race) => {
+    setSelectedRace(race);
+    setCustomRaceInput("");
+  };
+
+  const handleCustomRaceInput = (e) => {
+    const value = e.target.value;
+    setCustomRaceInput(value);
+    setSelectedRace(value || null);
+  };
+
+  const handleTextFieldChange = (setter) => (event) => {
+    const value = event.target.value;
+    setter(value === "" ? null : value);
+    
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Check required fields

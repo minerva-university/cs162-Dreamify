@@ -17,15 +17,15 @@ export default function Footer() {
     <div className="footer">
       <div className="footer-content">
         <div className="footer-left-group">
-          <span className="footer-text"><h3>&#xA9;2024 Dreamify</h3></span>
-          <span className="footer-text"><h3>dreamify.minerva@gmail.com</h3></span>
+          <span className="footer-text"><p>&#xA9;2024 Dreamify</p></span>
+          <span className="footer-text"><p>dreamify.minerva@gmail.com</p></span>
         </div>
         <div className="footer-right-group">
           <Link to="/aboutus" className="footer-text">
-          <h3>About Us</h3>
+          <p>About Us</p>
           </Link>
           <Link to="/terms" className="footer-text">
-          <h3>Terms of Service & Privacy Policy</h3>
+          <p>Terms of Service & Privacy Policy</p>
           </Link>
         </div>
       </div>
