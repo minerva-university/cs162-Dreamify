@@ -15,7 +15,6 @@
 
 .add-child-page h1 {
   margin-left: 100px;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -23,7 +22,6 @@
   margin-left: 100px;
   margin-top: 40px;
   display: block;
-  font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -45,7 +43,6 @@
   margin-left: 140px;
   margin-top: 40px;
   display: block;
-  font-size: 18px;
   text-transform: uppercase;
 }
 
@@ -74,7 +71,6 @@
 .add-child-page button {
   margin-left: 30px;
   height: 40px;
-  font-size: 15px;
   text-align: center;
   width: 10%;
   border: 2px solid white;
@@ -83,13 +79,34 @@
   cursor: pointer;
 }
 
+.lastOnPage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-child-form .alert-danger {
+  display: block;
+  justify-content: center;
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 50px;
+  width: 40%;
+}
+
 .add-child-page .generate-button {
   display: block;
   width: 15%;
   height: 50px;
-  margin: 20px auto;
+  margin-top: 30px;
   justify-content: center;
-  margin-top: 100px;
   margin-bottom: 100px;
   background-color: #014a8a;
   text-align: center;
@@ -136,7 +153,7 @@
 
 /* Eye color image styles when selected */
 .add-child-page .vis-features .vis-feature.selected {
-  border-color: #014a8a; /* Border color when an image is selected */
+  border: 4px #014a8a solid; 
   box-shadow: 0 0 0 6px white; /* Adds a white outline around the border */
 }
 
@@ -163,4 +180,17 @@
   margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */
   margin-right: auto; /* Adjusts to center or align as needed, auto for no specific right margin */
   display: block; /* Ensures the input is block-level for width control */
+}
+
+.add-child-form .alert-danger {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 20px;
+  width: 40%;
 }

@@ -37,9 +37,12 @@ OPENAI_API_KEY=SET_YOUR_API_KEY_HERE
 
 # --- Database settings (only get used in production mode) ---
 
-DATABASE_NAME=dreamify_db
+# Adjust the database settings for your production environment
 DATABASE_USER=dreamify
 DATABASE_PASSWORD=dreamify
+DATABASE_HOST=db
+DATABASE_PORT=None
+DATABASE_NAME=dreamify_db
 
 # --- Frontend settings ---
 

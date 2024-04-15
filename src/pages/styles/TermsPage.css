@@ -6,7 +6,6 @@
 
 .terms-page .terms-title {
   text-align: center;
-  font-size: 40px;
   margin-bottom: 40px;
 }
 
@@ -15,13 +14,10 @@
 }
 
 .terms-page .terms-section-title {
-  font-size: 24px;
-  font-weight: 400;
   margin-bottom: 10px;
 }
 
 .terms-page .terms-section-content {
-  font-size: 18px;
   line-height: 1.5;
   color: #1a6598;
 }

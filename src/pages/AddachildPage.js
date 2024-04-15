@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate } from "react-router-dom";
-
+import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/AddachildPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 const eyeColors = [
   { name: "Blue", imageUrl: require("../assets/add_child_pics/image 9.jpg") },
@@ -77,6 +78,23 @@ const AddachildPage = () => {
   const [favoriteAnimals, setFavoriteAnimals] = useState(null);
   const [favoriteActivities, setFavoriteActivities] = useState(null);
   const [favoriteShows, setFavoriteShows] = useState(null);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your child's profile, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
+
 
   const navigate = useNavigate();
 
@@ -84,6 +102,7 @@ const AddachildPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
   const sexes = ["Male", "Female"];
+  const [error, setError] = useState("");
 
   // Show a spinner while loading
   if (isLoading) {
@@ -94,15 +113,13 @@ const AddachildPage = () => {
     if (hairType === "Bald") {
       setIsVisible(false);
       setSelectedHairColor("Bald");
-    }
-    else {
-      if (isVisible === false) {
-        setIsVisible(true);
-        setSelectedHairColor(null);
-      }
+    } else if (!isVisible) {
+      setIsVisible(true);
+      setSelectedHairColor(null);
     }
     setSelectedHairType(hairType);
-  };
+};
+
 
   const handleRaceSelect = (race) => {
     setSelectedRace(race);
@@ -112,16 +129,37 @@ const AddachildPage = () => {
   const handleCustomRaceInput = (e) => {
     const value = e.target.value;
     setCustomRaceInput(value);
-    setSelectedRace(value ? value : null);
+    setSelectedRace(value || null);
   };
 
   const handleTextFieldChange = (setter) => (event) => {
     const value = event.target.value;
     setter(value === "" ? null : value);
+    
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let missedInputs = [];
+      if (!selectedEyeColor) {
+        missedInputs.push(' Eye Color')
+      }
+      if (!selectedHairType){
+        missedInputs.push(' Hair Type')
+      }
+
+      if (!selectedHairColor){
+        missedInputs.push(' Hair Color')
+      }
+
+      if (!selectedRace){
+        missedInputs.push(' Ethnicity')
+      }
+      if (missedInputs.length > 0) {
+        setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+        
     setIsLoading(true); // Start loading
 
     try {
@@ -144,27 +182,33 @@ const AddachildPage = () => {
       navigate(-1);
     } catch (error) {
       // Log the error
-      console.error("Error modifying child:", error);
+      console.error("Error creating child:", error);
+      showAlert();
+      
+
     } finally {
       setIsLoading(false); // Stop loading regardless of the outcome
     }
-  };
+  }};
 
   return (
+    <>
+    {popAnAlert()}
     <div className="add-child-page">
       <h1>Add a child's profile</h1>
       <div className="hr-style"></div>
       <form className="add-child-form" onSubmit={handleSubmit}>
         <h5>DEMOGRAPHY</h5>
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="firstName">First Name *</label>
         <input
           type="text"
           id="firstName"
           placeholder="Kid's first name"
           onChange={handleTextFieldChange(setFirstName)}
+          required
         />
 
-        <label htmlFor="ageRange">Age Range</label>
+        <label htmlFor="ageRange">Age Range *</label>
         <div className="buttons">
           {ageRanges.map((range) => (
             <button
@@ -182,7 +226,7 @@ const AddachildPage = () => {
           ))}
         </div>
 
-        <label htmlFor="sex">Sex</label>
+        <label htmlFor="sex">Sex *</label>
         <div className="buttons">
           {sexes.map((sex) => (
             <button
@@ -201,7 +245,7 @@ const AddachildPage = () => {
 
         <h5>VISUAL FEATURES</h5>
 
-        <label htmlFor="eyeColor">Eye Color</label>
+        <label htmlFor="eyeColor">Eye Color *</label>
         <div className="vis-features">
           {eyeColors.map((eyeColor) => (
             <div className="vis-feature-container" key={eyeColor.name}>
@@ -218,7 +262,7 @@ const AddachildPage = () => {
           ))}
         </div>
 
-        <label htmlFor="hairType">Hair Type</label>
+        <label htmlFor="hairType">Hair Type *</label>
         <div className="vis-features">
           {hairType.map((hair) => (
             <div className="vis-feature-container" key={hair.name}>
@@ -238,7 +282,7 @@ const AddachildPage = () => {
 
         {isVisible && (
           <>
-          <label htmlFor="hairColor">Hair Color</label>
+          <label htmlFor="hairColor">Hair Color *</label>
           <div className="vis-features">
             {hairColor.map((color) => (
               <div className="vis-feature-container" key={color.name}>
@@ -257,7 +301,7 @@ const AddachildPage = () => {
         </>
         )}
 
-        <label htmlFor="race">Race/Ethnicity</label>
+        <label htmlFor="race">Race/Ethnicity *</label>
         <div className="vis-features">
           {races.map((race) => (
             <div className="vis-feature-container" key={race.name}>
@@ -311,12 +355,19 @@ const AddachildPage = () => {
             onChange={handleTextFieldChange(setFavoriteShows)}
           />
         </div>
-
+        <div className="lastOnPage">
+        {error && (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          )}
         <button type="submit" className="generate-button">
           Add Child
         </button>
+        </div>
       </form>
     </div>
+    </>
   );
 };
 

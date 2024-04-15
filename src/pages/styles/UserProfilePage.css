@@ -5,7 +5,6 @@
 
 .user-profile-page h1 {
   margin-left: 100px;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -23,14 +22,12 @@
 .user-profile-page button {
   display: inline-block;
   margin-top: 20px;
-  background-color: #014a8a;
+  background-color: #77cfd1;
   color: white;
   border: none;
   border-radius: 10px;
   padding: 12px 24px;
   cursor: pointer;
-  font-size: 15px;
-  text-transform: uppercase;
 }
 
 .user-profile-page .account-information {
@@ -50,7 +47,6 @@
 
 .user-profile-page .account-info-item {
   margin-top: 10px;
-  font-size: 18px;
 }
 
 .user-profile-page .add-kid-button {
@@ -93,7 +89,6 @@
   margin-top: 20px;
   padding: 20px;
   cursor: pointer;
-  font-size: 20px;
 }
 
 .user-profile-page .child-selection button:hover {
@@ -106,8 +101,4 @@
   display: flex;
   gap: 30px;
   margin-top: 20px;
-}
-
-.user-profile-page .child-cards-container .no-children-found {
-  font-size: 2rem;
 }

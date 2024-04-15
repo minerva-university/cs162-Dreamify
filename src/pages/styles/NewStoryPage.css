@@ -5,7 +5,6 @@
 
 .new-story-page h1 {
   margin-left: 100px;
-  font-size: 64px;
   margin-bottom: 0px;
 }
 
@@ -22,30 +21,41 @@
   margin-left: 100px;
 }
 
-.new-story-page input[type="text"] {
-  margin-top: 20px;
-  width: 40%;
-  border: 1px solid #014a8a;
-  border-radius: 10px;
-  background-color: #fafaf5;
-  padding: 12px;
-  margin-bottom: 20px;
-  margin-left: 130px;
-  display: block;
+.topicOfTheStory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .new-story-page label {
   margin-left: 100px;
   margin-top: 40px;
   display: block;
+  text-transform: uppercase;
+}
+
+.topicOfTheStory label{
+  margin-left: 0px;
+  margin-top: 40px;
+  display: block;
   font-size: 18px;
   text-transform: uppercase;
+}
+
+.topicOfTheStory input[type="text"] {
+  margin-left: 0px;
+  margin-top: 20px;
+  width: 40%;
+  border: 1px solid #014a8a;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  padding: 20px;
 }
 
 .new-story-page button {
   margin-left: 30px;
   height: 40px;
-  font-size: 15px;
   text-align: center;
   width: 10%;
   border: 2px solid white;
@@ -53,14 +63,25 @@
   margin-top: 5px;
   cursor: pointer;
 }
-
+.topicOfTheStory .alert-danger {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 20px;
+  width: 40%;
+}
 .new-story-page .generate-button {
   display: block;
   width: 15%;
   height: 50px;
   margin: 20px auto;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-bottom: 100px;
   background-color: #014a8a;
   text-align: center;

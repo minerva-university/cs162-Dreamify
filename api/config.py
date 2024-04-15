@@ -40,11 +40,19 @@ class ProductionConfig(ApplicationConfig):
     ):
         raise ValueError("Not all database environment variables are set.")
 
+    # Build the database port string
+    port_string = (
+        ":" + os.getenv("DATABASE_PORT")
+        if os.getenv("DATABASE_PORT") and os.getenv("DATABASE_HOST") != "db"
+        else ""
+    )
+
     # Set the SQLAlchemy database URI for the production environment
     SQLALCHEMY_DATABASE_URI = (
         f"postgresql://{os.getenv('DATABASE_USER')}"
         f":{os.getenv('DATABASE_PASSWORD')}"
-        "@db"
+        f"@{os.getenv('DATABASE_HOST')}"
+        f"{port_string}"
         f"/{os.getenv('DATABASE_NAME')}"
     )
 
