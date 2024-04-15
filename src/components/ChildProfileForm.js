@@ -5,7 +5,6 @@ const ChildProfileForm = ({ formData, setFormData, handleSubmit, isLoading, isVi
   const handleTextFieldChange = (field) => (event) => {
     setFormData({ ...formData, [field]: event.target.value || null });
   };
-
   
   const handleSelectChange = (field, value) => {
     if (field === 'hairType' && value === 'Bald') {
