@@ -5,6 +5,7 @@ version: "3.2"
 services:
   # Define the web server container
   api:
+    platform: linux/amd64
     # Build the image from Dockerfile.api in the current directory
     build:
       context: .
@@ -43,6 +44,7 @@ services:
   # Define the client container
   client:
     # Build the image from Dockerfile.client in the current directory
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile.client
