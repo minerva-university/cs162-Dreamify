@@ -32,7 +32,7 @@
 }
 
 .library-page .story-details {
-  width: 80%;
+  width: 60%;
   padding: 20px;
   background-color: #fafaf5;
   display: flex;
@@ -52,15 +52,33 @@
   font-size: 20px;
 }
 
-.library-page .story-private {
-  background-color: #014a8a;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  height: 25%;
-  width: 15%;
-  text-align: center;
+.library-page .story-read-more {
+  width: 20%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+.library-page .story-read-button {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s;
+  font-size: 20px;
+}
+
+.library-page .story-read-button:hover {
+  background-color: #0056b3;
 }
 
 .library-page .storyh1h3 {

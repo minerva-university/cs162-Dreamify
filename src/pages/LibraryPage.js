@@ -158,6 +158,9 @@ export default function LibraryPage() {
                   <p className="story-date">{story.dateGenerated}</p>
                 </div>
               </div>
+              <div className="story-read-more">
+              <button className="story-read-button">Read</button>
+            </div>
             </div>
           ))}
         </div>

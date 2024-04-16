@@ -94,6 +94,9 @@ export default function HomePage() {
               <p className="story-date">2024/04/11</p>
             </div>
           </div>
+          <div className="story-read-more">
+            <button className="story-read-button">Read</button>
+          </div>
         </div>
 
         <div className="story-block" onClick={() => handleFeaturedStory(false)}> 
@@ -103,6 +106,9 @@ export default function HomePage() {
               <h2 className="story-title">The Racquet Quest</h2>
               <p className="story-date">2024/04/12</p>
             </div>
+          </div>
+          <div className="story-read-more">
+            <button className="story-read-button">Read</button>
           </div>
         </div>
 
