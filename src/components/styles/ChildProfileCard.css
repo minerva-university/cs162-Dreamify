@@ -1,6 +1,6 @@
 .child-profile-card {
   border: 1px solid #ddd;
-  padding: 0px;
+  padding: 5px;
   border-radius: 20px;
   max-width: 300px; /* sets a max-width for the card */
   width: 100%; /* makes the card responsive */
@@ -47,13 +47,13 @@
 .child-profile-card .edit-profile-btn {
   align-self: flex-end; /* Align the button to the right */
   padding: 5px 10px; /* Button padding */
-  background-color: #007bff; /* Button background color */
-  color: white; /* Button text color */
+  background-color: #77cfd1; /* Button background color */
+  color: black; /* Button text color */
   text-decoration: none; /* Remove underline from link */
   border-radius: 5px; /* Rounded corners for the button */
   cursor: pointer; /* Change mouse cursor on hover */
 }
 
 .child-profile-card .edit-profile-btn:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #92dfe0; /* Darker shade on hover */
 }

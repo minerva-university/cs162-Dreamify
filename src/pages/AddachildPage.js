@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect} from "react";
+import { useApi } from "../contexts/ApiProvider";
+import { useNavigate } from "react-router-dom";
 import ChildProfileForm from '../components/ChildProfileForm';
-import { useApi } from '../contexts/ApiProvider';
-import Spinner from '../components/Spinner';
-import './styles/AddachildPage.css';
+import PopUpAlert from "../components/PopUpAlert";
+import Spinner from "../components/Spinner";
+import "./styles/AddachildPage.css";
 
 const AddachildPage = () => {
   const [formData, setFormData] = useState({
@@ -22,15 +23,62 @@ const AddachildPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const api = useApi();
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your child's profile, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
+
+
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+
+  // Initialize states with null or appropriate initial values
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Show a spinner while loading
+  if (isLoading) {
+    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;
+  }
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let missedInputs = [];
+      if (!selectedEyeColor) {
+        missedInputs.push(' Eye Color')
+      }
+      if (!selectedHairType){
+        missedInputs.push(' Hair Type')
+      }
+
+      if (!selectedHairColor){
+        missedInputs.push(' Hair Color')
+      }
+
+      if (!selectedRace){
+        missedInputs.push(' Ethnicity')
+      }
+      if (missedInputs.length > 0) {
+        setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+        
     // Check required fields
-    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange || (!formData.race && !formData.customRaceInput)) {
-      alert('Please fill all required fields including race.');
-      return;
-    }
+
     setIsLoading(true);
     try {
       await api.postCreateChild({
@@ -47,20 +95,21 @@ const AddachildPage = () => {
       });
       navigate(-1);
     } catch (error) {
+      // Log the error
       console.error("Error creating child:", error);
+      showAlert();
+      
+
     } finally {
       setIsLoading(false);
     }
-  };
-  console.log(formData.customRaceInput)
-
-  if (isLoading) {
-    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;
-  }
+  }};
 
   return (
-    <div className='add-child-page'>
-      <h1>Add Child's Profile</h1>
+    <>
+    {popAnAlert()}
+    <div className="add-child-page">
+      <h1>Add a child's profile</h1>
       <div className="hr-style"></div>
       <ChildProfileForm
         formData={formData}
@@ -71,6 +120,7 @@ const AddachildPage = () => {
         setIsVisible={setIsVisible}
       />
     </div>
+    </>
   );
 };
 

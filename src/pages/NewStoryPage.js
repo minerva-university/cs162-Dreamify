@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../contexts/ApiProvider";
+import { Alert } from "react-bootstrap";
 import Spinner from "../components/Spinner";
 import "./styles/NewStoryPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function NewStoryPage() {
   // Get the API object from the API context
@@ -15,6 +17,23 @@ export default function NewStoryPage() {
   const [imageStyle, setImageStyle] = useState("Cartoon");
   const [storyGenre, setStoryGenre] = useState("Fantasy");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble creating your bedtime story, please reload and try again or contact us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  }
   
   // Set the title of the page
   useEffect(() => {
@@ -48,7 +67,13 @@ export default function NewStoryPage() {
     } catch (error) {
       setIsLoading(false);
       console.error(error);
+      // Checking if the error message includes a specific substring
+      if (error.message.includes("topic: None is not of type 'string'")) {
+        setError('Please input a topic');
+    } else {
+        showAlert();
     }
+      }
   };
   
   // Display a loading spinner while the data is being fetched
@@ -57,20 +82,19 @@ export default function NewStoryPage() {
   }
 
   return (
+    <>{popAnAlert()}
     <div className="new-story-page">
+      
       {/* Add a heading and a horizontal rule */}
       <h1>Create a new story</h1>
       <div className="hr-style"></div>
 
       {/* Add a form to input the story topic, image style, and story genre */}
-      <label htmlFor="storyTopic">Topic of the story</label>
-      <input
-        id="storyTopic"
-        type="text"
-        value={storyTopic !== null ? storyTopic : ""}
-        onChange={handleTextFieldChange(setStoryTopic)}
-        placeholder="Rally's adventure to Paris and learning its history"
-      />
+
+      <form onSubmit={(e) => {
+    e.preventDefault();
+    handleGenerate(storyTopic, imageStyle, storyGenre);
+}}>
 
       {/* Add buttons to select the image style*/}
       <label>Image style</label>
@@ -78,6 +102,7 @@ export default function NewStoryPage() {
         {["Cartoon", "Realistic", "Fantasy", "Watercolor", "Anime"].map(
           (style) => (
             <button
+              type="button"
               key={style}
               onClick={() => setImageStyle(style)}
               style={{
@@ -96,6 +121,7 @@ export default function NewStoryPage() {
       <div className="buttons">
         {["Fantasy", "Adventure", "Educational"].map((genre) => (
           <button
+            type="button"
             key={genre}
             onClick={() => setStoryGenre(genre)}
             style={{
@@ -108,13 +134,28 @@ export default function NewStoryPage() {
         ))}
       </div>
 
-      {/* Add a button to generate the story */}
-      <button
-        className="generate-button"
-        onClick={() => handleGenerate(storyTopic, imageStyle, storyGenre)}
-      >
-        Generate
-      </button>
+      <div className="topicOfTheStory">
+        <label htmlFor="storyTopic">What should the story be about?</label>
+        <input
+          id="storyTopic"
+          type="text"
+          value={storyTopic !== null ? storyTopic : ""}
+          onChange={handleTextFieldChange(setStoryTopic)}
+          placeholder="Rally's adventure to Paris and learning its history"
+          required
+        />
+      
+      {error && (
+            <Alert variant="danger" className="mt-3">
+              {error}
+            </Alert>
+          )}
     </div>
+      {/* Add a button to generate the story */}
+      <button type="submit" className="generate-button">Generate</button>
+      </form>
+
+    </div>
+    </>
   );
 }

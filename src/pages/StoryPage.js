@@ -4,6 +4,7 @@ import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner";
 import "./styles/StoryPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 // Import images for the example stories (featured stories from the home page)
 import story1chapter1 from "../assets/featured-stories/story1picture1.png";
@@ -28,6 +29,22 @@ export default function StoryPage() {
   const [storyData, setStoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [storyTitle, setStoryTitle] = useState("No title available");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble loading this story, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
 
   // Set the title of the page
   useEffect(() => {
@@ -73,6 +90,7 @@ export default function StoryPage() {
           });
         } catch (error) {
           console.error("Error fetching story data:", error);
+          showAlert();
         } finally {
           setIsLoading(false);
         }
@@ -95,7 +113,7 @@ export default function StoryPage() {
     // Map over the chapters and render each chapter
     storyData.chapters.map((chapter, index) => (
       <div key={index} className="story-block">
-        <h3 className="story-headline">{chapter.title}</h3>
+        <p className="story-headline">{chapter.title}</p>
         <p className="story-text">
           {chapter.text.split("\n").map((line, i) => (
             <span key={i}>
@@ -121,6 +139,7 @@ export default function StoryPage() {
   // Render the story page
   return (
     <div className="story-page">
+      {popAnAlert()}
       <h1 className="page-title">{storyTitle}</h1>
       <hr className="story-hr-line"></hr>
       {renderStory}

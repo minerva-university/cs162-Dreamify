@@ -5,6 +5,8 @@ import ChildProfileCard from "../components/ChildProfileCard";
 import { useApi } from "../contexts/ApiProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import "./styles/UserProfilePage.css";
+import Spinner from "../components/Spinner";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function UserProfilePage() {
   const api = useApi();
@@ -13,10 +15,26 @@ export default function UserProfilePage() {
   const [children, setChildren] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
 
   useEffect(() => {
     document.title = "Dreamify | My Profile";
   }, []);
+
+  const popAnAlert = () => {
+    const message = "We are having trouble getting your profile information, please reload or contact us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  }
   
 
   useEffect(() => {
@@ -31,6 +49,7 @@ export default function UserProfilePage() {
       } catch (error) {
         console.error("Error fetching data:", error);
         setChildren([]); // Ensure children is set to an empty array on error
+        showAlert();
       } finally {
         setLoading(false);
       }
@@ -41,7 +60,7 @@ export default function UserProfilePage() {
 
   // Loading state UI
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />
   }
 
   // UI for when children is empty
@@ -58,6 +77,7 @@ export default function UserProfilePage() {
 
   return (
     <div className="user-profile-page">
+      {popAnAlert()}
       <h1>Children profiles</h1>
       <div className="hr-style"></div>
       <div className="profile-container">
@@ -69,10 +89,25 @@ export default function UserProfilePage() {
               navigate(`/addachild`);
             } else {
               console.error("Error: Parent ID not available.");
+              showAlert();
             }
           }}
         >
-          Add Child
+          Add a child
+        </button>
+        <button
+          className="add-kid-button"
+          onClick={() => {
+            if (userInfo.user_id) {
+              navigate(`/children`);
+            } else {
+              console.error("Error: Parent ID not available.");
+              showAlert();
+            }
+          }}
+        style={{marginLeft: "20px"}}
+        >
+          New Story
         </button>
       </div>
       <div className="account-information">

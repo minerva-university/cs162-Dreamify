@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useApi } from "../contexts/ApiProvider";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Alert } from "react-bootstrap";
+import Spinner from "../components/Spinner";
+import "./styles/AddachildPage.css";
 import ChildProfileForm from '../components/ChildProfileForm';
-import { useApi } from '../contexts/ApiProvider';
-import Spinner from '../components/Spinner';
 import { races } from '../components/ChildAttributes';
-import './styles/AddachildPage.css';
+import PopUpAlert from "../components/PopUpAlert";
+
 
 const ModifyChildPage = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +30,35 @@ const ModifyChildPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Initialize states with null or appropriate initial values
+  const [childData, setChildData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
+  const sexes = ["Male", "Female"];
+  const [error, setError] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message = "We are having trouble accessing your child's information, please try reloading or contacting us.";
+    return(
+      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    );
+  };
+
+  // Page title
+  useEffect(() => {
+    document.title = "Dreamify | Update Child Details";
+  }, []);
+
+  // Fetch child data on component mount
   useEffect(() => {
     const childId = location.pathname.split("/").pop();
     const fetchChildData = async () => {
@@ -52,6 +84,7 @@ const ModifyChildPage = () => {
         setIsVisible(data.hair_type !== "Bald");
       } catch (error) {
         console.error("Error fetching child data:", error);
+        showAlert();
       } finally {
         setIsLoading(false);
       }
@@ -63,11 +96,28 @@ const ModifyChildPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange || (!formData.race && !formData.customRaceInput)) {
-      alert('Please fill all required fields including race.');
-      return;
-    }
-    setIsLoading(true);
+
+    let missedInputs = [];
+      if (!selectedEyeColor) {
+        missedInputs.push(' Eye Color')
+      }
+      if (!selectedHairType){
+        missedInputs.push(' Hair Type')
+      }
+
+      if (!selectedHairColor){
+        missedInputs.push(' Hair Color')
+      }
+
+      if (!selectedRace){
+        missedInputs.push(' Ethnicity')
+      }
+      if (missedInputs.length > 0) {
+        setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+
+    setIsLoading(true); // Start loading
+
     try {
       const payload = {
         ...formData,
@@ -86,17 +136,16 @@ const ModifyChildPage = () => {
       navigate(-1);
     } catch (error) {
       console.error("Error modifying child:", error);
+      showAlert();
     } finally {
       setIsLoading(false);
     }
-  };
-
-  if (isLoading) {
-    return <Spinner text="Updating child profile, please wait..." />;
-  }
+  }};
 
   return (
-    <div className='add-child-page'>
+    <>
+    {popAnAlert()}
+    <div className="add-child-page">
       <h1>Update Child's Profile</h1>
       <div className="hr-style"></div>
       <ChildProfileForm
@@ -108,6 +157,7 @@ const ModifyChildPage = () => {
         setIsVisible={setIsVisible}
       />
     </div>
+    </>
   );
 };
 
