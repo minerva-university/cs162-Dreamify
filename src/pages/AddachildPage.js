@@ -1,372 +1,130 @@
-import React, { useState, useEffect} from "react";
+// Import necessary React and utility hooks
+import React, { useState } from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "react-bootstrap";
-import Spinner from "../components/Spinner";
-import "./styles/AddachildPage.css";
+// Import components
+import ChildProfileForm from '../components/ChildProfileForm';
 import PopUpAlert from "../components/PopUpAlert";
+import Spinner from "../components/Spinner";
+// Import styles
+import "./styles/AddachildPage.css";
 
-const eyeColors = [
-  { name: "Blue", imageUrl: require("../assets/add_child_pics/image 9.jpg") },
-  { name: "Brown", imageUrl: require("../assets/add_child_pics/image 10.jpg") },
-  { name: "Green", imageUrl: require("../assets/add_child_pics/image 11.jpg") },
-  { name: "Hazel", imageUrl: require("../assets/add_child_pics/image 12.jpg") },
-  { name: "Amber", imageUrl: require("../assets/add_child_pics/image 13.jpg") },
-  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 14.jpg") },
-];
-
-const hairType = [
-  {
-    name: "Straight",
-    imageUrl: require("../assets/add_child_pics/image 20.jpg"),
-  },
-  { name: "Wavy", imageUrl: require("../assets/add_child_pics/image 21.jpg") },
-  { name: "Curly", imageUrl: require("../assets/add_child_pics/image 22.jpg") },
-  { name: "Kinky", imageUrl: require("../assets/add_child_pics/image 23.jpg") },
-  { name: "Bald", imageUrl: require("../assets/add_child_pics/image 24.jpg") },
-];
-
-const hairColor = [
-  {
-    name: "Blonde",
-    imageUrl: require("../assets/add_child_pics/image 26.jpg"),
-  },
-  { name: "Brown", imageUrl: require("../assets/add_child_pics/image 27.jpg") },
-  { name: "Black", imageUrl: require("../assets/add_child_pics/image 28.jpg") },
-  { name: "Red", imageUrl: require("../assets/add_child_pics/image 29.jpg") },
-  {
-    name: "Auburn",
-    imageUrl: require("../assets/add_child_pics/image 30.jpg"),
-  },
-  { name: "Gray", imageUrl: require("../assets/add_child_pics/image 31.jpg") },
-  { name: "White", imageUrl: require("../assets/add_child_pics/image 32.jpg") },
-];
-
-const races = [
-  { name: "Asian", imageUrl: require("../assets/add_child_pics/image 45.jpg") },
-  { name: "Black", imageUrl: require("../assets/add_child_pics/image 46.jpg") },
-  { name: "Brown", imageUrl: require("../assets/add_child_pics/image 47.jpg") },
-  { name: "White", imageUrl: require("../assets/add_child_pics/image 48.jpg") },
-  {
-    name: "Hispanic",
-    imageUrl: require("../assets/add_child_pics/image 49.jpg"),
-  },
-  {
-    name: "Middle Eastern",
-    imageUrl: require("../assets/add_child_pics/image 50.jpg"),
-  },
-];
-
+// Component to add a child's profile
 const AddachildPage = () => {
+  // State to handle form data initialization
+  const [formData, setFormData] = useState({
+    firstName: '',
+    ageRange: '0-3',
+    sex: 'Male',
+    eyeColor: null,
+    hairType: null, 
+    hairColor: null, 
+    race: null,
+    customRaceInput: '',
+    favoriteAnimals: '',
+    favoriteActivities: '',
+    favoriteShows: ''
+  });
 
+  // State to handle loading spinner visibility
+  const [isLoading, setIsLoading] = useState(false);
+  // State to manage visibility of components
   const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    document.title = "Dreamify | Add Child";
-  }, []);
-
+  // API context for making backend calls
   const api = useApi();
-
-  const [firstName, setFirstName] = useState(null);
-  const [selectedEyeColor, setSelectedEyeColor] = useState(null);
-  const [selectedHairType, setSelectedHairType] = useState(null);
-  const [selectedHairColor, setSelectedHairColor] = useState(null);
-  const [selectedRace, setSelectedRace] = useState(null);
-  const [customRaceInput, setCustomRaceInput] = useState("");
-  const [selectedAgeRange, setSelectedAgeRange] = useState("0-3");
-  const [selectedSex, setSelectedSex] = useState("Male");
-  const [favoriteAnimals, setFavoriteAnimals] = useState(null);
-  const [favoriteActivities, setFavoriteActivities] = useState(null);
-  const [favoriteShows, setFavoriteShows] = useState(null);
+  // State to control the visibility of alerts
   const [alertVisible, setAlertVisible] = useState(false);
 
+  // Function to display alert
   const showAlert = () => {
     setAlertVisible(true);
   };
 
+  // Function to hide alert
   const closeAlert = () => {
     setAlertVisible(false);
   };
 
+  // Component to display popup alerts dynamically
   const popAnAlert = () => {
     const message = "We are having trouble creating your child's profile, please try reloading or contacting us.";
-    return(
+    return (
       <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
     );
   };
 
-
+  // Hook to navigate to previous page
   const navigate = useNavigate();
-
-  // Initialize states with null or appropriate initial values
-  const [isLoading, setIsLoading] = useState(false);
-  const ageRanges = ["0-3", "4-6", "7-9", "10-13"];
-  const sexes = ["Male", "Female"];
+  // State to handle error messages
   const [error, setError] = useState("");
 
-  // Show a spinner while loading
+  // Display spinner while loading
   if (isLoading) {
-    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;
+    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true} />;
   }
 
-  const handleHairTypeSelect = (hairType) => {
-    if (hairType === "Bald") {
-      setIsVisible(false);
-      setSelectedHairColor("Bald");
-    } else if (!isVisible) {
-      setIsVisible(true);
-      setSelectedHairColor(null);
-    }
-    setSelectedHairType(hairType);
-};
-
-
-  const handleRaceSelect = (race) => {
-    setSelectedRace(race);
-    setCustomRaceInput("");
-  };
-
-  const handleCustomRaceInput = (e) => {
-    const value = e.target.value;
-    setCustomRaceInput(value);
-    setSelectedRace(value || null);
-  };
-
-  const handleTextFieldChange = (setter) => (event) => {
-    const value = event.target.value;
-    setter(value === "" ? null : value);
-    
-  };
-
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Check if all required fields are filled out
     let missedInputs = [];
-      if (!selectedEyeColor) {
-        missedInputs.push(' Eye Color')
-      }
-      if (!selectedHairType){
-        missedInputs.push(' Hair Type')
-      }
-
-      if (!selectedHairColor){
-        missedInputs.push(' Hair Color')
-      }
-
-      if (!selectedRace){
-        missedInputs.push(' Ethnicity')
-      }
-      if (missedInputs.length > 0) {
-        setError(`You have missed the following input(s): ${missedInputs}`);
-    } else {
-        
-    setIsLoading(true); // Start loading
-
-    try {
-      const payload = {
-        name: firstName,
-        age_range: selectedAgeRange,
-        sex: selectedSex,
-        eye_color: selectedEyeColor,
-        hair_type: selectedHairType,
-        hair_color: selectedHairColor,
-        ethnicity: customRaceInput !== "" ? customRaceInput : selectedRace,
-        fav_animals: favoriteAnimals,
-        fav_activities: favoriteActivities,
-        fav_shows: favoriteShows,
-      };
-      // Attempt to create a child
-      const response = await api.postCreateChild(payload);
-      console.log("Child created/modified successfully:", response);
-      // Redirect to the user profile page
-      navigate(-1);
-    } catch (error) {
-      // Log the error
-      console.error("Error creating child:", error);
-      showAlert();
-      
-
-    } finally {
-      setIsLoading(false); // Stop loading regardless of the outcome
+    if (!formData.eyeColor) {
+      missedInputs.push(' Eye Color')
     }
-  }};
+    if (!formData.hairType){
+      missedInputs.push(' Hair Type')
+    }
+    if (!formData.hairColor){
+      missedInputs.push(' Hair Color')
+    }
+    if (!formData.race && !formData.customRaceInput) {
+      missedInputs.push('Race');
+    }
+    if (missedInputs.length > 0) {
+      setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+      setIsLoading(true);
+      // Attempt to create a child profile
+      try {
+        await api.postCreateChild({
+          name: formData.firstName,
+          age_range: formData.ageRange,
+          sex: formData.sex,
+          eye_color: formData.eyeColor,
+          hair_type: formData.hairType,
+          hair_color: formData.hairColor,
+          ethnicity: formData.customRaceInput || formData.race,
+          fav_animals: formData.favoriteAnimals,
+          fav_activities: formData.favoriteActivities,
+          fav_shows: formData.favoriteShows,
+        });
+        navigate(-1);
+      } catch (error) {
+        console.error("Error creating child:", error);
+        showAlert();
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <>
-    {popAnAlert()}
-    <div className="add-child-page">
-      <h1>Add a child's profile</h1>
-      <div className="hr-style"></div>
-      <form className="add-child-form" onSubmit={handleSubmit}>
-        <h5>DEMOGRAPHY</h5>
-        <label htmlFor="firstName">First Name *</label>
-        <input
-          type="text"
-          id="firstName"
-          placeholder="Kid's first name"
-          onChange={handleTextFieldChange(setFirstName)}
-          required
+      {popAnAlert()}
+      <div className="add-child-page">
+        <h1>Add a child's profile</h1>
+        <div className="hr-style"></div>
+        <ChildProfileForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          error={error}
         />
-
-        <label htmlFor="ageRange">Age Range *</label>
-        <div className="buttons">
-          {ageRanges.map((range) => (
-            <button
-              type="button"
-              key={range}
-              onClick={() => setSelectedAgeRange(range)}
-              style={{
-                backgroundColor:
-                  selectedAgeRange === range ? "#014A8A" : "#77CFD1",
-                color: selectedAgeRange === range ? "white" : "black",
-              }}
-            >
-              {range}
-            </button>
-          ))}
-        </div>
-
-        <label htmlFor="sex">Sex *</label>
-        <div className="buttons">
-          {sexes.map((sex) => (
-            <button
-              type="button"
-              key={sex}
-              onClick={() => setSelectedSex(sex)}
-              style={{
-                backgroundColor: selectedSex === sex ? "#014A8A" : "#77CFD1",
-                color: selectedSex === sex ? "white" : "black",
-              }}
-            >
-              {sex}
-            </button>
-          ))}
-        </div>
-
-        <h5>VISUAL FEATURES</h5>
-
-        <label htmlFor="eyeColor">Eye Color *</label>
-        <div className="vis-features">
-          {eyeColors.map((eyeColor) => (
-            <div className="vis-feature-container" key={eyeColor.name}>
-              <img
-                src={eyeColor.imageUrl}
-                alt={eyeColor.name}
-                className={`vis-feature ${
-                  selectedEyeColor === eyeColor.name ? "selected" : ""
-                }`}
-                onClick={() => setSelectedEyeColor(eyeColor.name)}
-              />
-              <p className="vis-feature-name">{eyeColor.name}</p>
-            </div>
-          ))}
-        </div>
-
-        <label htmlFor="hairType">Hair Type *</label>
-        <div className="vis-features">
-          {hairType.map((hair) => (
-            <div className="vis-feature-container" key={hair.name}>
-              <img
-                src={hair.imageUrl}
-                alt={hair.name}
-                className={`vis-feature ${
-                  selectedHairType === hair.name ? "selected" : ""
-                }`}
-                onClick={() => handleHairTypeSelect(hair.name)}
-              />
-              <p className="vis-feature-name">{hair.name}</p>
-            </div>
-          ))}
-        </div>
-
-
-        {isVisible && (
-          <>
-          <label htmlFor="hairColor">Hair Color *</label>
-          <div className="vis-features">
-            {hairColor.map((color) => (
-              <div className="vis-feature-container" key={color.name}>
-                <img
-                  src={color.imageUrl}
-                  alt={color.name}
-                  className={`vis-feature ${
-                    selectedHairColor === color.name ? "selected" : ""
-                  }`}
-                  onClick={() => setSelectedHairColor(color.name)}
-                />
-                <p className="vis-feature-name">{color.name}</p>
-              </div>
-            ))}
-          </div>
-        </>
-        )}
-
-        <label htmlFor="race">Race/Ethnicity *</label>
-        <div className="vis-features">
-          {races.map((race) => (
-            <div className="vis-feature-container" key={race.name}>
-              <img
-                src={race.imageUrl}
-                alt={race.name}
-                className={`vis-feature ${
-                  selectedRace === race.name ? "selected" : ""
-                }`}
-                onClick={() => handleRaceSelect(race.name)}
-              />
-              <p className="vis-feature-name">{race.name}</p>
-            </div>
-          ))}
-
-          <div className="vis-feature-container custom-race">
-            <input
-              type="text"
-              className="custom-race-input"
-              placeholder="Type custom race"
-              value={customRaceInput !== null ? customRaceInput : ""}
-              onChange={(e) => handleCustomRaceInput(e)}
-            />
-          </div>
-        </div>
-
-        <div className="form-section interests">
-          <h5>INTERESTS</h5>
-
-          <label htmlFor="favoriteAnimals">Favorite Animals</label>
-          <input
-            type="text"
-            id="favoriteAnimals"
-            placeholder="Cats, Horses, Dinosaurs"
-            onChange={handleTextFieldChange(setFavoriteAnimals)}
-          />
-
-          <label htmlFor="favoriteActivities">Favorite Activities</label>
-          <input
-            type="text"
-            id="favoriteActivities"
-            placeholder="Dancing, LEGO, Drawing"
-            onChange={handleTextFieldChange(setFavoriteActivities)}
-          />
-
-          <label htmlFor="favoriteShows">Favorite Shows</label>
-          <input
-            type="text"
-            id="favoriteShows"
-            placeholder="Doctor Who, Harry Potter"
-            onChange={handleTextFieldChange(setFavoriteShows)}
-          />
-        </div>
-        <div className="lastOnPage">
-        {error && (
-            <Alert variant="danger" className="mt-3">
-              {error}
-            </Alert>
-          )}
-        <button type="submit" className="generate-button">
-          Add Child
-        </button>
-        </div>
-      </form>
-    </div>
+      </div>
     </>
   );
 };
