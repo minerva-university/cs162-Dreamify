@@ -28,19 +28,19 @@ def create_app(config=ApplicationConfig) -> Flask:
     # Load the environment variables from the '.env' file
     load_dotenv()
 
-    app = Flask(__name__, static_folder="../build", static_url_path="/")
+    app = Flask(__name__, static_folder="build", static_url_path="")
 
     # If the app is in production, use the ProductionConfig
     if os.getenv("FLASK_ENV") == "production":
         config = ProductionConfig
 
-    @app.route('/', defaults={'path': ''})
+    @app.route("/", defaults={'path': ''})
     @app.route('/<path:path>')
-
-    def serve(path):
-        if path != "" and os.path.exists(app.static_folder + '/' + path):
-            return send_from_directory(app.static_folder, path)
-        return send_from_directory(app.static_folder, 'index.html')
+    def catch_all(path):
+        if path and os.path.exists('build/' + path):
+            return send_from_directory('build', path)
+        else:
+            return send_from_directory('build', 'index.html')
     
     # Load the configuration for the Flask app
     app.config.from_object(config)
