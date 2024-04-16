@@ -34,13 +34,6 @@ def create_app(config=ApplicationConfig) -> Flask:
     if os.getenv("FLASK_ENV") == "production":
         config = ProductionConfig
 
-    @app.route("/", defaults={'path': ''})
-    @app.route('/<path:path>')
-    def catch_all(path):
-        if path and os.path.exists('build/' + path):
-            return send_from_directory('build', path)
-        else:
-            return send_from_directory('build', 'index.html')
     
     # Load the configuration for the Flask app
     app.config.from_object(config)
@@ -52,6 +45,14 @@ def create_app(config=ApplicationConfig) -> Flask:
 
     # Enable CORS for the entire app (see the comment at line 7)
     CORS(app)
+
+    @app.route("/", defaults={'path': ''})
+    @app.route('/<path:path>')
+    def catch_all(path):
+        if path and os.path.exists('build/' + path):
+            return send_from_directory('build', path)
+        else:
+            return send_from_directory('build', 'index.html')
 
     # Create tables in the database
     with app.app_context():
