@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ChildProfileForm from '../components/ChildProfileForm';
 import { useApi } from '../contexts/ApiProvider';
 import Spinner from '../components/Spinner';
+import { races } from '../components/ChildAttributes';
 import './styles/AddachildPage.css';
 
 const ModifyChildPage = () => {
@@ -29,8 +30,11 @@ const ModifyChildPage = () => {
   useEffect(() => {
     const childId = location.pathname.split("/").pop();
     const fetchChildData = async () => {
+      setIsLoading(true);
       try {
         const data = await api.getChild(childId);
+        const raceExists = races.some(race => race.name === data.ethnicity);
+        
         setFormData({
           child_id: childId, 
           firstName: data.name,
@@ -39,8 +43,8 @@ const ModifyChildPage = () => {
           eyeColor: data.eye_color,
           hairType: data.hair_type,
           hairColor: data.hair_color,
-          race: data.ethnicity,
-          customRaceInput: '',
+          race: raceExists ? data.ethnicity : '',
+          customRaceInput: raceExists ? '' : data.ethnicity,
           favoriteAnimals: data.fav_animals,
           favoriteActivities: data.fav_activities,
           favoriteShows: data.fav_shows
@@ -56,10 +60,11 @@ const ModifyChildPage = () => {
     fetchChildData();
   }, [api, location.pathname]);
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange || !formData.child_id) {
-      alert('Please fill all required fields.');
+    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange || (!formData.race && !formData.customRaceInput)) {
+      alert('Please fill all required fields including race.');
       return;
     }
     setIsLoading(true);

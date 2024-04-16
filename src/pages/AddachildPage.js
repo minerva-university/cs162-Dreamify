@@ -27,8 +27,8 @@ const AddachildPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Check required fields
-    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange) {
-      alert('Please fill all required fields.');
+    if (!formData.firstName || !formData.eyeColor || !formData.hairType || !formData.hairColor || !formData.ageRange || (!formData.race && !formData.customRaceInput)) {
+      alert('Please fill all required fields including race.');
       return;
     }
     setIsLoading(true);
@@ -52,6 +52,7 @@ const AddachildPage = () => {
       setIsLoading(false);
     }
   };
+  console.log(formData.customRaceInput)
 
   if (isLoading) {
     return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true}/>;

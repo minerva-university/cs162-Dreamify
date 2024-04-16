@@ -2,20 +2,28 @@ import React from 'react';
 import { eyeColors, hairType, hairColor, races } from './ChildAttributes';
 
 const ChildProfileForm = ({ formData, setFormData, handleSubmit, isLoading, isVisible, setIsVisible }) => {
-  const handleTextFieldChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value || null });
-  };
+    const handleTextFieldChange = (field) => (event) => {
+        const value = event.target.value;
+        if (field === 'customRaceInput' && value) {
+          setFormData({ ...formData, [field]: value, race: '' });
+        } else {
+          setFormData({ ...formData, [field]: value });
+        }
+      };
   
   const handleSelectChange = (field, value) => {
     if (field === 'hairType') {
       const isBald = value === 'Bald';
       setIsVisible(!isBald);
-      setFormData({ ...formData, hairColor: isBald ? 'Bald' : formData.hairColor, [field]: value });
+      setFormData({ ...formData, hairColor: isBald ? 'Bald' : '', [field]: value });
+    } else if (field === 'race') {
+      setFormData({ ...formData, [field]: value, customRaceInput: '' });
     } else {
       setFormData({ ...formData, [field]: value });
     }
   };
-
+    console.log(formData)
+    console.log(formData.race)
   return (
     <form className="add-child-page" onSubmit={handleSubmit}>
       <h5>DEMOGRAPHY</h5>
