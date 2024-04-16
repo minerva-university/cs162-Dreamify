@@ -42,6 +42,3 @@ COPY .env /app/.env
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
-
-# Use the production-ready gunicorn server to run the Flask app
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]
