@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 // Import UI components
 import Spinner from "../components/Spinner";
 import ChildProfileForm from '../components/ChildProfileForm';
-import { races } from '../components/ChildAttributes';
+import { races } from '../utils/ChildAttributes';
 import PopUpAlert from "../components/PopUpAlert";
 // Import CSS for styling
 import "./styles/AddachildPage.css";

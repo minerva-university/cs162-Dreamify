@@ -1,5 +1,5 @@
 import React from 'react';
-import { eyeColors, hairType, hairColor, races } from './ChildAttributes';
+import { eyeColors, hairType, hairColor, races } from '../utils/ChildAttributes';
 import { Alert } from "react-bootstrap";
 
 // Child profile form
