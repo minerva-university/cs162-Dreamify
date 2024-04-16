@@ -36,15 +36,19 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <div className="image-container hp-row">
-        <div className="image-item">
-          <img
-            src={boyTwoPhotos}
-            alt="Boy two photos"
-            className="hp-img-fluid"
-          />
+      <div className="hp-row">
+        <div className="hp-col">
+          <div className="hp-image-container">
+            <img
+              src={boyTwoPhotos}
+              alt="Tree"
+              className="hp-img-fluid hp-img-auto"
+            />
+
+          </div>
         </div>
       </div>
+
       <div className="hp-row">
         <div className="hp-col">
           <h1 className="hp-title">
@@ -52,9 +56,10 @@ export default function HomePage() {
           </h1>
         </div>
       </div>
+
       <div className="hp-row">
         <div className="hp-col">
-          <div className="hp-tree-image-container">
+          <div className="hp-image-container">
             <img
               src={treeImage}
               alt="Tree"

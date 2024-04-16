@@ -22,8 +22,8 @@
   margin-left: 100px;
   margin-top: 40px;
   display: block;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: normal;
+  
 }
 
 .add-child-page .add-child-form {

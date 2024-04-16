@@ -155,7 +155,7 @@ const ChildProfileForm = ({ formData, setFormData, handleSubmit, isLoading, isVi
 
       {/* Section for interests */}
       <div className="form-section interests">
-        <h5>INTERESTS</h5>
+        <h5><b>INTERESTS </b>(optional)</h5>
         <label htmlFor="favoriteAnimals">Favorite Animals</label>
         <input
           type="text"
