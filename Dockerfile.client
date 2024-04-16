@@ -8,7 +8,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json yarn.lock ./
 COPY ./src ./src
 COPY ./public ./public
-COPY .env /app/.env
 RUN yarn install
 RUN yarn build
 
