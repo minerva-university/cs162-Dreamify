@@ -3,7 +3,7 @@ This module initializes the Flask app and configures it.
 """
 
 import os
-from flask import Flask
+from flask import Flask, send_from_directory
 from dotenv import load_dotenv
 
 # Note: originally it was planned to use proxy instead of CORS,
@@ -34,6 +34,14 @@ def create_app(config=ApplicationConfig) -> Flask:
     if os.getenv("FLASK_ENV") == "production":
         config = ProductionConfig
 
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+
+    def serve(path):
+        if path != "" and os.path.exists(app.static_folder + '/' + path):
+            return send_from_directory(app.static_folder, path)
+        return send_from_directory(app.static_folder, 'index.html')
+    
     # Load the configuration for the Flask app
     app.config.from_object(config)
 
