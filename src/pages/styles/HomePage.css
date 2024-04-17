@@ -134,7 +134,6 @@
   border: 1px solid #014a8a;
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .home-page .story-image {
@@ -142,7 +141,7 @@
 }
 
 .home-page .story-details {
-  width: 80%;
+  width: 60%;
   padding: 20px;
   background-color: #fafaf5;
   display: flex;
