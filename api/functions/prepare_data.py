@@ -269,7 +269,6 @@ def generate_child_image(child_params: dict[str, str]) -> str:
         current_app.logger.error(f"Failed to generate child image: {e}")
         raise e
 
-
 async def assemble_story_payload_async(
     child_id: str, topic: str, image_style: str, story_genre: str
 ) -> dict[str, str | list[str]]:
@@ -333,6 +332,9 @@ async def assemble_story_payload_async(
         current_app.logger.error(f"Failed to assemble story payload: {e}")
         raise e
 
+
+def assemble_story_payload(*args, **kwargs):
+    asyncio.run(assemble_story_payload_async(*args, **kwargs))
 
 def assemble_child_payload(
     parent_id: str,

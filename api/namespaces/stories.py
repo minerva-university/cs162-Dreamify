@@ -6,7 +6,7 @@ from flask import request, current_app, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
-from ..functions.prepare_data import assemble_story_payload_async
+from ..functions.prepare_data import assemble_story_payload, assemble_story_payload_async
 from ..functions.jwt_functions import get_current_parent
 from ..functions.input_validation import (
     validate_non_empty_string,
@@ -96,7 +96,7 @@ class GenerateStory(Resource):
             #     image_style=data["image_style"],
             #     story_genre=data["story_genre"],
             # )
-            job = q.enqueue(assemble_story_payload_async,
+            job = q.enqueue(assemble_story_payload,
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
