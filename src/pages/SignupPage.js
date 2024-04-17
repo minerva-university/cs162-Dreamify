@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
 import "../pages/styles/AuthPages.css";
-import PopUpAlert from "../components/PopUpAlert";
 
 function SignUpPage() {
   // This function is used to create the sign up page for the user to create an account.
@@ -30,25 +29,6 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
-
-  const showAlert = () => {
-    // This function is used to show an alert for server errors
-    setAlertVisible(true);
-  };
-
-  const closeAlert = () => {
-    // This function is used to close the alert for server errors
-    setAlertVisible(false);
-  };
-
-  const popAnAlert = () => {
-    // This function is used to create an alert for server errors
-    const message = "We are having trouble creating your account, please try reloading or contacting us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
-    );
-  };
 
   // This function is used to handle the submission of the sign up form
   const handleSubmit = async (e) => {
@@ -73,7 +53,6 @@ function SignUpPage() {
       }
       else{
         setError("An error occurred while signing up. Please try again.");
-        showAlert();
       }
       
       // Handle errors here and display them to the user
@@ -95,7 +74,6 @@ function SignUpPage() {
 
   return (
     <>
-    {popAnAlert()}
     <div className="signin-page">
       <div className="signin-image">
         <h1>Welcome Aboard!</h1>

@@ -4,7 +4,6 @@ import { useNavigate} from "react-router-dom";
 import Spinner from "../components/Spinner.js";
 import { useAuth } from "../contexts/AuthProvider";
 import "../pages/styles/AuthPages.css";
-import PopUpAlert from "../components/PopUpAlert";
 
 export default function LoginPage() {
   // This function is used to create the login page for the user to log in to their account.
@@ -20,25 +19,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
-
-  const showAlert = () => {
-    // This function is used to show an alert for server errors
-    setAlertVisible(true);
-  };
-
-  const closeAlert = () => {
-    // This function is used to close the alert for server errors
-    setAlertVisible(false);
-  };
-
-  const popAnAlert = () => {
-    // This function is used to create an alert for server errors
-    const message = "We are having trouble logging you in, please try reloading or contacting us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
-    );
-  };
 
   // Set the title of the page
   useEffect(() => {
@@ -63,7 +43,6 @@ export default function LoginPage() {
       }
       else{
       setError("An error occurred while logging in. Please try again.");
-      showAlert();
     }
     } finally {
       setIsLoading(false);
@@ -81,7 +60,6 @@ export default function LoginPage() {
 
   return (
     <>
-    {popAnAlert()}
     <div className="signin-page">
       <div className="signin-image">
         <h1>Start New Journey!</h1>
