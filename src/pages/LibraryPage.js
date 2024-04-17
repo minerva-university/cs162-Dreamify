@@ -149,7 +149,6 @@ export default function LibraryPage() {
             <div
               key={story.storyId}
               className="story-block"
-              onClick={() => handleStoryClick(story.storyId)}
             >
               <img src={story.image} alt={`Story`} className="story-image" />
               <div className="story-details">
@@ -159,7 +158,13 @@ export default function LibraryPage() {
                 </div>
               </div>
               <div className="story-read-more">
-              <button className="story-read-button">Read</button>
+                <button
+                  className="story-read-button"
+                  type="button"
+                  onClick={() => handleStoryClick(story.storyId)}
+                >
+                  Read
+                </button>
             </div>
             </div>
           ))}
