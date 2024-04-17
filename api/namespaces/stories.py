@@ -2,7 +2,7 @@
 This module contains the namespace and resources for managing stories.
 """
 
-from flask import request, current_app
+from flask import request, current_app, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
@@ -16,6 +16,9 @@ from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
 from ..functions.worker import conn
 from rq import Queue
+
+q = Queue(connection=conn)
+
 # Create a chapters namespace
 stories = Namespace(
     "stories", path="/stories", description="Story management operations"
@@ -93,21 +96,64 @@ class GenerateStory(Resource):
             #     image_style=data["image_style"],
             #     story_genre=data["story_genre"],
             # )
-            q = Queue(connection=conn)
-            result = q.enqueue(assemble_story_payload_async,
+            job = q.enqueue(assemble_story_payload_async,
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
                 story_genre=data["story_genre"],
             )
 
+            payload = {"job_id": job.id}
+
+            print(payload)
+
             # Return the payload and a 200 status code
-            return result, 200
+            return payload, 200
         except ValueError as e:
             return {"Error": str(e)}, 400
         except Exception as e:
             current_app.logger.error(e)
             return {"Error": "Internal Server Error"}, 500
+
+@stories.route("/jobs/<string:job_id>", strict_slashes=False)
+class StoryResult(Resource):
+    """
+    Represents the result of a story generation job.
+    """
+
+    @jwt_required()
+    @stories.response(200, "Success")
+    @stories.response(400, "Validation Error")
+    @stories.response(404, "Job Not Found")
+    @stories.response(500, "Internal Server Error")
+    def get(self, job_id):
+        """
+        Get the result of a story generation job.
+        """
+
+        print(job_id, "SEARCHING")
+        try:
+            parent = get_current_parent()
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
+            job = q.fetch_job(job_id)
+
+            if job is None:
+                return {"status": "error", "message": "Job not found"}, 404
+            elif job.is_failed:
+                return {"status": "error", "message": "Job failed"}, 500
+            elif job.is_finished:
+                return {"status": "success", "result": job.result}, 200
+            else:
+                return {"status": "in_progress"}, 202
+
+        except ValueError as e:
+            return {"error": str(e)}, 400
+        except Exception as e:
+            current_app.logger.error(e)
+            return {"error": "Internal Server Error"}, 500
+
 
 
 @stories.route("/child_stories", strict_slashes=False)

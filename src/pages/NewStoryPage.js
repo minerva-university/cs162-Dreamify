@@ -46,8 +46,11 @@ export default function NewStoryPage() {
     setter(value === "" ? null : value);
   };
   
-  // Function to handle the generation of the story
-  const handleGenerate = async (storyTopic, imageStyle, storyGenre) => {
+  const handleGenerate = async () => {
+    if (!storyTopic) {
+      setError("Please input a topic");
+      return;
+    }
     setIsLoading(true); // Start loading
     try {
       const payload = {
@@ -56,26 +59,51 @@ export default function NewStoryPage() {
         image_style: imageStyle,
         story_genre: storyGenre,
       };
-      const response = await api.postGenerateStory(payload);
-      // Check if the story was generated successfully
-      if (response?.story_id) {
-        setIsLoading(false);
-        navigate(`/library/${response.story_id}`);
+      const jobResponse = await api.postGenerateStory(payload);
+      if (jobResponse?.job_id) {
+        checkJobStatus(jobResponse.job_id);
       } else {
-        throw new Error("Story generation failed");
+        throw new Error("Failed to initiate story generation");
       }
     } catch (error) {
-      setIsLoading(false);
       console.error(error);
-      // Checking if the error message includes a specific substring
-      if (error.message.includes("topic: None is not of type 'string'")) {
-        setError('Please input a topic');
-    } else {
-        showAlert();
+      setError("Story generation failed: " + error.message);
+      setIsLoading(false);
+      showAlert();
     }
-      }
   };
-  
+
+  // Function to check the status of the job and navigate once completed
+  const checkJobStatus = async (jobId) => {
+    try {
+      const result = await api.getJobResult(jobId);
+
+      console.log(result, "RESULT")
+
+      if (result.status === "in_progress") {
+        setTimeout(() => {
+          checkJobStatus(jobId)
+        }, 5000)
+      } else {
+        console.log(result.result, 'DONE')
+      }
+
+      // checkJobStatus(jobId)
+      // if (result?.story_id) {
+      //   navigate(`/library/${result.story_id}`);
+      // } else if (result?.status === 'pending') {
+      //   setTimeout(() => checkJobStatus(jobId), 5000); // Poll every 5 seconds
+      //   console.log(result?.status);
+      // } else {
+      //   throw new Error('Story generation incomplete or failed');
+      // }
+    } catch (error) {
+      setError("Fetching job result failed: " + error.message);
+      setIsLoading(false);
+      showAlert();
+    }
+  };
+
   // Display a loading spinner while the data is being fetched
   if (isLoading) {
     return <Spinner text="Generating story and images, please wait... (This should take approximately 1 minute)" creatingStory={true}/>;

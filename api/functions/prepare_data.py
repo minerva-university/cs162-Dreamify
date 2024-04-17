@@ -288,6 +288,7 @@ async def assemble_story_payload_async(
     Returns:
         dict[str, list[str]]: The assembled payload containing chapters and images.
     """
+    print("WORKER WORKING...")
     try:
         # Get the child parameters
         child_params = get_child_parameters(child_id)
