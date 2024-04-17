@@ -19,7 +19,7 @@
   margin: auto;
   margin-bottom: 30px;
   display: block;
-  
+  font-size: 20px;
 }
 
 .story-headline{
@@ -41,7 +41,7 @@
 }
 
 .story-page .story-photo {
-  height: 600px;
+  height: 700px;
 }
 
 .story-page .story-hr-line {

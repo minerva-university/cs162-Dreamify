@@ -86,7 +86,7 @@ export default function HomePage() {
       </div>
       <div className="hp-row">
 
-        <div className="story-block" onClick={() => handleFeaturedStory(true)}> 
+        <div className="story-block"> 
           <img src={firstExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
@@ -94,15 +94,33 @@ export default function HomePage() {
               <p className="story-date">2024/04/11</p>
             </div>
           </div>
+          <div className="story-read-more">
+            <button
+              className="story-read-button"
+              type="button"
+              onClick={() => handleFeaturedStory(true)}
+            >
+              Read
+            </button>
+          </div>
         </div>
 
-        <div className="story-block" onClick={() => handleFeaturedStory(false)}> 
+        <div className="story-block"> 
           <img src={secondExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
               <h2 className="story-title">The Racquet Quest</h2>
               <p className="story-date">2024/04/12</p>
             </div>
+          </div>
+          <div className="story-read-more">
+            <button
+              className="story-read-button"
+              type="button"
+              onClick={() => handleFeaturedStory(false)}
+            >
+              Read
+            </button>
           </div>
         </div>
 

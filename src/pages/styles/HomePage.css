@@ -14,6 +14,7 @@
   text-align: center; /* Centers the image within the container */
   padding-top: 15px; /* Adds some space on top of the image */
   box-sizing: border-box; /* Ensures padding is included in the width */
+  width: 100%;
 }
 
 .home-page .hp-col {
@@ -22,8 +23,7 @@
 }
 
 .home-page .hp-img-fluid {
-  max-width: 100%;
-  height: 100%;
+  width: 100%;
 }
 
 .home-page .hp-img-auto {
@@ -223,7 +223,6 @@
   border: 1px solid #014a8a;
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .home-page .story-image {
@@ -231,7 +230,7 @@
 }
 
 .home-page .story-details {
-  width: 80%;
+  width: 60%;
   padding: 20px;
   background-color: #fafaf5;
   display: flex;
@@ -251,6 +250,35 @@
 .home-page .story-date {
   color: #014a8a;
   font-size: 20px;
+}
+
+.home-page .story-read-more {
+  width: 20%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page .story-read-button {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s;
+  font-size: 20px;
+}
+
+.home-page .story-read-button:hover {
+  background-color: #0056b3;
 }
 
 .home-page #fivestars{
