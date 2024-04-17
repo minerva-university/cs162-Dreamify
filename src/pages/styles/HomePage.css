@@ -22,6 +22,11 @@
   margin: 0 auto; /* Centers the container horizontally */
 }
 
+.home-page .hp-col {
+  position: relative;
+  width: 100%;
+}
+
 .home-page .hp-img-fluid {
   max-width: 100%;
   height: auto;
@@ -43,6 +48,7 @@
   display: block;
   text-align: center;
   margin: 25px;
+  padding: 0 0 1%;
 }
 
 .home-page .hp-tree-overlay-text,
@@ -161,6 +167,35 @@
 .home-page .story-date {
   color: #014a8a;
   font-size: 20px;
+}
+
+.home-page .story-read-more {
+  width: 20%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page .story-read-button {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s;
+  font-size: 20px;
+}
+
+.home-page .story-read-button:hover {
+  background-color: #0056b3;
 }
 
 .home-page #fivestars {
