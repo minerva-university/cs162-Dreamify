@@ -14,7 +14,7 @@ from ..functions.input_validation import (
 )
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
-from worker import conn
+from ..functions.worker import conn
 from rq import Queue
 # Create a chapters namespace
 stories = Namespace(
