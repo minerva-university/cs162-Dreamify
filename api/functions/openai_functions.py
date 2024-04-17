@@ -5,7 +5,6 @@ This module contains functions for calling the OpenAI API.
 from openai import OpenAI, AsyncOpenAI
 from flask import current_app
 
-
 def text_gen(
     prompt: str, *, model: str = "gpt-4-turbo", max_tokens: int = 3000
 ) -> str:
@@ -41,7 +40,6 @@ def text_gen(
     except Exception as e:
         current_app.logger.error(f"Error generating text: {e}")
         raise e
-
 
 def image_gen(
     prompt: str,

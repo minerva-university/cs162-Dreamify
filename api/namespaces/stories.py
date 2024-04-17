@@ -14,7 +14,8 @@ from ..functions.input_validation import (
 )
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
-
+from worker import conn
+from rq import Queue
 # Create a chapters namespace
 stories = Namespace(
     "stories", path="/stories", description="Story management operations"
@@ -86,7 +87,14 @@ class GenerateStory(Resource):
                 }, 404
 
             # Assemble the payload asynchronously
-            payload = await assemble_story_payload_async(
+            # payload = await assemble_story_payload_async(
+            #     child_id=data["child_id"],
+            #     topic=data["topic"],
+            #     image_style=data["image_style"],
+            #     story_genre=data["story_genre"],
+            # )
+            q = Queue(connection=conn)
+            result = q.enqueue(assemble_story_payload_async,
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
@@ -94,7 +102,7 @@ class GenerateStory(Resource):
             )
 
             # Return the payload and a 200 status code
-            return payload, 200
+            return result, 200
         except ValueError as e:
             return {"Error": str(e)}, 400
         except Exception as e:

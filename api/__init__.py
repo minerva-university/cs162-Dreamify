@@ -3,7 +3,7 @@ This module initializes the Flask app and configures it.
 """
 
 import os
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request, jsonify
 from dotenv import load_dotenv
 
 # Note: originally it was planned to use proxy instead of CORS,
@@ -16,7 +16,6 @@ from flask_cors import CORS
 from .config import ApplicationConfig, ProductionConfig
 from .extensions import bcrypt, jwt
 from .database.models import db
-
 
 def create_app(config=ApplicationConfig) -> Flask:
     """
@@ -45,6 +44,7 @@ def create_app(config=ApplicationConfig) -> Flask:
 
     # Enable CORS for the entire app (see the comment at line 7)
     CORS(app)
+
 
     @app.route("/", defaults={'path': ''})
     @app.route('/<path:path>')
