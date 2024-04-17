@@ -10,20 +10,22 @@
   flex-wrap: wrap; /* Allows items to wrap to the next line if necessary */
 }
 
-.home-page .image-item {
-  text-align: center; /* Centers the image within the container */
-  padding-top: 15px; /* Adds some space on top of the image */
-  box-sizing: border-box; /* Ensures padding is included in the width */
+.home-page .hp-image-container {
   width: 100%;
-}
-
-.home-page .hp-col {
+  max-width: 1250px; /* Set a maximum width for the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  width: 100%;
+  text-align: center;
+  justify-content: flex-end;
+  margin: 0 auto; /* Centers the container horizontally */
 }
 
 .home-page .hp-img-fluid {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
+  width: 100%; /* Ensures images fill the container width */
 }
 
 .home-page .hp-img-auto {
@@ -37,20 +39,10 @@
 .home-page .hp-title {
   color: #000;
   letter-spacing: -0.8px;
-  line-height: 120%; 
+  line-height: 120%;
   display: block;
   text-align: center;
   margin: 25px;
-  padding: 0 0 1%;
-}
-
-.home-page .hp-tree-image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  text-align: center;
-  justify-content: flex-end;
 }
 
 .home-page .hp-tree-overlay-text,
@@ -63,7 +55,6 @@
 }
 
 .home-page .hp-tree-overlay-text {
-
   display: flex;
   margin-top: -30px; /* Add some space between the button and the text */
   color: #fff;
@@ -79,8 +70,6 @@
 .home-page .hp-tree-overlay-text:hover {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
-
-
 
 .home-page .hp-create-button {
   display: flex;
@@ -101,9 +90,6 @@
 .home-page .hp-create-button:hover {
   background-color: #0056b3;
 }
-.home-page .hp-create-button:hover + .hp-tree-image-container .hp-tree-overlay-text {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
 
 .home-page .hp-create-button:active {
   background-color: #004080;
@@ -118,84 +104,11 @@
 
 .home-page .hp-featured-title {
   text-align: center;
-  margin: 80px;
+  margin: 70px 0 60px;
   color: #000;
   flex-shrink: 0;
   font-style: normal;
   display: inline-block;
-}
-
-.home-page .hp-featured-box {
-  display: flex;
-  flex: 0 0 70%;
-  max-width: 70%;
-  align-items: center;
-  box-sizing: border-box;
-  background: #fafaf5;
-  border: 2px solid #1a6598;
-  border-radius: 24px;
-  margin: 0 auto;
-  margin-bottom: 100px;
-}
-
-.home-page .hp-featured-image {
-  flex: 0 0 10%;
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
-  background: #d3d3d3 40% / cover no-repeat;
-  flex-shrink: 0;
-  height: 200px;
-}
-
-.home-page .hp-featured-content {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px; /* Provide some padding around the content */
-  text-align: center;
-  gap: 10px; /* Space between the text and button */
-  height: 100%; /* Make the container fill the height of the parent */
-}
-
-.home-page .hp-featured-name {
-  color: #000;
-  font-style: normal;
-  line-height: 130%;
-  display: inline-block;
-}
-
-.home-page .hp-featured-date {
-  color: #1a6598;
-  font-style: normal;
-  line-height: 130%;
-  display: inline-block;
-  margin-top: -10px;
-  margin-left: 0;
-}
-
-.home-page .hp-featured-button {
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0.8;
-  background: #014a8a;
-  border-radius: 10px;
-  flex-shrink: 0;
-  width: 121px;
-  height: 37px;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  transition: background-color 0.3s;
-}
-
-.home-page .hp-featured-button:hover {
-  background-color: #0056b3;
-}
-
-.home-page .hp-featured-button:active {
-  background-color: #004080;
 }
 
 .home-page .hp-description-container {
@@ -212,8 +125,6 @@
   margin: 60px auto;
   font-size: 35px;
 }
-
-
 
 .home-page .story-block {
   display: flex;
@@ -252,35 +163,6 @@
   font-size: 20px;
 }
 
-.home-page .story-read-more {
-  width: 20%;
-  padding: 20px;
-  background-color: #fafaf5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home-page .story-read-button {
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0.8;
-  background: #014a8a;
-  border-radius: 10px;
-  flex-shrink: 0;
-  width: 121px;
-  height: 37px;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  transition: background-color 0.3s;
-  font-size: 20px;
-}
-
-.home-page .story-read-button:hover {
-  background-color: #0056b3;
-}
-
-.home-page #fivestars{
+.home-page #fivestars {
   margin-top: 80px;
 }
