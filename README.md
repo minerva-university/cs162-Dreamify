@@ -86,6 +86,8 @@ To learn how to use the app, see "Usage" below.
 
 ## Web Interface
 
+**TODO: Update Page Screenshots and add a screenshot of the "Add Child Page", adjust formatting as necessary**
+
 <p align="center">
   <table>
     <tr>
@@ -175,8 +177,8 @@ To get a local copy up and running follow these simple example steps.
 **Start the Server:**
 
 2. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
-3. Activate the virtual environment (if not done already):
-   Windows: run `venv\Scripts\activate.bat`
+3. Activate the virtual environment (if not done already):  
+   Windows: run `venv\Scripts\activate.bat`  
    Mac/Linux: run `source venv/bin/activate`
 4. Run `flask --app . run`
 
