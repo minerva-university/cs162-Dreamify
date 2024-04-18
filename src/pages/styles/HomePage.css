@@ -1,0 +1,203 @@
+.home-page {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.home-page .hp-row {
+  display: flex;
+  justify-content: center; /* Aligns children (images) on the main axis (horizontally) */
+  align-items: center; /* Aligns children (images) on the cross axis (vertically) */
+  flex-wrap: wrap; /* Allows items to wrap to the next line if necessary */
+}
+
+.home-page .hp-image-container {
+  width: 100%;
+  max-width: 1250px; /* Set a maximum width for the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  justify-content: flex-end;
+  margin: 0 auto; /* Centers the container horizontally */
+}
+
+.home-page .hp-col {
+  position: relative;
+  width: 100%;
+}
+
+.home-page .hp-img-fluid {
+  max-width: 100%;
+  height: auto;
+  width: 100%; /* Ensures images fill the container width */
+}
+
+.home-page .hp-img-auto {
+  height: auto;
+}
+
+.home-page .hp-text-center {
+  text-align: center;
+}
+
+.home-page .hp-title {
+  color: #000;
+  letter-spacing: -0.8px;
+  line-height: 120%;
+  display: block;
+  text-align: center;
+  margin: 25px;
+  padding: 0 0 1%;
+}
+
+.home-page .hp-tree-overlay-text,
+.home-page .hp-create-button {
+  position: absolute; /* Absolutely position both elements */
+  top: 50%; /* Start at 50% from the top */
+  left: 50%; /* Start at 50% from the left */
+  transform: translate(-50%, -50%);
+  width: max-content; /* This ensures the width is only as wide as the content inside */
+}
+
+.home-page .hp-tree-overlay-text {
+  display: flex;
+  margin-top: -30px; /* Add some space between the button and the text */
+  color: #fff;
+  line-height: 10%;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-decoration: none; /* Remove underline by default */
+  transition: text-shadow 0.3s, transform 0.3s;
+  font-size: 52px;
+}
+
+.home-page .hp-tree-overlay-text:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.home-page .hp-create-button {
+  display: flex;
+  margin-top: 50px;
+  background: #014a8a;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 60px;
+  overflow: hidden;
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-page .hp-create-button:hover {
+  background-color: #0056b3;
+}
+
+.home-page .hp-create-button:active {
+  background-color: #004080;
+}
+
+.home-page .hp-create-text {
+  color: #fff;
+  font-style: normal;
+  line-height: 130%;
+  text-decoration: none;
+}
+
+.home-page .hp-featured-title {
+  text-align: center;
+  margin: 70px 0 60px;
+  color: #000;
+  flex-shrink: 0;
+  font-style: normal;
+  display: inline-block;
+}
+
+.home-page .hp-description-container {
+  flex: 0 0 85%;
+  max-width: 85%;
+}
+
+.home-page .hp-description {
+  color: #000;
+  text-align: center;
+  letter-spacing: -0.74px;
+  line-height: 120%;
+  display: block;
+  margin: 60px auto;
+  font-size: 35px;
+}
+
+.home-page .story-block {
+  display: flex;
+  width: 1000px;
+  margin: 20px;
+  margin-left: 100px;
+  border: 1px solid #014a8a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.home-page .story-image {
+  width: 20%;
+}
+
+.home-page .story-details {
+  width: 60%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-page .story-title-date {
+  width: 100%;
+}
+
+.home-page .story-title {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.home-page .story-date {
+  color: #014a8a;
+  font-size: 20px;
+}
+
+.home-page .story-read-more {
+  width: 20%;
+  padding: 20px;
+  background-color: #fafaf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-page .story-read-button {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+  background: #014a8a;
+  border-radius: 10px;
+  flex-shrink: 0;
+  width: 121px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s;
+  font-size: 20px;
+}
+
+.home-page .story-read-button:hover {
+  background-color: #0056b3;
+}
+
+.home-page #fivestars {
+  margin-top: 80px;
+}

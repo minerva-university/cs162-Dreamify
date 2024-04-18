@@ -8,10 +8,6 @@ import "./App.css";
 import ApiProvider from "./contexts/ApiProvider";
 import AuthProvider from "./contexts/AuthProvider";
 
-// Components
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
 // Pages
 import HomePage from "./pages/HomePage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -22,53 +18,118 @@ import ModifyChildPage from "./pages/ModifyChildPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import StoryPage from "./pages/StoryPage";
+import SelectChildPage from "./pages/SelectChildPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import TermsPage from "./pages/TermsPage";
+
+// Components
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthRoute from "./components/AuthRoute";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
     <Container fluid className="App">
       <BrowserRouter>
-        {/* <Header />  Tamirlan (make sure to have two variants with a prop */}
         <ApiProvider>
           <AuthProvider>
+            {/* Header components for all the pages */}
+            <Header />
+            {/* Routes for the application */}
             <Routes>
-              <Route path="/" element={<HomePage />} /> {/* Tamirlan */}
+              {/* Add a new route for the HomePage component */}
+              <Route path="/" element={<HomePage />} />
+              {/* Add a new route for the MyProfile component */}
               <Route
-                path="/myprofile/:parentid"
-                element={<UserProfilePage />}
-              />{" "}
-              {/* Billy */}
+                path="/myprofile"
+                element={
+                  <ProtectedRoute>
+                    <UserProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the AddachildPage component */}
               <Route
-                path="/addachild/:parentid"
-                element={<AddachildPage />}
-              />{" "}
-              {/* Billy  */}
+                path="/addachild"
+                element={
+                  <ProtectedRoute>
+                    <AddachildPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the ModifyChildPage component */}
               <Route
                 path="/modify/:childid"
-                element={<ModifyChildPage />}
-              />{" "}
-              {/* Billy  */}
+                element={
+                  <ProtectedRoute>
+                    <ModifyChildPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the StoryPage component */}
               <Route
-                path="/library/story/:storyid"
-                element={<StoryPage />}
-              />{" "}
-              {/* MISHA */}
+                path="/library/:storyId"
+                element={
+                  <ProtectedRoute>
+                    <StoryPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the LibraryPage component */}
               <Route
-                path="/library/parent/:parentid"
-                element={<LibraryPage />}
-              />{" "}
-              {/* MISHA */}
+                path="/library"
+                element={
+                  <ProtectedRoute>
+                    <LibraryPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the NewStoryPage component */}
               <Route
-                path="/newstory/:childid"
-                element={<NewStoryPage />}
-              />{" "}
-              {/* MISHA */}
-              <Route path="/login" element={<LoginPage />} />
-              {/* Flambeau */}
-              <Route path="/signup" element={<SignupPage />} /> {/* Flambeau */}
+                path="/newstory/:childId"
+                element={
+                  <ProtectedRoute>
+                    <NewStoryPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the SelectChildPage component */}
+              <Route
+                path="/children"
+                element={
+                  <ProtectedRoute>
+                    <SelectChildPage />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Add a new route for the Login component */}
+              <Route
+                path="/login"
+                element={
+                  <AuthRoute>
+                    <LoginPage />
+                  </AuthRoute>
+                }
+              />
+              {/* Add a new route for the SignUp Page component */}
+              <Route
+                path="/signup"
+                element={
+                  <AuthRoute>
+                    <SignupPage />
+                  </AuthRoute>
+                }
+              />
+              {/* Add a new route for the AboutUs Page component */}
+              <Route path="/aboutus" element={<AboutUsPage />} />
+              {/* Add a new route for the Terms Page component */}
+              <Route path="/terms" element={<TermsPage />} />
             </Routes>
+            {/* Footer components for all the pages */}
+            <Footer />
           </AuthProvider>
         </ApiProvider>
-        {/* <Footer /> {/* Tamirlan  */}
       </BrowserRouter>
     </Container>
   );

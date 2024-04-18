@@ -1,118 +1,182 @@
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import photo1 from './photos/chapter1.jpg';
-import photo2 from './photos/chapter2.jpg';
-import photo3 from './photos/chapter3.jpg';
-import './styles/LibraryPage.css'; // Ensure you import the CSS file correctly
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useApi } from "../contexts/ApiProvider";
+import Spinner from "../components/Spinner";
+import "./styles/LibraryPage.css";
+import PopUpAlert from "../components/PopUpAlert";
 
 export default function LibraryPage() {
-    // Mapping images to their respective indices for easier access
-    const photos = {1: photo1, 2: photo2, 3: photo3};
+  // Get the API object from the API context
+  const api = useApi();
+  const navigate = useNavigate();
 
-    // Data structure for characters and their stories
-    const characters = {
-      Rally: {
-        numberOfStories: 2,
-        stories: [
-          { image: photo1, title: "Rally's First Adventure", dateGenerated: "2022-07-01" },
-          { image: photo2, title: "Rally and the Mystery Island", dateGenerated: "2022-08-15" }
-        ]
-      },
-      Ty: {
-        numberOfStories: 1,
-        stories: [
-          { image: photo3, title: "Ty's Journey to the Mountains", dateGenerated: "2022-09-05" }
-        ]
+  // Set the initial state of the story data and loading state
+  const [storyData, setStoryData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+
+  const popAnAlert = () => {
+    const message =
+      "We are having trouble getting your stories, please try reloading or contacting us.";
+    return (
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
+    );
+  };
+
+  // Function to handle the click on a story
+  const handleStoryClick = (storyId) => {
+    navigate(`/library/${storyId}`);
+  };
+
+  // Set the title of the page
+  useEffect(() => {
+    document.title = "Dreamify | Library";
+  }, []);
+
+  // Fetch the data when the component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch all children concurrently
+        const childrenResponse = await api.getAllChildren();
+
+        // Process each child concurrently
+        const childrenPromises = childrenResponse.children.map(
+          async (child) => {
+            const storiesResponse = await api.getAllChildStories(
+              child.child_id
+            );
+
+            // Fetch all stories' chapters concurrently for the current child
+            const storiesPromises = storiesResponse.stories.map((story) =>
+              api.getAllStoryChapters(story.story_id).then((response) => {
+                const firstImage =
+                  response.chapters && response.chapters.length > 0
+                    ? `data:image/png;base64,${response.chapters[0].image}`
+                    : "";
+
+                // Format the date to be displayed in the UI
+                const dateCreated = new Date(story.created_at)
+                  .toISOString()
+                  .slice(0, 10)
+                  .replace(/-/g, "/");
+
+                // Return the processed story data
+                return {
+                  title: story.title,
+                  image: firstImage,
+                  dateGenerated: dateCreated,
+                  storyId: story.story_id,
+                };
+              })
+            );
+
+            // Await for all stories' data to be fetched and processed
+            const stories = await Promise.all(storiesPromises);
+
+            // Return the processed child data
+            return {
+              childId: child.child_id,
+              childName: child.name,
+              numberOfStories: stories.length,
+              stories: stories,
+            };
+          }
+        );
+
+        // Await for all children's data to be fetched and processed
+        const processedChildrenData = await Promise.all(childrenPromises);
+
+        setStoryData(processedChildrenData);
+      } catch (error) {
+        console.error("Error fetching story data:", error);
+        showAlert();
+      } finally {
+        setIsLoading(false);
       }
     };
-  
 
+    // Fetch data when the component mounts
+    fetchData();
+  }, [api]);
+
+  // Render the loading spinner while fetching data
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  // Render a message and a button to create a new story if no stories were created yet
+  if (!isLoading && !storyData.length) {
+    return (
+      <div className="library-page">
+        <div className="no-stories-found">
+          <div className="no-stories-text">
+            {" "}
+            <h1>No stories were created yet.</h1>
+          </div>
+          <div className="hr-style"></div>
+          <button onClick={() => navigate("/children")}>
+            Create a new Story
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Render the stories
   return (
     <>
-      <Header />
+      {popAnAlert()}
       <div className="library-page">
-        {Object.entries(characters).map(([name, data]) => (
-          <div key={name}>
-            <div className='storyh1h3'>
-            <div className='storyh1'><h1>{name}'s Bedtime Stories</h1></div>
-            <div className='storyh3'><h3>{data.numberOfStories} items</h3></div>
+        {/* Render each child data */}
+        {storyData.map((childData) => (
+          <div key={childData.childId}>
+            <div className="storyh1h3">
+              <div className="storyh1">
+                <h1>{childData.childName}'s Bedtime Stories</h1>
+              </div>
+              <div className="storyh3">
+                <h3>{childData.numberOfStories} items</h3>
+              </div>
             </div>
             <div className="hr-style"></div>
-            {data.stories.map((story, index) => (
-              <div key={index} className="story-block">
-                <img src={story.image} alt={`Story ${index + 1}`} className="story-image" />
+            {/* Render each story */}
+            {childData.stories.map((story) => (
+              <div key={story.storyId} className="story-block">
+                <img src={story.image} alt={`Story`} className="story-image" />
                 <div className="story-details">
-                  <div className='story-title-date'>
-                   <p className="story-title">{story.title}</p>
+                  <div className="story-title-date">
+                    <h3 className="story-title">{story.title}</h3>
                     <p className="story-date">{story.dateGenerated}</p>
                   </div>
-                  <div className="story-private">PRIVATE</div>
+                </div>
+                <div className="story-read-more">
+                  <button
+                    className="story-read-button"
+                    type="button"
+                    onClick={() => handleStoryClick(story.storyId)}
+                  >
+                    Read
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         ))}
       </div>
-      <Footer />
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import Header from '../components/Header';
-// import Footer from '../components/Footer';
-// import photo1 from './photos/chapter1.jpg';
-// import photo2 from './photos/chapter2.jpg';
-// import photo3 from './photos/chapter3.jpg';
-
-// export default function LibraryPage() {
-  // // Mapping images to their respective indices for easier access
-  // const photos = {1: photo1, 2: photo2, 3: photo3};
-
-  // // Data structure for characters and their stories
-  // const characters = {
-  //   Rally: {
-  //     numberOfStories: 2,
-  //     stories: [
-  //       { image: photo1, title: "Rally's First Adventure", dateGenerated: "2022-07-01" },
-  //       { image: photo2, title: "Rally and the Mystery Island", dateGenerated: "2022-08-15" }
-  //     ]
-  //   },
-  //   Ty: {
-  //     numberOfStories: 1,
-  //     stories: [
-  //       { image: photo3, title: "Ty's Journey to the Mountains", dateGenerated: "2022-09-05" }
-  //     ]
-  //   }
-  // };
-
-//   return (
-//     <>
-//       <Header />
-//       {Object.entries(characters).map(([name, data]) => (
-//         <div key={name}>
-//           <h1>{name}/Bedtime Stories</h1>
-//           <h3>{data.numberOfStories} items</h3>
-//           <hr />
-//           {data.stories.map((story, index) => (
-//             <div key={index}>
-//               <img src={story.image} alt={`Story ${index + 1}`} />
-//               <p>Title: {story.title}</p>
-//               <p>Date of Creation: {story.dateGenerated}</p>
-//             </div>
-//           ))}
-//         </div>
-//       ))}
-//       <Footer />
-//     </>
-//   );
-// }

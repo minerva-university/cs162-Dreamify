@@ -1,0 +1,195 @@
+/* Base styles */
+
+.add-child-page body {
+  background-color: white;
+  color: black;
+}
+
+.add-child-page .hr-style {
+  margin-left: 100px;
+  margin-right: 100px;
+  width: 80%;
+  border-top: 1.5px solid #77cfd1;
+  height: 10px;
+}
+
+.add-child-page h1 {
+  margin-left: 100px;
+  margin-bottom: 0px;
+}
+
+.add-child-page h5 {
+  margin-left: 100px;
+  margin-top: 40px;
+  display: block;
+  font-weight: normal;
+}
+
+.add-child-page .add-child-form {
+  width: auto; /* Resets width to default */
+  max-width: none; /* Removes max-width */
+  padding: 0; /* Resets padding */
+  box-sizing: content-box; /* Resets box-sizing to default */
+  box-shadow: none; /* Removes box-shadow */
+  align-items: stretch; /* Resets align-items to default for forms */
+  display: block; /* Resets display to default for forms */
+  text-align: left; /* Resets text alignment to default */
+  margin-left: 0; /* Resets margin-left */
+  margin-right: 0; /* Resets margin-right */
+}
+
+.add-child-page label {
+  margin-left: 140px;
+  margin-top: 40px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.add-child-page input[type="text"] {
+  margin-top: 20px;
+  width: 40%;
+  border: 1px solid #014a8a;
+  border-radius: 10px;
+  background-color: #fafaf5;
+  padding: 12px;
+  margin-bottom: 20px;
+  margin-left: 130px;
+  display: block;
+}
+
+.add-child-page input[type="text"]::placeholder {
+  color: #888; /* Change this color as needed */
+  opacity: 1;
+}
+
+.add-child-page .buttons {
+  margin-top: 15px;
+  margin-left: 100px;
+}
+
+.add-child-page button {
+  margin-left: 30px;
+  height: 40px;
+  text-align: center;
+  width: 10%;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.lastOnPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-child-form .alert-danger {
+  display: block;
+  justify-content: center;
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 50px;
+  width: 40%;
+}
+
+.add-child-page .generate-button {
+  display: block;
+  width: 15%;
+  height: 50px;
+  margin-top: 30px;
+  justify-content: center;
+  margin-bottom: 100px;
+  background-color: #014a8a;
+  text-align: center;
+  color: white;
+  font-size: larger;
+}
+
+/* Image selection */
+.add-child-page .vis-feature .img-thumbnail {
+  width: 130px;
+  height: 110px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.add-child-page .vis-feature .img-thumbnail:hover,
+.add-child-page .vis-feature .img-thumbnail.selected {
+  border-color: #007bff;
+}
+
+/* Eye color images container */
+.add-child-page .vis-features {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 50px; /* Adjust the space between the images as needed */
+  justify-content: left; /* Center the images within the container */
+  margin-left: 120px; /* Adjust the margin as needed */
+  padding: 20px; /* Add some padding around the container */
+}
+
+/* Eye color image styles */
+.add-child-page .vis-features .vis-feature {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover; /* Ensures the images are scaled correctly */
+  border: 2px solid transparent; /* Default state without a border */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+  transition: border-color 0.3s ease; /* Smooth transition for the border color */
+}
+
+/* Eye color image styles when selected */
+.add-child-page .vis-features .vis-feature.selected {
+  border: 4px #014a8a solid;
+  box-shadow: 0 0 0 6px white; /* Adds a white outline around the border */
+}
+
+.add-child-page .vis-feature-name {
+  margin-top: 8px; /* Adjust as needed for spacing between image and text */
+  text-align: center; /* Centers the text below the image */
+}
+
+.add-child-page .custom-race {
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.add-child-page .vis-features .vis-feature-container .custom-race-input {
+  width: 100%; /* Overrides the 40% width */
+  margin-top: 8px; /* Adjusts the top margin; consider other inputs' margin-top: 20px; */
+  border: 1px solid #014a8a; /* Keeps border consistency */
+  border-radius: 10px; /* Maintains the rounded borders */
+  background-color: #fafaf5; /* Uncommented to ensure consistency */
+  padding: 10px; /* Provides internal spacing */
+  margin-bottom: 20px; /* Ensures bottom margin consistency */
+  margin-left: auto; /* Adjusts to center or align as needed, auto for no specific left margin */
+  margin-right: auto; /* Adjusts to center or align as needed, auto for no specific right margin */
+  display: block; /* Ensures the input is block-level for width control */
+}
+
+.add-child-form .alert-danger {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the font bold */
+  font-size: 12px;
+  margin-top: 20px;
+  width: 40%;
+}

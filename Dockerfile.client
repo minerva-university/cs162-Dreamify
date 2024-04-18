@@ -2,12 +2,13 @@
 # It also proxies /api requests to api:5000
 
 # Build step #1: build the React front end
-FROM node:18-alpine as build-step
+FROM node:18-alpine AS build-step
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json yarn.lock ./
 COPY ./src ./src
 COPY ./public ./public
+COPY .env /app/.env
 RUN yarn install
 RUN yarn build
 

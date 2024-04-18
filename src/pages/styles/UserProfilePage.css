@@ -1,0 +1,104 @@
+.user-profile-page {
+  background-color: white;
+  color: black;
+}
+
+.user-profile-page h1 {
+  margin-left: 100px;
+  margin-bottom: 0px;
+}
+
+.user-profile-page .profile-container {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.user-profile-page .child-cards-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.user-profile-page button {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #77cfd1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.user-profile-page .account-information {
+  margin-top: 150px;
+  margin-left: 100px;
+}
+
+.user-profile-page .account-info-list {
+  background-color: #fafaf5;
+  border: 1px solid #014a8a;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  width: 60%;
+}
+
+.user-profile-page .account-info-item {
+  margin-top: 10px;
+}
+
+.user-profile-page .add-kid-button {
+  background-color: #77cfd1; /* Lighter color for the add kid button */
+  border-color: #77cfd1;
+  color: black;
+  margin-top: 50px; /* Adjusted margin for visual spacing */
+}
+
+/* Ensure all button hover effects are consistent */
+.user-profile-page button:hover {
+  opacity: 0.9;
+}
+
+.user-profile-page .hr-style {
+  margin-left: 100px;
+  margin-right: 100px;
+  width: 80%;
+  border-top: 1.5px solid #77cfd1;
+  height: 10px;
+}
+
+.user-profile-page .children-cards-container,
+.user-profile-page .child-selection {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  text-align: center;
+  flex-direction: row; /* Stack children vertically */
+  width: 100%; /* Take up full width */
+  margin-bottom: 100px;
+}
+
+.user-profile-page .child-selection button {
+  background-color: #77cfd1;
+  border-color: #77cfd1;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  margin-top: 20px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.user-profile-page .child-selection button:hover {
+  background-color: #84dee0;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.user-profile-page .children-cards-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}

@@ -1,111 +1,135 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Alert } from "react-bootstrap";
 
-//Flambeau
-export default function SignupPage() {
-  return <h1>SignupPage!</h1>;
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
+import Spinner from "../components/Spinner.js";
+import "../pages/styles/AuthPages.css";
+
+function SignUpPage() {
+  // This function is used to create the sign up page for the user to create an account.
+
+  // Set the title of the page
+  useEffect(() => {
+    document.title = "Dreamify | Sign Up";
+  }, []);
+
+  // Get the navigate function from the router
+  const navigate = useNavigate();
+
+  // Get the register function from the authentication context
+  const { register } = useAuth();
+
+  // Set the state for the first name, last name, email, password, error, and loading
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // This function is used to handle the submission of the sign up form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true); // Assuming you have an isLoading state
+    setError("");
+
+    try {
+      // Utilize the register function instead of direct fetch call
+      await register(firstName, lastName, email, password);
+      // Navigate to the home or login page after successful signup
+      navigate("/login"); // Assuming you're using react-router for navigation
+    } catch (error) {
+      console.error("Error while signing up:", error.message);
+
+      if (error.message.includes("already exists")) {
+        setError("Your email already exist, use a new email or login.");
+      } else if (error.message.includes("Invalid email")) {
+        setError("Please use an existing email!");
+      } else {
+        setError("An error occurred while signing up. Please try again.");
+      }
+
+      // Handle errors here and display them to the user
+    } finally {
+      setIsLoading(false);
+    }
+
+    // Optional: Reset fields after submission
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+  };
+
+  // This condition is used to check if the page is loading and render a spinner
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  return (
+    <>
+      <div className="signin-page">
+        <div className="signin-image">
+          <h1>Welcome Aboard!</h1>
+          <p>Already have an account?</p>
+          <button onClick={() => navigate("/login")}>Sign In</button>
+        </div>
+        <div className="signin-form">
+          <form onSubmit={handleSubmit}>
+            <h1>Sign Up</h1>
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+            <div className="email-input">
+              <input
+                type="text"
+                id="firstName"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="email-input">
+              {" "}
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="email-input">
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="password-input">
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </>
+  );
 }
 
-// old code for reference below
-
-// import React, { useState, useEffect } from "react";
-// import Body from "../components/Body";
-
-// // API
-// const backend_api = "/api/parent";
-
-// function SignUpPage() {
-//   // Set the title of the page
-//   useEffect(() => {
-//     document.title = "Dreamify | Sign Up";
-//   }, []);
-
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const payload = {
-//       first_name: firstName,
-//       last_name: lastName,
-//       password,
-//       email,
-//     };
-//     try {
-//       const response = await fetch(backend_api, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(payload),
-//       });
-
-//       if (response.ok) {
-//         const jsonResponse = await response.json(); // Don't forget to await the json() call
-//         console.log("Submission successful", jsonResponse);
-//         // Redirect to the login page
-//         window.location.href = "/login";
-//       } else {
-//         // Handle HTTP errors
-//         console.error("HTTP Error:", response.statusText);
-//       }
-//     } catch (error) {
-//       // Handle fetch errors
-//       console.error("Fetch Error:", error.message);
-//     }
-//   };
-
-//   return (
-//     <Body>
-//       <form onSubmit={handleSubmit}>
-//         <h2>Sign Up</h2>
-//         <div>
-//           <input
-//             type="text"
-//             id="firstname"
-//             placeholder="Enter your first name"
-//             value={firstName}
-//             onChange={(e) => setFirstName(e.target.value)}
-//             required
-//           />
-//           <br />
-//           <input
-//             type="text"
-//             id="lastname"
-//             placeholder="Enter your last name"
-//             value={lastName}
-//             onChange={(e) => setLastName(e.target.value)}
-//             required
-//           />
-//           <br />
-//           <input
-//             type="text"
-//             id="email"
-//             placeholder="Enter your email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//           <br />
-//           <input
-//             type="password"
-//             id="password"
-//             placeholder="Enter your password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <button type="submit">Sign Up</button>
-//       </form>
-//       <div>
-//         <p>
-//           Already have an account? <a href="/login">Sign in</a>
-//         </p>
-//       </div>
-//     </Body>
-//   );
-// }
-
-// export default SignUpPage;
+export default SignUpPage;

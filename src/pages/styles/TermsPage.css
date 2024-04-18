@@ -1,0 +1,23 @@
+.terms-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.terms-page .terms-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.terms-page .terms-section {
+  margin-bottom: 40px;
+}
+
+.terms-page .terms-section-title {
+  margin-bottom: 10px;
+}
+
+.terms-page .terms-section-content {
+  line-height: 1.5;
+  color: #1a6598;
+}

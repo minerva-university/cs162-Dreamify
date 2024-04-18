@@ -1,0 +1,87 @@
+/* Main Header styling */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  padding: 1% 0;
+  width: 100%;
+}
+
+.header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  width: 180px;
+}
+.header .header-title {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.header .header-nav-links-container {
+  display: flex;
+  gap: 7px;
+}
+
+.header .header-button-navbar,
+.header .header-button-selected,
+.header .header-button-get-started,
+.header .header-button-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  height: 43px;
+  width: 100px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0 header-3s;
+  border-radius: 5px;
+}
+
+.header .header-button-selected {
+  border-color: #014a8a;
+}
+
+.header .header-text-navbar,
+.header .header-text-white {
+  color: #000;
+  text-decoration: none;
+}
+
+.header .header-button-get-started {
+  background: #014a8a;
+  color: #fff;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.header .header-button-logout {
+  background: rgb(223, 45, 45); /* Logout button has a distinct color */
+}
+
+.header-button-get-started:active,
+.header .header-button-logout:active {
+  background-color: #004080;
+}
+
+.header .header-button-get-started:hover {
+  background-color: #0056b3;
+}
+
+.header .header-button-logout:hover {
+  background-color: rgb(215, 30, 30);
+}
+
+.header .header-text-white {
+  color: #fff;
+}

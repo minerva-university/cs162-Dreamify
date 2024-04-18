@@ -1,244 +1,142 @@
-import React from "react";
+// Import necessary React and utility hooks
+import React, { useState } from "react";
+import { useApi } from "../contexts/ApiProvider";
+import { useNavigate } from "react-router-dom";
+// Import components
+import ChildProfileForm from "../components/ChildProfileForm";
+import PopUpAlert from "../components/PopUpAlert";
+import Spinner from "../components/Spinner";
+// Import styles
+import "./styles/AddachildPage.css";
 
-//Billy
-export default function AddachildPage() {
-  return <h1>AddachildPage!</h1>;
-}
+// Component to add a child's profile
+const AddachildPage = () => {
+  // State to handle form data initialization
+  const [formData, setFormData] = useState({
+    firstName: "",
+    ageRange: "0-3",
+    sex: "Male",
+    eyeColor: null,
+    hairType: null,
+    hairColor: null,
+    race: null,
+    customRaceInput: "",
+    favoriteAnimals: "",
+    favoriteActivities: "",
+    favoriteShows: "",
+  });
 
-// old code for reference below
+  // State to handle loading spinner visibility
+  const [isLoading, setIsLoading] = useState(false);
+  // State to manage visibility of components
+  const [isVisible, setIsVisible] = useState(true);
+  // API context for making backend calls
+  const api = useApi();
+  // State to control the visibility of alerts
+  const [alertVisible, setAlertVisible] = useState(false);
 
-// import React from 'react';
-// import Body from '../components/Body';
-// import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import Spinner from '../components/Spinner';
-// import { useEffect } from 'react';
-// //import ReactSlider from 'react-slider';
+  // Function to display alert
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
 
-// // Arrays to store the options for the user to select from
-// const eyeColors = ['Blue', 'Brown', 'Green', 'Hazel', 'Amber'];
-// const hairTypes = ['Straight', 'Wavy', 'Curly', 'Kinky', 'Bald'];
-// const skinTones = ['Light', 'Medium Light', 'Brown', 'Dark'];
-// const hairColors = ['Blonde', 'Brown', 'Black', 'Red', 'Gray', 'White', 'None'];
-// const ageRanges = ['0-3', '4-6', '7-9', '10-13'];
-// const sexes = ['Male', 'Female', 'Other'];
-// const siblingRelationships = ['Only', 'Youngest', 'Middle', 'Oldest'];
+  // Function to hide alert
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
 
-// // Backend API URL
-// const backend_api = 'http://localhost:5000/api/newstory'; // Replace with our backend API URL
+  // Component to display popup alerts dynamically
+  const popAnAlert = () => {
+    const message =
+      "We are having trouble creating your child's profile, please try reloading or contacting us.";
+    return (
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
+    );
+  };
 
-// const AddChild = () => {
-//     // State to store the selected options
-//     const [selectedEyeColor, setSelectedEyeColor] = useState('');
-//     const [selectedHairType, setSelectedHairType] = useState('');
-//     const [selectedHairColor, setSelectedHairColor] = useState('');
-//     const [selectedSkinColor, setSelectedSkinColor] = useState('');
-//     const [name, setName] = useState('');
-//     const [selectedAgeRange, setSelectedAgeRange] = useState('');
-//     const [selectedSex, setSelectedSex] = useState('');
-//     const [selectedSiblingRelationship, setSelectedSiblingRelationship] = useState('');
-//     const [favoriteAnimals, setFavoriteAnimals] = useState('');
-//     const [favoriteActivities, setFavoriteActivities] = useState('');
-//     const [favoriteShows, setFavoriteShows] = useState('');
-//     const [isLoading, setIsLoading] = useState(false);
+  // Hook to navigate to previous page
+  const navigate = useNavigate();
+  // State to handle error messages
+  const [error, setError] = useState("");
 
-//     // Function to handle the selected sex
-//     const handleSelectedSex = (sex) => {
-//       if (sex === 'Other') {
-//         setSelectedSex('Non-binary') // I am assuming chatGPT will understand non-binary nore than 'other'
-//       }
-//       else {
-//         setSelectedSex(sex)
-//       }
-//     };
-//     //const handleSkinChange = (value) => {
-//       //  setSelectedSkinColor(skinTones[value]);
-//     //};
+  // Display spinner while loading
+  if (isLoading) {
+    return (
+      <Spinner
+        text="Generating your child's image, please wait... (This should take approximately 30 seconds)"
+        creatingChild={true}
+      />
+    );
+  }
 
-//     // Function to navigate to a different page
-//     const navigate = useNavigate();
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-//     // Set the title of the page
-//     useEffect(() => {
-//       document.title = 'Dreamify | Add Child';
-//   }, []);
+    // Check if all required fields are filled out
+    let missedInputs = [];
+    if (!formData.eyeColor) {
+      missedInputs.push(" Eye Color");
+    }
+    if (!formData.hairType) {
+      missedInputs.push(" Hair Type");
+    }
+    if (!formData.hairColor) {
+      missedInputs.push(" Hair Color");
+    }
+    if (!formData.race && !formData.customRaceInput) {
+      missedInputs.push("Race");
+    }
+    if (missedInputs.length > 0) {
+      setError(`You have missed the following input(s): ${missedInputs}`);
+    } else {
+      setIsLoading(true);
+      // Attempt to create a child profile
+      try {
+        await api.postCreateChild({
+          name: formData.firstName,
+          age_range: formData.ageRange,
+          sex: formData.sex,
+          eye_color: formData.eyeColor,
+          hair_type: formData.hairType,
+          hair_color: formData.hairColor,
+          ethnicity: formData.customRaceInput || formData.race,
+          fav_animals: formData.favoriteAnimals,
+          fav_activities: formData.favoriteActivities,
+          fav_shows: formData.favoriteShows,
+        });
+        navigate(-1);
+      } catch (error) {
+        console.error("Error creating child:", error);
+        showAlert();
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
-//     // Function to handle data submission
-//     const handleSubmit = async () => {
-//       setIsLoading(true);
-//       const payload = {
-//             selectedEyeColor,
-//             selectedHairType,
-//             selectedHairColor,
-//             selectedSkinColor,
-//             name,
-//             selectedAgeRange,
-//             selectedSex,
-//             selectedSiblingRelationship,
-//             favoriteAnimals,
-//             favoriteActivities,
-//             favoriteShows
-//       };
-//       try {
-//         const response = await fetch(backend_api, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(payload),
-//         });
-//         setIsLoading(false);
-//         if (response.ok) {
-//             const jsonResponse = await response.json();
-//             console.log('Submission successful', jsonResponse);
-//             // Handle successful submission here, e.g., showing a success message
-//             navigate('/story', { state: { data: jsonResponse } });
-//         } else {
-//             // Handle server errors or invalid responses
-//             console.error('Submission failed', await response.text());
-//         }
-//     } catch (error) {
-//         // Handle network errors
-//         console.error('Network error:', error);
-//     }
-// };
-//     if (isLoading) {
-//       return <Spinner />; // Show the spinner while loading
-//     }
+  return (
+    <>
+      {popAnAlert()}
+      <div className="add-child-page">
+        <h1>Add a child's profile</h1>
+        <div className="hr-style"></div>
+        <ChildProfileForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          error={error}
+        />
+      </div>
+    </>
+  );
+};
 
-//     return (
-//             <Body>
-//             <h1>Tell us a little bit about your child</h1>
-//             <h2>Physical Appearance</h2>
-//             <div>
-//             <h3>Skin Tone</h3>
-//                 {skinTones.map(color => (
-//                     <button key={color} onClick={() => setSelectedSkinColor(color)}>
-//                         {color}
-//                     </button>
-//                 ))}
-//             </div>
-//             <div>
-//             <h3>Eye Color</h3>
-//             {eyeColors.map(color => (
-//                 <img
-//                 key={color}
-//                 src={'../assets/${color.toLowerCase()}_eye.webp'}
-//                 alt={`${color} Eye`}
-//                 onClick={() => setSelectedEyeColor(color)}
-//                 className={selectedEyeColor === color ? 'selected' : ''}
-//                 />
-//             ))}
-//             </div>
-//             <div>
-//                 <h3>Hair Type</h3>
-//                 {hairTypes.map(type => (
-//                     <button key={type} onClick={() => setSelectedHairType(type)}>
-//                         {type}
-//                     </button>
-//                 ))}
-//             </div>
-//             <div>
-//                 <h3>Hair Color</h3>
-//                 {hairColors.map(color => (
-//                     <button key={color} onClick={() => setSelectedHairColor(color)}>
-//                         {color}
-//                     </button>
-//                 ))}
-//             </div>
-//             <h2>Demography</h2>
-//             <div>
-//                 <h3>Name</h3>
-//                 <input
-//                     type="text"
-//                     placeholder="Enter first name or nickname"
-//                     value={name}
-//                     onChange={(e) => setName(e.target.value)}
-//                 />
-//             </div>
-//             <div>
-//                 <h3>Age Range</h3>
-//                 {ageRanges.map(age => (
-//                     <button key={age} onClick={() => setSelectedAgeRange(age)}>
-//                         {age}
-//                     </button>
-//                 ))}
-//             </div>
-//             <div>
-//                 <h3>Sex</h3>
-//                 {sexes.map(sex => (
-//                     <button key={sex} onClick={() => handleSelectedSex(sex)}>
-//                         {sex}
-//                     </button>
-//                 ))}
-//             </div>
-//             <div>
-//                 <h3>Sibling Type</h3>
-//                 {siblingRelationships.map(sibling => (
-//                     <button key={sibling} onClick={() => setSelectedSiblingRelationship(sibling)}>
-//                         {sibling}
-//                     </button>
-//                 ))}
-//             </div>
-//             <h2>Interests</h2>
-//             <div>
-//                 <h3>Favorite Animals</h3>
-//                 <input
-//                     type="text"
-//                     placeholder="Enter favorite animals"
-//                     value={favoriteAnimals}
-//                     onChange={(e) => setFavoriteAnimals(e.target.value)}
-//                 />
-//             </div>
-//             <div>
-//                 <h3>Favorite Activities</h3>
-//                 <input
-//                     type="text"
-//                     placeholder="Enter favorite activities"
-//                     value={favoriteActivities}
-//                     onChange={(e) => setFavoriteActivities(e.target.value)}
-//                 />
-//             </div>
-//             <div>
-//                 <h3>Favorite Cartoons/Movies</h3>
-//                 <input
-//                     type="text"
-//                     placeholder="Enter favorite cartoons/movies"
-//                     value={favoriteShows}
-//                     onChange={(e) => setFavoriteShows(e.target.value)}
-//                 />
-//             </div>
-
-//             <br/>
-//             <h3>Selected Options</h3>
-//             <div>
-//                 Selected Skin Color: {selectedSkinColor}
-//                 <br/>
-//                 Selected Eye Color: {selectedEyeColor}
-//                 <br/>
-//                 Selected Hair Type: {selectedHairType}
-//                 <br/>
-//                 Selected Hair Color: {selectedHairColor}
-//                 <br/>
-//                 Name: {name}
-//                 <br/>
-//                 Selected Age: {selectedAgeRange}
-//                 <br/>
-//                 Selected Sex: {selectedSex}
-//                 <br/>
-//                 Selected Sibling type: {selectedSiblingRelationship}
-//                 <br/>
-//                 Selected Animal: {favoriteAnimals}
-//                 <br/>
-//                 Selected Activity: {favoriteActivities}
-//                 <br/>
-//                 Selected Show: {favoriteShows}
-//             </div>
-//             <br/>
-//             <button onClick={handleSubmit}>Create</button>
-//             </Body>
-
-//     );
-// };
-
-// export default AddChild;
+export default AddachildPage;

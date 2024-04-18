@@ -1,7 +1,17 @@
 // Base class for API clients to be inherited from
+
 export default class BaseApiClient {
+  // Note: originally it was planned to use proxy instead of CORS,
+  // however, Mykhailo and now also Flambeau and Billy have a weird
+  // issue with the proxy not working properly,
+  // so we have to use CORS instead
   constructor() {
-    this.base_url = "/api/";
+    // Set the base URL based on the environment
+    if (process.env.REACT_APP_MODE === "production") {
+      this.base_url = process.env.REACT_APP_API_SUFFIX;
+    } else {
+      this.base_url = `${process.env.REACT_APP_HOST}${process.env.REACT_APP_API_SUFFIX}`;
+    }
   }
 
   // Send a request to the server

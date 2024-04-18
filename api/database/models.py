@@ -4,20 +4,11 @@ This module contains the database models.
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint
-from uuid import uuid4
+
+from .utilities import generate_id
 
 # Create a SQLAlchemy instance
 db = SQLAlchemy()
-
-
-def generate_id() -> str:
-    """
-    Generate a unique ID.
-
-    Returns:
-        str: The generated ID.
-    """
-    return uuid4().hex
 
 
 class Parent(db.Model):
@@ -50,6 +41,16 @@ class Parent(db.Model):
     # Relationship to Child
     children = db.relationship("Child", backref="parent", lazy=True)
 
+    # Indices
+    __table_args__ = (
+        # Index to optimize get_parent (with user_id),
+        # insert_parent (email uniqueness check)
+        # and insert_child (parent existence check)
+        db.Index("idx_parents_user_id", "user_id"),
+        # Index to optimize get_parent (with email) and check_password
+        db.Index("idx_parents_email", "email"),
+    )
+
 
 class Child(db.Model):
     """
@@ -60,13 +61,13 @@ class Child(db.Model):
         self,
         parent_id: str,
         name: str,
+        image: str,
         age_range: str,
         sex: str,
-        sibling_relationship: str,
         eye_color: str,
         hair_type: str,
         hair_color: str,
-        skin_tone: str,
+        ethnicity: str,
         fav_animals: str | None = None,
         fav_activities: str | None = None,
         fav_shows: str | None = None,
@@ -74,13 +75,13 @@ class Child(db.Model):
         super().__init__()
         self.parent_id = parent_id
         self.name = name
+        self.image = image
         self.age_range = age_range
         self.sex = sex
-        self.sibling_relationship = sibling_relationship
         self.eye_color = eye_color
         self.hair_type = hair_type
         self.hair_color = hair_color
-        self.skin_tone = skin_tone
+        self.ethnicity = ethnicity
         self.fav_animals = fav_animals
         self.fav_activities = fav_activities
         self.fav_shows = fav_shows
@@ -91,6 +92,7 @@ class Child(db.Model):
     child_id = db.Column(db.Text, primary_key=True, default=generate_id)
     parent_id = db.Column(db.Text, db.ForeignKey("parents.user_id"))
     name = db.Column(db.Text, nullable=False)
+    image = db.Column(db.Text, nullable=False)
     age_range = db.Column(
         db.Text,
         CheckConstraint("age_range IN ('0-3', '4-6', '7-9', '10-13')"),
@@ -98,13 +100,6 @@ class Child(db.Model):
     )
     sex = db.Column(
         db.Text, CheckConstraint("sex IN ('Male', 'Female')"), nullable=False
-    )
-    sibling_relationship = db.Column(
-        db.Text,
-        CheckConstraint(
-            "sibling_relationship IN ('Only', 'Youngest', 'Middle', 'Oldest')"
-        ),
-        nullable=False,
     )
     eye_color = db.Column(
         db.Text,
@@ -123,15 +118,12 @@ class Child(db.Model):
     hair_color = db.Column(
         db.Text,
         CheckConstraint(
-            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Grey', 'White')"
+            "hair_color IN ('Blonde', 'Brown', 'Black', 'Red', 'Auburn', 'Gray', 'White', 'Bald')"
         ),
         nullable=False,
     )
-    skin_tone = db.Column(
+    ethnicity = db.Column(
         db.Text,
-        CheckConstraint(
-            "skin_tone IN ('Fair', 'Light', 'Medium', 'Tan', 'Brown', 'Dark')"
-        ),
         nullable=False,
     )
     fav_animals = db.Column(db.Text, nullable=True)
@@ -140,6 +132,14 @@ class Child(db.Model):
 
     # Relationship to Story
     stories = db.relationship("Story", backref="child", lazy=True)
+
+    # Indices
+    __table_args__ = (
+        # Index to optimize update_child and insert_story (child existence check)
+        db.Index("idx_children_child_id", "child_id"),
+        # Composite index to optimize get_child_from_parent and child_belongs_to_parent
+        db.Index("idx_children_parent_id_child_id", "parent_id", "child_id"),
+    )
 
 
 class Story(db.Model):
@@ -150,19 +150,24 @@ class Story(db.Model):
     def __init__(
         self,
         child_id: str,
+        title: str,
         topic: str,
         image_style: str,
+        story_genre: str,
     ) -> None:
         super().__init__()
         self.child_id = child_id
+        self.title = title
         self.topic = topic
         self.image_style = image_style
+        self.story_genre = story_genre
 
     # Define the table name
     __tablename__ = "stories"
 
     story_id = db.Column(db.Text, primary_key=True, default=generate_id)
     child_id = db.Column(db.Text, db.ForeignKey("children.child_id"))
+    title = db.Column(db.Text, nullable=False)
     topic = db.Column(db.Text, nullable=False)
     image_style = db.Column(
         db.Text,
@@ -171,9 +176,23 @@ class Story(db.Model):
         ),
         nullable=False,
     )
+    story_genre = db.Column(
+        db.Text,
+        CheckConstraint(
+            "story_genre IN ('Fantasy', 'Adventure', 'Educational')"
+        ),
+        nullable=False,
+    )
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     # Relationship to Chapter
     chapters = db.relationship("Chapter", backref="story", lazy=True)
+
+    # Indices
+    __table_args__ = (
+        # Index to optimize get_story
+        db.Index("idx_stories_story_id", "story_id"),
+    )
 
 
 class Chapter(db.Model):
@@ -182,9 +201,10 @@ class Chapter(db.Model):
     """
 
     def __init__(
-        self, story_id: str, content: str, image: str, order: int
+        self, story_id: str, title: str, content: str, image: str, order: int
     ) -> None:
         self.story_id = story_id
+        self.title = title
         self.content = content
         self.image = image
         self.order = order
@@ -194,6 +214,7 @@ class Chapter(db.Model):
 
     chapter_id = db.Column(db.Text, primary_key=True, default=generate_id)
     story_id = db.Column(db.Text, db.ForeignKey("stories.story_id"))
+    title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text, nullable=False)
     order = db.Column(db.Integer, nullable=False)

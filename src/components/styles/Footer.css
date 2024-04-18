@@ -1,0 +1,33 @@
+.footer {
+  background: #7cd1d2;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 40px 0;
+}
+
+.footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  flex-wrap: wrap;
+}
+
+.footer .footer-text {
+  text-decoration: none;
+  color: #000;
+  line-height: 100%;
+  margin: 0 15px;
+}
+
+.footer .footer-left-group,
+.footer .footer-right-group {
+  display: flex;
+  align-items: center;
+}

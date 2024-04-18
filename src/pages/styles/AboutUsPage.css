@@ -1,0 +1,47 @@
+.about-us-page {
+  max-width: 1200px;
+  margin: 0 15%;
+  padding: 40px;
+}
+
+.about-us-page .abus-team-member {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px; /* Adjusted for spacing between team members */
+}
+
+/* Align odd and even team members differently */
+.about-us-page .abus-team-member:nth-child(odd) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.about-us-page .abus-team-member:nth-child(even) {
+  flex-direction: row;
+  text-align: left;
+}
+
+.about-us-page .abus-team-member img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 20px; /* Margins for spacing around the image */
+}
+
+.about-us-page .abus-team-member-info {
+  flex: 1; /* Allows the text block to fill the available space */
+}
+
+.about-us-page .abus-team-member-name {
+  margin-bottom: 5px;
+}
+
+.about-us-page .abus-team-member-position {
+  margin-bottom: 10px;
+}
+
+.about-us-page .abus-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
