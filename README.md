@@ -85,31 +85,52 @@ To learn how to install the app, see "Getting Started" below.
 To learn how to use the app, see "Usage" below.
 
 ## Web Interface
+<div align="center">
+  <style>
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+      gap: 20px; /* Space between columns and rows */
+      max-width: 820px; /* Maximum width of the grid */
+      margin: auto; /* Center the grid horizontally */
+    }
+    .image-cell {
+      display: flex;
+      flex-direction: column; /* Stack content vertically */
+      align-items: center; /* Center-align the content horizontally */
+      justify-content: flex-start; /* Align content to the top */
+    }
+    .image-cell img {
+      width: 100%; /* Responsive image width */
+      max-width: 400px; /* Maximum image width */
+      height: auto; /* Maintain aspect ratio */
+    }
+    .image-cell p {
+      text-align: center; /* Center-align text */
+      margin: 8px 0; /* Margin for spacing around text */
+    }
+  </style>
+  <div class="image-grid">
+    <div class="image-cell">
+      <p><b>Home Page</b></p>
+      <img src="readme_images/homepage.png" alt="Dreamify Home Page"/>
+    </div>
+    <div class="image-cell">
+      <p><b>Story Page</b></p>
+      <img src="readme_images/storypage.png" alt="Dreamify Story Page"/>
+    </div>
+    <div class="image-cell">
+      <p><b>Add a Child Page</b></p>
+      <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page"/>
+    </div>
+    <div class="image-cell">
+      <p><b>Profile Page</b></p>
+      <img src="readme_images/profilepage.png" alt="Dreamify Profile Page"/>
+    </div>
+  </div>
+</div>
 
-**TODO: Update Page Screenshots and add a screenshot of the "Add Child Page", adjust formatting as necessary**
 
-<p align="center">
-  <table>
-    <tr>
-      <td>
-        <p align="center"><b>Home Page</b></p>
-        <p align="center">
-            Bring your child's imagination to life with bedtime stories that are as unique as they are
-            <br>
-          <img src="readme_images/homepage.png" alt="Dreamify Home Page" width="400"/>
-        </p>
-      </td>
-      <td>
-        <p align="center"><b>Story Page</b></p>
-        <p align="center">
-            Immerse your child in a world of adventure with stories that inspire and excite.
-            <br>
-          <img src="readme_images/storypage.png" alt="Dreamify Story Page" width="400"/>  
-        </p>
-      </td>
-    </tr>
-  </table>
-</p>
 
 ## App Usage
 
