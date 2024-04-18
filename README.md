@@ -45,7 +45,7 @@
     </ul>
     <li><a href="#run-unittests">Run Unittests</a></li>
     <li><a href="#continuous-integration">Continuous Integration</a></li>
-    <li><a href="#deployment-process">Deployment Process</a></li>
+    <li><a href="#deployment">Deployment</a></li>
     <li><a href="#project-structure-overview">Project Structure Overview</a></li>
     <ul>
       <li><a href="#frontend">Frontend</a></li>
@@ -229,7 +229,10 @@ There are 2 steps:
 1. Run the tests
 2. Build the Docker containers
 
-## Deployment Process
+## Deployment
+
+**App is up and running on heroku here:**  
+**TODO: ADD HEROKU APP LINK HERE**
 
 ### Setup Environment Variables for Deployment Environment
 
@@ -239,9 +242,9 @@ There are 2 steps:
 
 ### NEXT STEP <---- TODO: edit this
 
-!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!  
-Explain the deployment process with all necessary steps  
-!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!
+**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**  
+**Explain the deployment process with all necessary steps**  
+**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**
 
 ## Project Structure Overview
 
