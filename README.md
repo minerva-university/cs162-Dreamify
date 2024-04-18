@@ -167,8 +167,8 @@ To get a local copy up and running follow these simple example steps.
 
 1. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
 2. Create a virtual environment: run `python -m venv venv`
-3. Activate the virtual environment:
-   Windows: run `venv\Scripts\activate.bat`
+3. Activate the virtual environment:  
+   Windows: run `venv\Scripts\activate.bat`  
    Mac/Linux: run `source venv/bin/activate`
 4. Run `pip install -r requirements.txt`
 
