@@ -47,7 +47,7 @@ const ChildProfileCard = ({ childId, disableEdit }) => {
       />
       <div className="child-profile-content">
         <div className="created-on-button">
-          <strong>{childProfile.name}</strong>   {/* Display the child's name */}
+          <strong>{childProfile.name}</strong> {/* Display the child's name */}
           {!disableEdit && ( // Conditionally render the edit link if editing is not disabled
             <Link to={`/modify/${childId}`} className="edit-profile-btn">
               Edit

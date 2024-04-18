@@ -31,8 +31,10 @@ export default function HomePage() {
   }
 
   const handleFeaturedStory = (isFirstStory) => {
-    navigate(`/library/${isFirstStory ? "example-story-1" : "example-story-2"}`);
-  }
+    navigate(
+      `/library/${isFirstStory ? "example-story-1" : "example-story-2"}`
+    );
+  };
 
   return (
     <div className="home-page">
@@ -44,7 +46,6 @@ export default function HomePage() {
               alt="Tree"
               className="hp-img-fluid hp-img-auto"
             />
-
           </div>
         </div>
       </div>
@@ -65,7 +66,7 @@ export default function HomePage() {
               alt="Tree"
               className="hp-img-fluid hp-img-auto"
             />
-            
+
             <h1 className="hp-tree-overlay-text">
               Create your own bedtime story
             </h1>
@@ -75,12 +76,9 @@ export default function HomePage() {
                 to={!isAuthenticated ? "/signup" : "/children"}
                 className="hp-create-text"
               >
-                <h3>
-                Create
-                </h3>
+                <h3>Create</h3>
               </Link>
             </div>
-
           </div>
         </div>
       </div>
@@ -90,8 +88,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="hp-row">
-
-        <div className="story-block"> 
+        <div className="story-block">
           <img src={firstExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
@@ -110,7 +107,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="story-block"> 
+        <div className="story-block">
           <img src={secondExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
@@ -128,8 +125,6 @@ export default function HomePage() {
             </button>
           </div>
         </div>
-
-
       </div>
       <div className="hp-homepage-container" id="fivestars">
         <div className="hp-row">

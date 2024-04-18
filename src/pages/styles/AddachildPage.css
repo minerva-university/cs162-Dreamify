@@ -23,7 +23,6 @@
   margin-top: 40px;
   display: block;
   font-weight: normal;
-  
 }
 
 .add-child-page .add-child-form {
@@ -79,7 +78,7 @@
   cursor: pointer;
 }
 
-.lastOnPage{
+.lastOnPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -153,7 +152,7 @@
 
 /* Eye color image styles when selected */
 .add-child-page .vis-features .vis-feature.selected {
-  border: 4px #014a8a solid; 
+  border: 4px #014a8a solid;
   box-shadow: 0 0 0 6px white; /* Adds a white outline around the border */
 }
 

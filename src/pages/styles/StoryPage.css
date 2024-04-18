@@ -10,7 +10,6 @@
 .story-page body {
   background-color: white;
   color: black;
-  
 }
 
 .story-page .story-headline {
@@ -22,8 +21,8 @@
   font-size: 20px;
 }
 
-.story-headline{
-  font-family: 'Inter', sans-serif;
+.story-headline {
+  font-family: "Inter", sans-serif;
 }
 
 .story-page .page-title {
@@ -33,7 +32,8 @@
   line-height: 1.3;
 }
 
-.story-page .story-text, .story-page .story-photo {
+.story-page .story-text,
+.story-page .story-photo {
   margin: auto;
   display: block;
   margin-bottom: 30px;

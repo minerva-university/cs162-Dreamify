@@ -20,22 +20,17 @@ body {
 
 h1,
 h2,
-h3
-{
+h3 {
   font-family: "Newsreader", sans-serif;
   font-weight: 400;
 }
 
-h1
-{
+h1 {
   font-size: 45px;
 }
-h2
-{
+h2 {
   font-size: 38px;
 }
-h3
-{
+h3 {
   font-size: 28px;
 }
-

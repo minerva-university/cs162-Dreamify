@@ -1,55 +1,54 @@
 {
-    "stories": [
-      {
-        "storyHeadline": "Julia and the Enchanted Mic",
-        "chapters": [
-          {
-            "chapterHeadline": "The Invitation to Moonbeam Stage",
-            "chapterParagraph": "Once upon a time, in the vibrant village of Willowbrook, lived a young girl named Julia. Julia loved to read, write stories, and had an unending curiosity about the magical worlds she often read about. One sunny afternoon, as she was climbing her favorite oak tree, a colorful bird dropped a shimmering envelope right into her lap. It was an invitation! Julia was invited to perform a poem at the famous Moonbeam Stage, a legendary place known only in fairy tales, where every full moon, creatures of all kinds gathered to share stories and songs under the starlit sky. Excited and a bit nervous, Julia decided she would prepare her best poem yet and set off on this unexpected adventure."
-          },
-          {
-            "chapterHeadline": "Preparing the Poem",
-            "chapterParagraph": "The next few weeks were a flurry of activity. Julia spent her days under the flickering shadows of the oak tree, writing lines and crossing them out, speaking rhymes to the whistling winds, and dreaming of her performance. Her best friend, a wise old owl named Oliver, helped by offering wise words and hooting appreciatively at her efforts. Together, they crafted a poem about a brave little girl's adventure in a world where the moon talked, and stars danced. With her poem finally ready, Julia felt a thrill of anticipation. She imagined standing on the Moonbeam Stage, her voice strong and clear."
-          },
-          {
-            "chapterHeadline": "Journey to the Moonbeam Stage",
-            "chapterParagraph": "The journey to the Moonbeam Stage was no ordinary one, for it resided in a realm tethered to reality only on full moon nights. Guided by a map that appeared on the back of the invitation, Julia and Oliver trotted through shadowed forests, climbed misty hills, and crossed whispering streams. Mysterious creatures watched curiously from a distance, and the trees seemed to part ways in reverence to their mission. As the moon rose, casting a silver glow, the entrance to the enchanted venue appeared—a gate woven with moonlight and adorned with night flowers. They had arrived at the Moonbeam Stage."
-          },
-          {
-            "chapterHeadline": "The Night of Performances",
-            "chapterParagraph": "The Moonbeam Stage was more magnificent than Julia had imagined. It was a vast amphitheater carved from pearl and moonstone, filled with an audience of hundreds: fairies, talking animals, and mythical beings, all eager to hear the night's tales. Heart pounding, Julia watched performers enchant the audience with magical acts and spellbinding stories. Finally, the silver-lit spotlight fell on her. With a deep breath, Julia stepped forward, Oliver perched reassuringly on her shoulder. As she recited her poem, her voice filled the air, every line flowing with the enchantment of her own making. The audience was captivated, hanging onto each word as if it were magic."
-          },
-          {
-            "chapterHeadline": "A Starlit Farewell",
-            "chapterParagraph": "When Julia finished, the applause was thunderous, the cheers filled with the warmth of a thousand suns. She bowed, her heart swelling with pride and joy. The night ended with a celebration, and Julia danced under the stars with creatures she’d only ever met in books. As dawn approached, the magical beings bid her farewell with gifts of moonlit petals and starlight beads, promising that her voice would always be remembered in the realms beyond. Oliver whispered, 'You did wonderfully, Julia.' As they walked back home under the softening sky, Julia realized that she carried a piece of the magical night with her—a night when she turned her dreams into reality."
-          }
-        ]
-      },
-      {
-        "storyHeadline": "The Racquet Quest",
-        "chapters": [
-          {
-            "chapterHeadline": "The Golden Ticket",
-            "chapterParagraph": "In the small, vibrant town of Sunsweep, lived a ten-year-old boy named Bob who dreamed of becoming a tennis star. One sunny afternoon, while Bob was practicing his swings in the local park, a gust of wind blew a shiny, golden ticket right to his feet. The ticket was for the Sunsweep Junior Tennis Championship, a tournament that scouted young talents. Excited and a little nervous, Bob knew this was his chance to shine. He spent the rest of the day perfecting his serves and forehands, unaware that his adventure was just beginning."
-          },
-          {
-            "chapterHeadline": "Mysterious Coach",
-            "chapterParagraph": "As Bob trained hard for the tournament, a mysterious figure watched from a distance. This was Coach Viper, known for his strict yet effective training methods. Coach Viper approached Bob one day, offering to train him for the championship. Bob, though slightly intimidated, agreed enthusiastically. Training under Coach Viper was anything but ordinary; it included early morning jogs, agility drills with Viper’s pet snake Slither, and dance sessions to improve footwork. Bob’s skills improved vastly, and he felt more prepared than ever."
-          },
-          {
-            "chapterHeadline": "The Challenge of Duckworth Park",
-            "chapterParagraph": "Days before the championship, Coach Viper set one final challenge for Bob: a match against the reigning junior champ at the infamous Duckworth Park—the court surrounded by ponds home to bright yellow ducks. The match was tough, with each player showcasing their best. The ducks quacked cheerfully, adding a rhythm to Bob's movements. Inspired, Bob danced around the court, skillfully returning every shot. Winning the match gave Bob not just confidence but a newfound love for the dancing rhythm in tennis."
-          },
-          {
-            "chapterHeadline": "The Time Tournament",
-            "chapterParagraph": "The day of the Sunsweep Junior Tennis Championship arrived, and the air buzzed with excitement. As Bob entered the arena, he felt as if he was walking into a 'Doctor Who' episode, where every moment felt like a slice of a greater adventure in time and space. Competing against the best young talents, Bob advanced through the rounds, each match tougher than the last. His training with Coach Viper, the rhythmic ducks, and his innate passion for the sport, all came into play as he moved closer to the finals."
-          },
-          {
-            "chapterHeadline": "Star Among the Stars",
-            "chapterParagraph": "The final match was intense, with Bob facing a skilled opponent. Each serve, volley, and point felt like a battle. Remembering his training, Bob danced around the court with agility and precision. The crowd cheered, the yellow ducks from nearby Duckworth Park seemed to quack in support, and even Coach Viper showed a rare smile. With a spectacular final ace, Bob won the match and the tournament. He had not only become a champion but had also started his journey to becoming a tennis star, his dreams fueled by adventure, odd coaches, and dancing ducks."
-          }
-        ]
-      }
-    ]
-  }
-  
+  "stories": [
+    {
+      "storyHeadline": "Julia and the Enchanted Mic",
+      "chapters": [
+        {
+          "chapterHeadline": "The Invitation to Moonbeam Stage",
+          "chapterParagraph": "Once upon a time, in the vibrant village of Willowbrook, lived a young girl named Julia. Julia loved to read, write stories, and had an unending curiosity about the magical worlds she often read about. One sunny afternoon, as she was climbing her favorite oak tree, a colorful bird dropped a shimmering envelope right into her lap. It was an invitation! Julia was invited to perform a poem at the famous Moonbeam Stage, a legendary place known only in fairy tales, where every full moon, creatures of all kinds gathered to share stories and songs under the starlit sky. Excited and a bit nervous, Julia decided she would prepare her best poem yet and set off on this unexpected adventure."
+        },
+        {
+          "chapterHeadline": "Preparing the Poem",
+          "chapterParagraph": "The next few weeks were a flurry of activity. Julia spent her days under the flickering shadows of the oak tree, writing lines and crossing them out, speaking rhymes to the whistling winds, and dreaming of her performance. Her best friend, a wise old owl named Oliver, helped by offering wise words and hooting appreciatively at her efforts. Together, they crafted a poem about a brave little girl's adventure in a world where the moon talked, and stars danced. With her poem finally ready, Julia felt a thrill of anticipation. She imagined standing on the Moonbeam Stage, her voice strong and clear."
+        },
+        {
+          "chapterHeadline": "Journey to the Moonbeam Stage",
+          "chapterParagraph": "The journey to the Moonbeam Stage was no ordinary one, for it resided in a realm tethered to reality only on full moon nights. Guided by a map that appeared on the back of the invitation, Julia and Oliver trotted through shadowed forests, climbed misty hills, and crossed whispering streams. Mysterious creatures watched curiously from a distance, and the trees seemed to part ways in reverence to their mission. As the moon rose, casting a silver glow, the entrance to the enchanted venue appeared—a gate woven with moonlight and adorned with night flowers. They had arrived at the Moonbeam Stage."
+        },
+        {
+          "chapterHeadline": "The Night of Performances",
+          "chapterParagraph": "The Moonbeam Stage was more magnificent than Julia had imagined. It was a vast amphitheater carved from pearl and moonstone, filled with an audience of hundreds: fairies, talking animals, and mythical beings, all eager to hear the night's tales. Heart pounding, Julia watched performers enchant the audience with magical acts and spellbinding stories. Finally, the silver-lit spotlight fell on her. With a deep breath, Julia stepped forward, Oliver perched reassuringly on her shoulder. As she recited her poem, her voice filled the air, every line flowing with the enchantment of her own making. The audience was captivated, hanging onto each word as if it were magic."
+        },
+        {
+          "chapterHeadline": "A Starlit Farewell",
+          "chapterParagraph": "When Julia finished, the applause was thunderous, the cheers filled with the warmth of a thousand suns. She bowed, her heart swelling with pride and joy. The night ended with a celebration, and Julia danced under the stars with creatures she’d only ever met in books. As dawn approached, the magical beings bid her farewell with gifts of moonlit petals and starlight beads, promising that her voice would always be remembered in the realms beyond. Oliver whispered, 'You did wonderfully, Julia.' As they walked back home under the softening sky, Julia realized that she carried a piece of the magical night with her—a night when she turned her dreams into reality."
+        }
+      ]
+    },
+    {
+      "storyHeadline": "The Racquet Quest",
+      "chapters": [
+        {
+          "chapterHeadline": "The Golden Ticket",
+          "chapterParagraph": "In the small, vibrant town of Sunsweep, lived a ten-year-old boy named Bob who dreamed of becoming a tennis star. One sunny afternoon, while Bob was practicing his swings in the local park, a gust of wind blew a shiny, golden ticket right to his feet. The ticket was for the Sunsweep Junior Tennis Championship, a tournament that scouted young talents. Excited and a little nervous, Bob knew this was his chance to shine. He spent the rest of the day perfecting his serves and forehands, unaware that his adventure was just beginning."
+        },
+        {
+          "chapterHeadline": "Mysterious Coach",
+          "chapterParagraph": "As Bob trained hard for the tournament, a mysterious figure watched from a distance. This was Coach Viper, known for his strict yet effective training methods. Coach Viper approached Bob one day, offering to train him for the championship. Bob, though slightly intimidated, agreed enthusiastically. Training under Coach Viper was anything but ordinary; it included early morning jogs, agility drills with Viper’s pet snake Slither, and dance sessions to improve footwork. Bob’s skills improved vastly, and he felt more prepared than ever."
+        },
+        {
+          "chapterHeadline": "The Challenge of Duckworth Park",
+          "chapterParagraph": "Days before the championship, Coach Viper set one final challenge for Bob: a match against the reigning junior champ at the infamous Duckworth Park—the court surrounded by ponds home to bright yellow ducks. The match was tough, with each player showcasing their best. The ducks quacked cheerfully, adding a rhythm to Bob's movements. Inspired, Bob danced around the court, skillfully returning every shot. Winning the match gave Bob not just confidence but a newfound love for the dancing rhythm in tennis."
+        },
+        {
+          "chapterHeadline": "The Time Tournament",
+          "chapterParagraph": "The day of the Sunsweep Junior Tennis Championship arrived, and the air buzzed with excitement. As Bob entered the arena, he felt as if he was walking into a 'Doctor Who' episode, where every moment felt like a slice of a greater adventure in time and space. Competing against the best young talents, Bob advanced through the rounds, each match tougher than the last. His training with Coach Viper, the rhythmic ducks, and his innate passion for the sport, all came into play as he moved closer to the finals."
+        },
+        {
+          "chapterHeadline": "Star Among the Stars",
+          "chapterParagraph": "The final match was intense, with Bob facing a skilled opponent. Each serve, volley, and point felt like a battle. Remembering his training, Bob danced around the court with agility and precision. The crowd cheered, the yellow ducks from nearby Duckworth Park seemed to quack in support, and even Coach Viper showed a rare smile. With a spectacular final ace, Bob won the match and the tournament. He had not only become a champion but had also started his journey to becoming a tennis star, his dreams fueled by adventure, odd coaches, and dancing ducks."
+        }
+      ]
+    }
+  ]
+}

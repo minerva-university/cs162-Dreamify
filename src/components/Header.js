@@ -24,23 +24,20 @@ export default function Header() {
     <nav className="header">
       <div className="header-container">
         <Link to="/" className="header-title">
-        <img src={logo} alt="dreamify logo" className="logo"/>
+          <img src={logo} alt="dreamify logo" className="logo" />
         </Link>
         <div className="header-nav-links-container">
           {/* Render different navigation links based on authentication state */}
           {!isAuthenticated ? (
             <>
               <Link to="/" className="header-button-navbar header-text-navbar">
-                <p>
-                Home
-                </p>
+                <p>Home</p>
               </Link>
               <Link
                 to="/login"
                 className="header-button-navbar header-text-navbar"
               >
                 <p>Log In</p>
-             
               </Link>
               <Link
                 to="/signup"
@@ -62,21 +59,16 @@ export default function Header() {
                 className={`${getButtonClass("/children")} header-text-navbar`}
               >
                 <p> New Story</p>
-               
               </Link>
               <Link
                 to="/library"
-                className={`${getButtonClass(
-                  "/library"
-                )} header-text-navbar`}
+                className={`${getButtonClass("/library")} header-text-navbar`}
               >
                 <p>Library</p>
               </Link>
               <Link
                 to={`/myprofile`}
-                className={`${getButtonClass(
-                  `/myprofile`
-                )} header-text-navbar`}
+                className={`${getButtonClass(`/myprofile`)} header-text-navbar`}
               >
                 <p>My Profile</p>
               </Link>

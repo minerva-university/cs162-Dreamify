@@ -32,9 +32,14 @@ export default function UserProfilePage() {
 
   // Function to render a popup alert with a custom message
   const popAnAlert = () => {
-    const message = "We are having trouble getting your profile information, please reload or contact us.";
+    const message =
+      "We are having trouble getting your profile information, please reload or contact us.";
     return (
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
   };
 
@@ -65,15 +70,16 @@ export default function UserProfilePage() {
   }
 
   // Render children profiles or a message if none are found
-  const childrenContent = children.length > 0 ? (
-    children.map((child) => (
-      <ChildProfileCard key={child.child_id} childId={child.child_id} />
-    ))
-  ) : (
-    <div className="no-children-found">
-      No children profiles were created yet.
-    </div>
-  );
+  const childrenContent =
+    children.length > 0 ? (
+      children.map((child) => (
+        <ChildProfileCard key={child.child_id} childId={child.child_id} />
+      ))
+    ) : (
+      <div className="no-children-found">
+        No children profiles were created yet.
+      </div>
+    );
 
   return (
     <div className="user-profile-page">
@@ -105,7 +111,7 @@ export default function UserProfilePage() {
               showAlert();
             }
           }}
-          style={{marginLeft: "20px"}}
+          style={{ marginLeft: "20px" }}
         >
           New Story
         </button>
@@ -114,7 +120,8 @@ export default function UserProfilePage() {
         <h2>Account Information</h2>
         <div className="account-info-list">
           <div className="account-info-item">
-            <strong>Name:</strong> {`${userInfo.first_name} ${userInfo.last_name}`}
+            <strong>Name:</strong>{" "}
+            {`${userInfo.first_name} ${userInfo.last_name}`}
           </div>
           <div className="account-info-item">
             <strong>Email:</strong> {userInfo.email}
