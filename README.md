@@ -233,20 +233,26 @@ There are 2 steps:
 
 ## Deployment
 
-**App is up and running on heroku here:**  
-**TODO: ADD HEROKU APP LINK HERE**
+**App is up and running on heroku here:** https://minerva-dreamify-ca41013f5340.herokuapp.com/
 
-### Setup Environment Variables for Deployment Environment
-
-1. Make sure no `.env` file exists in the project root folder
-2. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
-3. Run `python env_variables_setup.py production`
-
-### NEXT STEP <---- TODO: edit this
-
-**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**  
-**Explain the deployment process with all necessary steps**  
-**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**
+### Get started 
+1. Go to deployment-updated branch
+2. Make sure you are logged in to Heroku `heroku login` & `heroku container:login`
+### Setup Environment Variables 
+3. Make sure no `.env` file exists in the project root folder
+4. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
+5. Run `python env_variables_setup.py production`
+### Build frontend 
+6. Go back to app folder (run `cd ..`)
+7. Run `npm run build` and comment /build from .gitignore 
+8. Move /build folder to /api folder
+### Create docker images and Push it to docker hub
+9. Run `docker-compose up --build` 
+10. Tag web image `docker tag api-image-name-here registry.heroku.com/minerva-dreamify/web`
+11. Tag worker image `docker tag worker-image-name-here registry.heroku.com/minerva-dreamify/worker`
+12. Push to Docker Hub `docker push registry.heroku.com/minerva-dreamify/web` & `docker push registry.heroku.com/minerva-dreamify/worker`
+### Deploy
+13. Release the images on Heroku `heroku container:release web -a minerva-dreamify`& `heroku container:release worker -a minerva-dreamify`
 
 ## Project Structure Overview
 
