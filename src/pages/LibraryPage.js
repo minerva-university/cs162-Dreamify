@@ -6,7 +6,7 @@ import "./styles/LibraryPage.css";
 import PopUpAlert from "../components/PopUpAlert";
 
 export default function LibraryPage() {
-  // Get the API object from the API context  
+  // Get the API object from the API context
   const api = useApi();
   const navigate = useNavigate();
 
@@ -24,9 +24,14 @@ export default function LibraryPage() {
   };
 
   const popAnAlert = () => {
-    const message = "We are having trouble getting your stories, please try reloading or contacting us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    const message =
+      "We are having trouble getting your stories, please try reloading or contacting us.";
+    return (
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
   };
 
@@ -39,7 +44,7 @@ export default function LibraryPage() {
   useEffect(() => {
     document.title = "Dreamify | Library";
   }, []);
-  
+
   // Fetch the data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
@@ -117,52 +122,61 @@ export default function LibraryPage() {
   if (!isLoading && !storyData.length) {
     return (
       <div className="library-page">
-          <div className="no-stories-found">
-            <div className="no-stories-text"> <h1>No stories were created yet.</h1></div>
-            <div className="hr-style"></div>
-            <button onClick={() => navigate("/children")}>
-              Create a new Story
-            </button>
+        <div className="no-stories-found">
+          <div className="no-stories-text">
+            {" "}
+            <h1>No stories were created yet.</h1>
           </div>
+          <div className="hr-style"></div>
+          <button onClick={() => navigate("/children")}>
+            Create a new Story
+          </button>
         </div>
+      </div>
     );
   }
 
   // Render the stories
   return (
-    <>{popAnAlert()}
-    <div className="library-page">
-      {/* Render each child data */}
-      {storyData.map((childData) => (
-        <div key={childData.childId}>
-          <div className="storyh1h3">
-            <div className="storyh1">
-              <h1>{childData.childName}'s Bedtime Stories</h1>
-            </div>
-            <div className="storyh3">
-              <h3>{childData.numberOfStories} items</h3>
-            </div>
-          </div>
-          <div className="hr-style"></div>
-          {/* Render each story */}
-          {childData.stories.map((story) => (
-            <div
-              key={story.storyId}
-              className="story-block"
-              onClick={() => handleStoryClick(story.storyId)}
-            >
-              <img src={story.image} alt={`Story`} className="story-image" />
-              <div className="story-details">
-                <div className="story-title-date">
-                  <h3 className="story-title">{story.title}</h3>
-                  <p className="story-date">{story.dateGenerated}</p>
-                </div>
+    <>
+      {popAnAlert()}
+      <div className="library-page">
+        {/* Render each child data */}
+        {storyData.map((childData) => (
+          <div key={childData.childId}>
+            <div className="storyh1h3">
+              <div className="storyh1">
+                <h1>{childData.childName}'s Bedtime Stories</h1>
+              </div>
+              <div className="storyh3">
+                <h3>{childData.numberOfStories} items</h3>
               </div>
             </div>
-          ))}
-        </div>
-      ))}
-    </div>
+            <div className="hr-style"></div>
+            {/* Render each story */}
+            {childData.stories.map((story) => (
+              <div key={story.storyId} className="story-block">
+                <img src={story.image} alt={`Story`} className="story-image" />
+                <div className="story-details">
+                  <div className="story-title-date">
+                    <h3 className="story-title">{story.title}</h3>
+                    <p className="story-date">{story.dateGenerated}</p>
+                  </div>
+                </div>
+                <div className="story-read-more">
+                  <button
+                    className="story-read-button"
+                    type="button"
+                    onClick={() => handleStoryClick(story.storyId)}
+                  >
+                    Read
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

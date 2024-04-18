@@ -119,14 +119,14 @@ export default class ApiClient extends BaseApiClient {
   /**
    * Modify a child's information
    * @param {Object} payload - The payload to modify a child
-   * @param {string} payload.child_id - The ID of the child (optional)
-   * @param {string} payload.name - The name of the child (optional)
-   * @param {string} payload.age_range - The age range of the child (optional)
-   * @param {string} payload.sex - The sex of the child (optional)
-   * @param {string} payload.eye_color - The eye color of the child (optional)
-   * @param {string} payload.hair_type - The hair type of the child (optional)
-   * @param {string} payload.hair_color - The hair color of the child (optional)
-   * @param {string} payload.ethnicity - The ethnicity of the child (optional)
+   * @param {string} payload.child_id - The ID of the child
+   * @param {string} payload.name - The name of the child
+   * @param {string} payload.age_range - The age range of the child
+   * @param {string} payload.sex - The sex of the child
+   * @param {string} payload.eye_color - The eye color of the child
+   * @param {string} payload.hair_type - The hair type of the child
+   * @param {string} payload.hair_color - The hair color of the child
+   * @param {string} payload.ethnicity - The ethnicity of the child
    * @param {string|null} payload.fav_animals - The favorite animals of the child
    * @param {string|null} payload.fav_activities - The favorite activities of the child
    * @param {string|null} payload.fav_shows - The favorite shows of the child
@@ -138,7 +138,14 @@ export default class ApiClient extends BaseApiClient {
    *  child_id: "83adfb09110747bc93575bd208a52d8b",
    *  name: "Pablo",
    *  age_range: "4-6",
-   *  fav_animals: "Dogs, Cats"
+   *  sex: "Male",
+   *  eye_color: "Brown",
+   *  hair_type: "Curly",
+   *  hair_color: "Black",
+   *  ethnicity: "Asian",
+   *  fav_animals: "Dogs, Cats",
+   *  fav_activities: "Reading, Drawing",
+   *  fav_shows: "Paw Patrol"
    * }
    * const response = await apiClient.patchModifyChild(payload);
    */

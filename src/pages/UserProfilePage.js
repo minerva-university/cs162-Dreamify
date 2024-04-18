@@ -9,13 +9,13 @@ import Spinner from "../components/Spinner";
 import PopUpAlert from "../components/PopUpAlert";
 
 export default function UserProfilePage() {
-  const api = useApi();
-  const auth = useAuth();
-  const navigate = useNavigate();
-  const [children, setChildren] = useState([]);
-  const [userInfo, setUserInfo] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [alertVisible, setAlertVisible] = useState(false);
+  const api = useApi(); // Access API functions
+  const auth = useAuth(); // Access authentication context
+  const navigate = useNavigate(); // Hook for navigation
+  const [children, setChildren] = useState([]); // State to store children profiles
+  const [userInfo, setUserInfo] = useState({}); // State to store user information
+  const [loading, setLoading] = useState(true); // State to manage loading indicator
+  const [alertVisible, setAlertVisible] = useState(false); // State to toggle alert visibility
 
   const showAlert = () => {
     setAlertVisible(true);
@@ -25,45 +25,51 @@ export default function UserProfilePage() {
     setAlertVisible(false);
   };
 
+  // Set page title on component mount
   useEffect(() => {
     document.title = "Dreamify | My Profile";
   }, []);
 
+  // Function to render a popup alert with a custom message
   const popAnAlert = () => {
-    const message = "We are having trouble getting your profile information, please reload or contact us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    const message =
+      "We are having trouble getting your profile information, please reload or contact us.";
+    return (
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
-  }
-  
+  };
 
+  // Fetch user and children data from the server
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const user = await auth.getCurrentParent();
+        setLoading(true); // Begin loading
+        const user = await auth.getCurrentParent(); // Fetch current user information
         setUserInfo(user);
-        const childrenProfiles = await api.getAllChildren();
-        // Ensure childrenProfiles is an array before setting it
-        setChildren(childrenProfiles.children || []);
+        const childrenProfiles = await api.getAllChildren(); // Fetch all children associated with the user
+        setChildren(childrenProfiles.children || []); // Set children, ensure default to empty array if undefined
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setChildren([]); // Ensure children is set to an empty array on error
-        showAlert();
+        console.error("Error fetching data:", error); // Log errors
+        setChildren([]); // Ensure state is clean on error
+        showAlert(); // Show error alert
       } finally {
-        setLoading(false);
+        setLoading(false); // End loading regardless of outcome
       }
     };
 
     fetchData();
-  }, [api, auth]);
+  }, [api, auth]); // Rerun if api or auth context changes
 
-  // Loading state UI
+  // Show loading spinner while fetching data
   if (loading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
-  // UI for when children is empty
+  // Render children profiles or a message if none are found
   const childrenContent =
     children.length > 0 ? (
       children.map((child) => (
@@ -105,7 +111,7 @@ export default function UserProfilePage() {
               showAlert();
             }
           }}
-        style={{marginLeft: "20px"}}
+          style={{ marginLeft: "20px" }}
         >
           New Story
         </button>

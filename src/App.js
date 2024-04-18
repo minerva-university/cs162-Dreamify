@@ -35,17 +35,14 @@ export default function App() {
         <ApiProvider>
           <AuthProvider>
             {/* Header components for all the pages */}
-            <Header />  
+            <Header />
             {/* Routes for the application */}
             <Routes>
               {/* Add a new route for the HomePage component */}
-              <Route path="/" 
-                element={
-                  <HomePage />
-                } 
-              />
+              <Route path="/" element={<HomePage />} />
               {/* Add a new route for the MyProfile component */}
-              <Route path="/myprofile"
+              <Route
+                path="/myprofile"
                 element={
                   <ProtectedRoute>
                     <UserProfilePage />
@@ -53,7 +50,8 @@ export default function App() {
                 }
               />
               {/* Add a new route for the AddachildPage component */}
-              <Route path="/addachild"
+              <Route
+                path="/addachild"
                 element={
                   <ProtectedRoute>
                     <AddachildPage />
@@ -61,7 +59,8 @@ export default function App() {
                 }
               />
               {/* Add a new route for the ModifyChildPage component */}
-              <Route path="/modify/:childid"
+              <Route
+                path="/modify/:childid"
                 element={
                   <ProtectedRoute>
                     <ModifyChildPage />
@@ -69,7 +68,8 @@ export default function App() {
                 }
               />
               {/* Add a new route for the StoryPage component */}
-              <Route path="/library/:storyId"
+              <Route
+                path="/library/:storyId"
                 element={
                   <ProtectedRoute>
                     <StoryPage />
@@ -77,7 +77,8 @@ export default function App() {
                 }
               />
               {/* Add a new route for the LibraryPage component */}
-              <Route path="/library"
+              <Route
+                path="/library"
                 element={
                   <ProtectedRoute>
                     <LibraryPage />
@@ -85,7 +86,8 @@ export default function App() {
                 }
               />
               {/* Add a new route for the NewStoryPage component */}
-              <Route path="/newstory/:childId"
+              <Route
+                path="/newstory/:childId"
                 element={
                   <ProtectedRoute>
                     <NewStoryPage />

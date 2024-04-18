@@ -10,7 +10,7 @@ export default class BaseApiClient {
     if (process.env.REACT_APP_MODE === "production") {
       this.base_url = process.env.REACT_APP_API_SUFFIX;
     } else {
-      this.base_url = `${process.env.REACT_APP_DEV_SERVER}${process.env.REACT_APP_API_SUFFIX}`;
+      this.base_url = `${process.env.REACT_APP_HOST}${process.env.REACT_APP_API_SUFFIX}`;
     }
   }
 

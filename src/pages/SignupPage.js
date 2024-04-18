@@ -5,17 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import Spinner from "../components/Spinner.js";
 import "../pages/styles/AuthPages.css";
-import PopUpAlert from "../components/PopUpAlert";
 
 function SignUpPage() {
   // This function is used to create the sign up page for the user to create an account.
-
 
   // Set the title of the page
   useEffect(() => {
     document.title = "Dreamify | Sign Up";
   }, []);
-
 
   // Get the navigate function from the router
   const navigate = useNavigate();
@@ -30,25 +27,6 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
-
-  const showAlert = () => {
-    // This function is used to show an alert for server errors
-    setAlertVisible(true);
-  };
-
-  const closeAlert = () => {
-    // This function is used to close the alert for server errors
-    setAlertVisible(false);
-  };
-
-  const popAnAlert = () => {
-    // This function is used to create an alert for server errors
-    const message = "We are having trouble creating your account, please try reloading or contacting us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
-    );
-  };
 
   // This function is used to handle the submission of the sign up form
   const handleSubmit = async (e) => {
@@ -59,23 +37,19 @@ function SignUpPage() {
     try {
       // Utilize the register function instead of direct fetch call
       await register(firstName, lastName, email, password);
-      console.log("Signup successful");
       // Navigate to the home or login page after successful signup
       navigate("/login"); // Assuming you're using react-router for navigation
     } catch (error) {
       console.error("Error while signing up:", error.message);
 
-      if (error.message.includes('already exists')) {
+      if (error.message.includes("already exists")) {
         setError("Your email already exist, use a new email or login.");
-      }
-      else if(error.message.includes('Invalid email')){
+      } else if (error.message.includes("Invalid email")) {
         setError("Please use an existing email!");
-      }
-      else{
+      } else {
         setError("An error occurred while signing up. Please try again.");
-        showAlert();
       }
-      
+
       // Handle errors here and display them to the user
     } finally {
       setIsLoading(false);
@@ -95,66 +69,65 @@ function SignUpPage() {
 
   return (
     <>
-    {popAnAlert()}
-    <div className="signin-page">
-      <div className="signin-image">
-        <h1>Welcome Aboard!</h1>
-        <p>Already have an account?</p>
-        <button onClick={() => navigate("/login")}>Sign In</button>
+      <div className="signin-page">
+        <div className="signin-image">
+          <h1>Welcome Aboard!</h1>
+          <p>Already have an account?</p>
+          <button onClick={() => navigate("/login")}>Sign In</button>
+        </div>
+        <div className="signin-form">
+          <form onSubmit={handleSubmit}>
+            <h1>Sign Up</h1>
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+            <div className="email-input">
+              <input
+                type="text"
+                id="firstName"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="email-input">
+              {" "}
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="email-input">
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="password-input">
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
       </div>
-      <div className="signin-form">
-        <form onSubmit={handleSubmit}>
-          <h1>Sign Up</h1>
-          {error && (
-            <Alert variant="danger" className="mt-3">
-              {error}
-            </Alert>
-          )}
-          <div className="email-input">
-            <input
-              type="text"
-              id="firstName"
-              placeholder="First name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="email-input">
-            {" "}
-            <input
-              type="text"
-              id="lastName"
-              placeholder="Last name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="email-input">
-            <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="password-input">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-      </div>
-    </div>
     </>
   );
 }

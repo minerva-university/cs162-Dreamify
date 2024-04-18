@@ -1,6 +1,10 @@
 import React from "react";
 
-const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) => {
+const Spinner = ({
+  text = "",
+  creatingChild = false,
+  creatingStory = false,
+}) => {
   const spinnerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -31,7 +35,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
     width: "60%",
     height: "30px",
     marginBottom: "10px",
-    background: "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, #eee 70%)",
+    background:
+      "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, #eee 70%)",
     borderRadius: "5px",
     animation: "slowFade 3s ease-in-out infinite",
   };
@@ -40,7 +45,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
     width: "60%",
     height: "30px",
     marginBottom: "10px",
-    background: "linear-gradient(to right, white 0%, white 15%,  #dbdbdb 33%, #eee 70%)",
+    background:
+      "linear-gradient(to right, white 0%, white 15%,  #dbdbdb 33%, #eee 70%)",
     borderRadius: "5px",
     animation: "slowFade 3s ease-in-out infinite",
   };
@@ -54,7 +60,8 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   const typingTextStyle3 = {
     width: "60%",
     height: "30px",
-    background:  "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, white 85%, white 100%)",
+    background:
+      "linear-gradient(to right, #eee 8%, #ddd 18%, #dbdbdb 33%, white 85%, white 100%)",
     borderRadius: "5px",
     animation: "slowFade 3s ease-in-out infinite",
   };
@@ -67,13 +74,13 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   `;
 
   const childCreationWrapper = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#0f5096',
-    borderRadius: '40%',
-    marginTop: '2%',
-    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0f5096",
+    borderRadius: "40%",
+    marginTop: "2%",
+    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
   };
 
   // Determine which spinner to show
@@ -84,9 +91,19 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
           <style>{typingKeyframes}</style>
           <style>{spinnerKeyframes}</style>
           <span style={childCreationWrapper}>
-            <svg width="100" height="100" style={{ overflow: 'visible', animation: "slowFade 2s infinite ease-in-out"}}>
+            <svg
+              width="100"
+              height="100"
+              style={{
+                overflow: "visible",
+                animation: "slowFade 2s infinite ease-in-out",
+              }}
+            >
               <circle cx="50" cy="30" r="20" fill="white" />
-              <path d="M15,65 Q50,100 85,65 Q70,55 50,55 Q30,55 15,65" fill="white"/>
+              <path
+                d="M15,65 Q50,100 85,65 Q70,55 50,55 Q30,55 15,65"
+                fill="white"
+              />
             </svg>
           </span>
           <div className="spinner" style={defaultSpinnerStyle}></div>
@@ -104,14 +121,14 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
           ))}
           <div style={typingTextStyle3}></div>
           <style>{spinnerKeyframes}</style>
-        <div className="spinner" style={defaultSpinnerStyle}></div>
+          <div className="spinner" style={defaultSpinnerStyle}></div>
         </>
       );
     } else {
       return (
         <>
-        <style>{spinnerKeyframes}</style>
-        <div className="spinner" style={defaultSpinnerStyle}></div>
+          <style>{spinnerKeyframes}</style>
+          <div className="spinner" style={defaultSpinnerStyle}></div>
         </>
       );
     }
@@ -120,7 +137,18 @@ const Spinner = ({ text = '', creatingChild = false, creatingStory = false }) =>
   return (
     <div style={spinnerStyle}>
       <style>{typingKeyframes}</style>
-      {text && <div style={{...additionalText, marginBottom: "20px" , animation: "slowFade 2s infinite ease-in-out"}} aria-live="polite">{text}</div>}
+      {text && (
+        <div
+          style={{
+            ...additionalText,
+            marginBottom: "20px",
+            animation: "slowFade 2s infinite ease-in-out",
+          }}
+          aria-live="polite"
+        >
+          {text}
+        </div>
+      )}
       {handleLoading()}
     </div>
   );

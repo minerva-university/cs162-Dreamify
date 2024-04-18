@@ -117,6 +117,7 @@
   margin-bottom: 20px; /* Space below the alert */
   text-align: center; /* Center the text */
   font-weight: bold; /* Make the font bold */
+  font-size: 12px;
 }
 
 .signin-page button[type="submit"] {

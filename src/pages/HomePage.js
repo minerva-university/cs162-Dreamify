@@ -31,20 +31,25 @@ export default function HomePage() {
   }
 
   const handleFeaturedStory = (isFirstStory) => {
-    navigate(`/library/${isFirstStory ? "example-story-1" : "example-story-2"}`);
-  }
+    navigate(
+      `/library/${isFirstStory ? "example-story-1" : "example-story-2"}`
+    );
+  };
 
   return (
     <div className="home-page">
-      <div className="image-container hp-row">
-        <div className="image-item">
-          <img
-            src={boyTwoPhotos}
-            alt="Boy two photos"
-            className="hp-img-fluid"
-          />
+      <div className="hp-row">
+        <div className="hp-col">
+          <div className="hp-image-container">
+            <img
+              src={boyTwoPhotos}
+              alt="Tree"
+              className="hp-img-fluid hp-img-auto"
+            />
+          </div>
         </div>
       </div>
+
       <div className="hp-row">
         <div className="hp-col">
           <h1 className="hp-title">
@@ -52,15 +57,16 @@ export default function HomePage() {
           </h1>
         </div>
       </div>
+
       <div className="hp-row">
         <div className="hp-col">
-          <div className="hp-tree-image-container">
+          <div className="hp-image-container">
             <img
               src={treeImage}
               alt="Tree"
               className="hp-img-fluid hp-img-auto"
             />
-            
+
             <h1 className="hp-tree-overlay-text">
               Create your own bedtime story
             </h1>
@@ -70,12 +76,9 @@ export default function HomePage() {
                 to={!isAuthenticated ? "/signup" : "/children"}
                 className="hp-create-text"
               >
-                <h3>
-                Create
-                </h3>
+                <h3>Create</h3>
               </Link>
             </div>
-
           </div>
         </div>
       </div>
@@ -85,8 +88,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="hp-row">
-
-        <div className="story-block" onClick={() => handleFeaturedStory(true)}> 
+        <div className="story-block">
           <img src={firstExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
@@ -94,9 +96,18 @@ export default function HomePage() {
               <p className="story-date">2024/04/11</p>
             </div>
           </div>
+          <div className="story-read-more">
+            <button
+              className="story-read-button"
+              type="button"
+              onClick={() => handleFeaturedStory(true)}
+            >
+              Read
+            </button>
+          </div>
         </div>
 
-        <div className="story-block" onClick={() => handleFeaturedStory(false)}> 
+        <div className="story-block">
           <img src={secondExample} alt="Story" className="story-image" />
           <div className="story-details">
             <div className="story-title-date">
@@ -104,9 +115,16 @@ export default function HomePage() {
               <p className="story-date">2024/04/12</p>
             </div>
           </div>
+          <div className="story-read-more">
+            <button
+              className="story-read-button"
+              type="button"
+              onClick={() => handleFeaturedStory(false)}
+            >
+              Read
+            </button>
+          </div>
         </div>
-
-
       </div>
       <div className="hp-homepage-container" id="fivestars">
         <div className="hp-row">

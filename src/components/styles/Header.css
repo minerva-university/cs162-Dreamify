@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   background: #fff;
-  padding: 1% 0 0;
+  padding: 1% 0;
   width: 100%;
 }
 
@@ -18,7 +18,7 @@
 .header .logo {
   display: flex;
   align-items: center;
-  width: 120px;
+  width: 180px;
 }
 .header .header-title {
   color: #000;
@@ -58,7 +58,7 @@
   text-decoration: none;
 }
 
-.header .header-button-get-started{
+.header .header-button-get-started {
   background: #014a8a;
   color: #fff;
   width: 100px;
@@ -74,8 +74,7 @@
   background-color: #004080;
 }
 
-.header .header-button-get-started:hover
- {
+.header .header-button-get-started:hover {
   background-color: #0056b3;
 }
 
@@ -86,4 +85,3 @@
 .header .header-text-white {
   color: #fff;
 }
-
