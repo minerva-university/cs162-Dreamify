@@ -40,9 +40,14 @@ export default function StoryPage() {
   };
 
   const popAnAlert = () => {
-    const message = "We are having trouble loading this story, please try reloading or contacting us.";
-    return(
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+    const message =
+      "We are having trouble loading this story, please try reloading or contacting us.";
+    return (
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
   };
 
@@ -59,19 +64,30 @@ export default function StoryPage() {
         //number of the featured story
         const exampleId = storyId === "example-story-1" ? 0 : 1;
         const story = data.stories[exampleId];
-        const images = storyId === "example-story-1" ? [
-          story1chapter1, story1chapter2, story1chapter3, story1chapter4, story1chapter5
-        ] : [
-          story2chapter1, story2chapter2, story2chapter3, story2chapter4, story2chapter5
-        ];
+        const images =
+          storyId === "example-story-1"
+            ? [
+                story1chapter1,
+                story1chapter2,
+                story1chapter3,
+                story1chapter4,
+                story1chapter5,
+              ]
+            : [
+                story2chapter1,
+                story2chapter2,
+                story2chapter3,
+                story2chapter4,
+                story2chapter5,
+              ];
         setStoryTitle(story.storyHeadline);
         // Set the story data
         setStoryData({
           chapters: story.chapters.map((chapter, index) => ({
             title: chapter.chapterHeadline,
             text: chapter.chapterParagraph,
-            imageBase64: images[index]  
-          }))
+            imageBase64: images[index],
+          })),
         });
         // Set loading to false
         setIsLoading(false);
@@ -82,11 +98,12 @@ export default function StoryPage() {
           setStoryTitle(response?.story_title || "No story title available");
           // Set the story data
           setStoryData({
-            chapters: response?.chapters?.map(chapter => ({
-              title: chapter.title || "No chapter title available",
-              text: chapter.content || "No text available",
-              imageBase64: "data:image/png;base64," + chapter.image,
-            })) || []
+            chapters:
+              response?.chapters?.map((chapter) => ({
+                title: chapter.title || "No chapter title available",
+                text: chapter.content || "No text available",
+                imageBase64: "data:image/png;base64," + chapter.image,
+              })) || [],
           });
         } catch (error) {
           console.error("Error fetching story data:", error);

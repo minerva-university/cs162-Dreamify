@@ -14,11 +14,12 @@ export default function ProtectedRoute({ children }) {
     return <Spinner />;
   }
 
-  // If the user is not authenticated, redirect to
-  // the login page with the current location as the
-  // state which will be used to redirect the user
-  // back to the original location after successful login
+  // Exclude the example-story pages from the redirect
   if (!isAuthenticated && !location.pathname.includes("/example-story")) {
+    // If the user is not authenticated, redirect to
+    // the login page with the current location as the
+    // state which will be used to redirect the user
+    // back to the original location after successful login
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

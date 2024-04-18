@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useApi } from "../contexts/ApiProvider";
 import { useNavigate } from "react-router-dom";
 // Import components
-import ChildProfileForm from '../components/ChildProfileForm';
+import ChildProfileForm from "../components/ChildProfileForm";
 import PopUpAlert from "../components/PopUpAlert";
 import Spinner from "../components/Spinner";
 // Import styles
@@ -13,17 +13,17 @@ import "./styles/AddachildPage.css";
 const AddachildPage = () => {
   // State to handle form data initialization
   const [formData, setFormData] = useState({
-    firstName: '',
-    ageRange: '0-3',
-    sex: 'Male',
+    firstName: "",
+    ageRange: "0-3",
+    sex: "Male",
     eyeColor: null,
-    hairType: null, 
-    hairColor: null, 
+    hairType: null,
+    hairColor: null,
     race: null,
-    customRaceInput: '',
-    favoriteAnimals: '',
-    favoriteActivities: '',
-    favoriteShows: ''
+    customRaceInput: "",
+    favoriteAnimals: "",
+    favoriteActivities: "",
+    favoriteShows: "",
   });
 
   // State to handle loading spinner visibility
@@ -47,9 +47,14 @@ const AddachildPage = () => {
 
   // Component to display popup alerts dynamically
   const popAnAlert = () => {
-    const message = "We are having trouble creating your child's profile, please try reloading or contacting us.";
+    const message =
+      "We are having trouble creating your child's profile, please try reloading or contacting us.";
     return (
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
   };
 
@@ -60,7 +65,12 @@ const AddachildPage = () => {
 
   // Display spinner while loading
   if (isLoading) {
-    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true} />;
+    return (
+      <Spinner
+        text="Generating your child's image, please wait... (This should take approximately 30 seconds)"
+        creatingChild={true}
+      />
+    );
   }
 
   // Handle form submission
@@ -70,16 +80,16 @@ const AddachildPage = () => {
     // Check if all required fields are filled out
     let missedInputs = [];
     if (!formData.eyeColor) {
-      missedInputs.push(' Eye Color')
+      missedInputs.push(" Eye Color");
     }
-    if (!formData.hairType){
-      missedInputs.push(' Hair Type')
+    if (!formData.hairType) {
+      missedInputs.push(" Hair Type");
     }
-    if (!formData.hairColor){
-      missedInputs.push(' Hair Color')
+    if (!formData.hairColor) {
+      missedInputs.push(" Hair Color");
     }
     if (!formData.race && !formData.customRaceInput) {
-      missedInputs.push('Race');
+      missedInputs.push("Race");
     }
     if (missedInputs.length > 0) {
       setError(`You have missed the following input(s): ${missedInputs}`);

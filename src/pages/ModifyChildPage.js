@@ -4,8 +4,8 @@ import { useApi } from "../contexts/ApiProvider";
 import { useNavigate, useLocation } from "react-router-dom";
 // Import UI components
 import Spinner from "../components/Spinner";
-import ChildProfileForm from '../components/ChildProfileForm';
-import { races } from '../utils/ChildAttributes';
+import ChildProfileForm from "../components/ChildProfileForm";
+import { races } from "../utils/ChildAttributes";
 import PopUpAlert from "../components/PopUpAlert";
 // Import CSS for styling
 import "./styles/AddachildPage.css";
@@ -14,18 +14,18 @@ import "./styles/AddachildPage.css";
 const ModifyChildPage = () => {
   // State for managing form data and UI states
   const [formData, setFormData] = useState({
-    child_id: '',
-    firstName: '',
-    ageRange: '0-3',
-    sex: 'Male',
+    child_id: "",
+    firstName: "",
+    ageRange: "0-3",
+    sex: "Male",
     eyeColor: null,
     hairType: null,
     hairColor: null,
     race: null,
-    customRaceInput: '',
-    favoriteAnimals: '',
-    favoriteActivities: '',
-    favoriteShows: ''
+    customRaceInput: "",
+    favoriteAnimals: "",
+    favoriteActivities: "",
+    favoriteShows: "",
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
@@ -51,9 +51,14 @@ const ModifyChildPage = () => {
 
   // Function to render a popup alert
   const popAnAlert = () => {
-    const message = "We are having trouble accessing your child's information, please try reloading or contacting us.";
+    const message =
+      "We are having trouble accessing your child's information, please try reloading or contacting us.";
     return (
-      <PopUpAlert isVisible={alertVisible} message={message} onClose={closeAlert} />
+      <PopUpAlert
+        isVisible={alertVisible}
+        message={message}
+        onClose={closeAlert}
+      />
     );
   };
 
@@ -64,8 +69,8 @@ const ModifyChildPage = () => {
       setIsLoading(true);
       try {
         const data = await api.getChild(childId);
-        const raceExists = races.some(race => race.name === data.ethnicity);
-        
+        const raceExists = races.some((race) => race.name === data.ethnicity);
+
         // Set form data with fetched data
         setFormData({
           child_id: childId,
@@ -75,11 +80,11 @@ const ModifyChildPage = () => {
           eyeColor: data.eye_color,
           hairType: data.hair_type,
           hairColor: data.hair_color,
-          race: raceExists ? data.ethnicity : '',
-          customRaceInput: raceExists ? '' : data.ethnicity,
+          race: raceExists ? data.ethnicity : "",
+          customRaceInput: raceExists ? "" : data.ethnicity,
           favoriteAnimals: data.fav_animals,
           favoriteActivities: data.fav_activities,
-          favoriteShows: data.fav_shows
+          favoriteShows: data.fav_shows,
         });
         setIsVisible(data.hair_type !== "Bald");
       } catch (error) {
@@ -94,7 +99,12 @@ const ModifyChildPage = () => {
   }, [api, location.pathname]);
 
   if (isLoading) {
-    return <Spinner text="Generating your child's image, please wait... (This should take approximately 30 seconds)" creatingChild={true} />;
+    return (
+      <Spinner
+        text="Generating your child's image, please wait... (This should take approximately 30 seconds)"
+        creatingChild={true}
+      />
+    );
   }
 
   // Handle form submission
@@ -104,16 +114,16 @@ const ModifyChildPage = () => {
     // Validation to ensure all required fields are filled
     let missedInputs = [];
     if (!formData.eyeColor) {
-      missedInputs.push(' Eye Color')
+      missedInputs.push(" Eye Color");
     }
     if (!formData.hairType) {
-      missedInputs.push(' Hair Type')
+      missedInputs.push(" Hair Type");
     }
     if (!formData.hairColor) {
-      missedInputs.push(' Hair Color')
+      missedInputs.push(" Hair Color");
     }
     if (!formData.race && !formData.customRaceInput) {
-      missedInputs.push('Race');
+      missedInputs.push("Race");
     }
     if (missedInputs.length > 0) {
       setError(`You have missed the following input(s): ${missedInputs}`);
