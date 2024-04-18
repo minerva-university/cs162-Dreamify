@@ -98,6 +98,7 @@ export default function NewStoryPage() {
       //   throw new Error('Story generation incomplete or failed');
       // }
     } catch (error) {
+      console.log(error, "ERERERERO")
       setError("Fetching job result failed: " + error.message);
       setIsLoading(false);
       showAlert();

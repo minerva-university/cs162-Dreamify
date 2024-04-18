@@ -2,6 +2,7 @@
 This module contains the namespace and resources for managing stories.
 """
 
+import time
 from flask import request, current_app, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
@@ -14,9 +15,12 @@ from ..functions.input_validation import (
 )
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
-from ..functions.worker import conn
+import redis 
+import os
 from rq import Queue
 
+redis_url = os.getenv("REDIS_URL")  
+conn = redis.from_url(redis_url)
 q = Queue(connection=conn)
 
 # Create a chapters namespace
@@ -47,7 +51,6 @@ generate_story_model = stories.model(
         ),
     },
 )
-
 
 @stories.route("/generate", strict_slashes=False)
 class GenerateStory(Resource):
@@ -138,11 +141,11 @@ class StoryResult(Resource):
                 return {"Error": "Unauthorized, please log in"}, 401
 
             job = q.fetch_job(job_id)
-
+            print("job", job)
             if job is None:
                 return {"status": "error", "message": "Job not found"}, 404
             elif job.is_failed:
-                return {"status": "error", "message": "Job failed"}, 500
+                return {"status": "error", "message": "Job failed"}, 202
             elif job.is_finished:
                 return {"status": "success", "result": job.result}, 200
             else:

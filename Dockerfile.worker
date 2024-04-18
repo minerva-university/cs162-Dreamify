@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     apk --purge del .build-deps
 
 # Copy the worker script
-COPY api/functions/worker.py .
+COPY /worker.py .
 
 # Command to run the worker
 CMD ["python", "worker.py"]

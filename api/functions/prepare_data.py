@@ -269,6 +269,7 @@ def generate_child_image(child_params: dict[str, str]) -> str:
         current_app.logger.error(f"Failed to generate child image: {e}")
         raise e
 
+
 async def assemble_story_payload_async(
     child_id: str, topic: str, image_style: str, story_genre: str
 ) -> dict[str, str | list[str]]:
@@ -290,17 +291,23 @@ async def assemble_story_payload_async(
     print("WORKER WORKING...")
     try:
         # Get the child parameters
+        print("FIRST OF FIRST", child_id)
         child_params = get_child_parameters(child_id)
+        print("FIRST")
 
         # Generate the story
         story_title, chapter_titles, chapter_contents = generate_story(
             child_params, topic, story_genre
         )
+        print("SECOND")
+
 
         # Generate the images for the story chapters asynchronously
         images = await generate_chapter_images_async(
             chapter_contents, child_params, image_style
         )
+        print("THIRD")
+
 
         # Add the story to the database
         inserted_story = insert_story(
@@ -314,6 +321,9 @@ async def assemble_story_payload_async(
             images,
         )
 
+        print("FOURTH")
+
+
         # Get the story attributes and return them
         story_attributes = get_entry_attributes(inserted_story)
 
@@ -326,6 +336,8 @@ async def assemble_story_payload_async(
             "chapter_images": images,
             "created_at": story_attributes["created_at"],
         }
+
+        print("FIFTH", payload)
 
         return payload
     except Exception as e:

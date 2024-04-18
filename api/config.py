@@ -31,7 +31,6 @@ class ProductionConfig(ApplicationConfig):
     """
     This class contains the configuration for the Flask app in production mode.
     """
-
     # Check if all database environment variables are set when in production
     if os.getenv("FLASK_ENV") == "production" and (
         not os.getenv("DATABASE_USER")

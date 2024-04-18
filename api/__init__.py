@@ -43,7 +43,8 @@ def create_app(config=ApplicationConfig) -> Flask:
     jwt.init_app(app)
 
     # Enable CORS for the entire app (see the comment at line 7)
-    CORS(app)
+    CORS(app, resources={r"/api/*": {"origins": "https://minerva-dreamify-ca41013f5340.herokuapp.com/"}})
+
 
 
     @app.route("/", defaults={'path': ''})

@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "https://minerva-dreamify-ca41013f5340.herokuapp.com/",
+      target: process.env.REACT_APP_DEV_SERVER,
       changeOrigin: true,
     })
   );
