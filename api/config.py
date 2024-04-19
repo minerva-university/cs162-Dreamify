@@ -55,6 +55,11 @@ class ProductionConfig(ApplicationConfig):
         f"/{os.getenv('DATABASE_NAME')}"
     )
 
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 300,
+    }
+
 
 class TestingConfig(ApplicationConfig):
     """

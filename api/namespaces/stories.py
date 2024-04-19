@@ -102,12 +102,10 @@ class GenerateStory(Resource):
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
-                story_genre=data["story_genre"],
+                story_genre=data["story_genre"]
             )
 
             payload = {"job_id": job.id}
-
-            print(payload)
 
             # Return the payload and a 200 status code
             return payload, 200
@@ -143,12 +141,13 @@ class StoryResult(Resource):
             print("job", job)
             if job is None:
                 return {"status": "error", "message": "Job not found"}, 404
+            elif job.result:
+                return {"status": "finished", "result": job.result}, 200
             elif job.is_failed:
-                return {"status": "error", "message": "Job failed"}, 202
-            elif job.is_finished:
-                return {"status": "success", "result": job.result}, 200
+                print(job.exc_info)
+                return {"status": "failed"}, 500
             else:
-                return {"status": "in_progress"}, 202
+                return {"status": "queued"}, 202
 
         except ValueError as e:
             return {"error": str(e)}, 400

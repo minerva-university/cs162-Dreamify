@@ -45,7 +45,6 @@ def get_entry_attributes(
         dict: The attributes of the entry.
     """
 
-    print("HAHAHAHAHAHA")
     try:
         # Get the attributes of the entry
         attributes = {

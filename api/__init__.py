@@ -46,7 +46,6 @@ def create_app(config=ApplicationConfig) -> Flask:
     CORS(app, resources={r"/api/*": {"origins": "https://minerva-dreamify-ca41013f5340.herokuapp.com/"}})
 
 
-
     @app.route("/", defaults={'path': ''})
     @app.route('/<path:path>')
     def catch_all(path):

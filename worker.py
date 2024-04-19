@@ -9,7 +9,6 @@ app.logger.setLevel('INFO')
 with app.app_context():
     app.logger.info("Application context initialized successfully.")
 
-
 listen = ['high', 'default', 'low']
 
 redis_url = os.getenv('REDIS_URL')
@@ -17,9 +16,11 @@ redis_url = os.getenv('REDIS_URL')
 conn = redis.from_url(redis_url)
 
 if __name__ == '__main__':
-    with Connection(conn):
-        try:
-            worker = Worker(map(Queue, listen))
-            worker.work()
-        except Exception as e:
-            app.logger.error('Failed to start the worker', exc_info=True)
+    with app.app_context():
+        with Connection(conn):
+            try:
+                print(os.getenv('SQLALCHEMY_DATABASE_URI'))
+                worker = Worker(map(Queue, listen))
+                worker.work()
+            except Exception as e:
+                app.logger.error('Failed to start the worker', exc_info=True)
