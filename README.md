@@ -85,31 +85,26 @@ To learn how to install the app, see "Getting Started" below.
 To learn how to use the app, see "Usage" below.
 
 ## Web Interface
+<div class="image-grid" style = "align-items: center;">
+  <div class="image-cell">
+    <p><b>Home Page</b></p>
+    <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Story Page</b></p>
+    <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Add a Child Page</b></p>
+    <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Profile Page</b></p>
+    <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 300px"/>
+  </div>
+</div>
 
-**TODO: Update Page Screenshots and add a screenshot of the "Add Child Page", adjust formatting as necessary**
 
-<p align="center">
-  <table>
-    <tr>
-      <td>
-        <p align="center"><b>Home Page</b></p>
-        <p align="center">
-            Bring your child's imagination to life with bedtime stories that are as unique as they are
-            <br>
-          <img src="readme_images/homepage.png" alt="Dreamify Home Page" width="400"/>
-        </p>
-      </td>
-      <td>
-        <p align="center"><b>Story Page</b></p>
-        <p align="center">
-            Immerse your child in a world of adventure with stories that inspire and excite.
-            <br>
-          <img src="readme_images/storypage.png" alt="Dreamify Story Page" width="400"/>  
-        </p>
-      </td>
-    </tr>
-  </table>
-</p>
 
 ## App Usage
 
@@ -233,20 +228,26 @@ There are 2 steps:
 
 ## Deployment
 
-**App is up and running on heroku here:**  
-**TODO: ADD HEROKU APP LINK HERE**
+**App is up and running on heroku here:** https://minerva-dreamify-ca41013f5340.herokuapp.com/
 
-### Setup Environment Variables for Deployment Environment
-
-1. Make sure no `.env` file exists in the project root folder
-2. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
-3. Run `python env_variables_setup.py production`
-
-### NEXT STEP <---- TODO: edit this
-
-**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**  
-**Explain the deployment process with all necessary steps**  
-**!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!**
+### Get started 
+1. Go to testing_merge_deployment branch
+2. Make sure you are logged in to Heroku `heroku login` & `heroku container:login`
+### Setup Environment Variables 
+3. Make sure no `.env` file exists in the project root folder
+4. Make sure you are in the `api` folder in the terminal (run `cd api` if not)
+5. Run `python env_variables_setup.py production`
+### Build frontend 
+6. Go back to app folder (run `cd ..`)
+7. Run `npm run build` and and comment out the /build folder in the .gitignore file by adding a # at the start of the line
+8. Move /build folder to /api folder
+### Create docker images and Push it to docker hub
+9. Run `docker-compose up --build` 
+10. Tag web image `docker tag api-image-name-here registry.heroku.com/minerva-dreamify/web`
+11. Tag worker image `docker tag worker-image-name-here registry.heroku.com/minerva-dreamify/worker`
+12. Push to Docker Hub `docker push registry.heroku.com/minerva-dreamify/web` & `docker push registry.heroku.com/minerva-dreamify/worker`
+### Deploy
+13. Release the images on Heroku `heroku container:release web -a minerva-dreamify`& `heroku container:release worker -a minerva-dreamify`
 
 ## Project Structure Overview
 
