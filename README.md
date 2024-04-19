@@ -60,8 +60,8 @@
 
 Links to the video (2 sources as backup):
 
-- [YouTube](TODO: PASTE **UNLISTED YOUTUBE** VIDEO LINK IN THESE BRACKETS, this will make a link out of this)
-- [Google Drive](TODO: PASTE **GOOGLE DRIVER** VIDEO LINK IN THESE BRACKETS, this will make a link out of this)
+- [YouTube](https://youtu.be/2gm7wEx1RX4?si=zy9ADSV-Z6L7T5A3)
+- [Google Drive](https://drive.google.com/file/d/1HE_7pZ8QTDBzZwiP4Iqfmf7rdLAAymwt/view?usp=sharing)
 
 The video contains the following sections:
 
