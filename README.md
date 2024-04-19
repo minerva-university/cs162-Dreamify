@@ -85,48 +85,22 @@ To learn how to install the app, see "Getting Started" below.
 To learn how to use the app, see "Usage" below.
 
 ## Web Interface
-<div align="center">
-  <style>
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Creates two columns */
-      gap: 20px; /* Space between columns and rows */
-      max-width: 820px; /* Maximum width of the grid */
-      margin: auto; /* Center the grid horizontally */
-    }
-    .image-cell {
-      display: flex;
-      flex-direction: column; /* Stack content vertically */
-      align-items: center; /* Center-align the content horizontally */
-      justify-content: flex-start; /* Align content to the top */
-    }
-    .image-cell img {
-      width: 100%; /* Responsive image width */
-      max-width: 400px; /* Maximum image width */
-      height: auto; /* Maintain aspect ratio */
-    }
-    .image-cell p {
-      text-align: center; /* Center-align text */
-      margin: 8px 0; /* Margin for spacing around text */
-    }
-  </style>
-  <div class="image-grid">
-    <div class="image-cell">
-      <p><b>Home Page</b></p>
-      <img src="readme_images/homepage.png" alt="Dreamify Home Page"/>
-    </div>
-    <div class="image-cell">
-      <p><b>Story Page</b></p>
-      <img src="readme_images/storypage.png" alt="Dreamify Story Page"/>
-    </div>
-    <div class="image-cell">
-      <p><b>Add a Child Page</b></p>
-      <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page"/>
-    </div>
-    <div class="image-cell">
-      <p><b>Profile Page</b></p>
-      <img src="readme_images/profilepage.png" alt="Dreamify Profile Page"/>
-    </div>
+<div class="image-grid" style = "align-items: center;">
+  <div class="image-cell">
+    <p><b>Home Page</b></p>
+    <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Story Page</b></p>
+    <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Add a Child Page</b></p>
+    <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 300px"/>
+  </div>
+  <div class="image-cell">
+    <p><b>Profile Page</b></p>
+    <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 300px"/>
   </div>
 </div>
 
@@ -257,7 +231,7 @@ There are 2 steps:
 **App is up and running on heroku here:** https://minerva-dreamify-ca41013f5340.herokuapp.com/
 
 ### Get started 
-1. Go to deployment-updated branch
+1. Go to testing_merge_deployment branch
 2. Make sure you are logged in to Heroku `heroku login` & `heroku container:login`
 ### Setup Environment Variables 
 3. Make sure no `.env` file exists in the project root folder
@@ -265,7 +239,7 @@ There are 2 steps:
 5. Run `python env_variables_setup.py production`
 ### Build frontend 
 6. Go back to app folder (run `cd ..`)
-7. Run `npm run build` and comment /build from .gitignore 
+7. Run `npm run build` and and comment out the /build folder in the .gitignore file by adding a # at the start of the line
 8. Move /build folder to /api folder
 ### Create docker images and Push it to docker hub
 9. Run `docker-compose up --build` 
