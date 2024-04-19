@@ -85,23 +85,24 @@ To learn how to install the app, see "Getting Started" below.
 To learn how to use the app, see "Usage" below.
 
 ## Web Interface
-<div class="image-grid" style = "align-items: center;">
-  <div class="image-cell">
-    <p><b>Home Page</b></p>
-    <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Story Page</b></p>
-    <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Add a Child Page</b></p>
-    <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Profile Page</b></p>
-    <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 300px"/>
-  </div>
+
+<div align="center">
+    <div align="center">
+        <p><b>Home Page</b></p>
+        <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 350px;"/>
+    </div>
+    <div align="center">
+        <p><b>Story Page</b></p>
+        <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 350px;"/>
+    </div>
+    <div align="center">
+        <p><b>Add a Child Page</b></p>
+        <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 350px;"/>
+    </div>
+    <div align="center">
+        <p><b>Profile Page</b></p>
+        <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 350px;"/>
+    </div>
 </div>
 
 
@@ -231,7 +232,7 @@ There are 2 steps:
 **App is up and running on heroku here:** https://minerva-dreamify-ca41013f5340.herokuapp.com/
 
 ### Get started 
-1. Go to testing_merge_deployment branch
+1. Go to deployment-updated branch
 2. Make sure you are logged in to Heroku `heroku login` & `heroku container:login`
 ### Setup Environment Variables 
 3. Make sure no `.env` file exists in the project root folder
