@@ -25,6 +25,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.worker
+    environment:
+      OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES"
     volumes:
       - ./worker.py:/app/worker.py
     depends_on:

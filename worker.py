@@ -1,16 +1,25 @@
 import os
-
 import redis
 from rq import Worker, Queue, Connection
+from api import create_app  # Adjust the import according to your project structure
+
+app = create_app()
+app.logger.setLevel('INFO')
+
+with app.app_context():
+    app.logger.info("Application context initialized successfully.")
+
 
 listen = ['high', 'default', 'low']
 
-redis_url = 'redis://:p8d6d79931eaef8f95d440ac4156f7a135d083e5c4fc85518ae6eb170d98ebd8f@ec2-34-194-199-53.compute-1.amazonaws.com:19949'
+redis_url = os.getenv('REDIS_URL')
 
 conn = redis.from_url(redis_url)
 
-
 if __name__ == '__main__':
     with Connection(conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
+        try:
+            worker = Worker(map(Queue, listen))
+            worker.work()
+        except Exception as e:
+            app.logger.error('Failed to start the worker', exc_info=True)

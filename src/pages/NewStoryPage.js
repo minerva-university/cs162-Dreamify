@@ -80,27 +80,16 @@ export default function NewStoryPage() {
     try {
       const result = await api.getJobResult(jobId);
 
-      console.log(result, "RESULT")
-
       if (result.status === "in_progress") {
         setTimeout(() => {
           checkJobStatus(jobId)
         }, 5000)
+      } else if (result.status === "success") {
+        navigate(`/library/${result.story_id}`)
       } else {
-        console.log(result.result, 'DONE')
+        console.log(result.result, 'Worker stopped')
       }
-
-      // checkJobStatus(jobId)
-      // if (result?.story_id) {
-      //   navigate(`/library/${result.story_id}`);
-      // } else if (result?.status === 'pending') {
-      //   setTimeout(() => checkJobStatus(jobId), 5000); // Poll every 5 seconds
-      //   console.log(result?.status);
-      // } else {
-      //   throw new Error('Story generation incomplete or failed');
-      // }
     } catch (error) {
-      console.log(error, "ERERERERO")
       setError("Fetching job result failed: " + error.message);
       setIsLoading(false);
       showAlert();

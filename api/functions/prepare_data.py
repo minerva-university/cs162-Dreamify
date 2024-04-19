@@ -41,7 +41,6 @@ def get_generate_flag() -> bool:
     Returns:
         bool: The generate flag.
     """
-    try:
         # Get the generate flag from the environment variable
         generate_flag = (
             True
@@ -58,9 +57,7 @@ def get_generate_flag() -> bool:
             )
 
         return generate_flag
-    except Exception as e:
-        current_app.logger.error(f"Failed to get generate flag: {e}")
-        raise e
+
 
 
 def get_child_parameters(child_id: str) -> dict[str, str]:
@@ -76,7 +73,6 @@ def get_child_parameters(child_id: str) -> dict[str, str]:
     Returns:
         dict[str, str]: The parameters for the child.
     """
-    try:
         # Get the child with the given ID
         child = Child.query.filter_by(child_id=child_id).first()
 
@@ -91,9 +87,7 @@ def get_child_parameters(child_id: str) -> dict[str, str]:
         )
 
         return child_parameters
-    except SQLAlchemyError as e:
-        current_app.logger.error(f"Failed to get child parameters: {e}")
-        raise e
+
 
 
 def generate_story(
@@ -121,16 +115,12 @@ def generate_story(
         if generate_flag:
             # Generate the story based on the prompt
             story = text_gen(prompt)
-            current_app.logger.info("Generated story.")
         else:
             # Use a dummy story instead of generating one
             story = dummy_story
 
         # Extract the story title, chapter titles and chapter contents
         return extract_story_components(story)
-    except Exception as e:
-        current_app.logger.error(f"Failed to generate story: {e}")
-        raise e
 
 
 async def _generate_chapter_image_async(
@@ -153,7 +143,6 @@ async def _generate_chapter_image_async(
     Returns:
         str: The generated image in base64 format.
     """
-    try:
         # Create a prompt for generating the image
         prompt = create_chapter_image_prompt(
             child_params=child_params,
@@ -168,10 +157,6 @@ async def _generate_chapter_image_async(
             image_url = await image_gen_async(prompt)
 
             # Log the generated image URL
-            current_app.logger.info(
-                f"Generated chapter {chapter_number} image: {image_url}"
-            )
-
             # Get the image bytes from the URL asynchronously
             async with ClientSession() as session:
                 async with session.get(image_url) as response:
@@ -186,9 +171,7 @@ async def _generate_chapter_image_async(
 
         # Convert the image to a base64 string and return it
         return b64encode(image).decode("utf-8")
-    except Exception as e:
-        current_app.logger.error(f"Failed to generate chapter image: {e}")
-        raise e
+
 
 
 async def generate_chapter_images_async(
@@ -207,7 +190,6 @@ async def generate_chapter_images_async(
     Returns:
         list[str]: The generated images in base64 format.
     """
-    try:
         # Get the generate flag from the environment variable
         generate_flag = get_generate_flag()
 
@@ -223,9 +205,7 @@ async def generate_chapter_images_async(
         images = await asyncio.gather(*tasks)
 
         return images
-    except Exception as e:
-        current_app.logger.error(f"Failed to generate chapter images: {e}")
-        raise e
+
 
 
 def generate_child_image(child_params: dict[str, str]) -> str:
@@ -252,8 +232,6 @@ def generate_child_image(child_params: dict[str, str]) -> str:
             # Get the image bytes from the URL
             image = requests.get(image_url).content
 
-            # Log the generated image URL
-            current_app.logger.info(f"Generated child image:\n{image_url}\n")
         else:
             # Set a dummy image URL
             image_url = "temp_image_url"
@@ -265,9 +243,6 @@ def generate_child_image(child_params: dict[str, str]) -> str:
 
         # Convert the image to a base64 string and return it
         return b64encode(image).decode("utf-8")
-    except Exception as e:
-        current_app.logger.error(f"Failed to generate child image: {e}")
-        raise e
 
 
 async def assemble_story_payload_async(
@@ -288,26 +263,19 @@ async def assemble_story_payload_async(
     Returns:
         dict[str, list[str]]: The assembled payload containing chapters and images.
     """
-    print("WORKER WORKING...")
-    try:
         # Get the child parameters
-        print("FIRST OF FIRST", child_id)
         child_params = get_child_parameters(child_id)
-        print("FIRST")
 
         # Generate the story
         story_title, chapter_titles, chapter_contents = generate_story(
             child_params, topic, story_genre
         )
-        print("SECOND")
 
 
         # Generate the images for the story chapters asynchronously
         images = await generate_chapter_images_async(
             chapter_contents, child_params, image_style
         )
-        print("THIRD")
-
 
         # Add the story to the database
         inserted_story = insert_story(
@@ -320,9 +288,6 @@ async def assemble_story_payload_async(
             chapter_contents,
             images,
         )
-
-        print("FOURTH")
-
 
         # Get the story attributes and return them
         story_attributes = get_entry_attributes(inserted_story)
@@ -337,16 +302,8 @@ async def assemble_story_payload_async(
             "created_at": story_attributes["created_at"],
         }
 
-        print("FIFTH", payload)
-
         return payload
-    except Exception as e:
-        current_app.logger.error(f"Failed to assemble story payload: {e}")
-        raise e
 
-
-def assemble_story_payload(*args, **kwargs):
-    asyncio.run(assemble_story_payload_async(*args, **kwargs))
 
 def assemble_child_payload(
     parent_id: str,
@@ -380,7 +337,7 @@ def assemble_child_payload(
     Returns:
         dict[str, str]: The assembled payload containing child attributes.
     """
-    try:
+
         # Create a dictionary of the child parameters
         child_params = {
             "name": name,
@@ -416,6 +373,4 @@ def assemble_child_payload(
 
         # Get the child attributes and return them
         return get_entry_attributes(inserted_child)
-    except Exception as e:
-        current_app.logger.error(f"Failed to assemble child payload: {e}")
-        raise e
+

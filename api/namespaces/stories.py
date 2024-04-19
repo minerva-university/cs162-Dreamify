@@ -7,7 +7,7 @@ from flask import request, current_app, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
-from ..functions.prepare_data import assemble_story_payload, assemble_story_payload_async
+from ..functions.prepare_data import assemble_story_payload_async
 from ..functions.jwt_functions import get_current_parent
 from ..functions.input_validation import (
     validate_non_empty_string,
@@ -19,7 +19,7 @@ import redis
 import os
 from rq import Queue
 
-redis_url = os.getenv("REDIS_URL")  
+redis_url = os.getenv('REDIS_URL')
 conn = redis.from_url(redis_url)
 q = Queue(connection=conn)
 
@@ -27,7 +27,6 @@ q = Queue(connection=conn)
 stories = Namespace(
     "stories", path="/stories", description="Story management operations"
 )
-
 
 # Define a model for the story generation endpoint
 generate_story_model = stories.model(
@@ -99,7 +98,7 @@ class GenerateStory(Resource):
             #     image_style=data["image_style"],
             #     story_genre=data["story_genre"],
             # )
-            job = q.enqueue(assemble_story_payload,
+            job = q.enqueue(assemble_story_payload_async,
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],

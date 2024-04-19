@@ -1,20 +1,30 @@
-# Base image
+# Use a specific version of Python Alpine image
 FROM python:3.11.4-alpine3.17
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apk update && apk add postgresql-libs && \
+# Install system dependencies required for PostgreSQL and general build processes
+RUN apk update && \
+    apk add --no-cache postgresql-libs && \
     apk add --virtual .build-deps gcc musl-dev postgresql-dev
 
 # Copy the requirements file and install Python dependencies
-COPY api/requirements.txt .
+# It's important to copy requirements first to leverage Docker cache
+COPY api/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt && \
-    apk --purge del .build-deps
+    apk --purge del .build-deps 
 
-# Copy the worker script
-COPY /worker.py .
+# Set environment variables
+ENV OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+ENV PYTHONUNBUFFERED=1
 
-# Command to run the worker
+# Copy the API directory and worker script into the container
+COPY api /app/api
+COPY worker.py /app
+
+# Setting PYTHONPATH so that the worker.py can import from the api directory
+ENV PYTHONPATH=/app
+
+# Command to run the worker script
 CMD ["python", "worker.py"]
