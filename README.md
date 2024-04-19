@@ -86,20 +86,20 @@ To learn how to use the app, see "Usage" below.
 
 ## Web Interface
 
-<div style="text-align: center; margin: 20px;">
-    <div style="margin-bottom: 20px;">
+<div align="center">
+    <div align="center">
         <p><b>Home Page</b></p>
         <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 350px;"/>
     </div>
-    <div style="margin-bottom: 20px;">
+    <div align="center">
         <p><b>Story Page</b></p>
         <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 350px;"/>
     </div>
-    <div style="margin-bottom: 20px;">
+    <div align="center">
         <p><b>Add a Child Page</b></p>
         <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 350px;"/>
     </div>
-    <div style="margin-bottom: 20px;">
+    <div align="center">
         <p><b>Profile Page</b></p>
         <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 350px;"/>
     </div>
