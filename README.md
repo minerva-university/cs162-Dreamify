@@ -85,24 +85,51 @@ To learn how to install the app, see "Getting Started" below.
 To learn how to use the app, see "Usage" below.
 
 ## Web Interface
-<div class="image-grid" style = "align-items: center;">
-  <div class="image-cell">
-    <p><b>Home Page</b></p>
-    <img src="readme_images/homepage.png" alt="Dreamify Home Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Story Page</b></p>
-    <img src="readme_images/storypage.png" alt="Dreamify Story Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Add a Child Page</b></p>
-    <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page" style="width: 300px"/>
-  </div>
-  <div class="image-cell">
-    <p><b>Profile Page</b></p>
-    <img src="readme_images/profilepage.png" alt="Dreamify Profile Page" style="width: 300px"/>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamify Pages</title>
+    <style>
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .image-cell {
+            text-align: center;
+            width: 300px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-grid">
+        <div class="image-cell">
+            <p><b>Home Page</b></p>
+            <img src="readme_images/homepage.png" alt="Dreamify Home Page"/>
+        </div>
+        <div class="image-cell">
+            <p><b>Story Page</b></p>
+            <img src="readme_images/storypage.png" alt="Dreamify Story Page"/>
+        </div>
+        <div class="image-cell">
+            <p><b>Add a Child Page</b></p>
+            <img src="readme_images/addchildpage.png" alt="Dreamify Add Child Page"/>
+        </div>
+        <div class="image-cell">
+            <p><b>Profile Page</b></p>
+            <img src="readme_images/profilepage.png" alt="Dreamify Profile Page"/>
+        </div>
+    </div>
+</body>
+</html>
 
 
 
