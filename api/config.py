@@ -31,7 +31,6 @@ class ProductionConfig(ApplicationConfig):
     """
     This class contains the configuration for the Flask app in production mode.
     """
-
     # Check if all database environment variables are set when in production
     if os.getenv("FLASK_ENV") == "production" and (
         not os.getenv("DATABASE_USER")
@@ -55,6 +54,11 @@ class ProductionConfig(ApplicationConfig):
         f"{port_string}"
         f"/{os.getenv('DATABASE_NAME')}"
     )
+
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 300,
+    }
 
 
 class TestingConfig(ApplicationConfig):

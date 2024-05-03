@@ -61,3 +61,9 @@ urllib3==2.2.1
 Werkzeug==3.0.1
 wheel==0.41.2
 yarl==1.9.4
+redis==5.0.3
+rq==1.16.1
+Flask-RQ2==18.3
+crontab==1.0.1
+freezegun==1.4.0
+rq-scheduler==0.13.1

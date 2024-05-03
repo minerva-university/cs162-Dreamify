@@ -61,25 +61,46 @@ export default function NewStoryPage() {
         image_style: imageStyle,
         story_genre: storyGenre,
       };
-      const response = await api.postGenerateStory(payload);
-      // Check if the story was generated successfully
-      if (response?.story_id) {
-        setIsLoading(false);
-        navigate(`/library/${response.story_id}`);
+      const jobResponse = await api.postGenerateStory(payload);
+      if (jobResponse?.job_id) {
+        console.log("job_id_new_story_page", jobResponse.job_id)
+        checkJobStatus(jobResponse.job_id);
       } else {
-        throw new Error("Story generation failed");
+        throw new Error("Failed to initiate story generation");
       }
     } catch (error) {
-      setIsLoading(false);
       console.error(error);
-      // Checking if the error message includes a specific substring
-      if (error.message.includes("topic: None is not of type 'string'")) {
-        setError("Please input a topic");
-      } else {
-        showAlert();
-      }
+      setError("Story generation failed: " + error.message);
+      setIsLoading(false);
+      showAlert();
     }
   };
+
+  // Function to check the status of the job and navigate once completed
+  const checkJobStatus = async (jobId) => {
+      const result = await api.getJobResult(jobId);
+      console.log(result);
+      if (result.status === "queued") {
+        setTimeout(() => {checkJobStatus(jobId)}, 5000)
+      } else if (result.status === "finished") {
+        navigate(`/library/${result.result.story_id || "/library"}`)
+      } else {
+        console.log(result.status, 'Worker stopped')
+        navigate(`/library/${result.result.story_id || "/library"}`)
+      }
+    }
+    // } catch (error) {
+    //   setError("Fetching job result failed: " + error.message);
+    //   setIsLoading(false);
+    //   showAlert();
+    //   // Checking if the error message includes a specific substring
+    //   if (error.message.includes("topic: None is not of type 'string'")) {
+    //     setError("Please input a topic");
+    //   } else {
+    //     showAlert();
+    //   }
+  //   }
+  // };
 
   // Display a loading spinner while the data is being fetched
   if (isLoading) {

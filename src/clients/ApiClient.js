@@ -191,26 +191,36 @@ export default class ApiClient extends BaseApiClient {
    * const response = await apiClient.postGenerateStory(payload);
    */
   async postGenerateStory(payload) {
-    // Check if payload is provided and throw an error if not
     if (!payload) {
       throw new Error("Payload is required to generate a story");
     }
-
-    // Send the request
     const response = await this.post("stories/generate", payload);
-
-    // Parse the response
     if (response.ok) {
       return response.body;
-      // If the response is not ok, throw an error
     } else {
-      const errorMessage =
-        response?.body?.Error ||
-        response?.body?.error ||
-        concatErrors(response?.body?.errors);
+      const errorMessage = response?.body?.Error;
       throw new Error(`Error while generating story: ${errorMessage}`);
     }
   }
+  
+/**
+ * Fetches the result of a job by its ID
+ * @param {string} jobId - The ID of the job for which to fetch the result
+ * @returns {Promise<Object>} The response body containing the job result
+ * @throws {Error} If the response is not ok or the payload is missing
+ */
+async getJobResult(jobId) {
+  if (!jobId) {
+    throw new Error("Job ID is required to fetch the result");
+  }
+  const response = await this.get(`stories/jobs/${jobId}`);
+  if (response.ok) {
+    return response.body;
+  } else {
+    const errorMessage = response?.body?.Error;
+    throw new Error(`Error while fetching job result: ${errorMessage}`);
+  }
+}
 
   /**
    * Get all stories of a child

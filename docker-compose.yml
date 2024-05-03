@@ -5,138 +5,47 @@ version: "3.2"
 services:
   # Define the web server container
   api:
+    platform: linux/amd64
     # Build the image from Dockerfile.api in the current directory
     build:
       context: .
       dockerfile: Dockerfile.api
 
-    # Specify the image name
-    image: react-flask-app-api
-
-    # Load environment variables from the .env file
-    env_file:
-      - .env
-
-    # Specify the dependencies
-    depends_on:
-      db:
-        # Wait for the database service to be healthy
-        condition: "service_healthy"
-
-    # Define the network to be used
-    networks:
-      - webnet
-
-    # Define the deployment configuration
-    deploy:
-      # Define the number of replicas
-      replicas: 4
-
-      # Define the resource limits
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 64M
-
-      # Define the restart policy: on-failure
-      restart_policy:
-        condition: "on-failure"
-
-  # Define the client container
-  client:
-    # Build the image from Dockerfile.client in the current directory
-    build:
-      context: .
-      dockerfile: Dockerfile.client
-
-    # Specify the image name
-    image: react-flask-app-client
-
-    # Load environment variables from the .env file
-    env_file:
-      - .env
-
-    # Specify the port mapping: HostPort:ContainerPort
-    ports:
-      - 3000:80
-
-    # Define the network to be used
-    depends_on:
-      - api
-
-    # Define the network to be used
-    networks:
-      - webnet
-
-    # Define the deployment configuration
-    deploy:
-      # Define the restart policy: on-failure
-      restart_policy:
-        condition: "on-failure"
-
-  # Define the database container
-  db:
-    # Specify the image to be used
-    image: postgres:alpine
-
-    # Specify the environment variables: POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-
-    # Specify the port mapping: HostPort:ContainerPort
-    ports:
-      - 5432:5432
-
-    # Define the network to be used
-    networks:
-      - webnet
-
-    # Define the volumes to be used (this will persist the data)
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-    # Define the health check configuration
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-    # Define the deployment configuration
-    deploy:
-      # Define the restart policy: on-failure
-      restart_policy:
-        condition: "on-failure"
-
-  # Define the adminer container (a database management tool)
-  adminer:
-    # Specify the image to be used
-    image: adminer
 
     # Specify the dependencies
     depends_on:
       - db
 
-    # Specify the port mapping: HostPort:ContainerPort
-    ports:
-      - 8080:8080
-
     # Define the network to be used
     networks:
       - webnet
 
-    # Define the deployment configuration
-    deploy:
-      # Define the restart policy: on-failure
-      restart_policy:
-        condition: "on-failure"
+  worker:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    environment:
+      OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES"
+    volumes:
+      - ./worker.py:/app/worker.py
+    depends_on:
+      - db
 
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: d2c6pb7ibkfkqi
+      POSTGRES_USER: uatsuu41pr76d
+      POSTGRES_PASSWORD: p46894c0592f823ef3eccd143e829946367ac14217426ef8b61b363bcef6d024d
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 # Define the networks to be used
 networks:
   webnet:
 
 # Define the volumes to be used
 volumes:
-  db_data:
+  postgres_data:

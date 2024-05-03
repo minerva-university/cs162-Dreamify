@@ -2,7 +2,8 @@
 This module contains the namespace and resources for managing stories.
 """
 
-from flask import request, current_app
+import time
+from flask import request, current_app, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required
 
@@ -14,12 +15,18 @@ from ..functions.input_validation import (
 )
 from ..database.queries import get_story, get_child_from_parent
 from ..database.utilities import get_entry_attributes
+import redis 
+import os
+from rq import Queue
+
+redis_url = os.getenv('REDIS_URL')
+conn = redis.from_url(redis_url)
+q = Queue(connection=conn)
 
 # Create a chapters namespace
 stories = Namespace(
     "stories", path="/stories", description="Story management operations"
 )
-
 
 # Define a model for the story generation endpoint
 generate_story_model = stories.model(
@@ -43,7 +50,6 @@ generate_story_model = stories.model(
         ),
     },
 )
-
 
 @stories.route("/generate", strict_slashes=False)
 class GenerateStory(Resource):
@@ -86,12 +92,20 @@ class GenerateStory(Resource):
                 }, 404
 
             # Assemble the payload asynchronously
-            payload = await assemble_story_payload_async(
+            # payload = await assemble_story_payload_async(
+            #     child_id=data["child_id"],
+            #     topic=data["topic"],
+            #     image_style=data["image_style"],
+            #     story_genre=data["story_genre"],
+            # )
+            job = q.enqueue(assemble_story_payload_async,
                 child_id=data["child_id"],
                 topic=data["topic"],
                 image_style=data["image_style"],
-                story_genre=data["story_genre"],
+                story_genre=data["story_genre"]
             )
+
+            payload = {"job_id": job.id}
 
             # Return the payload and a 200 status code
             return payload, 200
@@ -100,6 +114,47 @@ class GenerateStory(Resource):
         except Exception as e:
             current_app.logger.error(e)
             return {"Error": "Internal Server Error"}, 500
+
+@stories.route("/jobs/<string:job_id>", strict_slashes=False)
+class StoryResult(Resource):
+    """
+    Represents the result of a story generation job.
+    """
+
+    @jwt_required()
+    @stories.response(200, "Success")
+    @stories.response(400, "Validation Error")
+    @stories.response(404, "Job Not Found")
+    @stories.response(500, "Internal Server Error")
+    def get(self, job_id):
+        """
+        Get the result of a story generation job.
+        """
+
+        print(job_id, "SEARCHING")
+        try:
+            parent = get_current_parent()
+            if not parent:
+                return {"Error": "Unauthorized, please log in"}, 401
+
+            job = q.fetch_job(job_id)
+            print("job", job)
+            if job is None:
+                return {"status": "error", "message": "Job not found"}, 404
+            elif job.result:
+                return {"status": "finished", "result": job.result}, 200
+            elif job.is_failed:
+                print(job.exc_info)
+                return {"status": "failed"}, 500
+            else:
+                return {"status": "queued"}, 202
+
+        except ValueError as e:
+            return {"error": str(e)}, 400
+        except Exception as e:
+            current_app.logger.error(e)
+            return {"error": "Internal Server Error"}, 500
+
 
 
 @stories.route("/child_stories", strict_slashes=False)

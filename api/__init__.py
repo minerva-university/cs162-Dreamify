@@ -3,7 +3,7 @@ This module initializes the Flask app and configures it.
 """
 
 import os
-from flask import Flask
+from flask import Flask, send_from_directory, request, jsonify
 from dotenv import load_dotenv
 
 # Note: originally it was planned to use proxy instead of CORS,
@@ -17,7 +17,6 @@ from .config import ApplicationConfig, ProductionConfig
 from .extensions import bcrypt, jwt
 from .database.models import db
 
-
 def create_app(config=ApplicationConfig) -> Flask:
     """
     Create and configure the Flask app.
@@ -28,12 +27,13 @@ def create_app(config=ApplicationConfig) -> Flask:
     # Load the environment variables from the '.env' file
     load_dotenv()
 
-    app = Flask(__name__, static_folder="../build", static_url_path="/")
+    app = Flask(__name__, static_folder="build", static_url_path="")
 
     # If the app is in production, use the ProductionConfig
     if os.getenv("FLASK_ENV") == "production":
         config = ProductionConfig
 
+    
     # Load the configuration for the Flask app
     app.config.from_object(config)
 
@@ -43,7 +43,16 @@ def create_app(config=ApplicationConfig) -> Flask:
     jwt.init_app(app)
 
     # Enable CORS for the entire app (see the comment at line 7)
-    CORS(app)
+    CORS(app, resources={r"/api/*": {"origins": "https://minerva-dreamify-ca41013f5340.herokuapp.com/"}})
+
+
+    @app.route("/", defaults={'path': ''})
+    @app.route('/<path:path>')
+    def catch_all(path):
+        if path and os.path.exists('build/' + path):
+            return send_from_directory('build', path)
+        else:
+            return send_from_directory('build', 'index.html')
 
     # Create tables in the database
     with app.app_context():

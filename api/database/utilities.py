@@ -44,6 +44,7 @@ def get_entry_attributes(
     Returns:
         dict: The attributes of the entry.
     """
+
     try:
         # Get the attributes of the entry
         attributes = {
